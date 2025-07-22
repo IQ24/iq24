@@ -1,0 +1,20 @@
+{
+  "name": "@iq24/types",
+  "version": "1.0.0",
+  "private": true,
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@iq24/location": "workspace:*",
+    "@iq24/utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@iq24/tsconfig": "workspace:*",
+    "typescript": "^5.6.3"
+  }
+}

@@ -26,6 +26,7 @@ const icons = {
   "/tracker": () => <Icons.Tracker size={22} />,
   "/customers": () => <Icons.Customers size={22} />,
   "/vault": () => <Icons.Vault size={22} />,
+  "/ai-transparency": () => <Icons.Brain size={22} />,
   "/settings": () => <Icons.Settings size={22} />,
   "/apps": () => <Icons.Apps size={22} />,
   "/inbox": () => <Icons.Inbox2 size={22} />,
@@ -59,6 +60,10 @@ const defaultItems = [
   {
     path: "/vault",
     name: "Vault",
+  },
+  {
+    path: "/ai-transparency",
+    name: "AI Transparency",
   },
   {
     path: "/apps",

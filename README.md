@@ -1,102 +1,182 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/iq24-ai/iq24/main/.github/assets/hero.png" alt="IQ24.ai Hero Image">
-</p>
+# Supabase CLI (v1)
 
-<h1 align="center"><b>IQ24.ai</b></h1>
+[![Coverage Status](https://coveralls.io/repos/github/supabase/cli/badge.svg?branch=main)](https://coveralls.io/github/supabase/cli?branch=main)
 
-<p align="center">
-  <b>The AI-Native B2B Growth Engine</b>
-  <br />
-  <br />
-  <a href="https://go.iq24.ai/discord"><b>Join our Discord</b></a>
-  ·
-  <a href="https://iq24.ai">Website</a>
-  ·
-  <a href="https://github.com/iq24-ai/iq24/issues">Report an Issue</a>
-  ·
-  <a href="https://github.com/iq24-ai/iq24/blob/main/CONTRIBUTING.md">Contribute</a>
-</p>
+[Supabase](https://supabase.io) is an open source Firebase alternative. We're building the features of Firebase using enterprise-grade open source tools.
 
----
+This repository contains all the functionality for Supabase CLI.
 
-## About IQ24.ai
+- [x] Running Supabase locally
+- [x] Managing database migrations
+- [x] Creating and deploying Supabase Functions
+- [x] Generating types directly from your database schema
+- [x] Making authenticated HTTP requests to [Management API](https://supabase.com/docs/reference/api/introduction)
 
-**IQ24.ai is an open-source, AI-native B2B prospecting and outreach platform designed to transform how businesses approach growth.** We are building a sophisticated multi-agent system that automates and augments the entire sales and marketing lifecycle, from identifying the perfect prospect to crafting hyper-personalized, multi-channel outreach that converts.
+## Getting started
 
-Our mission is to move beyond traditional, reactive sales tools and build a proactive, predictive engine that empowers B2B teams to work smarter, not harder.
+### Install the CLI
 
-## ✨ Core Features
+Available via [NPM](https://www.npmjs.com) as dev dependency. To install:
 
-*   **🧠 Multi-Agent AI Core:** A symphony of specialized AI agents (Prospect Discovery, Validation, Personalization, etc.) work together to manage complex workflows autonomously.
-*   **🎯 Predictive Prospecting:** Goes beyond simple filters to identify high-intent leads using data analysis, graph networks, and behavioral signals.
-*   **✍️ Hyper-Personalization Engine:** Leverages advanced LLMs to craft deeply personalized outreach messages tailored to each prospect's unique context, pain points, and recent activity.
-*   **🎨 Multi-Sensory Outreach (MSEO):** The future of engagement. Generate and orchestrate outreach using not just text, but also AI-generated voice messages and personalized visuals.
-*   **🚀 Adaptive Campaign Orchestration:** Our Adaptive Learning Orchestration (ALO) layer continuously analyzes campaign performance and dynamically adjusts strategies in real-time to maximize ROI.
-*   **🛡️ Proactive Compliance Guardian:** An embedded compliance network ensures all outreach adheres to global regulations like GDPR and CCPA, mitigating risk and building trust.
-*   **⚙️ Quantum-Inspired Optimization (Coming Soon):** We are researching quantum-inspired algorithms to solve complex optimization problems for resource allocation and campaign strategy at a scale previously impossible.
+```bash
+npm i supabase --save-dev
+```
 
-## 🏆 Recognition & Community
+To install the beta release channel:
 
-*We are just getting started! We aim to be featured on platforms like these soon. Your support and contributions can help us get there.*
+```bash
+npm i supabase@beta --save-dev
+```
 
-<p align="center">
-  <!-- Placeholder for future badges -->
-  <a href="https://www.producthunt.com/posts/iq24">
-    <img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=460784&theme=dark" alt="IQ24 on Product Hunt (Example)" style="width: 250px; height: 54px;" width="250" height="54" />
-  </a>
-  <a href="https://news.ycombinator.com/item?id=40737901">
-    <img style="width: 250px; height: 54px;" width="250" height="54" alt="Featured on Hacker News (Example)" src="https://hackernews-badge.vercel.app/api?id=40737901" />
-  </a>
-</p>
+When installing with yarn 4, you need to disable experimental fetch with the following nodejs config.
 
-## 🚀 Get Started
+```
+NODE_OPTIONS=--no-experimental-fetch yarn add supabase
+```
 
-We are actively building the core of IQ24.ai. The best way to get started is to join our community and contribute!
+> **Note**
+For Bun versions below v1.0.17, you must add `supabase` as a [trusted dependency](https://bun.sh/guides/install/trusted) before running `bun add -D supabase`.
 
-1.  **Fork & Clone:** Fork the repository and clone it to your local machine.
-2.  **Install Dependencies:** We use `pnpm` as our package manager. Run `pnpm install` in the root directory.
-3.  **Setup Environment:** Copy `.env.example` to `.env` and fill in the required keys (e.g., Supabase URL and anon key).
-4.  **Run the Apps:** Use Turborepo to run specific applications: `turbo run dev --filter=dashboard`
+<details>
+  <summary><b>macOS</b></summary>
 
-For detailed setup instructions, please see our **[Contribution Guide](https://github.com/iq24-ai/iq24/blob/main/CONTRIBUTING.md)**.
+  Available via [Homebrew](https://brew.sh). To install:
 
-## 🏗️ Architecture & Tech Stack
+  ```sh
+  brew install supabase/tap/supabase
+  ```
 
-IQ24.ai is built on a modern, scalable, and AI-first technology stack, organized in a Turborepo monorepo.
+  To install the beta release channel:
+  
+  ```sh
+  brew install supabase/tap/supabase-beta
+  brew link --overwrite supabase-beta
+  ```
+  
+  To upgrade:
 
-#### **Applications**
-*   **`dashboard`**: Next.js (App Router), React, TypeScript
-*   **`engine`**: Hono.js (Node.js) & Python 3.x (AI/ML)
-*   **`mobile`**: Expo (React Native)
-*   **`website`**: Next.js (App Router)
+  ```sh
+  brew upgrade supabase
+  ```
+</details>
 
-#### **Core Technologies**
-*   **Monorepo:** Turborepo, pnpm
-*   **Frontend:** React, TypeScript, Next.js, Tailwind CSS, Shadcn/ui
-*   **Mobile:** Expo, React Native
-*   **Backend:** Hono.js, Python, FastAPI (for ML model serving)
-*   **AI/ML:** PyTorch, Hugging Face Transformers, spaPy, Scrapy
+<details>
+  <summary><b>Windows</b></summary>
 
-#### **Infrastructure & Services**
-*   **Database & Auth:** Supabase (PostgreSQL)
-*   **Hosting:** Vercel (Frontend Apps), AWS/GCP (Backend Engine)
-*   **Caching:** Upstash (Serverless Redis)
-*   **Background Jobs:** Trigger.dev / Temporal.io
-*   **Email:** Resend
-*   **Notifications:** Novu (TBD)
-*   **CI/CD:** GitHub Actions
-*   **Analytics:** OpenPanel / PostHog
-*   **Search:** Typesense / Meilisearch (TBD)
+  Available via [Scoop](https://scoop.sh). To install:
 
-## 📊 Repo Activity
+  ```powershell
+  scoop bucket add supabase https://github.com/supabase/scoop-bucket.git
+  scoop install supabase
+  ```
 
-![IQ24.ai Repo Activity](https://repobeats.axiom.co/api/embed/96aae855e5dd87c30d53c1d154b37cf7aa5a89b3.svg "Repobeats analytics image")
+  To upgrade:
 
-## ⚖️ License
+  ```powershell
+  scoop update supabase
+  ```
+</details>
 
-This project is licensed under the **[AGPL-3.0](https://opensource.org/licenses/AGPL-3.0)**.
+<details>
+  <summary><b>Linux</b></summary>
 
-#### **Commercial Use & Support**
-For commercial licenses, dedicated deployments, or enterprise support, please contact us at **[sales@iq24.ai](mailto:sales@iq24.ai)**.
+  Available via [Homebrew](https://brew.sh) and Linux packages.
 
-By using or contributing to this software, you agree to the terms of the license.
+  #### via Homebrew
+
+  To install:
+
+  ```sh
+  brew install supabase/tap/supabase
+  ```
+
+  To upgrade:
+
+  ```sh
+  brew upgrade supabase
+  ```
+
+  #### via Linux packages
+
+  Linux packages are provided in [Releases](https://github.com/supabase/cli/releases). To install, download the `.apk`/`.deb`/`.rpm`/`.pkg.tar.zst` file depending on your package manager and run the respective commands.
+
+  ```sh
+  sudo apk add --allow-untrusted <...>.apk
+  ```
+
+  ```sh
+  sudo dpkg -i <...>.deb
+  ```
+
+  ```sh
+  sudo rpm -i <...>.rpm
+  ```
+
+  ```sh
+  sudo pacman -U <...>.pkg.tar.zst
+  ```
+</details>
+
+<details>
+  <summary><b>Other Platforms</b></summary>
+
+  You can also install the CLI via [go modules](https://go.dev/ref/mod#go-install) without the help of package managers.
+
+  ```sh
+  go install github.com/supabase/cli@latest
+  ```
+
+  Add a symlink to the binary in `$PATH` for easier access:
+
+  ```sh
+  ln -s "$(go env GOPATH)/cli" /usr/bin/supabase
+  ```
+
+  This works on other non-standard Linux distros.
+</details>
+
+<details>
+  <summary><b>Community Maintained Packages</b></summary>
+
+  Available via [pkgx](https://pkgx.sh/). Package script [here](https://github.com/pkgxdev/pantry/blob/main/projects/supabase.com/cli/package.yml).
+  To install in your working directory:
+
+  ```bash
+  pkgx install supabase
+  ```
+
+  Available via [Nixpkgs](https://nixos.org/). Package script [here](https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/tools/supabase-cli/default.nix).
+</details>
+
+### Run the CLI
+
+```bash
+supabase bootstrap
+```
+
+Or using npx:
+
+```bash
+npx supabase bootstrap
+```
+
+The bootstrap command will guide you through the process of setting up a Supabase project using one of the [starter](https://github.com/supabase-community/supabase-samples/blob/main/samples.json) templates.
+
+## Docs
+
+Command & config reference can be found [here](https://supabase.com/docs/reference/cli/about).
+
+## Breaking changes
+
+We follow semantic versioning for changes that directly impact CLI commands, flags, and configurations.
+
+However, due to dependencies on other service images, we cannot guarantee that schema migrations, seed.sql, and generated types will always work for the same CLI major version. If you need such guarantees, we encourage you to pin a specific version of CLI in package.json.
+
+## Developing
+
+To run from source:
+
+```sh
+# Go >= 1.22
+go run . help
+```

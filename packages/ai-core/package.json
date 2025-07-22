@@ -1,0 +1,32 @@
+{
+  "name": "@iq24/ai-core",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@iq24/feature-store": "workspace:*",
+    "@iq24/model-store": "workspace:*",
+    "@iq24/data-pipelines": "workspace:*",
+    "@iq24/compliance": "workspace:*",
+    "@trigger.dev/sdk": "^3.3.16",
+    "temporal.io": "^1.10.2",
+    "langchain": "^0.3.0",
+    "@langchain/core": "^0.3.0",
+    "openai": "^4.67.1",
+    "anthropic": "^0.34.0",
+    "zod": "^3.23.8",
+    "ioredis": "^5.4.1",
+    "neo4j-driver": "^5.26.0"
+  },
+  "devDependencies": {
+    "@iq24/tsconfig": "workspace:*",
+    "typescript": "^5.7.2"
+  }
+}
