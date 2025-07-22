@@ -2,15 +2,15 @@
 
 import type { InvoiceFormValues } from "@/actions/invoice/schema";
 import { updateInvoiceTemplateAction } from "@/actions/invoice/update-invoice-template-action";
-import { Button } from "@midday/ui/button";
+import { Button } from "@iq24/ui/button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@midday/ui/dropdown-menu";
-import { Icons } from "@midday/ui/icons";
-import { SubmitButton as BaseSubmitButton } from "@midday/ui/submit-button";
+} from "@iq24i/dropdown-menu";
+import { Icons } from "@iq24i/icons";
+import { SubmitButton as BaseSubmitButton } from "@iq24i/submit-button";
 import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";

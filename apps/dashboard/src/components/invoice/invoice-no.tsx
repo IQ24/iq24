@@ -1,14 +1,14 @@
 import { updateInvoiceTemplateAction } from "@/actions/invoice/update-invoice-template-action";
 import { useInvoiceParams } from "@/hooks/use-invoice-params";
-import { createClient } from "@midday/supabase/client";
-import { searchInvoiceNumberQuery } from "@midday/supabase/queries";
-import { cn } from "@midday/ui/cn";
+import { createClient } from "@iq24/supabase/client";
+import { searchInvoiceNumberQuery } from "@iq24upabase/queries";
+import { cn } from "@iq24i/cn";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@midday/ui/tooltip";
+} from "@iq24i/tooltip";
 import { useAction } from "next-safe-action/hooks";
 import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
@@ -83,7 +83,7 @@ export function InvoiceNo({ teamId }: Props) {
                 name="invoice_number"
                 className={cn(
                   "w-28 flex-shrink p-0 border-none text-[11px] h-4.5 overflow-hidden",
-                  isInvoiceNumberExists ? "text-red-500" : "",
+                  isInvoiceNumberExists ? "text-red-500" : ""
                 )}
               />
             </div>

@@ -1,14 +1,14 @@
 "use client";
 
 import { inboxOrderAction } from "@/actions/inbox/order";
-import { Button } from "@midday/ui/button";
+import { Button } from "@iq24/ui/button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@midday/ui/dropdown-menu";
-import { Icons } from "@midday/ui/icons";
+} from "@iq24i/dropdown-menu";
+import { Icons } from "@iq24i/icons";
 import { useOptimisticAction } from "next-safe-action/hooks";
 
 type Props = {
@@ -21,7 +21,7 @@ export function InboxOrdering({ ascending }: Props) {
     {
       currentState: ascending,
       updateFn: (_, state) => !state,
-    },
+    }
   );
 
   return (

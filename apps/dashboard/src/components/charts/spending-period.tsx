@@ -7,8 +7,8 @@ import {
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@midday/ui/dropdown-menu";
-import { Icons } from "@midday/ui/icons";
+} from "@iq24/ui/dropdown-menu";
+import { Icons } from "@iq24i/icons";
 import {
   endOfMonth,
   startOfMonth,
@@ -59,7 +59,7 @@ export function SpendingPeriod({ initialPeriod }: Props) {
     {
       currentState: initialPeriod,
       updateFn: (_, newState) => newState,
-    },
+    }
   );
 
   return (

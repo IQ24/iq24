@@ -1,9 +1,9 @@
 "use server";
 
-import { LogEvents } from "@midday/events/events";
-import { setupAnalytics } from "@midday/events/server";
-import { getSession } from "@midday/supabase/cached-queries";
-import { createClient } from "@midday/supabase/server";
+import { LogEvents } from "@iq24/events/events";
+import { setupAnalytics } from "@iq24vents/server";
+import { getSession } from "@iq24upabase/cached-queries";
+import { createClient } from "@iq24upabase/server";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 

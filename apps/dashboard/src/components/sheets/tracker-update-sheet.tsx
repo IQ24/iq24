@@ -7,8 +7,8 @@ import { TrackerProjectForm } from "@/components/forms/tracker-project-form";
 import type { Customer } from "@/components/invoice/customer-details";
 import { useTrackerParams } from "@/hooks/use-tracker-params";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createClient } from "@midday/supabase/client";
-import { getTrackerProjectQuery } from "@midday/supabase/queries";
+import { createClient } from "@iq24/supabase/client";
+import { getTrackerProjectQuery } from "@iq24upabase/queries";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,19 +19,19 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@midday/ui/alert-dialog";
-import { Drawer, DrawerContent, DrawerHeader } from "@midday/ui/drawer";
+} from "@iq24i/alert-dialog";
+import { Drawer, DrawerContent, DrawerHeader } from "@iq24i/drawer";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@midday/ui/dropdown-menu";
-import { useMediaQuery } from "@midday/ui/hooks";
-import { Icons } from "@midday/ui/icons";
-import { ScrollArea } from "@midday/ui/scroll-area";
-import { Sheet, SheetContent, SheetHeader } from "@midday/ui/sheet";
-import { useToast } from "@midday/ui/use-toast";
+} from "@iq24i/dropdown-menu";
+import { useMediaQuery } from "@iq24i/hooks";
+import { Icons } from "@iq24i/icons";
+import { ScrollArea } from "@iq24i/scroll-area";
+import { Sheet, SheetContent, SheetHeader } from "@iq24i/sheet";
+import { useToast } from "@iq24i/use-toast";
 import { useAction } from "next-safe-action/hooks";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";

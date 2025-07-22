@@ -2,15 +2,15 @@
 
 import { updateUserAction } from "@/actions/update-user-action";
 import { useI18n } from "@/locales/client";
-import { countries } from "@midday/location/countries-intl";
+import { countries } from "@iq24/location/countries-intl";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@midday/ui/card";
-import { ComboboxDropdown } from "@midday/ui/combobox-dropdown";
+} from "@iq24i/card";
+import { ComboboxDropdown } from "@iq24i/combobox-dropdown";
 import { useOptimisticAction } from "next-safe-action/hooks";
 
 type Props = {
@@ -47,7 +47,7 @@ export function LocaleSettings({ locale }: Props) {
           <ComboboxDropdown
             placeholder={t("locale.placeholder")}
             selectedItem={localeItems.find(
-              (item) => item.value === optimisticState.locale,
+              (item) => item.value === optimisticState.locale
             )}
             searchPlaceholder={t("locale.searchPlaceholder")}
             items={localeItems}

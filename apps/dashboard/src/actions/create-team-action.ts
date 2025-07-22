@@ -1,8 +1,8 @@
 "use server";
 
-import { LogEvents } from "@midday/events/events";
-import { getCurrency } from "@midday/location";
-import { createTeam, updateUser } from "@midday/supabase/mutations";
+import { LogEvents } from "@iq24/events/events";
+import { getCurrency } from "@iq24ocation";
+import { createTeam, updateUser } from "@iq24upabase/mutations";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { authActionClient } from "./safe-action";

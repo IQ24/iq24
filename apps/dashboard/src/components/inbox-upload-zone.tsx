@@ -2,9 +2,9 @@
 
 import { inboxUploadAction } from "@/actions/inbox-upload-action";
 import { resumableUpload } from "@/utils/upload";
-import { createClient } from "@midday/supabase/client";
-import { cn } from "@midday/ui/cn";
-import { useToast } from "@midday/ui/use-toast";
+import { createClient } from "@iq24/supabase/client";
+import { cn } from "@iq24i/cn";
+import { useToast } from "@iq24i/use-toast";
 import { useAction } from "next-safe-action/hooks";
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
@@ -71,13 +71,13 @@ export function UploadZone({ children, teamId }: Props) {
                 (acc, currentValue) => {
                   return acc + currentValue;
                 },
-                0,
+                0
               );
 
               setProgress(Math.round(_progress / files.length));
             },
-          }),
-        ),
+          })
+        )
       );
 
       // Trigger the upload jobs
@@ -86,7 +86,7 @@ export function UploadZone({ children, teamId }: Props) {
           file_path: [...path, result.filename],
           mimetype: result.file.type,
           size: result.file.size,
-        })),
+        }))
       );
 
       // Reset once done
@@ -148,7 +148,7 @@ export function UploadZone({ children, teamId }: Props) {
         <div
           className={cn(
             "bg-background dark:bg-[#1A1A1A] h-full flex items-center justify-center text-center invisible",
-            isDragActive && "visible",
+            isDragActive && "visible"
           )}
         >
           <input {...getInputProps()} id="upload-files" />

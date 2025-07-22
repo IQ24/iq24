@@ -1,12 +1,12 @@
-import { InvoiceOverdueEmail } from "@midday/email/emails/invoice-overdue";
-import { InvoicePaidEmail } from "@midday/email/emails/invoice-paid";
-import { getI18n } from "@midday/email/locales";
+import { InvoiceOverdueEmail } from "@iq24/email/emails/invoice-overdue";
+import { InvoicePaidEmail } from "@iq24mail/emails/invoice-paid";
+import { getI18n } from "@iq24mail/locales";
 import {
   NotificationTypes,
   TriggerEvents,
   triggerBulk,
-} from "@midday/notification";
-import { getAppUrl } from "@midday/utils/envs";
+} from "@iq24otification";
+import { getAppUrl } from "@iq24tils/envs";
 import { render } from "@react-email/render";
 import { logger } from "@trigger.dev/sdk/v3";
 
@@ -64,7 +64,7 @@ export async function handlePaidInvoiceNotifications({
       }
 
       const html = await render(
-        <InvoicePaidEmail invoiceNumber={invoiceNumber} link={link} />,
+        <InvoicePaidEmail invoiceNumber={invoiceNumber} link={link} />
       );
 
       return {
@@ -153,7 +153,7 @@ export async function handleOverdueInvoiceNotifications({
           invoiceNumber={invoiceNumber}
           customerName={customerName}
           link={link}
-        />,
+        />
       );
 
       return {

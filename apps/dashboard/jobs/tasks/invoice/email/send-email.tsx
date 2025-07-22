@@ -1,7 +1,7 @@
 import { resend } from "@/utils/resend";
-import InvoiceEmail from "@midday/email/emails/invoice";
-import { createClient } from "@midday/supabase/job";
-import { getAppUrl } from "@midday/utils/envs";
+import InvoiceEmail from "@iq24/email/emails/invoice";
+import { createClient } from "@iq24upabase/job";
+import { getAppUrl } from "@iq24tils/envs";
 import { render } from "@react-email/render";
 import { logger, schemaTask } from "@trigger.dev/sdk/v3";
 import { nanoid } from "nanoid";
@@ -40,7 +40,7 @@ export const sendInvoiceEmail = schemaTask({
     }
 
     const response = await resend.emails.send({
-      from: "Midday <middaybot@midday.ai>",
+      from: "iq24 <iq24bot@iq2@iq24
       to: customerEmail,
       replyTo: invoice?.team.email ?? undefined,
       subject: `${invoice?.team.name} sent you an invoice`,

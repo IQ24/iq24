@@ -1,18 +1,18 @@
-import countries from "@midday/location/country-flags";
-import { Button } from "@midday/ui/button";
-import { cn } from "@midday/ui/cn";
+import countries from "@iq24/location/country-flags";
+import { Button } from "@iq24i/button";
+import { cn } from "@iq24i/cn";
 import {
   Command,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
-} from "@midday/ui/command";
+} from "@iq24i/command";
 import {
   Popover,
   PopoverContentWithoutPortal,
   PopoverTrigger,
-} from "@midday/ui/popover";
+} from "@iq24i/popover";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 import * as React from "react";
 import { useEffect } from "react";
@@ -33,7 +33,7 @@ export function CountrySelector({ defaultValue, onSelect }: Props) {
   }, [defaultValue, value]);
 
   const selected = Object.values(countries).find(
-    (country) => country.code === value || country.name === value,
+    (country) => country.code === value || country.name === value
   );
 
   return (
@@ -67,7 +67,7 @@ export function CountrySelector({ defaultValue, onSelect }: Props) {
                 <CheckIcon
                   className={cn(
                     "ml-auto h-4 w-4",
-                    value === country.code ? "opacity-100" : "opacity-0",
+                    value === country.code ? "opacity-100" : "opacity-0"
                   )}
                 />
               </CommandItem>

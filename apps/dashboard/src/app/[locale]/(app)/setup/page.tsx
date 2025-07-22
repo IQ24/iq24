@@ -1,12 +1,12 @@
 import { SetupForm } from "@/components/setup-form";
-import { getSession, getUser } from "@midday/supabase/cached-queries";
-import { Icons } from "@midday/ui/icons";
+import { getSession, getUser } from "@iq24/supabase/cached-queries";
+import { Icons } from "@iq24i/icons";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: "Setup account | Midday",
+  title: "Setup account | iq24",
 };
 
 export default async function Page() {

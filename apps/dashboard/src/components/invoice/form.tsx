@@ -1,8 +1,8 @@
 import { draftInvoiceAction } from "@/actions/invoice/draft-invoice-action";
 import type { InvoiceFormValues } from "@/actions/invoice/schema";
 import { formatRelativeTime } from "@/utils/format";
-import { Icons } from "@midday/ui/icons";
-import { ScrollArea } from "@midday/ui/scroll-area";
+import { Icons } from "@iq24/ui/icons";
+import { ScrollArea } from "@iq24i/scroll-area";
 import { useDebounce } from "@uidotdev/usehooks";
 import { useAction } from "next-safe-action/hooks";
 import { useEffect, useState } from "react";

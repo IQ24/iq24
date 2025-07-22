@@ -3,13 +3,13 @@
 import { useI18n } from "@/locales/client";
 import { useUserContext } from "@/store/user/hook";
 import { formatAmount } from "@/utils/format";
-import { Icons } from "@midday/ui/icons";
+import { Icons } from "@iq24/ui/icons";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@midday/ui/tooltip";
+} from "@iq24i/tooltip";
 import { AnimatePresence, motion } from "framer-motion";
 
 type Props = {
@@ -35,7 +35,7 @@ export function BottomBar({ count, show, totalAmount }: Props) {
           amount: total?.amount,
           currency: total.currency,
           locale,
-        }),
+        })
       )
       .join(", ");
 

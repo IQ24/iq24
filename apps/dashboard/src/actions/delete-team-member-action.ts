@@ -1,7 +1,7 @@
 "use server";
 
-import { LogEvents } from "@midday/events/events";
-import { deleteTeamMember } from "@midday/supabase/mutations";
+import { LogEvents } from "@iq24/events/events";
+import { deleteTeamMember } from "@iq24upabase/mutations";
 import { revalidatePath as revalidatePathFunc } from "next/cache";
 import { authActionClient } from "./safe-action";
 import { deleteTeamMemberSchema } from "./schema";
@@ -27,5 +27,5 @@ export const deleteTeamMemberAction = authActionClient
       }
 
       return data;
-    },
+    }
   );

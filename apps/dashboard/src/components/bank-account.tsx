@@ -14,26 +14,26 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@midday/ui/alert-dialog";
-import { Avatar, AvatarFallback } from "@midday/ui/avatar";
-import { cn } from "@midday/ui/cn";
+} from "@iq24/ui/alert-dialog";
+import { Avatar, AvatarFallback } from "@iq24i/avatar";
+import { cn } from "@iq24i/cn";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@midday/ui/dropdown-menu";
-import { Icons } from "@midday/ui/icons";
-import { Input } from "@midday/ui/input";
-import { Label } from "@midday/ui/label";
-import { Switch } from "@midday/ui/switch";
+} from "@iq24i/dropdown-menu";
+import { Icons } from "@iq24i/icons";
+import { Input } from "@iq24i/input";
+import { Label } from "@iq24i/label";
+import { Switch } from "@iq24i/switch";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@midday/ui/tooltip";
+} from "@iq24i/tooltip";
 import { MoreHorizontal } from "lucide-react";
 import { Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
@@ -81,7 +81,7 @@ export function BankAccount({
     <div
       className={cn(
         "flex justify-between items-center mb-4 pt-4",
-        !enabled && "opacity-60",
+        !enabled && "opacity-60"
       )}
     >
       <div className="flex items-center space-x-4 w-full mr-8">

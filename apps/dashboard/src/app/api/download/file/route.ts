@@ -1,6 +1,6 @@
-import { getUser } from "@midday/supabase/cached-queries";
-import { createClient } from "@midday/supabase/server";
-import { download } from "@midday/supabase/storage";
+import { getUser } from "@iq24/supabase/cached-queries";
+import { createClient } from "@iq24upabase/server";
+import { download } from "@iq24upabase/storage";
 
 export const preferredRegion = ["fra1", "sfo1", "iad1"];
 
@@ -20,7 +20,7 @@ export async function GET(req, res) {
 
   responseHeaders.set(
     "Content-Disposition",
-    `attachment; filename="${filename}"`,
+    `attachment; filename="${filename}"`
   );
 
   return new Response(data, {

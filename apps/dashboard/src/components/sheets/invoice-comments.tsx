@@ -1,10 +1,10 @@
 "use client";
 
 import { useInvoiceParams } from "@/hooks/use-invoice-params";
-// import { createClient } from "@midday/supabase/client";
-// import { getCustomerQuery } from "@midday/supabase/queries";
+// import { createClient } from "@iq24/supabase/client";
+// import { getCustomerQuery } from "@iq24upabase/queries";
 
-import { Sheet, SheetContent, SheetHeader } from "@midday/ui/sheet";
+import { Sheet, SheetContent, SheetHeader } from "@iq24i/sheet";
 import React, { useEffect, useState } from "react";
 import { InvoiceComments } from "../invoice-comments";
 

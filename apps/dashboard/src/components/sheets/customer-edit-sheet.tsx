@@ -2,8 +2,8 @@
 
 import { deleteCustomerAction } from "@/actions/delete-customer-action";
 import { useCustomerParams } from "@/hooks/use-customer-params";
-import { createClient } from "@midday/supabase/client";
-import { getCustomerQuery } from "@midday/supabase/queries";
+import { createClient } from "@iq24/supabase/client";
+import { getCustomerQuery } from "@iq24upabase/queries";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,15 +14,15 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@midday/ui/alert-dialog";
+} from "@iq24i/alert-dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@midday/ui/dropdown-menu";
-import { Icons } from "@midday/ui/icons";
-import { Sheet, SheetContent, SheetHeader } from "@midday/ui/sheet";
+} from "@iq24i/dropdown-menu";
+import { Icons } from "@iq24i/icons";
+import { Sheet, SheetContent, SheetHeader } from "@iq24i/sheet";
 import { useAction } from "next-safe-action/hooks";
 import React, { useEffect, useState } from "react";
 import { CustomerForm } from "../forms/customer-form";

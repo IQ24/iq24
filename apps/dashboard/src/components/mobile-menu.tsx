@@ -1,8 +1,8 @@
 "use client";
 
-import { Button } from "@midday/ui/button";
-import { Icons } from "@midday/ui/icons";
-import { Sheet, SheetContent, SheetTrigger } from "@midday/ui/sheet";
+import { Button } from "@iq24/ui/button";
+import { Icons } from "@iq24i/icons";
+import { Sheet, SheetContent, SheetTrigger } from "@iq24i/sheet";
 import { useState } from "react";
 import { MainMenu } from "./main-menu";
 

@@ -1,7 +1,7 @@
 "use server";
 
-import { LogEvents } from "@midday/events/events";
-import { formatAmountValue } from "@midday/import";
+import { LogEvents } from "@iq24/events/events";
+import { formatAmountValue } from "@iq24mport";
 import { importTransactions } from "jobs/tasks/transactions/import";
 import { z } from "zod";
 import { authActionClient } from "../safe-action";
@@ -22,7 +22,7 @@ export const importTransactionsAction = authActionClient
         description: z.string(),
         balance: z.string().optional(),
       }),
-    }),
+    })
   )
   .metadata({
     name: "import-transactions",
@@ -66,5 +66,5 @@ export const importTransactionsAction = authActionClient
       });
 
       return event;
-    },
+    }
   );

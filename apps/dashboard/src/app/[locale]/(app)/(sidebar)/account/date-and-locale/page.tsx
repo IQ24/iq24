@@ -3,12 +3,12 @@ import { DateFormatSettings } from "@/components/date-format-settings";
 import { LocaleSettings } from "@/components/locale-settings";
 import { TimeFormatSettings } from "@/components/time-format-settings";
 import { WeekSettings } from "@/components/week-settings";
-import { getTimezones } from "@midday/location";
-import { getUser } from "@midday/supabase/cached-queries";
+import { getTimezones } from "@iq24/location";
+import { getUser } from "@iq24upabase/cached-queries";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Date & Locale | Midday",
+  title: "Date & Locale | iq24",
 };
 
 export default async function Page() {

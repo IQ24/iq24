@@ -1,9 +1,9 @@
 "use client";
 
-import { Avatar, AvatarFallback, AvatarImageNext } from "@midday/ui/avatar";
-import { cn } from "@midday/ui/cn";
-import { Icons } from "@midday/ui/icons";
-import { Textarea } from "@midday/ui/textarea";
+import { Avatar, AvatarFallback, AvatarImageNext } from "@iq24/ui/avatar";
+import { cn } from "@iq24i/cn";
+import { Icons } from "@iq24i/icons";
+import { Textarea } from "@iq24i/textarea";
 
 const comments = [
   {

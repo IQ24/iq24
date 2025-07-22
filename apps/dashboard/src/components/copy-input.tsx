@@ -1,7 +1,7 @@
 "use client";
 
-import { cn } from "@midday/ui/cn";
-import { Icons } from "@midday/ui/icons";
+import { cn } from "@iq24/ui/cn";
+import { Icons } from "@iq24i/icons";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
@@ -31,7 +31,7 @@ export function CopyInput({ value, className }: Props) {
       onClick={handleClipboard}
       className={cn(
         "flex items-center relative w-full border py-2 px-4 cursor-pointer",
-        className,
+        className
       )}
     >
       <div className="pr-8 text-[#878787] text-sm truncate">{value}</div>

@@ -3,9 +3,9 @@
 import { updateCurrencyAction } from "@/actions/transactions/update-currency-action";
 import { SelectCurrency as SelectCurrencyBase } from "@/components/select-currency";
 import { useSyncStatus } from "@/hooks/use-sync-status";
-import { uniqueCurrencies } from "@midday/location/currencies";
-import { Button } from "@midday/ui/button";
-import { useToast } from "@midday/ui/use-toast";
+import { uniqueCurrencies } from "@iq24/location/currencies";
+import { Button } from "@iq24i/button";
+import { useToast } from "@iq24i/use-toast";
 import { useAction } from "next-safe-action/hooks";
 import { useEffect, useState } from "react";
 

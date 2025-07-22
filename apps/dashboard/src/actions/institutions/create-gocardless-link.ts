@@ -1,7 +1,7 @@
 "use server";
 
-import { client } from "@midday/engine/client";
-import { LogEvents } from "@midday/events/events";
+import { client } from "@iq24/engine/client";
+import { LogEvents } from "@iq24vents/events";
 import { redirect } from "next/navigation";
 import { authActionClient } from "../safe-action";
 import { createGoCardLessLinkSchema } from "../schema";
@@ -70,5 +70,5 @@ export const createGoCardLessLinkAction = authActionClient
 
         throw error;
       }
-    },
+    }
   );

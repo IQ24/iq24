@@ -1,5 +1,5 @@
-import { cn } from "@midday/ui/cn";
-import { Skeleton } from "@midday/ui/skeleton";
+import { cn } from "@iq24/ui/cn";
+import { Skeleton } from "@iq24i/skeleton";
 import { useEffect, useRef, useState } from "react";
 
 export function Iframe({
@@ -35,7 +35,7 @@ export function Iframe({
       },
       {
         threshold: 0,
-      },
+      }
     );
 
     observer.observe(iframe);
@@ -63,7 +63,7 @@ export function Iframe({
         loading="lazy"
         className={cn(
           "h-full w-full transition-opacity duration-100",
-          isLoading && "opacity-0",
+          isLoading && "opacity-0"
         )}
         style={{
           marginLeft: preview ? 0 : -8,

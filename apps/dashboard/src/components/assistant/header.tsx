@@ -1,6 +1,6 @@
 import { useAssistantStore } from "@/store/assistant";
-import { Button } from "@midday/ui/button";
-import { Icons } from "@midday/ui/icons";
+import { Button } from "@iq24/ui/button";
+import { Icons } from "@iq24i/icons";
 import { Experimental } from "../experimental";
 
 type Props = {

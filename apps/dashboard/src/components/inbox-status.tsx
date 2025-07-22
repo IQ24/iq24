@@ -1,12 +1,12 @@
 "use client";
 
-import { Icons } from "@midday/ui/icons";
+import { Icons } from "@iq24/ui/icons";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@midday/ui/tooltip";
+} from "@iq24i/tooltip";
 
 export function InboxStatus({ item }) {
   if (item.status === "processing" || item.status === "new") {

@@ -1,7 +1,7 @@
-import { mapTransactions } from "@midday/import/mappings";
-import { transform } from "@midday/import/transform";
-import { validateTransactions } from "@midday/import/validate";
-import { createClient } from "@midday/supabase/job";
+import { mapTransactions } from "@iq24/import/mappings";
+import { transform } from "@iq24mport/transform";
+import { validateTransactions } from "@iq24mport/validate";
+import { createClient } from "@iq24upabase/job";
 import { logger, schemaTask } from "@trigger.dev/sdk/v3";
 import { processBatch } from "jobs/utils/process-batch";
 import { revalidateCache } from "jobs/utils/revalidate-cache";
@@ -70,7 +70,7 @@ export const importTransactions = schemaTask({
                 data: Record<string, string>[];
                 errors: Array<{ message: string }>;
               },
-              parser: Papa.Parser,
+              parser: Papa.Parser
             ) => {
               parser.pause();
 
@@ -85,11 +85,11 @@ export const importTransactions = schemaTask({
                 mappings,
                 currency,
                 teamId,
-                bankAccountId,
+                bankAccountId
               );
 
               const transactions = mappedTransactions.map((transaction) =>
-                transform({ transaction, inverted }),
+                transform({ transaction, inverted })
               );
 
               const { validTransactions, invalidTransactions } =
@@ -109,7 +109,7 @@ export const importTransactions = schemaTask({
                     onConflict: "internal_id",
                     ignoreDuplicates: true,
                   });
-                },
+                }
               );
 
               parser.resume();
@@ -129,11 +129,11 @@ export const importTransactions = schemaTask({
           mappings,
           currency,
           teamId,
-          bankAccountId,
+          bankAccountId
         );
 
         const transactions = mappedTransactions.map((transaction) =>
-          transform({ transaction, inverted }),
+          transform({ transaction, inverted })
         );
 
         await processBatch(transactions, BATCH_SIZE, async (batch) => {

@@ -1,8 +1,8 @@
 "use client";
 
-import { createClient } from "@midday/supabase/client";
-import { Button } from "@midday/ui/button";
-import { Icons } from "@midday/ui/icons";
+import { createClient } from "@iq24/supabase/client";
+import { Button } from "@iq24i/button";
+import { Icons } from "@iq24i/icons";
 import { isDesktopApp } from "@todesktop/client-core/platform/todesktop";
 import { Loader2 } from "lucide-react";
 import { useSearchParams } from "next/navigation";

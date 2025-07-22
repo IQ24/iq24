@@ -1,5 +1,5 @@
-import { client } from "@midday/engine/client";
-import { createClient } from "@midday/supabase/job";
+import { client } from "@iq24/engine/client";
+import { createClient } from "@iq24upabase/job";
 import { logger, schemaTask } from "@trigger.dev/sdk/v3";
 import { parseAPIError } from "jobs/utils/parse-error";
 import { getClassification } from "jobs/utils/transform";

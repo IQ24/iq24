@@ -1,6 +1,6 @@
 import { VaultProvider } from "@/store/vault/provider";
-import { getVaultQuery } from "@midday/supabase/queries";
-import { createClient } from "@midday/supabase/server";
+import { getVaultQuery } from "@iq24/supabase/queries";
+import { createClient } from "@iq24upabase/server";
 import { DataTable } from "./data-table";
 import { EmptyTable } from "./empty-table";
 import { UploadZone } from "./upload-zone";

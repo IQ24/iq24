@@ -1,8 +1,8 @@
 "use client";
 
 import { generateTrackerFilters } from "@/actions/ai/filters/generate-tracker-filters";
-import { Calendar } from "@midday/ui/calendar";
-import { cn } from "@midday/ui/cn";
+import { Calendar } from "@iq24/ui/calendar";
+import { cn } from "@iq24i/cn";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -14,9 +14,9 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@midday/ui/dropdown-menu";
-import { Icons } from "@midday/ui/icons";
-import { Input } from "@midday/ui/input";
+} from "@iq24i/dropdown-menu";
+import { Icons } from "@iq24i/icons";
+import { Input } from "@iq24i/input";
 import { readStreamableValue } from "ai/rsc";
 import { formatISO } from "date-fns";
 import {
@@ -68,13 +68,13 @@ export function TrackerSearchFilter({
       start: parseAsString,
       end: parseAsString,
       statuses: parseAsArrayOf(
-        parseAsStringLiteral(["in_progress", "completed"]),
+        parseAsStringLiteral(["in_progress", "completed"])
       ),
       customers: parseAsArrayOf(parseAsString),
     },
     {
       shallow: false,
-    },
+    }
   );
 
   useHotkeys(
@@ -86,7 +86,7 @@ export function TrackerSearchFilter({
     },
     {
       enableOnFormTags: true,
-    },
+    }
   );
 
   useHotkeys("meta+s", (evt) => {
@@ -117,7 +117,9 @@ export function TrackerSearchFilter({
 
       const { object } = await generateTrackerFilters(
         prompt,
-        `Customers: ${customersData?.map((customer) => customer.name).join(", ")}`,
+        `Customers: ${customersData
+          ?.map((customer) => customer.name)
+          .join(", ")}`
       );
 
       let finalObject = {};
@@ -134,7 +136,7 @@ export function TrackerSearchFilter({
             customers:
               partialObject?.customers?.map(
                 (name: string) =>
-                  customersData?.find((customer) => customer.name === name)?.id,
+                  customersData?.find((customer) => customer.name === name)?.id
               ) ?? null,
           };
         }
@@ -153,7 +155,7 @@ export function TrackerSearchFilter({
 
   const hasValidFilters =
     Object.entries(filters).filter(
-      ([key, value]) => value !== null && key !== "q",
+      ([key, value]) => value !== null && key !== "q"
     ).length > 0;
 
   return (
@@ -195,7 +197,7 @@ export function TrackerSearchFilter({
               className={cn(
                 "absolute z-10 right-3 top-[10px] opacity-50 transition-opacity duration-300 hover:opacity-100",
                 hasValidFilters && "opacity-100",
-                isOpen && "opacity-100",
+                isOpen && "opacity-100"
               )}
             >
               <Icons.Filter />

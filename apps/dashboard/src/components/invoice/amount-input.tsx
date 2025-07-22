@@ -1,5 +1,5 @@
-import { cn } from "@midday/ui/cn";
-import { CurrencyInput } from "@midday/ui/currency-input";
+import { cn } from "@iq24/ui/cn";
+import { CurrencyInput } from "@iq24i/currency-input";
 import { useState } from "react";
 import { useController, useFormContext } from "react-hook-form";
 import type { NumericFormatProps } from "react-number-format";
@@ -39,7 +39,7 @@ export function AmountInput({
         className={cn(
           className,
           isPlaceholder && "opacity-0",
-          "p-0 border-0 h-6 text-xs !bg-transparent border-b border-transparent focus:border-border",
+          "p-0 border-0 h-6 text-xs !bg-transparent border-b border-transparent focus:border-border"
         )}
         thousandSeparator={true}
       />

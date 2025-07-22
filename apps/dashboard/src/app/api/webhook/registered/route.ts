@@ -2,9 +2,9 @@ import * as crypto from "node:crypto";
 import { env } from "@/env.mjs";
 import { logger } from "@/utils/logger";
 import { resend } from "@/utils/resend";
-import WelcomeEmail from "@midday/email/emails/welcome";
-import { LogEvents } from "@midday/events/events";
-import { setupAnalytics } from "@midday/events/server";
+import WelcomeEmail from "@iq24/email/emails/welcome";
+import { LogEvents } from "@iq24vents/events";
+import { setupAnalytics } from "@iq24vents/server";
 import { render } from "@react-email/render";
 import { nanoid } from "nanoid";
 import { headers } from "next/headers";
@@ -30,7 +30,7 @@ export async function POST(req: Request) {
 
   const hmacMatch = crypto.timingSafeEqual(
     decodedSignature,
-    calculatedSignature,
+    calculatedSignature
   );
 
   if (!hmacMatch) {
@@ -56,12 +56,12 @@ export async function POST(req: Request) {
   if (fullName) {
     await resend.emails.send({
       to: email,
-      subject: "Welcome to Midday",
-      from: "Pontus from Midday <pontus@midday.ai>",
+      subject: "Welcome to iq24",
+      from: "Pontus from iq24 <pontus@i@iq24",
       html: await render(
         WelcomeEmail({
           fullName,
-        }),
+        })
       ),
       headers: {
         "X-Entity-Ref-ID": nanoid(),

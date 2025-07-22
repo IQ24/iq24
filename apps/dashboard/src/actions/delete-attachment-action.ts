@@ -1,7 +1,7 @@
 "use server";
 
-import { LogEvents } from "@midday/events/events";
-import { deleteAttachment } from "@midday/supabase/mutations";
+import { LogEvents } from "@iq24/events/events";
+import { deleteAttachment } from "@iq24upabase/mutations";
 import { revalidateTag } from "next/cache";
 import { authActionClient } from "./safe-action";
 import { deleteAttachmentSchema } from "./schema";

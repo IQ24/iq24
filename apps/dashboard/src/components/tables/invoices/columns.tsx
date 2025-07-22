@@ -7,19 +7,19 @@ import { InvoiceStatus } from "@/components/invoice-status";
 import { OpenURL } from "@/components/open-url";
 import { useInvoiceParams } from "@/hooks/use-invoice-params";
 import { formatDate, getDueDateStatus } from "@/utils/format";
-import { Avatar, AvatarFallback, AvatarImageNext } from "@midday/ui/avatar";
-import { Button } from "@midday/ui/button";
-import { cn } from "@midday/ui/cn";
+import { Avatar, AvatarFallback, AvatarImageNext } from "@iq24/ui/avatar";
+import { Button } from "@iq24i/button";
+import { cn } from "@iq24i/cn";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@midday/ui/dropdown-menu";
-import { Icons } from "@midday/ui/icons";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@midday/ui/tooltip";
-import { TooltipProvider } from "@midday/ui/tooltip";
-import { useToast } from "@midday/ui/use-toast";
+} from "@iq24i/dropdown-menu";
+import { Icons } from "@iq24i/icons";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@iq24i/tooltip";
+import { TooltipProvider } from "@iq24i/tooltip";
+import { useToast } from "@iq24i/use-toast";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import type { ColumnDef } from "@tanstack/react-table";
 import { formatDistanceToNow } from "date-fns";
@@ -182,7 +182,7 @@ export const columns: ColumnDef<Invoice>[] = [
       const handleCopyLink = async () => {
         try {
           await navigator.clipboard.writeText(
-            `${window.location.origin}/i/${row.original.token}`,
+            `${window.location.origin}/i/${row.original.token}`
           );
 
           toast({
@@ -249,7 +249,9 @@ export const columns: ColumnDef<Invoice>[] = [
                   </DropdownMenuItem> */}
                   <DropdownMenuItem>
                     <a
-                      href={`/api/download/invoice?id=${row.original.id}&size=${row.original.template?.size === "a4" ? "a4" : "letter"}`}
+                      href={`/api/download/invoice?id=${row.original.id}&size=${
+                        row.original.template?.size === "a4" ? "a4" : "letter"
+                      }`}
                       download
                     >
                       Download

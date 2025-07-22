@@ -1,12 +1,12 @@
-import { getMetrics } from "@midday/supabase/cached-queries";
-import { cn } from "@midday/ui/cn";
-import { Icons } from "@midday/ui/icons";
+import { getMetrics } from "@iq24/supabase/cached-queries";
+import { cn } from "@iq24i/cn";
+import { Icons } from "@iq24i/icons";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@midday/ui/tooltip";
+} from "@iq24i/tooltip";
 import Link from "next/link";
 import { AnimatedNumber } from "../animated-number";
 import { FormatAmount } from "../format-amount";

@@ -3,10 +3,10 @@
 import { createProjectTagAction } from "@/actions/project/create-project-tag-action";
 import { deleteProjectTagAction } from "@/actions/project/delete-project-tag-action";
 import type { Customer } from "@/components/invoice/customer-details";
-import { uniqueCurrencies } from "@midday/location/currencies";
-import { Button } from "@midday/ui/button";
-import { Collapsible, CollapsibleContent } from "@midday/ui/collapsible";
-import { CurrencyInput } from "@midday/ui/currency-input";
+import { uniqueCurrencies } from "@iq24/location/currencies";
+import { Button } from "@iq24i/button";
+import { Collapsible, CollapsibleContent } from "@iq24i/collapsible";
+import { CurrencyInput } from "@iq24i/currency-input";
 import {
   Form,
   FormControl,
@@ -15,18 +15,18 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@midday/ui/form";
-import { Input } from "@midday/ui/input";
-import { Label } from "@midday/ui/label";
+} from "@iq24i/form";
+import { Input } from "@iq24i/input";
+import { Label } from "@iq24i/label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@midday/ui/select";
-import { Switch } from "@midday/ui/switch";
-import { Textarea } from "@midday/ui/textarea";
+} from "@iq24i/select";
+import { Switch } from "@iq24i/switch";
+import { Textarea } from "@iq24i/textarea";
 import { Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useEffect, useState } from "react";
@@ -129,7 +129,7 @@ export function TrackerProjectForm({
                   {
                     shouldDirty: true,
                     shouldValidate: true,
-                  },
+                  }
                 );
               }
             }}

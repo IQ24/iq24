@@ -1,21 +1,21 @@
 "use client";
 
-import { Button } from "@midday/ui/button";
-import { cn } from "@midday/ui/cn";
+import { Button } from "@iq24/ui/button";
+import { cn } from "@iq24i/cn";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@midday/ui/dialog";
-import { Icons } from "@midday/ui/icons";
+} from "@iq24i/dialog";
+import { Icons } from "@iq24i/icons";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@midday/ui/tooltip";
+} from "@iq24i/tooltip";
 import { usePathname } from "next/navigation";
 import { useHotkeys } from "react-hotkeys-hook";
 import { FaXTwitter } from "react-icons/fa6";
@@ -30,13 +30,13 @@ const popupCenter = ({ url, title, w, h }) => {
   const width = window.innerWidth
     ? window.innerWidth
     : document.documentElement.clientWidth
-      ? document.documentElement.clientWidth
-      : screen.width;
+    ? document.documentElement.clientWidth
+    : screen.width;
   const height = window.innerHeight
     ? window.innerHeight
     : document.documentElement.clientHeight
-      ? document.documentElement.clientHeight
-      : screen.height;
+    ? document.documentElement.clientHeight
+    : screen.height;
 
   const systemZoom = width / window.screen.availWidth;
   const left = (width - w) / 2 / systemZoom + dualScreenLeft;
@@ -46,11 +46,11 @@ const popupCenter = ({ url, title, w, h }) => {
     title,
     `
       scrollbars=yes,
-      width=${w / systemZoom}, 
-      height=${h / systemZoom}, 
-      top=${top}, 
+      width=${w / systemZoom},
+      height=${h / systemZoom},
+      top=${top},
       left=${left}
-      `,
+      `
   );
 
   return newWindow;
@@ -90,7 +90,7 @@ export function UpdatesToolbar({ posts }) {
 
   const handleOnShare = () => {
     const popup = popupCenter({
-      url: `https://twitter.com/intent/tweet?text=${currentPost.title} https://midday.ai/updates/${currentPost.slug}`,
+      url: `https://twitter.com/intent/tweet?text=${currentPost.title} https://iq24.ai/updates/${currentPost.slug}`,
       title: currentPost.title,
       w: 800,
       h: 400,
@@ -143,7 +143,7 @@ export function UpdatesToolbar({ posts }) {
                   <button
                     type="button"
                     className={cn(
-                      currentIndex === posts.length - 1 && "opacity-50",
+                      currentIndex === posts.length - 1 && "opacity-50"
                     )}
                     onClick={handleNext}
                   >
@@ -170,7 +170,7 @@ export function UpdatesToolbar({ posts }) {
           </DialogHeader>
 
           <div className="grid gap-6 py-4">
-            <CopyInput value={`https://midday.ai${pathname}`} />
+            <CopyInput value={`https://iq24.ai${pathname}`} />
             <Button
               className="w-full flex items-center space-x-2 h-10"
               onClick={handleOnShare}

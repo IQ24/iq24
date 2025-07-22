@@ -1,14 +1,14 @@
 "use client";
 
 import { validateVatNumberAction } from "@/actions/validate-vat-number-action";
-import { Icons } from "@midday/ui/icons";
-import { Input } from "@midday/ui/input";
+import { Icons } from "@iq24/ui/icons";
+import { Input } from "@iq24i/input";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@midday/ui/tooltip";
+} from "@iq24i/tooltip";
 import { useDebounce } from "@uidotdev/usehooks";
 import { Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";

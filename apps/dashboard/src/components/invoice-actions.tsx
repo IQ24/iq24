@@ -13,15 +13,15 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@midday/ui/alert-dialog";
-import { Button } from "@midday/ui/button";
+} from "@iq24/ui/alert-dialog";
+import { Button } from "@iq24i/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@midday/ui/dropdown-menu";
-import { Icons } from "@midday/ui/icons";
+} from "@iq24i/dropdown-menu";
+import { Icons } from "@iq24i/icons";
 import { useAction } from "next-safe-action/hooks";
 
 type Props = {

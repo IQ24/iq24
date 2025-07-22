@@ -1,5 +1,5 @@
-import { createClient } from "@midday/supabase/client";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "@midday/ui/input-otp";
+import { createClient } from "@iq24/supabase/client";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@iq24i/input-otp";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 

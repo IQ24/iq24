@@ -17,26 +17,26 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@midday/ui/alert-dialog";
-import { Badge } from "@midday/ui/badge";
-import { Button } from "@midday/ui/button";
-import { Checkbox } from "@midday/ui/checkbox";
-import { cn } from "@midday/ui/cn";
+} from "@iq24/ui/alert-dialog";
+import { Badge } from "@iq24i/badge";
+import { Button } from "@iq24i/button";
+import { Checkbox } from "@iq24i/checkbox";
+import { cn } from "@iq24i/cn";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@midday/ui/dropdown-menu";
-import { Icons } from "@midday/ui/icons";
-import { ScrollArea, ScrollBar } from "@midday/ui/scroll-area";
+} from "@iq24i/dropdown-menu";
+import { Icons } from "@iq24i/icons";
+import { ScrollArea, ScrollBar } from "@iq24i/scroll-area";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@midday/ui/tooltip";
+} from "@iq24i/tooltip";
 import type { ColumnDef } from "@tanstack/react-table";
 import { Loader2 } from "lucide-react";
 
@@ -111,7 +111,7 @@ export const columns: ColumnDef<Transaction>[] = [
                 <span
                   className={cn(
                     row.original?.category?.slug === "income" &&
-                      "text-[#00C969]",
+                      "text-[#00C969]"
                   )}
                 >
                   <div className="flex space-x-2 items-center">
@@ -151,7 +151,7 @@ export const columns: ColumnDef<Transaction>[] = [
         <span
           className={cn(
             "text-sm",
-            row.original?.category?.slug === "income" && "text-[#00C969]",
+            row.original?.category?.slug === "income" && "text-[#00C969]"
           )}
         >
           <FormatAmount

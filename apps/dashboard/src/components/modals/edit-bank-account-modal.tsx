@@ -1,15 +1,15 @@
 import { updateBankAccountAction } from "@/actions/update-bank-account-action";
 import { useI18n } from "@/locales/client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@midday/ui/button";
-import { CurrencyInput } from "@midday/ui/currency-input";
+import { Button } from "@iq24/ui/button";
+import { CurrencyInput } from "@iq24i/currency-input";
 import {
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@midday/ui/dialog";
+} from "@iq24i/dialog";
 import {
   Form,
   FormControl,
@@ -18,15 +18,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@midday/ui/form";
-import { Input } from "@midday/ui/input";
+} from "@iq24i/form";
+import { Input } from "@iq24i/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@midday/ui/select";
+} from "@iq24i/select";
 import { Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";

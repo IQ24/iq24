@@ -1,8 +1,8 @@
 import { Cookies } from "@/utils/constants";
-import { LogEvents } from "@midday/events/events";
-import { setupAnalytics } from "@midday/events/server";
-import { getSession } from "@midday/supabase/cached-queries";
-import { createClient } from "@midday/supabase/server";
+import { LogEvents } from "@iq24/events/events";
+import { setupAnalytics } from "@iq24vents/server";
+import { getSession } from "@iq24upabase/cached-queries";
+import { createClient } from "@iq24upabase/server";
 import { addYears } from "date-fns";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";

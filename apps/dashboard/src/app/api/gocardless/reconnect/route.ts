@@ -1,6 +1,6 @@
-import { getSession } from "@midday/supabase/cached-queries";
-import { updateBankConnection } from "@midday/supabase/mutations";
-import { createClient } from "@midday/supabase/server";
+import { getSession } from "@iq24/supabase/cached-queries";
+import { updateBankConnection } from "@iq24upabase/mutations";
+import { createClient } from "@iq24upabase/server";
 import { revalidateTag } from "next/cache";
 import { type NextRequest, NextResponse } from "next/server";
 
@@ -29,11 +29,11 @@ export async function GET(req: NextRequest) {
 
   if (isDesktop === "true") {
     return NextResponse.redirect(
-      `midday://settings/accounts?id=${id}&step=reconnect`,
+      `iq24://settings/accounts?id=${id}&step=reconnect`
     );
   }
 
   return NextResponse.redirect(
-    `${requestUrl.origin}/settings/accounts?id=${id}&step=reconnect`,
+    `${requestUrl.origin}/settings/accounts?id=${id}&step=reconnect`
   );
 }

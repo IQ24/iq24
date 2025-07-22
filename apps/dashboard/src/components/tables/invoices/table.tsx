@@ -4,8 +4,8 @@ import { deleteInvoiceAction } from "@/actions/invoice/delete-invoice-action";
 import { InvoiceDetailsSheet } from "@/components/sheets/invoice-details-sheet";
 import { useInvoiceParams } from "@/hooks/use-invoice-params";
 import { useUserContext } from "@/store/user/hook";
-import { Spinner } from "@midday/ui/spinner";
-import { Table, TableBody } from "@midday/ui/table";
+import { Spinner } from "@iq24/ui/spinner";
+import { Table, TableBody } from "@iq24i/table";
 import {
   getCoreRowModel,
   getFilteredRowModel,

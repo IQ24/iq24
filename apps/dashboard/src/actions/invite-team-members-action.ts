@@ -1,9 +1,9 @@
 "use server";
 
 import { resend } from "@/utils/resend";
-import InviteEmail from "@midday/email/emails/invite";
-import { getI18n } from "@midday/email/locales";
-import { LogEvents } from "@midday/events/events";
+import InviteEmail from "@iq24/email/emails/invite";
+import { getI18n } from "@iq24mail/locales";
+import { LogEvents } from "@iq24vents/events";
 import { render } from "@react-email/render";
 import { nanoid } from "nanoid";
 import { revalidatePath as revalidatePathFunc } from "next/cache";
@@ -46,7 +46,7 @@ export const inviteTeamMembersAction = authActionClient
         .select("email, code, user:invited_by(*), team:team_id(*)");
 
       const emails = invtesData?.map(async (invites) => ({
-        from: "Midday <middaybot@midday.ai>",
+        from: "iq24 <iq24bot@iq2@iq24
         to: [invites.email],
         subject: t("invite.subject", {
           invitedByName: invites.user.full_name,

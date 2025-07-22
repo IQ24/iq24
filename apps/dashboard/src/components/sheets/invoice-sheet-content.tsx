@@ -2,8 +2,8 @@
 
 import { createInvoiceAction } from "@/actions/invoice/create-invoice-action";
 import { useInvoiceParams } from "@/hooks/use-invoice-params";
-import { Button } from "@midday/ui/button";
-import { SheetContent, SheetHeader } from "@midday/ui/sheet";
+import { Button } from "@iq24/ui/button";
+import { SheetContent, SheetHeader } from "@iq24i/sheet";
 import { useAction } from "next-safe-action/hooks";
 import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
@@ -16,7 +16,9 @@ import type { Invoice } from "../tables/invoices/columns";
 
 function InvoiceSheetHeader({
   type,
-}: { type: "created" | "created_and_sent" }) {
+}: {
+  type: "created" | "created_and_sent";
+}) {
   if (type === "created") {
     return (
       <SheetHeader className="mb-6 flex flex-col">

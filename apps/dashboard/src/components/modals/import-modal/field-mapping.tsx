@@ -5,16 +5,16 @@ import { SelectAccount } from "@/components/select-account";
 import { SelectCurrency } from "@/components/select-currency";
 import { useUserContext } from "@/store/user/hook";
 import { formatAmount } from "@/utils/format";
-import { formatAmountValue, formatDate } from "@midday/import";
+import { formatAmountValue, formatDate } from "@iq24/import";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@midday/ui/accordion";
-import { Icons } from "@midday/ui/icons";
-import { Input } from "@midday/ui/input";
-import { Label } from "@midday/ui/label";
+} from "@iq24i/accordion";
+import { Icons } from "@iq24i/icons";
+import { Input } from "@iq24i/input";
+import { Label } from "@iq24i/label";
 import {
   Select,
   SelectContent,
@@ -23,15 +23,15 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@midday/ui/select";
-import { Spinner } from "@midday/ui/spinner";
-import { Switch } from "@midday/ui/switch";
+} from "@iq24i/select";
+import { Spinner } from "@iq24i/spinner";
+import { Switch } from "@iq24i/switch";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@midday/ui/tooltip";
+} from "@iq24i/tooltip";
 import { readStreamableValue } from "ai/rsc";
 import { capitalCase } from "change-case";
 import { useEffect, useState } from "react";
@@ -72,7 +72,7 @@ export function FieldMapping({ currencies }: { currencies: string[] }) {
     <div className="mt-6">
       <div className="grid grid-cols-2 gap-x-4 gap-y-2">
         <div className="text-sm">CSV Data column</div>
-        <div className="text-sm">Midday data column</div>
+        <div className="text-sm">iq24 data column</div>
         {(Object.keys(mappableFields) as (keyof typeof mappableFields)[]).map(
           (field) => (
             <FieldRow
@@ -81,7 +81,7 @@ export function FieldMapping({ currencies }: { currencies: string[] }) {
               isStreaming={isStreaming}
               currency={watch("currency")}
             />
-          ),
+          )
         )}
       </div>
 
@@ -167,7 +167,7 @@ export function FieldMapping({ currencies }: { currencies: string[] }) {
                 value={value}
                 onChange={onChange}
                 currencies={Object.values(currencies)?.map(
-                  (currency) => currency,
+                  (currency) => currency
                 )}
               />
             )}

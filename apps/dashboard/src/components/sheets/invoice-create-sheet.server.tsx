@@ -1,9 +1,9 @@
-import { getDefaultSettings } from "@midday/invoice/default";
+import { getDefaultSettings } from "@iq24/invoice/default";
 import {
   getCustomers,
   getInvoiceTemplates,
   getLastInvoiceNumber,
-} from "@midday/supabase/cached-queries";
+} from "@iq24upabase/cached-queries";
 import { InvoiceCreateSheet } from "./invoice-create-sheet";
 
 export async function InvoiceCreateSheetServer({ teamId }: { teamId: string }) {
@@ -22,7 +22,7 @@ export async function InvoiceCreateSheetServer({ teamId }: { teamId: string }) {
   // Filter out null values
   const template = templatesData
     ? Object.fromEntries(
-        Object.entries(templatesData).filter(([_, value]) => value !== null),
+        Object.entries(templatesData).filter(([_, value]) => value !== null)
       )
     : {};
 

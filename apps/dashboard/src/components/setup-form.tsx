@@ -3,7 +3,7 @@
 import { updateUserSchema } from "@/actions/schema";
 import { updateUserAction } from "@/actions/update-user-action";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@midday/ui/button";
+import { Button } from "@iq24/ui/button";
 import {
   Form,
   FormControl,
@@ -12,9 +12,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@midday/ui/form";
-import { Input } from "@midday/ui/input";
-import { useToast } from "@midday/ui/use-toast";
+} from "@iq24i/form";
+import { Input } from "@iq24i/input";
+import { useToast } from "@iq24i/use-toast";
 import { Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useRouter } from "next/navigation";

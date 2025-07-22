@@ -4,8 +4,8 @@ import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@midday/ui/hover-card";
-import { Progress } from "@midday/ui/progress";
+} from "@iq24/ui/hover-card";
+import { Progress } from "@iq24i/progress";
 import { formatISO } from "date-fns";
 import Link from "next/link";
 import { Category } from "../category";
@@ -27,7 +27,10 @@ export function SpendingCategoryList({ categories, period, disabled }: Props) {
               <HoverCardTrigger asChild>
                 <Link
                   className="flex items-center"
-                  href={`/transactions?categories=${slug}&start=${formatISO(period?.from, { representation: "date" })}&end=${formatISO(period?.to, { representation: "date" })}`}
+                  href={`/transactions?categories=${slug}&start=${formatISO(
+                    period?.from,
+                    { representation: "date" }
+                  )}&end=${formatISO(period?.to, { representation: "date" })}`}
                 >
                   <Category
                     key={slug}

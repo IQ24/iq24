@@ -1,18 +1,15 @@
 import { useUserContext } from "@/store/user/hook";
 import { formatDate } from "@/utils/format";
-import { Avatar, AvatarFallback, AvatarImageNext } from "@midday/ui/avatar";
-import { Button } from "@midday/ui/button";
-import { cn } from "@midday/ui/cn";
-import {
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from "@midday/ui/dropdown-menu";
-import { DropdownMenu, DropdownMenuTrigger } from "@midday/ui/dropdown-menu";
-import { Icons } from "@midday/ui/icons";
-import { Separator } from "@midday/ui/separator";
-import { Skeleton } from "@midday/ui/skeleton";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@midday/ui/tooltip";
-import { useToast } from "@midday/ui/use-toast";
+import { Avatar, AvatarFallback, AvatarImageNext } from "@iq24/ui/avatar";
+import { Button } from "@iq24i/button";
+import { cn } from "@iq24i/cn";
+import { DropdownMenuContent, DropdownMenuItem } from "@iq24i/dropdown-menu";
+import { DropdownMenu, DropdownMenuTrigger } from "@iq24i/dropdown-menu";
+import { Icons } from "@iq24i/icons";
+import { Separator } from "@iq24i/separator";
+import { Skeleton } from "@iq24i/skeleton";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@iq24i/tooltip";
+import { useToast } from "@iq24i/use-toast";
 import { format } from "date-fns";
 import { MoreVertical, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -69,7 +66,7 @@ export function InboxDetails({
   const handleCopyLink = async () => {
     try {
       await navigator.clipboard.writeText(
-        `${window.location.origin}/inbox?id=${item.id}`,
+        `${window.location.origin}/inbox?id=${item.id}`
       );
 
       toast({
@@ -153,7 +150,7 @@ export function InboxDetails({
                       height={40}
                       className={cn(
                         "rounded-full overflow-hidden",
-                        showFallback && "hidden",
+                        showFallback && "hidden"
                       )}
                       src={`https://img.logo.dev/${item.website}?token=pk_X-1ZO13GSgeOoUrIuJ6GMQ`}
                       quality={100}

@@ -1,21 +1,25 @@
 ---
 title: "Generating PDF Invoices: Our Approach"
 publishedAt: "2024-10-23"
-summary: "Discover how we're implementing PDF invoice generation in Midday, using React-based solutions for customizable, efficient document creation."
+summary: "Discover how we're implementing PDF invoice generation in iq24, using React-based solutions for customizable, efficient document creation."
 image: "/images/update/invoice-pdf/pdf.jpg"
 tag: "Updates"
 ---
+
 With our upcoming Invoicing feature, we have explored various methods to generate PDF invoices, ranging from running Puppeteer to using a headless browser on Cloudflare, as well as considering paid services and generating PDFs using React.
 
 <br />
-We've noticed that generating PDF invoices is a common challenge in the developer community, so we decided to share our solution with you.
+We've noticed that generating PDF invoices is a common challenge in the developer
+community, so we decided to share our solution with you.
 <br />
 
- 
-## Invoice in Midday
+## Invoice in iq24
+
 ![PDF Invoices](/images/update/invoice-pdf/invoice.jpg)
+
 <br />
-We are building a new experience for invoices in Midday. You'll be able to create and send invoices to your customers, as well as generate PDFs for each invoice. 
+We are building a new experience for invoices in iq24. You'll be able to create and
+send invoices to your customers, as well as generate PDFs for each invoice.
 
 <br />
 
@@ -25,23 +29,25 @@ Our interface is highly customizable with a visual editor where you can easily c
 
 We use an editor based on Tiptap to support rich text, with AI-powered grammar checking and text improvement available at the click of a button.
 
-<br /> 
+<br />
 
 While the editor saves the content using JSON, we also needed to ensure compatibility with our PDF generation process.
 
-<br/>
+<br />
 
-When you send an invoice to a customer, they will receive an email with a unique link to the invoice. Clicking this link will render the invoice on a web page where you and the 
+When you send an invoice to a customer, they will receive an email with a unique link to the invoice. Clicking this link will render the invoice on a web page where you and the
 customer can communicate in real-time using our chat interface.
 
 <br />
 
 You'll also be able to track when the customer has viewed the invoice and if they have any questions about it.
 
-<br /> 
+<br />
 
 ## PDF Generation
+
 ![PDF Invoices](/images/update/invoice-pdf/pdf-invoice.jpg)
+
 <br />
 
 There are numerous ways to generate PDFs, and we've explored many different solutions. While we considered paid services, we ultimately decided to prioritize giving you full control over the invoices without relying on external services.
@@ -52,16 +58,16 @@ We went with `react-pdf` to generate the PDFs. This is a great library that allo
 
 <br />
 
-The invoice is then generated and saved to your [Vault](https://midday.ai/vault), so we can match it to incoming transactions and mark it as paid. 
+The invoice is then generated and saved to your [Vault](https://iq24.ai/vault), so we can match it to incoming transactions and mark it as paid.
 
 <br />
 
 We first create an API endpoint that will generate the PDF and return the PDF as Content Type `application/pdf`.
 
 ```tsx
-import { InvoiceTemplate, renderToStream } from "@midday/invoice";
-import { getInvoiceQuery } from "@midday/supabase/queries";
-import { createClient } from "@midday/supabase/server";
+import { InvoiceTemplate, renderToStream } from "@iq24/invoice";
+import { getInvoiceQuery } from "@iq24upabase/queries";
+import { createClient } from "@iq24upabase/server";
 import type { NextRequest } from "next/server";
 
 export const preferredRegion = ["fra1", "sfo1", "iad1"];
@@ -94,8 +100,9 @@ export async function GET(req: NextRequest) {
   };
 
   if (!preview) {
-    headers["Content-Disposition"] =
-      `attachment; filename="${data.invoice_number}.pdf"`;
+    headers[
+      "Content-Disposition"
+    ] = `attachment; filename="${data.invoice_number}.pdf"`;
   }
 
   return new Response(blob, { headers });
@@ -112,9 +119,7 @@ And here is the template for the invoice, we register a custom font, generate a 
 
 <br />
 
-You can find the full code for the invoice template [here](https://go.midday.ai/inv).
-
-
+You can find the full code for the invoice template [here](https://go.iq24.ai/inv).
 
 ```tsx
 import { Document, Font, Image, Page, Text, View } from "@react-pdf/renderer";
@@ -127,7 +132,7 @@ import { PaymentDetails } from "../components/payment-details";
 import { QRCode } from "../components/qr-code";
 import { Summary } from "../components/summary";
 
-const CDN_URL = "https://cdn.midday.ai";
+const CDN_URL = "https://cdn.iq24.ai";
 
 Font.register({
   family: "GeistMono",
@@ -160,14 +165,11 @@ export async function InvoiceTemplate({
   size = "letter",
   link,
 }: Props) {
-  const qrCode = await QRCodeUtil.toDataURL(
-    link,
-    {
-      width: 40 * 3,
-      height: 40 * 3,
-      margin: 0,
-    },
-  );
+  const qrCode = await QRCodeUtil.toDataURL(link, {
+    width: 40 * 3,
+    height: 40 * 3,
+    margin: 0,
+  });
 
   return (
     <Document>
@@ -269,8 +271,7 @@ export async function InvoiceTemplate({
 ```
 
 <br />
-## What's next?
-![PDF Invoices](/images/update/invoice-pdf/web-invoice.jpg)
+## What's next? ![PDF Invoices](/images/update/invoice-pdf/web-invoice.jpg)
 <br />
 
 We will be launching the Invoicing feature soon to our early access users, let us know if you want to be included in the early access program to get all the new features as soon as they are ready.
@@ -281,4 +282,4 @@ We would love to hear what you think about the Invoicing feature, and we would l
 
 <br />
 
-[Sign up for an account](https://app.midday.ai) and start using Midday today.
+[Sign up for an account](https://app.iq24.ai) and start using iq24 today.

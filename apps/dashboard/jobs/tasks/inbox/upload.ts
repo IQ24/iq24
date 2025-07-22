@@ -1,5 +1,5 @@
-import { DocumentClient } from "@midday/documents";
-import { createClient } from "@midday/supabase/job";
+import { DocumentClient } from "@iq24/documents";
+import { createClient } from "@iq24upabase/job";
 import { schemaTask } from "@trigger.dev/sdk/v3";
 import { z } from "zod";
 

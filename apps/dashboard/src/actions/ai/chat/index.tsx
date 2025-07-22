@@ -2,8 +2,8 @@
 
 import { BotMessage, SpinnerMessage } from "@/components/chat/messages";
 import { openai } from "@ai-sdk/openai";
-import { client as RedisClient } from "@midday/kv";
-import { getUser } from "@midday/supabase/cached-queries";
+import { client as RedisClient } from "@iq24/kv";
+import { getUser } from "@iq24upabase/cached-queries";
 import { Ratelimit } from "@upstash/ratelimit";
 import {
   createAI,
@@ -33,7 +33,7 @@ const ratelimit = new Ratelimit({
 });
 
 export async function submitUserMessage(
-  content: string,
+  content: string
 ): Promise<ClientMessage> {
   "use server";
   const ip = headers().get("x-forwarded-for");
@@ -91,7 +91,7 @@ export async function submitUserMessage(
     model: openai("gpt-4o-mini"),
     initial: <SpinnerMessage />,
     system: `\
-    You are a helpful assistant in Midday who can help users ask questions about their transactions, revenue, spending find invoices and more.
+    You are a helpful assistant in iq24 who can help users ask questions about their transactions, revenue, spending find invoices and more.
 
     If the user wants the burn rate, call \`getBurnRate\` function.
     If the user wants the runway, call \`getRunway\` function.

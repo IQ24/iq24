@@ -1,5 +1,5 @@
-import { cn } from "@midday/ui/cn";
-import { getAppUrl } from "@midday/utils/envs";
+import { cn } from "@iq24/ui/cn";
+import { getAppUrl } from "@iq24tils/envs";
 import {
   Body,
   Button,
@@ -259,7 +259,7 @@ export const TransactionsEmail = ({
                         className={cn(
                           "text-[#121212]",
                           transaction?.category === "income" &&
-                            "!text-[#00C969]",
+                            "!text-[#00C969]"
                         )}
                       >
                         <Text className="text-[14px] m-0 p-0 mt-1 pb-1 line-clamp-1">
@@ -272,7 +272,7 @@ export const TransactionsEmail = ({
                         className={cn(
                           "text-[14px] m-0 p-0 mt-1 pb-1 text-[#121212]",
                           transaction?.category === "income" &&
-                            "!text-[#00C969]",
+                            "!text-[#00C969]"
                         )}
                       >
                         {Intl.NumberFormat(locale, {
@@ -291,7 +291,9 @@ export const TransactionsEmail = ({
             <Section className="text-center mt-[32px] mb-[32px]">
               <Button
                 className="bg-transparent text-primary text-[14px] text-[#121212] font-medium no-underline text-center px-6 py-3 border border-solid border-[#121212]"
-                href={`${baseAppUrl}/transactions?start=${transactions[transactions.length - 1]?.date}&end=${transactions.at(0)?.date}`}
+                href={`${baseAppUrl}/transactions?start=${
+                  transactions[transactions.length - 1]?.date
+                }&end=${transactions.at(0)?.date}`}
               >
                 {t("transactions.button")}
               </Button>

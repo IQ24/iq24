@@ -1,7 +1,7 @@
-import { getUser } from "@midday/supabase/cached-queries";
-import { getVaultActivityQuery } from "@midday/supabase/queries";
-import { createClient } from "@midday/supabase/server";
-import { Icons } from "@midday/ui/icons";
+import { getUser } from "@iq24/supabase/cached-queries";
+import { getVaultActivityQuery } from "@iq24upabase/queries";
+import { createClient } from "@iq24upabase/server";
+import { Icons } from "@iq24i/icons";
 import Link from "next/link";
 import { VaultPreview } from "./vault-preview";
 
@@ -20,7 +20,7 @@ export async function VaultActivity() {
 
   const { data: storageData } = await getVaultActivityQuery(
     supabase,
-    userData?.team_id,
+    userData?.team_id
   );
 
   const files = storageData

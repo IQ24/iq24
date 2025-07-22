@@ -1,8 +1,8 @@
 "use client";
 
 import { useVaultContext } from "@/store/vault/hook";
-import { createClient } from "@midday/supabase/client";
-import { Table, TableBody } from "@midday/ui/table";
+import { createClient } from "@iq24/supabase/client";
+import { Table, TableBody } from "@iq24i/table";
 import { useEffect } from "react";
 import { DataTableRow } from "./data-table-row";
 import { DataTableHeader } from "./date-table-header";
@@ -29,7 +29,7 @@ export function DataTable({ teamId }: { teamId: string }) {
               tag: payload.new?.tag,
             });
           }
-        },
+        }
       )
       .subscribe();
 

@@ -1,7 +1,7 @@
 "use server";
 
-import { LogEvents } from "@midday/events/events";
-import { createFolder } from "@midday/supabase/storage";
+import { LogEvents } from "@iq24/events/events";
+import { createFolder } from "@iq24upabase/storage";
 import { revalidatePath } from "next/cache";
 import { authActionClient } from "./safe-action";
 import { createFolderSchema } from "./schema";

@@ -1,10 +1,10 @@
 import { getTransactionsFromLayout } from "@/actions/transactions/get-transactions-from-layout";
 import { useUpload } from "@/hooks/use-upload";
 import { useUserContext } from "@/store/user/hook";
-import { createClient } from "@midday/supabase/client";
-import { cn } from "@midday/ui/cn";
-import { Spinner } from "@midday/ui/spinner";
-import { stripSpecialCharacters } from "@midday/utils";
+import { createClient } from "@iq24/supabase/client";
+import { cn } from "@iq24i/cn";
+import { Spinner } from "@iq24i/spinner";
+import { stripSpecialCharacters } from "@iq24tils";
 import { useAction } from "next-safe-action/hooks";
 import Papa from "papaparse";
 import { useEffect, useState } from "react";
@@ -135,7 +135,7 @@ export function SelectFile() {
                 className={cn(
                   "w-full border border-dashed h-[200px] mt-8 mb-8 flex items-center justify-center",
                   isDragActive && "bg-secondary text-primary",
-                  isDragReject && "border-destructive",
+                  isDragReject && "border-destructive"
                 )}
               >
                 <div className="text-center flex items-center justify-center flex-col text-xs text-[#878787]">

@@ -1,7 +1,7 @@
 import { useInvoiceParams } from "@/hooks/use-invoice-params";
-import { Drawer, DrawerContent } from "@midday/ui/drawer";
-import { useMediaQuery } from "@midday/ui/hooks";
-import { Sheet, SheetContent } from "@midday/ui/sheet";
+import { Drawer, DrawerContent } from "@iq24/ui/drawer";
+import { useMediaQuery } from "@iq24i/hooks";
+import { Sheet, SheetContent } from "@iq24i/sheet";
 import React from "react";
 import { InvoiceDetails } from "../invoice-details";
 import type { Invoice } from "../tables/invoices/columns";

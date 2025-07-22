@@ -1,8 +1,8 @@
 import { logger } from "@/utils/logger";
-import { setupAnalytics } from "@midday/events/server";
-import { client as RedisClient } from "@midday/kv";
-import { getUser } from "@midday/supabase/cached-queries";
-import { createClient } from "@midday/supabase/server";
+import { setupAnalytics } from "@iq24/events/server";
+import { client as RedisClient } from "@iq24v";
+import { getUser } from "@iq24upabase/cached-queries";
+import { createClient } from "@iq24upabase/server";
 import * as Sentry from "@sentry/nextjs";
 import { Ratelimit } from "@upstash/ratelimit";
 import {
@@ -66,7 +66,7 @@ export const authActionClient = actionClientWithMeta
     const ip = headers().get("x-forwarded-for");
 
     const { success, remaining } = await ratelimit.limit(
-      `${ip}-${metadata.name}`,
+      `${ip}-${metadata.name}`
     );
 
     if (!success) {

@@ -1,8 +1,8 @@
 "use client";
 
 import { unenrollMfaAction } from "@/actions/unenroll-mfa-action";
-import { Button } from "@midday/ui/button";
-import { useToast } from "@midday/ui/use-toast";
+import { Button } from "@iq24/ui/button";
+import { useToast } from "@iq24i/use-toast";
 import { useAction } from "next-safe-action/hooks";
 
 type Props = {

@@ -1,5 +1,5 @@
-import { createClient } from "@midday/supabase/client";
-import { getUserQuery } from "@midday/supabase/queries";
+import { createClient } from "@iq24/supabase/client";
+import { getUserQuery } from "@iq24upabase/queries";
 import { HeadlessService } from "@novu/headless";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -20,7 +20,7 @@ export function useNotifications() {
             ...notification,
             read: true,
           };
-        }),
+        })
       );
 
       headlessService.markAllMessagesAsRead({
@@ -44,7 +44,7 @@ export function useNotifications() {
           }
 
           return notification;
-        }),
+        })
       );
 
       headlessService.markNotificationsAsRead({
@@ -77,7 +77,7 @@ export function useNotifications() {
         prevNotifications.map((notification) => ({
           ...notification,
           seen: true,
-        })),
+        }))
       );
       headlessService.markAllMessagesAsSeen({
         listener: () => {},
@@ -94,7 +94,7 @@ export function useNotifications() {
 
       const { data: userData } = await getUserQuery(
         supabase,
-        session?.user?.id,
+        session?.user?.id
       );
 
       if (userData) {
@@ -142,7 +142,7 @@ export function useNotifications() {
     markMessageAsRead,
     markAllMessagesAsSeen,
     hasUnseenNotifications: notifications.some(
-      (notification) => !notification.seen,
+      (notification) => !notification.seen
     ),
     notifications,
   };

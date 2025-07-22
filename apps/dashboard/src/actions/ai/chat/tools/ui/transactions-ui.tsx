@@ -6,7 +6,7 @@ import { TransactionStatus } from "@/components/transaction-status";
 import { useI18n } from "@/locales/client";
 import { useUserContext } from "@/store/user/hook";
 import { formatDate } from "@/utils/format";
-import { cn } from "@midday/ui/cn";
+import { cn } from "@iq24/ui/cn";
 import {
   Table,
   TableBody,
@@ -14,7 +14,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@midday/ui/table";
+} from "@iq24i/table";
 import { ShowAllButton } from "./show-all-button";
 
 type Props = {
@@ -78,7 +78,7 @@ export function TransactionsUI({ meta, data, q, filter, sort }: Props) {
                     className={cn(
                       "font-normal",
                       transaction.category?.slug === "income" &&
-                        "text-[#00C969]",
+                        "text-[#00C969]"
                     )}
                   >
                     <span className="line-clamp-1">{transaction.name}</span>
@@ -90,7 +90,7 @@ export function TransactionsUI({ meta, data, q, filter, sort }: Props) {
                     className={cn(
                       "font-normal",
                       transaction.category?.slug === "income" &&
-                        "text-[#00C969]",
+                        "text-[#00C969]"
                     )}
                   >
                     <FormatAmount

@@ -1,8 +1,8 @@
 "use server";
 
-import { client } from "@midday/engine/client";
-import { LogEvents } from "@midday/events/events";
-import { getCountryCode } from "@midday/location";
+import { client } from "@iq24/engine/client";
+import { LogEvents } from "@iq24vents/events";
+import { getCountryCode } from "@iq24ocation";
 import { nanoid } from "nanoid";
 import { redirect } from "next/navigation";
 import { authActionClient } from "../safe-action";
@@ -61,5 +61,5 @@ export const createEnableBankingLinkAction = authActionClient
 
         throw error;
       }
-    },
+    }
   );

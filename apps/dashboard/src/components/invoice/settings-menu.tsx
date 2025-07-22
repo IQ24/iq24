@@ -1,7 +1,7 @@
 "use client";
 
 import { updateInvoiceTemplateAction } from "@/actions/invoice/update-invoice-template-action";
-import { uniqueCurrencies } from "@midday/location/currencies";
+import { uniqueCurrencies } from "@iq24/location/currencies";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -10,8 +10,8 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@midday/ui/dropdown-menu";
-import { Icons } from "@midday/ui/icons";
+} from "@iq24i/dropdown-menu";
+import { Icons } from "@iq24i/icons";
 import { useAction } from "next-safe-action/hooks";
 import { useFormContext } from "react-hook-form";
 import { SelectCurrency } from "../select-currency";

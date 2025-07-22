@@ -1,22 +1,22 @@
 import { secondsToHoursAndMinutes } from "@/utils/format";
 import { UTCDate } from "@date-fns/utc";
-import { createClient } from "@midday/supabase/client";
-import { Button } from "@midday/ui/button";
-import { Calendar } from "@midday/ui/calendar";
+import { createClient } from "@iq24/supabase/client";
+import { Button } from "@iq24i/button";
+import { Calendar } from "@iq24i/calendar";
 import {
   DropdownMenuGroup,
   DropdownMenuPortal,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
-} from "@midday/ui/dropdown-menu";
+} from "@iq24i/dropdown-menu";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@midday/ui/select";
+} from "@iq24i/select";
 import { endOfMonth, format, startOfMonth, subMonths } from "date-fns";
 import Papa from "papaparse";
 import React, { useState } from "react";
@@ -42,7 +42,7 @@ export function TrackerExportCSV({ name, teamId, projectId, userId }: Props) {
     const query = supabase
       .from("tracker_entries")
       .select(
-        "date, description, duration, assigned:assigned_id(id, full_name), project:project_id(id, name)",
+        "date, description, duration, assigned:assigned_id(id, full_name), project:project_id(id, name)"
       )
       .eq("team_id", teamId)
       .gte("date", date?.from?.toISOString())

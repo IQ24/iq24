@@ -1,4 +1,4 @@
-import { Icons } from "@midday/ui/icons";
+import { Icons } from "@iq24/ui/icons";
 
 export function ChatEmpty() {
   return (

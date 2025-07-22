@@ -1,5 +1,5 @@
-import type { Transactions } from "@midday-ai/engine/resources/transactions";
-import type { Database } from "@midday/supabase/types";
+import type { Transactions } from "@iq24-ai/engine/resources/transactions";
+import type { Database } from "@iq24upabase/types";
 
 type TransformTransactionData = {
   transaction: Transactions.Data;
@@ -50,7 +50,7 @@ export function transformTransaction({
 }
 
 export function getClassification(
-  type: Database["public"]["Enums"]["account_type"],
+  type: Database["public"]["Enums"]["account_type"]
 ) {
   switch (type) {
     case "credit":

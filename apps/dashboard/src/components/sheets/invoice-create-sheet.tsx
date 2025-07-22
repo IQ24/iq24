@@ -2,8 +2,8 @@
 
 import type { InvoiceTemplate } from "@/actions/invoice/schema";
 import { useInvoiceParams } from "@/hooks/use-invoice-params";
-import type { Settings } from "@midday/invoice/default";
-import { Sheet } from "@midday/ui/sheet";
+import type { Settings } from "@iq24/invoice/default";
+import { Sheet } from "@iq24i/sheet";
 import React from "react";
 import type { Customer } from "../invoice/customer-details";
 import { FormContext } from "../invoice/form-context";

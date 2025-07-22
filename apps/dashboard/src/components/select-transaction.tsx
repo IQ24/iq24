@@ -1,6 +1,6 @@
-import { createClient } from "@midday/supabase/client";
-import { getTransactionsQuery } from "@midday/supabase/queries";
-import { Combobox } from "@midday/ui/combobox";
+import { createClient } from "@iq24/supabase/client";
+import { getTransactionsQuery } from "@iq24upabase/queries";
+import { Combobox } from "@iq24i/combobox";
 import { format } from "date-fns";
 import { useState } from "react";
 import { FormatAmount } from "./format-amount";

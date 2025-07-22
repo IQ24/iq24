@@ -3,20 +3,20 @@
 import { deleteInviteAction } from "@/actions/delete-invite-action";
 import { InviteTeamMembersModal } from "@/components/modals/invite-team-members-modal";
 import { useI18n } from "@/locales/client";
-import { Avatar, AvatarFallback } from "@midday/ui/avatar";
-import { Button } from "@midday/ui/button";
-import { cn } from "@midday/ui/cn";
-import { Dialog } from "@midday/ui/dialog";
+import { Avatar, AvatarFallback } from "@iq24/ui/avatar";
+import { Button } from "@iq24i/button";
+import { cn } from "@iq24i/cn";
+import { Dialog } from "@iq24i/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@midday/ui/dropdown-menu";
-import { Input } from "@midday/ui/input";
-import { Skeleton } from "@midday/ui/skeleton";
-import { Table, TableBody, TableCell, TableRow } from "@midday/ui/table";
-import { useToast } from "@midday/ui/use-toast";
+} from "@iq24i/dropdown-menu";
+import { Input } from "@iq24i/input";
+import { Skeleton } from "@iq24i/skeleton";
+import { Table, TableBody, TableCell, TableRow } from "@iq24i/table";
+import { useToast } from "@iq24i/use-toast";
 import {
   type ColumnDef,
   flexRender,
@@ -198,7 +198,7 @@ export function DataTable({ data, currentUser }) {
                     key={cell.id}
                     className={cn(
                       "border-r-[0px] py-4",
-                      cell.column.columnDef.meta?.className,
+                      cell.column.columnDef.meta?.className
                     )}
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}

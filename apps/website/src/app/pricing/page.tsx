@@ -4,14 +4,14 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@midday/ui/accordion";
-import { Button } from "@midday/ui/button";
+} from "@iq24/ui/accordion";
+import { Button } from "@iq24i/button";
 import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Pricing",
-  description: "Midday's pricing",
+  description: "iq24's pricing",
 };
 
 export default function Page() {
@@ -34,7 +34,7 @@ export default function Page() {
             <div className="mt-8">
               <div className="flex items-center space-x-4">
                 <Link
-                  href="https://cal.com/pontus-midday/15min"
+                  href="https://cal.com/pontus-iq24/15min"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -49,7 +49,7 @@ export default function Page() {
                 <a
                   target="_blank"
                   rel="noreferrer"
-                  href="https://app.midday.ai"
+                  href="https://app.iq24.ai"
                 >
                   <Button className="h-12 px-5">Get Started</Button>
                 </a>
@@ -67,7 +67,7 @@ export default function Page() {
             <Accordion type="single" collapsible className="w-full mt-10 mb-48">
               <AccordionItem value="item-1">
                 <AccordionTrigger>
-                  <span className="truncate">Can I self-host Midday.ai?</span>
+                  <span className="truncate">Can I self-host iq24.ai?</span>
                 </AccordionTrigger>
                 <AccordionContent>
                   Absolutely. We are currently writing the documentation for
@@ -75,7 +75,7 @@ export default function Page() {
                   <a
                     target="_blank"
                     rel="noreferrer"
-                    href="https://git.new/midday"
+                    href="https://git.new/iq24"
                     className="underline"
                   >
                     here
@@ -85,7 +85,7 @@ export default function Page() {
               </AccordionItem>
               <AccordionItem value="item-2">
                 <AccordionTrigger>
-                  Can I run Midday.ai locally?
+                  Can I run iq24.ai locally?
                 </AccordionTrigger>
                 <AccordionContent>
                   Yes. We are currently writing documentation for this. You can
@@ -93,7 +93,7 @@ export default function Page() {
                   <a
                     target="_blank"
                     rel="noreferrer"
-                    href="https://git.new/midday"
+                    href="https://git.new/iq24"
                     className="underline"
                   >
                     here
@@ -102,13 +102,13 @@ export default function Page() {
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-3">
-                <AccordionTrigger>Is Midday.ai open source?</AccordionTrigger>
+                <AccordionTrigger>Is iq24.ai open source?</AccordionTrigger>
                 <AccordionContent>
                   Yes. You can find the repository{" "}
                   <a
                     target="_blank"
                     rel="noreferrer"
-                    href="https://git.new/midday"
+                    href="https://git.new/iq24"
                     className="underline"
                   >
                     here
@@ -128,7 +128,7 @@ export default function Page() {
                   are also actively working towards SOC 2 Type II compliance. We
                   encrypt data at rest, and sensitive data on row level. We also
                   support 2FA authentication.
-                  <Link href="/policy">midday.ai/policy</Link>.
+                  <Link href="/policy">iq24.ai/policy</Link>.
                 </AccordionContent>
               </AccordionItem>
 
@@ -140,7 +140,7 @@ export default function Page() {
                 </AccordionTrigger>
                 <AccordionContent>
                   Yes, you can cancel your subscription at any time. If you
-                  cancel your subscription, you will still be able to use Midday
+                  cancel your subscription, you will still be able to use iq24
                   until the end of your billing period.
                 </AccordionContent>
               </AccordionItem>
@@ -148,14 +148,14 @@ export default function Page() {
               <AccordionItem value="item-6">
                 <AccordionTrigger>
                   <span className="truncate max-w-[300px] md:max-w-full">
-                    I have more questions about Midday.ai. How can I get in
+                    I have more questions about iq24.ai. How can I get in
                     touch?
                   </span>
                 </AccordionTrigger>
                 <AccordionContent>
                   Sure, we're happy to answer any questions you might have. Just
                   send us an email at{" "}
-                  <a href="mailto:support@midday.ai">support@midday.ai</a> and
+                  <a href="mailto:support@iq24i">support@i@iq24/a> and
                   we'll get back to you as soon as possible.
                 </AccordionContent>
               </AccordionItem>

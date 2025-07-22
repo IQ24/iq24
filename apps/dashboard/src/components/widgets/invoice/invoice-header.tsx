@@ -1,8 +1,8 @@
 "use client";
 
 import { useInvoiceParams } from "@/hooks/use-invoice-params";
-import { Button } from "@midday/ui/button";
-import { Icons } from "@midday/ui/icons";
+import { Button } from "@iq24/ui/button";
+import { Icons } from "@iq24i/icons";
 import Link from "next/link";
 
 export function InvoiceWidgetHeader() {

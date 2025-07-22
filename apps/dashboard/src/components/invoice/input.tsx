@@ -1,5 +1,5 @@
-import { cn } from "@midday/ui/cn";
-import { Input as BaseInput, type InputProps } from "@midday/ui/input";
+import { cn } from "@iq24/ui/cn";
+import { Input as BaseInput, type InputProps } from "@iq24i/input";
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 
@@ -26,7 +26,7 @@ export function Input({ className, ...props }: InputProps) {
         className={cn(
           "border-0 p-0 h-6 border-b border-transparent focus:border-border font-mono text-xs",
           isPlaceholder && "opacity-0",
-          className,
+          className
         )}
         onFocus={(evt) => {
           setIsFocused(true);

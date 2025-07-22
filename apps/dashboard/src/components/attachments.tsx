@@ -3,9 +3,9 @@
 import { deleteAttachmentAction } from "@/actions/delete-attachment-action";
 import { useUpload } from "@/hooks/use-upload";
 import { useUserContext } from "@/store/user/hook";
-import { cn } from "@midday/ui/cn";
-import { useToast } from "@midday/ui/use-toast";
-import { stripSpecialCharacters } from "@midday/utils";
+import { cn } from "@iq24/ui/cn";
+import { useToast } from "@iq24i/use-toast";
+import { stripSpecialCharacters } from "@iq24tils";
 import { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { AttachmentItem } from "./attachment-item";
@@ -70,7 +70,7 @@ export function Attachments({ prefix, data, onUpload }: Props) {
           size: acceptedFile.size,
           type: acceptedFile.type,
         };
-      }),
+      })
     );
 
     onUpload(uploadedFiles);
@@ -132,7 +132,7 @@ export function Attachments({ prefix, data, onUpload }: Props) {
       <div
         className={cn(
           "mt-4 w-full h-[120px] border-dotted border-2 border-border text-center flex flex-col justify-center space-y-1 transition-colors text-[#606060]",
-          isDragActive && "bg-secondary text-primary",
+          isDragActive && "bg-secondary text-primary"
         )}
         {...getRootProps()}
       >

@@ -1,15 +1,15 @@
 "use client";
 
 import { useVaultContext } from "@/store/vault/hook";
-import { Button } from "@midday/ui/button";
+import { Button } from "@iq24/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from "@midday/ui/dropdown-menu";
-import { Icons } from "@midday/ui/icons";
+} from "@iq24i/dropdown-menu";
+import { Icons } from "@iq24i/icons";
 import { useHotkeys } from "react-hotkeys-hook";
 import { DEFAULT_FOLDER_NAME } from "./contants";
 

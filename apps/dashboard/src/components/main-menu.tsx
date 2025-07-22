@@ -2,15 +2,15 @@
 
 import { updateMenuAction } from "@/actions/update-menu-action";
 import { useMenuStore } from "@/store/menu";
-import { Button } from "@midday/ui/button";
-import { cn } from "@midday/ui/cn";
-import { Icons } from "@midday/ui/icons";
+import { Button } from "@iq24/ui/button";
+import { cn } from "@iq24i/cn";
+import { Icons } from "@iq24i/icons";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@midday/ui/tooltip";
+} from "@iq24i/tooltip";
 import { useClickAway } from "@uidotdev/usehooks";
 import { Reorder, motion, useMotionValue } from "framer-motion";
 import { useAction } from "next-safe-action/hooks";
@@ -125,7 +125,7 @@ const Item = ({
                 isActive &&
                   "bg-[#F2F1EF] dark:bg-secondary border-[#DCDAD2] dark:border-[#2C2C2C]",
                 isCustomizing &&
-                  "bg-background border-[#DCDAD2] dark:border-[#2C2C2C]",
+                  "bg-background border-[#DCDAD2] dark:border-[#2C2C2C]"
               )}
             >
               <motion.div
@@ -149,7 +149,7 @@ const Item = ({
                   className={cn(
                     "flex space-x-3 p-0 items-center pl-2 md:pl-0",
                     isCustomizing &&
-                      "animate-[jiggle_0.3s_ease-in-out_infinite] transform-gpu pointer-events-none",
+                      "animate-[jiggle_0.3s_ease-in-out_infinite] transform-gpu pointer-events-none"
                   )}
                 >
                   <Icon />
@@ -199,7 +199,7 @@ export function MainMenu({ initialItems, onSelect }: Props) {
   const updateMenu = useAction(updateMenuAction);
 
   const hiddenItems = defaultItems.filter(
-    (item) => !items.some((i) => i.path === item.path),
+    (item) => !items.some((i) => i.path === item.path)
   );
 
   const onReorder = (items) => {
@@ -227,7 +227,7 @@ export function MainMenu({ initialItems, onSelect }: Props) {
     },
     {
       cancelOnMovement: 0,
-    },
+    }
   );
 
   const ref = useClickAway(() => {
@@ -282,7 +282,7 @@ export function MainMenu({ initialItems, onSelect }: Props) {
                   className={cn(
                     "border border-transparent w-[45px] h-[45px] flex items-center md:justify-center",
                     "hover:bg-secondary hover:border-[#DCDAD2] hover:dark:border-[#2C2C2C]",
-                    "bg-background border-[#DCDAD2] dark:border-[#2C2C2C]",
+                    "bg-background border-[#DCDAD2] dark:border-[#2C2C2C]"
                   )}
                 >
                   <div className="relative">

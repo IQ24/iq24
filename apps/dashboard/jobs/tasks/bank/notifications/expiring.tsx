@@ -1,5 +1,5 @@
 import { resend } from "@/utils/resend";
-import ConnectionExpireEmail from "@midday/email/emails/connection-expire";
+import ConnectionExpireEmail from "@iq24/email/emails/connection-expire";
 import { render } from "@react-email/components";
 import { schemaTask } from "@trigger.dev/sdk/v3";
 import { z } from "zod";
@@ -38,7 +38,7 @@ export const expiringNotifications = schemaTask({
         );
 
         return {
-          from: "Middaybot <middaybot@midday.ai>",
+          from: "iq24bot <iq24bot@iq2@iq24
           to: [user.email],
           subject: "Bank Connection Expiring Soon",
           html,

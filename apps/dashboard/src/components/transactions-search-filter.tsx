@@ -2,8 +2,8 @@
 
 import { generateTransactionsFilters } from "@/actions/ai/filters/generate-transactions-filters";
 import { formatAccountName } from "@/utils/format";
-import { Calendar } from "@midday/ui/calendar";
-import { cn } from "@midday/ui/cn";
+import { Calendar } from "@iq24/ui/calendar";
+import { cn } from "@iq24i/cn";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -14,9 +14,9 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@midday/ui/dropdown-menu";
-import { Icons } from "@midday/ui/icons";
-import { Input } from "@midday/ui/input";
+} from "@iq24i/dropdown-menu";
+import { Icons } from "@iq24i/icons";
+import { Input } from "@iq24i/input";
 import { readStreamableValue } from "ai/rsc";
 import { formatISO } from "date-fns";
 import {
@@ -120,7 +120,7 @@ export function TransactionsSearchFilter({
       assignees: parseAsArrayOf(parseAsString),
       amount_range: parseAsArrayOf(parseAsInteger),
       recurring: parseAsArrayOf(
-        parseAsStringLiteral(["all", "weekly", "monthly", "annually"] as const),
+        parseAsStringLiteral(["all", "weekly", "monthly", "annually"] as const)
       ),
       statuses: parseAsArrayOf(
         parseAsStringLiteral([
@@ -128,13 +128,13 @@ export function TransactionsSearchFilter({
           "uncompleted",
           "archived",
           "excluded",
-        ] as const),
+        ] as const)
       ),
     },
     {
       shallow: false,
       history: "push",
-    },
+    }
   );
 
   useHotkeys(
@@ -147,7 +147,7 @@ export function TransactionsSearchFilter({
     {
       enableOnFormTags: true,
       enabled: Boolean(prompt),
-    },
+    }
   );
 
   useHotkeys("meta+s", (evt) => {
@@ -181,7 +181,7 @@ export function TransactionsSearchFilter({
         `
           Categories: ${categories?.map((category) => category.name).join(", ")}
           Tags: ${tags?.map((tag) => tag.name).join(", ")}
-        `,
+        `
       );
 
       let finalObject = {};
@@ -194,11 +194,11 @@ export function TransactionsSearchFilter({
             categories:
               partialObject?.categories?.map(
                 (name: string) =>
-                  categories?.find((category) => category.name === name)?.slug,
+                  categories?.find((category) => category.name === name)?.slug
               ) ?? null,
             tags:
               partialObject?.tags?.map(
-                (name: string) => tags?.find((tag) => tag.name === name)?.id,
+                (name: string) => tags?.find((tag) => tag.name === name)?.id
               ) ?? null,
             recurring: partialObject?.recurring ?? null,
             q: partialObject?.name ?? null,
@@ -220,7 +220,7 @@ export function TransactionsSearchFilter({
 
   const hasValidFilters =
     Object.entries(filters).filter(
-      ([key, value]) => value !== null && key !== "q",
+      ([key, value]) => value !== null && key !== "q"
     ).length > 0;
 
   return (
@@ -253,7 +253,7 @@ export function TransactionsSearchFilter({
               className={cn(
                 "absolute z-10 right-3 top-[10px] opacity-50 transition-opacity duration-300 hover:opacity-100",
                 hasValidFilters && "opacity-100",
-                isOpen && "opacity-100",
+                isOpen && "opacity-100"
               )}
             >
               <Icons.Filter />
@@ -425,7 +425,7 @@ export function TransactionsSearchFilter({
                         ? filters.categories.filter((s) => s !== selected.slug)
                             .length > 0
                           ? filters.categories.filter(
-                              (s) => s !== selected.slug,
+                              (s) => s !== selected.slug
                             )
                           : null
                         : [...(filters?.categories ?? []), selected.slug],

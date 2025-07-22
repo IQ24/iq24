@@ -17,20 +17,20 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@midday/ui/alert-dialog";
-import { Avatar, AvatarFallback, AvatarImageNext } from "@midday/ui/avatar";
-import { Badge } from "@midday/ui/badge";
+} from "@iq24/ui/alert-dialog";
+import { Avatar, AvatarFallback, AvatarImageNext } from "@iq24i/avatar";
+import { Badge } from "@iq24i/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@midday/ui/dropdown-menu";
-import { Icons } from "@midday/ui/icons";
-import { ScrollArea, ScrollBar } from "@midday/ui/scroll-area";
-import { TableCell, TableRow } from "@midday/ui/table";
-import { useToast } from "@midday/ui/use-toast";
+} from "@iq24i/dropdown-menu";
+import { Icons } from "@iq24i/icons";
+import { ScrollArea, ScrollBar } from "@iq24i/scroll-area";
+import { TableCell, TableRow } from "@iq24i/table";
+import { useToast } from "@iq24i/use-toast";
 import { useAction } from "next-safe-action/hooks";
 import Link from "next/link";
 import type { TrackerProject } from "./data-table";
@@ -123,7 +123,9 @@ export function DataTableRow({ row, userId }: DataTableRowProps) {
           <DataTableCell onClick={onClick} className="cursor-pointer">
             <span className="text-sm">
               {row.estimate
-                ? `${secondsToHoursAndMinutes(row.total_duration)} / ${secondsToHoursAndMinutes(row.estimate * 3600)}`
+                ? `${secondsToHoursAndMinutes(
+                    row.total_duration
+                  )} / ${secondsToHoursAndMinutes(row.estimate * 3600)}`
                 : secondsToHoursAndMinutes(row?.total_duration)}
             </span>
           </DataTableCell>

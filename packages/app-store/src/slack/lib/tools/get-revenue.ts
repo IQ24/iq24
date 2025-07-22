@@ -1,5 +1,5 @@
-import { getMetricsQuery } from "@midday/supabase/queries";
-import type { Client } from "@midday/supabase/types";
+import { getMetricsQuery } from "@iq24/supabase/queries";
+import type { Client } from "@iq24upabase/types";
 import { startOfMonth } from "date-fns";
 import { z } from "zod";
 
@@ -32,7 +32,11 @@ export function getRevenueTool({
       currency,
       startDate,
       endDate,
-    }: { currency?: string; startDate: Date; endDate: Date }) => {
+    }: {
+      currency?: string;
+      startDate: Date;
+      endDate: Date;
+    }) => {
       const data = await getMetricsQuery(supabase, {
         teamId,
         from: startOfMonth(new Date(startDate)).toISOString(),
@@ -50,7 +54,7 @@ export function getRevenueTool({
         {
           style: "currency",
           currency: data.summary.currency,
-        },
+        }
       ).format(data.summary.currentTotal)}`;
     },
   };

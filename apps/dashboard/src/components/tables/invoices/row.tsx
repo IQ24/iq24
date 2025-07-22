@@ -1,7 +1,7 @@
 "use client";
 
-import { cn } from "@midday/ui/cn";
-import { TableCell, TableRow } from "@midday/ui/table";
+import { cn } from "@iq24/ui/cn";
+import { TableCell, TableRow } from "@iq24i/table";
 import { type Row, flexRender } from "@tanstack/react-table";
 import type { Invoice } from "./columns";
 
@@ -26,7 +26,7 @@ export function InvoiceRow({ row, setOpen }: Props) {
                 cell.column.id === "recurring" ||
                 cell.column.id === "invoice_number" ||
                 cell.column.id === "issue_date") &&
-                "hidden md:table-cell",
+                "hidden md:table-cell"
             )}
             onClick={() =>
               index !== row.getVisibleCells().length - 1 && setOpen(row.id)

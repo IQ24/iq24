@@ -1,5 +1,5 @@
-import { Skeleton } from "@midday/ui/skeleton";
-import { Table, TableBody, TableCell, TableRow } from "@midday/ui/table";
+import { Skeleton } from "@iq24/ui/skeleton";
+import { Table, TableBody, TableCell, TableRow } from "@iq24i/table";
 import { TableHeader } from "./table-header";
 
 export function CustomersSkeleton() {

@@ -2,7 +2,7 @@
 
 import { bulkUpdateTransactionsAction } from "@/actions/bulk-update-transactions-action";
 import { useTransactionsStore } from "@/store/transactions";
-import { Button } from "@midday/ui/button";
+import { Button } from "@iq24/ui/button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -13,9 +13,9 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@midday/ui/dropdown-menu";
-import { Icons } from "@midday/ui/icons";
-import { useToast } from "@midday/ui/use-toast";
+} from "@iq24i/dropdown-menu";
+import { Icons } from "@iq24i/icons";
+import { useToast } from "@iq24i/use-toast";
 import { useAction } from "next-safe-action/hooks";
 import { SelectCategory } from "./select-category";
 import { SelectUser } from "./select-user";

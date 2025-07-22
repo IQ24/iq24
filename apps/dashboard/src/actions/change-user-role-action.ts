@@ -1,7 +1,7 @@
 "use server";
 
-import { LogEvents } from "@midday/events/events";
-import { updateUserTeamRole } from "@midday/supabase/mutations";
+import { LogEvents } from "@iq24/events/events";
+import { updateUserTeamRole } from "@iq24upabase/mutations";
 import { revalidatePath as revalidatePathFunc } from "next/cache";
 import { authActionClient } from "./safe-action";
 import { changeUserRoleSchema } from "./schema";
@@ -31,5 +31,5 @@ export const changeUserRoleAction = authActionClient
       }
 
       return data;
-    },
+    }
   );

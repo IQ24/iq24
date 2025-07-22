@@ -1,7 +1,7 @@
 "use server";
 
-import { LogEvents } from "@midday/events/events";
-import { createAttachments } from "@midday/supabase/mutations";
+import { LogEvents } from "@iq24/events/events";
+import { createAttachments } from "@iq24upabase/mutations";
 import { nanoid } from "nanoid";
 import { revalidateTag } from "next/cache";
 import { authActionClient } from "./safe-action";
@@ -61,7 +61,7 @@ export const createTransactionAction = authActionClient
           attachments.map((attachment) => ({
             ...attachment,
             transaction_id: data.id,
-          })),
+          }))
         );
       }
 
@@ -71,5 +71,5 @@ export const createTransactionAction = authActionClient
       revalidateTag(`insights_${teamId}`);
 
       return data;
-    },
+    }
   );

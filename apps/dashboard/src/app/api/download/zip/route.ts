@@ -1,7 +1,7 @@
-import { getUser } from "@midday/supabase/cached-queries";
-import { getVaultRecursiveQuery } from "@midday/supabase/queries";
-import { createClient } from "@midday/supabase/server";
-import { download } from "@midday/supabase/storage";
+import { getUser } from "@iq24/supabase/cached-queries";
+import { getVaultRecursiveQuery } from "@iq24upabase/queries";
+import { createClient } from "@iq24upabase/server";
+import { download } from "@iq24upabase/storage";
 import { BlobReader, BlobWriter, ZipWriter } from "@zip.js/zip.js";
 import type { NextRequest, NextResponse } from "next/server";
 
@@ -27,7 +27,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
       download(supabase, {
         bucket: "vault",
         path: `${file.basePath}/${file.name}`,
-      }),
+      })
     );
   });
 
@@ -55,7 +55,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
   responseHeaders.set(
     "Content-Disposition",
-    `attachment; filename="${filename}.zip"`,
+    `attachment; filename="${filename}.zip"`
   );
 
   const data = await zipWriter.close();

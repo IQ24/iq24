@@ -4,8 +4,8 @@ import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@midday/ui/hover-card";
-import { isSupportedFilePreview } from "@midday/utils";
+} from "@iq24/ui/hover-card";
+import { isSupportedFilePreview } from "@iq24tils";
 
 type Props = {
   files: {

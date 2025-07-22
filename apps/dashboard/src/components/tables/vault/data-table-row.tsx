@@ -23,7 +23,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@midday/ui/alert-dialog";
+} from "@iq24/ui/alert-dialog";
 import {
   ContextMenu,
   ContextMenuContent,
@@ -32,7 +32,7 @@ import {
   ContextMenuSubContent,
   ContextMenuSubTrigger,
   ContextMenuTrigger,
-} from "@midday/ui/context-menu";
+} from "@iq24i/context-menu";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -42,17 +42,17 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@midday/ui/dropdown-menu";
+} from "@iq24i/dropdown-menu";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@midday/ui/hover-card";
-import { Icons } from "@midday/ui/icons";
-import { Input } from "@midday/ui/input";
-import { TableCell, TableRow } from "@midday/ui/table";
-import { useToast } from "@midday/ui/use-toast";
-import { isSupportedFilePreview } from "@midday/utils";
+} from "@iq24i/hover-card";
+import { Icons } from "@iq24i/icons";
+import { Input } from "@iq24i/input";
+import { TableCell, TableRow } from "@iq24i/table";
+import { useToast } from "@iq24i/use-toast";
+import { isSupportedFilePreview } from "@iq24tils";
 import ms from "ms";
 import { useAction } from "next-safe-action/hooks";
 import Link from "next/link";
@@ -111,7 +111,7 @@ function RowTitle({ name: initialName, isEditing, path, href }: Props) {
       deleteItem(name);
       setCanceled(true);
     },
-    { enableOnFormTags: true, enabled: isEditing },
+    { enableOnFormTags: true, enabled: isEditing }
   );
 
   const createFolder = useAction(createFolderAction, {

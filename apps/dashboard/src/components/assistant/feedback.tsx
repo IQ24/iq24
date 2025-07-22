@@ -1,7 +1,7 @@
 import { sendFeebackAction } from "@/actions/send-feedback-action";
-import { Button } from "@midday/ui/button";
-import { Icons } from "@midday/ui/icons";
-import { Textarea } from "@midday/ui/textarea";
+import { Button } from "@iq24/ui/button";
+import { Icons } from "@iq24i/icons";
+import { Textarea } from "@iq24i/textarea";
 import { Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";

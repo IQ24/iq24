@@ -1,14 +1,14 @@
 import { useUserContext } from "@/store/user/hook";
-import { createClient } from "@midday/supabase/client";
-import { getTeamMembersQuery } from "@midday/supabase/queries";
+import { createClient } from "@iq24/supabase/client";
+import { getTeamMembersQuery } from "@iq24upabase/queries";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@midday/ui/select";
-import { Skeleton } from "@midday/ui/skeleton";
+} from "@iq24i/select";
+import { Skeleton } from "@iq24i/skeleton";
 import { useEffect, useState } from "react";
 import { AssignedUser } from "./assigned-user";
 

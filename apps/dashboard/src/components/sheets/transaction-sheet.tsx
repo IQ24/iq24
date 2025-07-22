@@ -1,7 +1,7 @@
 import type { UpdateTransactionValues } from "@/actions/schema";
-import { Drawer, DrawerContent } from "@midday/ui/drawer";
-import { useMediaQuery } from "@midday/ui/hooks";
-import { Sheet, SheetContent } from "@midday/ui/sheet";
+import { Drawer, DrawerContent } from "@iq24/ui/drawer";
+import { useMediaQuery } from "@iq24i/hooks";
+import { Sheet, SheetContent } from "@iq24i/sheet";
 import React from "react";
 import { TransactionDetails } from "../transaction-details";
 
@@ -12,7 +12,7 @@ type Props = {
   ids?: string[];
   updateTransaction: (
     values: UpdateTransactionValues,
-    optimisticData: any,
+    optimisticData: any
   ) => void;
 };
 

@@ -1,4 +1,4 @@
-import { getEmailUrl } from "@midday/utils/envs";
+import { getEmailUrl } from "@iq24/utils/envs";
 import { Img, Section } from "@react-email/components";
 
 const baseUrl = getEmailUrl();
@@ -10,7 +10,7 @@ export function Logo() {
         src={`${baseUrl}/email/logo.png`}
         width="45"
         height="45"
-        alt="Midday"
+        alt="iq24"
         className="my-0 mx-auto block"
       />
     </Section>

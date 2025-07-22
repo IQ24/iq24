@@ -1,6 +1,6 @@
 import type { MutableAIState } from "@/actions/ai/types";
-import { getVaultQuery } from "@midday/supabase/queries";
-import { createClient } from "@midday/supabase/server";
+import { getVaultQuery } from "@iq24/supabase/queries";
+import { createClient } from "@iq24upabase/server";
 import { nanoid } from "nanoid";
 import { z } from "zod";
 import { DocumentsUI } from "./ui/documents-ui";

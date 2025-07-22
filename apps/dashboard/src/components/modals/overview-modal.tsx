@@ -2,8 +2,8 @@
 
 import { hideConnectFlowAction } from "@/actions/hide-connect-flow-action";
 import { AddAccountButton } from "@/components/add-account-button";
-import { cn } from "@midday/ui/cn";
-import { Dialog, DialogContent } from "@midday/ui/dialog";
+import { cn } from "@iq24/ui/cn";
+import { Dialog, DialogContent } from "@iq24i/dialog";
 import { useAction } from "next-safe-action/hooks";
 import Image from "next/image";
 import OverViewScreenOneLight from "public/assets/overview-1-light.png";
@@ -19,7 +19,9 @@ const images = [
 
 export function OverviewModal({
   defaultOpen = false,
-}: { defaultOpen?: boolean }) {
+}: {
+  defaultOpen?: boolean;
+}) {
   const [activeId, setActive] = useState(1);
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
@@ -68,7 +70,7 @@ export function OverviewModal({
                     alt="Overview"
                     className={cn(
                       "w-full opacity-0 absolute transition-all hidden dark:block",
-                      image.id === activeId && "opacity-1",
+                      image.id === activeId && "opacity-1"
                     )}
                   />
 
@@ -80,7 +82,7 @@ export function OverviewModal({
                     alt="Overview"
                     className={cn(
                       "w-full opacity-0 absolute transition-all block dark:hidden",
-                      image.id === activeId && "opacity-1",
+                      image.id === activeId && "opacity-1"
                     )}
                   />
                 </Fragment>
@@ -97,7 +99,7 @@ export function OverviewModal({
                     key={image.id}
                     className={cn(
                       "w-[16px] h-[6px] rounded-full bg-[#1D1D1D] dark:bg-[#D9D9D9] opacity-30 transition-all cursor-pointer",
-                      image.id === activeId && "opacity-1",
+                      image.id === activeId && "opacity-1"
                     )}
                   />
                 ))}

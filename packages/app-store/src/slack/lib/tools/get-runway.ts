@@ -1,5 +1,5 @@
-import { getRunwayQuery } from "@midday/supabase/queries";
-import type { Client } from "@midday/supabase/types";
+import { getRunwayQuery } from "@iq24/supabase/queries";
+import type { Client } from "@iq24upabase/types";
 import { startOfMonth } from "date-fns";
 import { z } from "zod";
 
@@ -32,7 +32,11 @@ export function getRunwayTool({
       currency,
       startDate,
       endDate,
-    }: { currency?: string; startDate: Date; endDate: Date }) => {
+    }: {
+      currency?: string;
+      startDate: Date;
+      endDate: Date;
+    }) => {
       const { data } = await getRunwayQuery(supabase, {
         currency,
         from: startOfMonth(startDate).toISOString(),

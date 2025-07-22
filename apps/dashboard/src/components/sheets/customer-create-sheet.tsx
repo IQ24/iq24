@@ -1,9 +1,9 @@
 "use client";
 
 import { useCustomerParams } from "@/hooks/use-customer-params";
-import { Button } from "@midday/ui/button";
-import { Icons } from "@midday/ui/icons";
-import { Sheet, SheetContent, SheetHeader } from "@midday/ui/sheet";
+import { Button } from "@iq24/ui/button";
+import { Icons } from "@iq24i/icons";
+import { Sheet, SheetContent, SheetHeader } from "@iq24i/sheet";
 import React from "react";
 import { CustomerForm } from "../forms/customer-form";
 

@@ -12,23 +12,23 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@midday/ui/alert-dialog";
-import { Avatar, AvatarFallback, AvatarImageNext } from "@midday/ui/avatar";
-import { Button } from "@midday/ui/button";
+} from "@iq24/ui/alert-dialog";
+import { Avatar, AvatarFallback, AvatarImageNext } from "@iq24i/avatar";
+import { Button } from "@iq24i/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@midday/ui/dropdown-menu";
+} from "@iq24i/dropdown-menu";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@midday/ui/select";
-import { useToast } from "@midday/ui/use-toast";
+} from "@iq24i/select";
+import { useToast } from "@iq24i/use-toast";
 import type { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 import { Loader2 } from "lucide-react";

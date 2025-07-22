@@ -1,11 +1,11 @@
 "use client";
 
 import { useNotifications } from "@/hooks/use-notifications";
-import { Button } from "@midday/ui/button";
-import { Icons } from "@midday/ui/icons";
-import { Popover, PopoverContent, PopoverTrigger } from "@midday/ui/popover";
-import { ScrollArea } from "@midday/ui/scroll-area";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@midday/ui/tabs";
+import { Button } from "@iq24/ui/button";
+import { Icons } from "@iq24i/icons";
+import { Popover, PopoverContent, PopoverTrigger } from "@iq24i/popover";
+import { ScrollArea } from "@iq24i/scroll-area";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@iq24i/tabs";
 import { formatDistanceToNow } from "date-fns";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -189,11 +189,11 @@ export function NotificationCenter() {
   } = useNotifications();
 
   const unreadNotifications = notifications.filter(
-    (notification) => !notification.read,
+    (notification) => !notification.read
   );
 
   const archivedNotifications = notifications.filter(
-    (notification) => notification.read,
+    (notification) => notification.read
   );
 
   useEffect(() => {

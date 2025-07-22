@@ -1,12 +1,12 @@
 "use client";
 
 import { useInvoiceParams } from "@/hooks/use-invoice-params";
-import { Button } from "@midday/ui/button";
+import { Button } from "@iq24/ui/button";
 import {
   TableHeader as BaseTableHeader,
   TableHead,
   TableRow,
-} from "@midday/ui/table";
+} from "@iq24i/table";
 import { ArrowDown, ArrowUp } from "lucide-react";
 
 export function TableHeader() {

@@ -4,10 +4,10 @@ import { Header } from "@/components/header";
 import { GlobalSheets } from "@/components/sheets/global-sheets";
 import { Sidebar } from "@/components/sidebar";
 import { UserProvider } from "@/store/user/provider";
-import { setupAnalytics } from "@midday/events/server";
-import { getCountryCode, getCurrency } from "@midday/location";
-import { uniqueCurrencies } from "@midday/location/currencies";
-import { getUser } from "@midday/supabase/cached-queries";
+import { setupAnalytics } from "@iq24/events/server";
+import { getCountryCode, getCurrency } from "@iq24ocation";
+import { uniqueCurrencies } from "@iq24ocation/currencies";
+import { getUser } from "@iq24upabase/cached-queries";
 import { nanoid } from "nanoid";
 import dynamic from "next/dynamic";
 import { redirect } from "next/navigation";
@@ -16,28 +16,28 @@ import { Suspense } from "react";
 const AssistantModal = dynamic(
   () =>
     import("@/components/assistant/assistant-modal").then(
-      (mod) => mod.AssistantModal,
+      (mod) => mod.AssistantModal
     ),
   {
     ssr: false,
-  },
+  }
 );
 
 const ExportStatus = dynamic(
   () => import("@/components/export-status").then((mod) => mod.ExportStatus),
   {
     ssr: false,
-  },
+  }
 );
 
 const SelectBankAccountsModal = dynamic(
   () =>
     import("@/components/modals/select-bank-accounts").then(
-      (mod) => mod.SelectBankAccountsModal,
+      (mod) => mod.SelectBankAccountsModal
     ),
   {
     ssr: false,
-  },
+  }
 );
 
 const ImportModal = dynamic(
@@ -45,24 +45,24 @@ const ImportModal = dynamic(
     import("@/components/modals/import-modal").then((mod) => mod.ImportModal),
   {
     ssr: false,
-  },
+  }
 );
 
 const HotKeys = dynamic(
   () => import("@/components/hot-keys").then((mod) => mod.HotKeys),
   {
     ssr: false,
-  },
+  }
 );
 
 const ConnectTransactionsModal = dynamic(
   () =>
     import("@/components/modals/connect-transactions-modal").then(
-      (mod) => mod.ConnectTransactionsModal,
+      (mod) => mod.ConnectTransactionsModal
     ),
   {
     ssr: false,
-  },
+  }
 );
 
 export default async function Layout({

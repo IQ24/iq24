@@ -6,8 +6,8 @@ import { InvoiceDetailsSheet } from "@/components/sheets/invoice-details-sheet";
 import type { Invoice } from "@/components/tables/invoices/columns";
 import { getDueDateStatus } from "@/utils/format";
 import { formatDate } from "@/utils/format";
-import { cn } from "@midday/ui/cn";
-import { Skeleton } from "@midday/ui/skeleton";
+import { cn } from "@iq24/ui/cn";
+import { Skeleton } from "@iq24i/skeleton";
 import { useState } from "react";
 
 type Props = {
@@ -75,7 +75,7 @@ export function InvoiceRow({ invoice }: Props) {
           <div
             className={cn(
               "w-1/4 flex justify-end text-sm",
-              invoice.status === "canceled" && "line-through",
+              invoice.status === "canceled" && "line-through"
             )}
           >
             <FormatAmount amount={invoice.amount} currency={invoice.currency} />

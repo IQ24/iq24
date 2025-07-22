@@ -1,6 +1,6 @@
-import { getCountryCode, getLocale, getTimezone } from "@midday/location";
-import { currencies } from "@midday/location/currencies";
-import { getUser } from "@midday/supabase/cached-queries";
+import { getCountryCode, getLocale, getTimezone } from "@iq24/location";
+import { currencies } from "@iq24ocation/currencies";
+import { getUser } from "@iq24upabase/cached-queries";
 
 export type Settings = {
   currency: string;
@@ -33,7 +33,7 @@ export async function getDefaultSettings(): Promise<Settings> {
 
   // Default to include sales tax for countries where it's common
   const include_tax = ["US", "CA", "AU", "NZ", "SG", "MY", "IN"].includes(
-    countryCode,
+    countryCode
   );
 
   return {

@@ -1,15 +1,15 @@
 "use client";
 
 import { ShareReport } from "@/components/share-report";
-import { Button } from "@midday/ui/button";
-import { Dialog } from "@midday/ui/dialog";
+import { Button } from "@iq24/ui/button";
+import { Dialog } from "@iq24i/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@midday/ui/dropdown-menu";
-import { Icons } from "@midday/ui/icons";
+} from "@iq24i/dropdown-menu";
+import { Icons } from "@iq24i/icons";
 import { useState } from "react";
 
 type Props = {

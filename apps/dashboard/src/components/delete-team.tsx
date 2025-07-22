@@ -11,17 +11,17 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@midday/ui/alert-dialog";
-import { Button } from "@midday/ui/button";
+} from "@iq24/ui/alert-dialog";
+import { Button } from "@iq24i/button";
 import {
   Card,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@midday/ui/card";
-import { Input } from "@midday/ui/input";
-import { Label } from "@midday/ui/label";
+} from "@iq24i/card";
+import { Input } from "@iq24i/input";
+import { Label } from "@iq24i/label";
 import { Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useRouter } from "next/navigation";
@@ -44,7 +44,7 @@ export function DeleteTeam({ teamId }: DeleteTeamProps) {
       <CardHeader>
         <CardTitle>Delete team</CardTitle>
         <CardDescription>
-          Permanently remove your Team and all of its contents from the Midday
+          Permanently remove your Team and all of its contents from the iq24
           platform. This action is not reversible — please continue with
           caution.
         </CardDescription>

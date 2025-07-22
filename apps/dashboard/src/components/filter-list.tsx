@@ -1,7 +1,7 @@
 import { formatAccountName } from "@/utils/format";
-import { Button } from "@midday/ui/button";
-import { Icons } from "@midday/ui/icons";
-import { Skeleton } from "@midday/ui/skeleton";
+import { Button } from "@iq24/ui/button";
+import { Icons } from "@iq24i/icons";
+import { Skeleton } from "@iq24i/skeleton";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
 import { formatDateRange } from "little-date";
@@ -78,7 +78,7 @@ export function FilterList({
         return value
           ?.map(
             (slug) =>
-              recurringFilters?.find((filter) => filter.id === slug)?.name,
+              recurringFilters?.find((filter) => filter.id === slug)?.name
           )
           .join(", ");
       }
@@ -87,7 +87,7 @@ export function FilterList({
         return value
           .map(
             (status) =>
-              statusFilters.find((filter) => filter.id === status)?.name,
+              statusFilters.find((filter) => filter.id === status)?.name
           )
           .join(", ");
       }
@@ -96,7 +96,7 @@ export function FilterList({
         return value
           .map(
             (slug) =>
-              categories?.find((category) => category.slug === slug)?.name,
+              categories?.find((category) => category.slug === slug)?.name
           )
           .join(", ");
       }
@@ -105,7 +105,7 @@ export function FilterList({
         return value
           .map(
             (id) =>
-              tags?.find((tag) => tag?.id === id || tag?.slug === id)?.name,
+              tags?.find((tag) => tag?.id === id || tag?.slug === id)?.name
           )
           .join(", ");
       }

@@ -9,15 +9,15 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@midday/ui/accordion";
-import { Icons } from "@midday/ui/icons";
+} from "@iq24/ui/accordion";
+import { Icons } from "@iq24i/icons";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@midday/ui/tooltip";
-import { useToast } from "@midday/ui/use-toast";
+} from "@iq24i/tooltip";
+import { useToast } from "@iq24i/use-toast";
 import { differenceInDays, formatDistanceToNow } from "date-fns";
 import { useAction } from "next-safe-action/hooks";
 import { useRouter } from "next/navigation";
@@ -57,7 +57,10 @@ interface BankConnectionProps {
 function ConnectionState({
   connection,
   isSyncing,
-}: { connection: BankConnectionProps["connection"]; isSyncing: boolean }) {
+}: {
+  connection: BankConnectionProps["connection"];
+  isSyncing: boolean;
+}) {
   const { show, expired } = connectionStatus(connection);
 
   if (isSyncing) {
@@ -123,7 +126,7 @@ function ConnectionState({
     return (
       <div className="text-xs font-normal flex items-center space-x-1">
         <span className="text-xs font-normal">{`Updated ${formatDistanceToNow(
-          new Date(connection.last_accessed),
+          new Date(connection.last_accessed)
         )} ago`}</span>
       </div>
     );
@@ -328,7 +331,9 @@ export function BankConnection({ connection }: BankConnectionProps) {
 
 export function BankConnections({
   data,
-}: { data: BankConnectionProps["connection"][] }) {
+}: {
+  data: BankConnectionProps["connection"][];
+}) {
   const defaultValue = data.length === 1 ? ["connection-0"] : undefined;
 
   return (

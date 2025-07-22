@@ -1,8 +1,8 @@
 import "@/styles/globals.css";
-import { cn } from "@midday/ui/cn";
-import "@midday/ui/globals.css";
-import { Provider as Analytics } from "@midday/events/client";
-import { Toaster } from "@midday/ui/toaster";
+import { cn } from "@iq24/ui/cn";
+import "@iq24i/globals.css";
+import { Provider as Analytics } from "@iq24vents/client";
+import { Toaster } from "@iq24i/toaster";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
@@ -10,41 +10,41 @@ import type { ReactElement } from "react";
 import { Providers } from "./providers";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://app.midday.ai"),
-  title: "Midday | Run your business smarter",
+  metadataBase: new URL("https://app.iq24.ai"),
+  title: "iq24 | Run your business smarter",
   description:
     "Automate financial tasks, stay organized, and make informed decisions effortlessly.",
   twitter: {
-    title: "Midday | Run your business smarter",
+    title: "iq24 | Run your business smarter",
     description:
       "Automate financial tasks, stay organized, and make informed decisions effortlessly.",
     images: [
       {
-        url: "https://cdn.midday.ai/opengraph-image.jpg",
+        url: "https://cdn.iq24.ai/opengraph-image.jpg",
         width: 800,
         height: 600,
       },
       {
-        url: "https://cdn.midday.ai/opengraph-image.jpg",
+        url: "https://cdn.iq24.ai/opengraph-image.jpg",
         width: 1800,
         height: 1600,
       },
     ],
   },
   openGraph: {
-    title: "Midday | Run your business smarter",
+    title: "iq24 | Run your business smarter",
     description:
       "Automate financial tasks, stay organized, and make informed decisions effortlessly.",
-    url: "https://app.midday.ai",
-    siteName: "Midday",
+    url: "https://app.iq24.ai",
+    siteName: "iq24",
     images: [
       {
-        url: "https://cdn.midday.ai/opengraph-image.jpg",
+        url: "https://cdn.iq24.ai/opengraph-image.jpg",
         width: 800,
         height: 600,
       },
       {
-        url: "https://cdn.midday.ai/opengraph-image.jpg",
+        url: "https://cdn.iq24.ai/opengraph-image.jpg",
         width: 1800,
         height: 1600,
       },
@@ -80,7 +80,7 @@ export default function Layout({
       <body
         className={cn(
           `${GeistSans.variable} ${GeistMono.variable}`,
-          "whitespace-pre-line overscroll-none antialiased",
+          "whitespace-pre-line overscroll-none antialiased"
         )}
       >
         <Providers locale={locale}>{children}</Providers>

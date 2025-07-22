@@ -1,14 +1,14 @@
 "use client";
 
-import { Button } from "@midday/ui/button";
+import { Button } from "@iq24/ui/button";
 import {
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@midday/ui/dialog";
-import { Dialog } from "@midday/ui/dialog";
-import { Icons } from "@midday/ui/icons";
+} from "@iq24i/dialog";
+import { Dialog } from "@iq24i/dialog";
+import { Icons } from "@iq24i/icons";
 import { useState } from "react";
 import { VaultSettings } from "../vault-settings";
 

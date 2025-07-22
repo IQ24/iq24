@@ -1,5 +1,5 @@
-import { getBurnRateQuery } from "@midday/supabase/queries";
-import type { Client } from "@midday/supabase/types";
+import { getBurnRateQuery } from "@iq24/supabase/queries";
+import type { Client } from "@iq24upabase/types";
 import { startOfMonth } from "date-fns";
 import { z } from "zod";
 
@@ -35,7 +35,11 @@ export function getBurnRateTool({
       currency,
       startDate,
       endDate,
-    }: { currency?: string; startDate: Date; endDate: Date }) => {
+    }: {
+      currency?: string;
+      startDate: Date;
+      endDate: Date;
+    }) => {
       const { data } = await getBurnRateQuery(supabase, {
         currency,
         from: startOfMonth(startDate).toISOString(),
@@ -55,7 +59,7 @@ export function getBurnRateTool({
         {
           style: "currency",
           currency: data.at(0)?.currency,
-        },
+        }
       ).format(averageBurnRate)} per month.`;
     },
   };

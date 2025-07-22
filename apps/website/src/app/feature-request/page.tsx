@@ -1,7 +1,7 @@
 import { AppDetails } from "@/components/app-details";
 import { FeatureRequestModal } from "@/components/feature-request-modal";
-import { Button } from "@midday/ui/button";
-import { Dialog, DialogTrigger } from "@midday/ui/dialog";
+import { Button } from "@iq24/ui/button";
+import { Dialog, DialogTrigger } from "@iq24i/dialog";
 import type { Metadata } from "next";
 import { features } from "./features";
 

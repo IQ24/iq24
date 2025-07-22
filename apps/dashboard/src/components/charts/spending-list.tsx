@@ -1,5 +1,5 @@
-import { getSpending } from "@midday/supabase/cached-queries";
-import { Skeleton } from "@midday/ui/skeleton";
+import { getSpending } from "@iq24/supabase/cached-queries";
+import { Skeleton } from "@iq24i/skeleton";
 import { spendingExampleData } from "./data";
 import { SpendingCategoryList } from "./spending-category-list";
 

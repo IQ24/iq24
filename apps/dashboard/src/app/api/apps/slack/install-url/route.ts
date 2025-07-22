@@ -1,5 +1,5 @@
-import { getInstallUrl } from "@midday/app-store/slack";
-import { getUser } from "@midday/supabase/cached-queries";
+import { getInstallUrl } from "@iq24/app-store/slack";
+import { getUser } from "@iq24upabase/cached-queries";
 import { NextResponse } from "next/server";
 
 export async function GET() {

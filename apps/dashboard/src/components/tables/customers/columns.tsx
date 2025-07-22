@@ -1,16 +1,16 @@
 "use client";
 
 import { useCustomerParams } from "@/hooks/use-customer-params";
-import { Avatar, AvatarFallback, AvatarImageNext } from "@midday/ui/avatar";
-import { Badge } from "@midday/ui/badge";
-import { Button } from "@midday/ui/button";
+import { Avatar, AvatarFallback, AvatarImageNext } from "@iq24/ui/avatar";
+import { Badge } from "@iq24i/badge";
+import { Button } from "@iq24i/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@midday/ui/dropdown-menu";
-import { ScrollArea, ScrollBar } from "@midday/ui/scroll-area";
+} from "@iq24i/dropdown-menu";
+import { ScrollArea, ScrollBar } from "@iq24i/scroll-area";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import type { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";

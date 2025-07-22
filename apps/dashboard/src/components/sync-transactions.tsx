@@ -1,11 +1,11 @@
-import { Button } from "@midday/ui/button";
-import { Icons } from "@midday/ui/icons";
+import { Button } from "@iq24/ui/button";
+import { Icons } from "@iq24i/icons";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@midday/ui/tooltip";
+} from "@iq24i/tooltip";
 
 type Props = {
   disabled: boolean;

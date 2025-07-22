@@ -1,5 +1,5 @@
-import { getSpendingQuery } from "@midday/supabase/queries";
-import type { Client } from "@midday/supabase/types";
+import { getSpendingQuery } from "@iq24/supabase/queries";
+import type { Client } from "@iq24upabase/types";
 import { startOfMonth } from "date-fns";
 import { z } from "zod";
 
@@ -48,7 +48,7 @@ export function getSpendingTool({
       });
 
       const found = data?.find(
-        (c) => category?.toLowerCase() === c?.name?.toLowerCase(),
+        (c) => category?.toLowerCase() === c?.name?.toLowerCase()
       );
 
       if (!found) {
@@ -58,9 +58,9 @@ export function getSpendingTool({
       return `You have spent ${Intl.NumberFormat("en-US", {
         style: "currency",
         currency: found.currency,
-      }).format(
-        Math.abs(found.amount),
-      )} on ${found.name} from ${startDate.toISOString()} to ${endDate.toISOString()}.`;
+      }).format(Math.abs(found.amount))} on ${
+        found.name
+      } from ${startDate.toISOString()} to ${endDate.toISOString()}.`;
     },
   };
 }

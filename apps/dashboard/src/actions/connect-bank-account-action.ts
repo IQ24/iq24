@@ -1,9 +1,9 @@
 "use server";
 
 import { getMostFrequentCurrency } from "@/utils/currency";
-import { LogEvents } from "@midday/events/events";
-import { getTeamSettings } from "@midday/supabase/cached-queries";
-import { createBankConnection } from "@midday/supabase/mutations";
+import { LogEvents } from "@iq24/events/events";
+import { getTeamSettings } from "@iq24upabase/cached-queries";
+import { createBankConnection } from "@iq24upabase/mutations";
 import { initialBankSetup } from "jobs/tasks/bank/setup/initial";
 import { revalidateTag } from "next/cache";
 import { authActionClient } from "./safe-action";
@@ -69,5 +69,5 @@ export const connectBankAccountAction = authActionClient
       revalidateTag(`bank_connections_${teamId}`);
 
       return event;
-    },
+    }
   );

@@ -9,7 +9,7 @@ enabled = true
 
 [env.production]
 name = "engine"
-route = { pattern = "engine.midday.ai/*", zone_name = "midday.ai" }
+route = { pattern = "engine.iq24.ai/*", zone_name = "iq24.ai" }
 
 kv_namespaces = [
   { binding = "KV", id = "1ce9f0355d854a569f72bfccbfbea369" },
@@ -32,7 +32,7 @@ jurisdiction = "eu"
 
 [env.staging]
 name = "engine-staging"
-route = { pattern = "engine-staging.midday.ai/*", zone_name = "midday.ai" }
+route = { pattern = "engine-staging.iq24.ai/*", zone_name = "iq24.ai" }
 
 kv_namespaces = [
   { binding = "KV", id = "825dc18b2a38463492ff0db06ba99fc8" },

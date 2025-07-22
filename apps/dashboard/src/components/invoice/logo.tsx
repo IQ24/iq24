@@ -3,9 +3,9 @@
 import type { InvoiceFormValues } from "@/actions/invoice/schema";
 import { updateInvoiceTemplateAction } from "@/actions/invoice/update-invoice-template-action";
 import { useUpload } from "@/hooks/use-upload";
-import { Icons } from "@midday/ui/icons";
-import { Skeleton } from "@midday/ui/skeleton";
-import { useToast } from "@midday/ui/use-toast";
+import { Icons } from "@iq24/ui/icons";
+import { Skeleton } from "@iq24i/skeleton";
+import { useToast } from "@iq24i/use-toast";
 import { useAction } from "next-safe-action/hooks";
 import { useFormContext } from "react-hook-form";
 

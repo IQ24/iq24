@@ -9,9 +9,9 @@ import {
   getExpensesQuery,
   getMetricsQuery,
   getRunwayQuery,
-} from "@midday/supabase/queries";
-import { createClient } from "@midday/supabase/server";
-import { Button } from "@midday/ui/button";
+} from "@iq24/supabase/queries";
+import { createClient } from "@iq24upabase/server";
+import { Button } from "@iq24i/button";
 import { format } from "date-fns";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -23,7 +23,7 @@ export const fetchCache = "force-cache";
 function getReportMeta(data) {
   const period = `${format(new Date(data.from), "LLL dd, y")} - ${format(
     new Date(data.to),
-    "LLL dd, y",
+    "LLL dd, y"
   )}`;
 
   switch (data.type) {
@@ -220,10 +220,10 @@ export default async function Report({ params }) {
           <p className="text-[#878787] text-sm">
             Powered by{" "}
             <a
-              href="https://midday.ai?utm_source=report"
+              href="https://iq24.ai?utm_source=report"
               className="text-black dark:text-white"
             >
-              Midday
+              iq24
             </a>
           </p>
         </div>

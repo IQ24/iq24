@@ -3,8 +3,8 @@
 import { authActionClient } from "@/actions/safe-action";
 import { createProjectSchema } from "@/actions/schema";
 import { Cookies } from "@/utils/constants";
-import { LogEvents } from "@midday/events/events";
-import { createProject } from "@midday/supabase/mutations";
+import { LogEvents } from "@iq24/events/events";
+import { createProject } from "@iq24upabase/mutations";
 import { addYears } from "date-fns";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
@@ -35,7 +35,7 @@ export const createProjectAction = authActionClient
             tag_id: tag.id,
             tracker_project_id: data?.id,
             team_id: user.team_id!,
-          })),
+          }))
         );
       }
 
@@ -48,5 +48,5 @@ export const createProjectAction = authActionClient
       revalidateTag(`tracker_projects_${user.team_id}`);
 
       return data;
-    },
+    }
   );

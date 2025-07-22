@@ -1,10 +1,10 @@
 "use client";
 
 import { changeChartPeriodAction } from "@/actions/change-chart-period-action";
-import { Button } from "@midday/ui/button";
-import { Calendar } from "@midday/ui/calendar";
-import { Icons } from "@midday/ui/icons";
-import { Popover, PopoverContent, PopoverTrigger } from "@midday/ui/popover";
+import { Button } from "@iq24/ui/button";
+import { Calendar } from "@iq24i/calendar";
+import { Icons } from "@iq24i/icons";
+import { Popover, PopoverContent, PopoverTrigger } from "@iq24i/popover";
 import {
   Select,
   SelectContent,
@@ -12,7 +12,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@midday/ui/select";
+} from "@iq24i/select";
 import { formatISO } from "date-fns";
 import { startOfMonth, startOfYear, subMonths, subWeeks } from "date-fns";
 import { formatDateRange } from "little-date";
@@ -97,12 +97,12 @@ export function ChartPeriod({ defaultValue, disabled }: Props) {
     },
     {
       shallow: false,
-    },
+    }
   );
 
   const handleChangePeriod = (
     range: { from: Date | null; to: Date | null } | undefined,
-    period?: string,
+    period?: string
   ) => {
     if (!range) return;
 
@@ -147,7 +147,7 @@ export function ChartPeriod({ defaultValue, disabled }: Props) {
               onValueChange={(value) =>
                 handleChangePeriod(
                   periods.find((p) => p.value === value)?.range,
-                  value,
+                  value
                 )
               }
             >

@@ -1,10 +1,10 @@
 import { useTrackerParams } from "@/hooks/use-tracker-params";
 import { NEW_EVENT_ID } from "@/utils/tracker";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormField, FormItem } from "@midday/ui/form";
-import { Input } from "@midday/ui/input";
-import { SubmitButton } from "@midday/ui/submit-button";
-import { TimeRangeInput } from "@midday/ui/time-range-input";
+import { Form, FormControl, FormField, FormItem } from "@iq24/ui/form";
+import { Input } from "@iq24i/input";
+import { SubmitButton } from "@iq24i/submit-button";
+import { TimeRangeInput } from "@iq24i/time-range-input";
 import { differenceInSeconds, parse } from "date-fns";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";

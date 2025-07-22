@@ -7,8 +7,8 @@ import {
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@midday/ui/dropdown-menu";
-import { Icons } from "@midday/ui/icons";
+} from "@iq24/ui/dropdown-menu";
+import { Icons } from "@iq24i/icons";
 import { useOptimisticAction } from "next-safe-action/hooks";
 import Link from "next/link";
 
@@ -27,7 +27,7 @@ export function TransactionsPeriod({ type, disabled }: Props) {
     {
       currentState: type,
       updateFn: (_, newState) => newState,
-    },
+    }
   );
 
   return (

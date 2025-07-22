@@ -1,8 +1,8 @@
 "use client";
 
-import { Button } from "@midday/ui/button";
-import { Checkbox } from "@midday/ui/checkbox";
-import { TableHead, TableHeader, TableRow } from "@midday/ui/table";
+import { Button } from "@iq24/ui/button";
+import { Checkbox } from "@iq24i/checkbox";
+import { TableHead, TableHeader, TableRow } from "@iq24i/table";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
@@ -35,7 +35,7 @@ export function DataTableHeader({ table, loading }: Props) {
 
       router.replace(`${pathname}?${params.toString()}`);
     },
-    [searchParams, router, pathname],
+    [searchParams, router, pathname]
   );
 
   const isVisible = (id) =>

@@ -4,8 +4,8 @@ import type { ClientMessage } from "@/actions/ai/types";
 import { useEnterSubmit } from "@/hooks/use-enter-submit";
 import { useScrollAnchor } from "@/hooks/use-scroll-anchor";
 import { useAssistantStore } from "@/store/assistant";
-import { ScrollArea } from "@midday/ui/scroll-area";
-import { Textarea } from "@midday/ui/textarea";
+import { ScrollArea } from "@iq24/ui/scroll-area";
+import { Textarea } from "@iq24i/textarea";
 import { useActions } from "ai/rsc";
 import { nanoid } from "nanoid";
 import { useEffect, useRef } from "react";
@@ -110,7 +110,7 @@ export function Chat({
             autoCorrect="off"
             value={input}
             className="h-12 min-h-12 pt-3 resize-none border-none"
-            placeholder="Ask Midday a question..."
+            placeholder="Ask iq24 a question..."
             onKeyDown={onKeyDown}
             onChange={(evt) => {
               setInput(evt.target.value);

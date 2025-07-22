@@ -1,14 +1,14 @@
 import { createPlaidLinkTokenAction } from "@/actions/institutions/create-plaid-link";
 import { reconnectGoCardLessLinkAction } from "@/actions/institutions/reconnect-gocardless-link";
-import { Button } from "@midday/ui/button";
-import { Icons } from "@midday/ui/icons";
+import { Button } from "@iq24/ui/button";
+import { Icons } from "@iq24i/icons";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@midday/ui/tooltip";
-import { useToast } from "@midday/ui/use-toast";
+} from "@iq24i/tooltip";
+import { useToast } from "@iq24i/use-toast";
 import { isDesktopApp } from "@todesktop/client-core/platform/todesktop";
 import { useScript } from "@uidotdev/usehooks";
 import { Loader2 } from "lucide-react";
@@ -67,7 +67,7 @@ export function ReconnectProvider({
     token: plaidToken,
     publicKey: "",
     env: process.env.NEXT_PUBLIC_PLAID_ENVIRONMENT!,
-    clientName: "Midday",
+    clientName: "iq24",
     product: ["transactions"],
     onSuccess: () => {
       setPlaidToken(undefined);
@@ -105,7 +105,7 @@ export function ReconnectProvider({
     switch (provider) {
       case "plaid": {
         const token = await createPlaidLinkTokenAction(
-          accessToken ?? undefined,
+          accessToken ?? undefined
         );
 
         if (token) {

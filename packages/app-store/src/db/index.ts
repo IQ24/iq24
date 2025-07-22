@@ -1,4 +1,4 @@
-import { createClient } from "@midday/supabase/server";
+import { createClient } from "@iq24/supabase/server";
 
 export async function createApp(params: any) {
   const client = createClient({ admin: true });

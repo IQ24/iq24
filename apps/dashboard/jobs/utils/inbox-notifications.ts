@@ -1,7 +1,7 @@
-import { NotificationTypes } from "@midday/notification";
-import { triggerBulk } from "@midday/notification";
-import { TriggerEvents } from "@midday/notification";
-import { createClient } from "@midday/supabase/job";
+import { NotificationTypes } from "@iq24/notification";
+import { triggerBulk } from "@iq24otification";
+import { TriggerEvents } from "@iq24otification";
+import { createClient } from "@iq24upabase/job";
 
 export async function handleInboxNotifications({
   inboxId,
@@ -47,7 +47,7 @@ export async function handleInboxNotifications({
           },
         },
       ];
-    }),
+    })
   );
 
   if (notificationEvents.length) {

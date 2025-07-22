@@ -1,11 +1,11 @@
 import { env } from "@/env.mjs";
 import { logger } from "@/utils/logger";
-import { getAllowedAttachments, prepareDocument } from "@midday/documents";
-import { LogEvents } from "@midday/events/events";
-import { setupAnalytics } from "@midday/events/server";
-import { getInboxIdFromEmail, inboxWebhookPostSchema } from "@midday/inbox";
-import { client as RedisClient } from "@midday/kv";
-import { createClient } from "@midday/supabase/server";
+import { getAllowedAttachments, prepareDocument } from "@iq24/documents";
+import { LogEvents } from "@iq24vents/events";
+import { setupAnalytics } from "@iq24vents/server";
+import { getInboxIdFromEmail, inboxWebhookPostSchema } from "@iq24nbox";
+import { client as RedisClient } from "@iq24v";
+import { createClient } from "@iq24upabase/server";
 import { inboxDocument } from "jobs/tasks/inbox/document";
 import { nanoid } from "nanoid";
 import { headers } from "next/headers";
@@ -23,7 +23,7 @@ const ipRange = [
   "18.217.206.57",
 ];
 
-const FORWARD_FROM_EMAIL = "inbox@midday.ai";
+const FORWARD_FROM_EMAIL = "inbox@iq24i";
 
 const resend = new Resend(env.RESEND_API_KEY);
 
@@ -47,7 +47,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json(
       { error: "Invalid request body", errors },
-      { status: 400 },
+      { status: 400 }
     );
   }
 
@@ -66,7 +66,7 @@ export async function POST(req: Request) {
   if (!inboxId) {
     return NextResponse.json(
       { error: "Invalid OriginalRecipient email" },
-      { status: 400 },
+      { status: 400 }
     );
   }
 
@@ -167,7 +167,7 @@ export async function POST(req: Request) {
           !(
             attachment.ContentLength < 100000 &&
             attachment.ContentType !== "application/pdf"
-          ),
+          )
       )
       ?.map(async (attachment) => {
         const { content, mimeType, size, fileName, name } =
@@ -177,7 +177,7 @@ export async function POST(req: Request) {
         // to make it unique before the extension
         const uniqueFileName = fileName.replace(
           /(\.[^.]+)$/,
-          (ext) => `_${nanoid(4)}${ext}`,
+          (ext) => `_${nanoid(4)}${ext}`
         );
 
         const { data } = await supabase.storage
@@ -226,8 +226,8 @@ export async function POST(req: Request) {
       inboxData.map((inbox) =>
         inboxDocument.trigger({
           inboxId: inbox.id,
-        }),
-      ),
+        })
+      )
     );
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error";
@@ -236,7 +236,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json(
       { error: `Failed to create record for ${inboxId}` },
-      { status: 500 },
+      { status: 500 }
     );
   }
 

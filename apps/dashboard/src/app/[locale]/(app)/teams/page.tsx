@@ -1,16 +1,16 @@
 import { SelectTeamTable } from "@/components/tables/select-team/table";
 import { UserMenu } from "@/components/user-menu";
-import { getUser } from "@midday/supabase/cached-queries";
-import { getTeamsByUserIdQuery } from "@midday/supabase/queries";
-import { createClient } from "@midday/supabase/server";
-import { Icons } from "@midday/ui/icons";
+import { getUser } from "@iq24/supabase/cached-queries";
+import { getTeamsByUserIdQuery } from "@iq24upabase/queries";
+import { createClient } from "@iq24upabase/server";
+import { Icons } from "@iq24i/icons";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
-  title: "Teams | Midday",
+  title: "Teams | iq24",
 };
 
 export default async function Teams() {

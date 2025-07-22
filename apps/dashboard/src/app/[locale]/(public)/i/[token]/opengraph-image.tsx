@@ -1,13 +1,13 @@
-import { OgTemplate, isValidLogoUrl } from "@midday/invoice";
-import { verify } from "@midday/invoice/token";
-import { getInvoiceQuery } from "@midday/supabase/queries";
-import { createClient } from "@midday/supabase/server";
+import { OgTemplate, isValidLogoUrl } from "@iq24/invoice";
+import { verify } from "@iq24nvoice/token";
+import { getInvoiceQuery } from "@iq24upabase/queries";
+import { createClient } from "@iq24upabase/server";
 import { ImageResponse } from "next/og";
 
 export const contentType = "image/png";
 export const runtime = "edge";
 
-const CDN_URL = "https://cdn.midday.ai";
+const CDN_URL = "https://cdn.iq24.ai";
 
 export default async function Image({ params }: { params: { token: string } }) {
   const supabase = createClient({ admin: true });
@@ -20,11 +20,11 @@ export default async function Image({ params }: { params: { token: string } }) {
   }
 
   const geistMonoRegular = fetch(
-    `${CDN_URL}/fonts/GeistMono/og/GeistMono-Regular.otf`,
+    `${CDN_URL}/fonts/GeistMono/og/GeistMono-Regular.otf`
   ).then((res) => res.arrayBuffer());
 
   const geistSansRegular = fetch(
-    `${CDN_URL}/fonts/Geist/og/Geist-Regular.otf`,
+    `${CDN_URL}/fonts/Geist/og/Geist-Regular.otf`
   ).then((res) => res.arrayBuffer());
 
   const logoUrl = `https://img.logo.dev/${invoice.customer?.website}?token=pk_X-1ZO13GSgeOoUrIuJ6GMQ&size=60`;
@@ -32,12 +32,14 @@ export default async function Image({ params }: { params: { token: string } }) {
   const isValidLogo = await isValidLogoUrl(logoUrl);
 
   return new ImageResponse(
-    <OgTemplate
-      {...invoice}
-      name={invoice.customer_name || invoice.customer?.name}
-      isValidLogo={isValidLogo}
-      logoUrl={logoUrl}
-    />,
+    (
+      <OgTemplate
+        {...invoice}
+        name={invoice.customer_name || invoice.customer?.name}
+        isValidLogo={isValidLogo}
+        logoUrl={logoUrl}
+      />
+    ),
     {
       width: 1200,
       height: 630,
@@ -55,6 +57,6 @@ export default async function Image({ params }: { params: { token: string } }) {
           weight: 400,
         },
       ],
-    },
+    }
   );
 }

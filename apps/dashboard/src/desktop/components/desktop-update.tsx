@@ -1,12 +1,12 @@
 "use client";
 
-import { cn } from "@midday/ui/cn";
+import { cn } from "@iq24/ui/cn";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@midday/ui/tooltip";
+} from "@iq24i/tooltip";
 import { todesktopUpdater } from "@todesktop/client-core";
 import { isDesktopApp } from "@todesktop/client-core/platform/todesktop";
 import { AnimatePresence, motion } from "framer-motion";

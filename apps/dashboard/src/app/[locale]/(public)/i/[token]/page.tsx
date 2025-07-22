@@ -2,17 +2,19 @@ import CustomerHeader from "@/components/customer-header";
 import InvoiceToolbar from "@/components/invoice-toolbar";
 import { InvoiceCommentsSheet } from "@/components/sheets/invoice-comments";
 import { UTCDate } from "@date-fns/utc";
-import { HtmlTemplate } from "@midday/invoice/templates/html";
-import { verify } from "@midday/invoice/token";
-import { getInvoiceQuery } from "@midday/supabase/queries";
-import { createClient } from "@midday/supabase/server";
+import { HtmlTemplate } from "@iq24/invoice/templates/html";
+import { verify } from "@iq24nvoice/token";
+import { getInvoiceQuery } from "@iq24upabase/queries";
+import { createClient } from "@iq24upabase/server";
 import { waitUntil } from "@vercel/functions";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 export async function generateMetadata({
   params,
-}: { params: { token: string } }): Promise<Metadata> {
+}: {
+  params: { token: string };
+}): Promise<Metadata> {
   const supabase = createClient({ admin: true });
 
   try {
@@ -127,12 +129,12 @@ export default async function Page({ params }: Props) {
 
         <div className="fixed bottom-4 right-4 hidden md:block">
           <a
-            href="https://midday.ai?utm_source=invoice"
+            href="https://iq24.ai?utm_source=invoice"
             target="_blank"
             rel="noreferrer"
             className="text-[9px] text-[#878787]"
           >
-            Powered by <span className="text-primary">midday</span>
+            Powered by <span className="text-primary">iq24</span>
           </a>
         </div>
       </div>

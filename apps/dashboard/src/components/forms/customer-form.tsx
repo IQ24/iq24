@@ -11,8 +11,8 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@midday/ui/accordion";
-import { Button } from "@midday/ui/button";
+} from "@iq24/ui/accordion";
+import { Button } from "@iq24i/button";
 import {
   Form,
   FormControl,
@@ -21,11 +21,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@midday/ui/form";
-import { Input } from "@midday/ui/input";
-import { Label } from "@midday/ui/label";
-import { SubmitButton } from "@midday/ui/submit-button";
-import { Textarea } from "@midday/ui/textarea";
+} from "@iq24i/form";
+import { Input } from "@iq24i/input";
+import { Label } from "@iq24i/label";
+import { SubmitButton } from "@iq24i/submit-button";
+import { Textarea } from "@iq24i/textarea";
 import { useAction } from "next-safe-action/hooks";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -68,7 +68,7 @@ const formSchema = z.object({
       z.object({
         id: z.string().uuid(),
         value: z.string(),
-      }),
+      })
     )
     .optional()
     .nullable(),
@@ -451,7 +451,7 @@ export function CustomerForm({ data }: Props) {
                               {
                                 shouldDirty: true,
                                 shouldValidate: true,
-                              },
+                              }
                             );
                           }
                         }}
@@ -475,7 +475,7 @@ export function CustomerForm({ data }: Props) {
                               {
                                 shouldDirty: true,
                                 shouldValidate: true,
-                              },
+                              }
                             );
                           }
                         }}

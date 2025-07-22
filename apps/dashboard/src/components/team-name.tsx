@@ -3,7 +3,7 @@
 import { UpdateTeamFormValues, updateTeamSchema } from "@/actions/schema";
 import { updateTeamAction } from "@/actions/update-team-action";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@midday/ui/button";
+import { Button } from "@iq24/ui/button";
 import {
   Card,
   CardContent,
@@ -11,15 +11,15 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@midday/ui/card";
+} from "@iq24i/card";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from "@midday/ui/form";
-import { Input } from "@midday/ui/input";
+} from "@iq24i/form";
+import { Input } from "@iq24i/input";
 import { Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
@@ -45,7 +45,7 @@ export function TeamName({ name }) {
           <CardHeader>
             <CardTitle>Team Name</CardTitle>
             <CardDescription>
-              This is your team's visible name within Midday. For example, the
+              This is your team's visible name within iq24. For example, the
               name of your company or department.
             </CardDescription>
           </CardHeader>

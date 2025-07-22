@@ -1,10 +1,10 @@
-import { Icons } from "@midday/ui/icons";
+import { Icons } from "@iq24/ui/icons";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@midday/ui/tooltip";
+} from "@iq24i/tooltip";
 
 type Props = {
   fullfilled: boolean;

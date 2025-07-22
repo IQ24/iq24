@@ -2,11 +2,11 @@
 
 import { useSliderWithInput } from "@/hooks/use-slider-with-input";
 import { useUserContext } from "@/store/user/hook";
-import { createClient } from "@midday/supabase/client";
-import { Button } from "@midday/ui/button";
-import { Input } from "@midday/ui/input";
-import { Label } from "@midday/ui/label";
-import { Slider } from "@midday/ui/slider";
+import { createClient } from "@iq24/supabase/client";
+import { Button } from "@iq24i/button";
+import { Input } from "@iq24i/input";
+import { Label } from "@iq24i/label";
+import { Slider } from "@iq24i/slider";
 import { parseAsArrayOf, parseAsInteger, useQueryState } from "nuqs";
 import { useEffect, useState } from "react";
 
@@ -28,7 +28,7 @@ export function AmountRange() {
 
   const [amountRange, setAmountRange] = useQueryState(
     "amount_range",
-    parseAsArrayOf(parseAsInteger),
+    parseAsArrayOf(parseAsInteger)
   );
 
   const {
@@ -52,7 +52,7 @@ export function AmountRange() {
       const rangeMin = minValue + tick * amountStep;
       const rangeMax = minValue + (tick + 1) * amountStep;
       return items.filter(
-        (item) => item.amount >= rangeMin && item.amount < rangeMax,
+        (item) => item.amount >= rangeMin && item.amount < rangeMax
       ).length;
     });
 
@@ -71,7 +71,7 @@ export function AmountRange() {
     index: number,
     minValue: number,
     amountStep: number,
-    sliderValue: number[],
+    sliderValue: number[]
   ) => {
     const rangeMin = minValue + index * amountStep;
     const rangeMax = minValue + (index + 1) * amountStep;
@@ -104,7 +104,7 @@ export function AmountRange() {
 
   const totalCount = countItemsInRange(
     sliderValue[0] ?? minValue,
-    sliderValue[1] ?? maxValue,
+    sliderValue[1] ?? maxValue
   );
 
   return (
@@ -124,7 +124,7 @@ export function AmountRange() {
                   i,
                   minValue,
                   amountStep,
-                  sliderValue,
+                  sliderValue
                 )}
                 className="h-full w-full bg-primary/20"
               />

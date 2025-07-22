@@ -1,5 +1,5 @@
-import { createClient } from "@midday/supabase/client";
-import { upload } from "@midday/supabase/storage";
+import { createClient } from "@iq24/supabase/client";
+import { upload } from "@iq24upabase/storage";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { useState } from "react";
 

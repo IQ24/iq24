@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "@midday/ui/button";
-import { Icons } from "@midday/ui/icons";
+import { Button } from "@iq24/ui/button";
+import { Icons } from "@iq24i/icons";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { useRef, useState } from "react";
@@ -71,7 +71,7 @@ export function SectionVideo() {
           onClick={togglePlay}
           src="https://customer-oh6t55xltlgrfayh.cloudflarestream.com/306702a5d5efbba0e9bcdd7cb17e9c5a/manifest/video.m3u8"
           autoPlay={false}
-          poster="https://cdn.midday.ai/poster.webp"
+          poster="https://cdn.iq24.ai/poster.webp"
           playerRef={playerRef}
           className="w-full"
           muted={isMuted}

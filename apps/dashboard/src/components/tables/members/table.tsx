@@ -15,27 +15,27 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@midday/ui/alert-dialog";
-import { Avatar, AvatarFallback, AvatarImageNext } from "@midday/ui/avatar";
-import { Button } from "@midday/ui/button";
-import { cn } from "@midday/ui/cn";
-import { Dialog } from "@midday/ui/dialog";
+} from "@iq24/ui/alert-dialog";
+import { Avatar, AvatarFallback, AvatarImageNext } from "@iq24i/avatar";
+import { Button } from "@iq24i/button";
+import { cn } from "@iq24i/cn";
+import { Dialog } from "@iq24i/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@midday/ui/dropdown-menu";
-import { Input } from "@midday/ui/input";
+} from "@iq24i/dropdown-menu";
+import { Input } from "@iq24i/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@midday/ui/select";
-import { Table, TableBody, TableCell, TableRow } from "@midday/ui/table";
-import { useToast } from "@midday/ui/use-toast";
+} from "@iq24i/select";
+import { Table, TableBody, TableCell, TableRow } from "@iq24i/table";
+import { useToast } from "@iq24i/use-toast";
 import {
   type ColumnDef,
   flexRender,
@@ -322,7 +322,7 @@ export function DataTable({ data, currentUser }) {
                     key={cell.id}
                     className={cn(
                       "border-r-[0px] py-4",
-                      cell.column.columnDef.meta?.className,
+                      cell.column.columnDef.meta?.className
                     )}
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}

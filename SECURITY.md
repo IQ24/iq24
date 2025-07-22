@@ -1,10 +1,10 @@
 # Security
 
-Contact: [security@midday.ai](mailto:security@midday.ai)
+Contact: [security@iq24.ai](mailto:security@iq24.ai)
 
 Based on [https://supabase.com/.well-known/security.txt](https://supabase.com/.well-known/security.txt)
 
-At Midday, we consider the security of our systems a top priority. But no matter
+At iq24, we consider the security of our systems a top priority. But no matter
 how much effort we put into system security, there can still be vulnerabilities
 present.
 
@@ -27,7 +27,7 @@ better protect our clients and our systems.
 
 ## Please do the following
 
-- E-mail your findings to [security@midday.ai](mailto:security@midday.ai).
+- E-mail your findings to [security@iq24i](mailto:security@i@iq24.
 - Do not run automated scanners on our infrastructure or dashboard. If you wish
   to do this, contact us and we will set up a sandbox for you.
 - Do not take advantage of the vulnerability or problem you have discovered,

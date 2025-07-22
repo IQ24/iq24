@@ -1,8 +1,8 @@
 "use client";
 
 import { AddAccountButton } from "@/components/add-account-button";
-import { Button } from "@midday/ui/button";
-import { Icons } from "@midday/ui/icons";
+import { Button } from "@iq24/ui/button";
+import { Icons } from "@iq24i/icons";
 import { useRouter } from "next/navigation";
 
 type Props = {

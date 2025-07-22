@@ -3,8 +3,8 @@
 import { authActionClient } from "@/actions/safe-action";
 import { resend } from "@/utils/resend";
 import { UTCDate } from "@date-fns/utc";
-import { InvoiceReminderEmail } from "@midday/email/emails/invoice-reminder";
-import { getAppUrl } from "@midday/utils/envs";
+import { InvoiceReminderEmail } from "@iq24/email/emails/invoice-reminder";
+import { getAppUrl } from "@iq24tils/envs";
 import { render } from "@react-email/render";
 import { nanoid } from "nanoid";
 import { z } from "zod";
@@ -28,7 +28,7 @@ export const sendReminderAction = authActionClient
     }
 
     await resend.emails.send({
-      from: "Midday <middaybot@midday.ai>",
+      from: "iq24 <iq24bot@iq2@iq24
       to: invoice.customer.email,
       reply_to: email,
       subject: `Reminder: Payment for ${invoice.invoice_number}`,

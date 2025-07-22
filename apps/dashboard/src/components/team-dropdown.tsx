@@ -2,10 +2,10 @@
 
 import { changeTeamAction } from "@/actions/change-team-action";
 import { CreateTeamModal } from "@/components/modals/create-team-modal";
-import { Avatar, AvatarFallback, AvatarImageNext } from "@midday/ui/avatar";
-import { Button } from "@midday/ui/button";
-import { Dialog } from "@midday/ui/dialog";
-import { Icons } from "@midday/ui/icons";
+import { Avatar, AvatarFallback, AvatarImageNext } from "@iq24/ui/avatar";
+import { Button } from "@iq24i/button";
+import { Dialog } from "@iq24i/dialog";
+import { Icons } from "@iq24i/icons";
 import { useClickAway } from "@uidotdev/usehooks";
 import { motion } from "framer-motion";
 import { useAction } from "next-safe-action/hooks";

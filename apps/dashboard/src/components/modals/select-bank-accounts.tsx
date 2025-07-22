@@ -8,28 +8,22 @@ import { useConnectParams } from "@/hooks/use-connect-params";
 import { useI18n } from "@/locales/client";
 import { getInitials } from "@/utils/format";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Avatar, AvatarFallback } from "@midday/ui/avatar";
-import { Button } from "@midday/ui/button";
+import { Avatar, AvatarFallback } from "@iq24/ui/avatar";
+import { Button } from "@iq24i/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@midday/ui/dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@midday/ui/form";
-import { Icons } from "@midday/ui/icons";
-import { Skeleton } from "@midday/ui/skeleton";
-import { Switch } from "@midday/ui/switch";
-import { Tabs, TabsContent } from "@midday/ui/tabs";
-import { Textarea } from "@midday/ui/textarea";
-import { useToast } from "@midday/ui/use-toast";
+} from "@iq24i/dialog";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "@iq24i/form";
+import { Icons } from "@iq24i/icons";
+import { Skeleton } from "@iq24i/skeleton";
+import { Switch } from "@iq24i/switch";
+import { Tabs, TabsContent } from "@iq24i/tabs";
+import { Textarea } from "@iq24i/textarea";
+import { useToast } from "@iq24i/use-toast";
 import { Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useEffect, useState } from "react";
@@ -192,7 +186,7 @@ export function SelectBankAccountsModal() {
       {
         // NOTE: Rerender so the overview modal is visible
         shallow: false,
-      },
+      }
     );
   };
 
@@ -352,7 +346,7 @@ export function SelectBankAccountsModal() {
                                     checked={
                                       field.value.find(
                                         (value) =>
-                                          value.account_id === account.id,
+                                          value.account_id === account.id
                                       )?.enabled
                                     }
                                     onCheckedChange={(checked) => {
@@ -366,7 +360,7 @@ export function SelectBankAccountsModal() {
                                           }
 
                                           return value;
-                                        }),
+                                        })
                                       );
                                     }}
                                   />

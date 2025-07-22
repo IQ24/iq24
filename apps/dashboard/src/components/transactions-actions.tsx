@@ -15,10 +15,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@midday/ui/alert-dialog";
-import { Button } from "@midday/ui/button";
-import { Icons } from "@midday/ui/icons";
-import { useToast } from "@midday/ui/use-toast";
+} from "@iq24/ui/alert-dialog";
+import { Button } from "@iq24i/button";
+import { Icons } from "@iq24i/icons";
+import { useToast } from "@iq24i/use-toast";
 import { Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 

@@ -1,5 +1,5 @@
-import { client } from "@midday/engine/client";
-import { createClient } from "@midday/supabase/job";
+import { client } from "@iq24/engine/client";
+import { createClient } from "@iq24upabase/job";
 import { logger, schemaTask } from "@trigger.dev/sdk/v3";
 import { syncConnection } from "jobs/tasks/bank/sync/connection";
 import { z } from "zod";
@@ -58,7 +58,7 @@ export const reconnectConnection = schemaTask({
               account_id: account.id,
             })
             .eq("account_reference", account.resource_id);
-        }),
+        })
       );
     }
 

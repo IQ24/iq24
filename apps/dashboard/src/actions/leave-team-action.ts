@@ -1,8 +1,8 @@
 "use server";
 
-import { LogEvents } from "@midday/events/events";
-import { getTeamMembers } from "@midday/supabase/cached-queries";
-import { leaveTeam } from "@midday/supabase/mutations";
+import { LogEvents } from "@iq24/events/events";
+import { getTeamMembers } from "@iq24upabase/cached-queries";
+import { leaveTeam } from "@iq24upabase/mutations";
 import {
   revalidatePath as revalidatePathFunc,
   revalidateTag,
@@ -28,7 +28,7 @@ export const leaveTeamAction = authActionClient
       const { data: teamMembersData } = await getTeamMembers();
 
       const totalOwners = teamMembersData.filter(
-        (member) => member.role === "owner",
+        (member) => member.role === "owner"
       ).length;
 
       if (role === "owner" && totalOwners === 1) {
@@ -52,5 +52,5 @@ export const leaveTeamAction = authActionClient
       }
 
       return data;
-    },
+    }
   );

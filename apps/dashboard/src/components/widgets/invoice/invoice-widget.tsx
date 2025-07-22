@@ -1,7 +1,7 @@
 import { PaymentScoreVisualizer } from "@/components/payment-score-visualizer";
 import { getI18n } from "@/locales/server";
-import { getInvoices, getPaymentStatus } from "@midday/supabase/cached-queries";
-import { Skeleton } from "@midday/ui/skeleton";
+import { getInvoices, getPaymentStatus } from "@iq24/supabase/cached-queries";
+import { Skeleton } from "@iq24i/skeleton";
 import { Invoice } from "./invoice";
 import { InvoiceRowSkeleton } from "./invoice-row";
 

@@ -8,9 +8,9 @@ import {
 import { useInvoiceParams } from "@/hooks/use-invoice-params";
 import { UTCDate } from "@date-fns/utc";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { Settings } from "@midday/invoice/default";
-import { createClient } from "@midday/supabase/client";
-import { getDraftInvoiceQuery } from "@midday/supabase/queries";
+import type { Settings } from "@iq24/invoice/default";
+import { createClient } from "@iq24upabase/client";
+import { getDraftInvoiceQuery } from "@iq24upabase/queries";
 import { addMonths } from "date-fns";
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";

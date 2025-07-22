@@ -4,11 +4,11 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@midday/ui/accordion";
-import { Button } from "@midday/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@midday/ui/card";
-import { ScrollArea } from "@midday/ui/scroll-area";
-import { Sheet, SheetContent, SheetHeader } from "@midday/ui/sheet";
+} from "@iq24/ui/accordion";
+import { Button } from "@iq24i/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@iq24i/card";
+import { ScrollArea } from "@iq24i/scroll-area";
+import { Sheet, SheetContent, SheetHeader } from "@iq24i/sheet";
 import { useAction } from "next-safe-action/hooks";
 import Image from "next/image";
 import { parseAsBoolean, parseAsString, useQueryStates } from "nuqs";
@@ -145,7 +145,7 @@ export function App({
                   </div>
 
                   <span className="text-xs text-[#878787]">
-                    {category} • Published by Midday
+                    {category} • Published by iq24
                   </span>
                 </div>
               </div>
@@ -201,14 +201,14 @@ export function App({
                         ...Object.values({
                           ...Object.fromEntries(
                             (Array.isArray(settings) ? settings : []).map(
-                              (setting) => [setting.id, setting],
-                            ),
+                              (setting) => [setting.id, setting]
+                            )
                           ),
                           ...Object.fromEntries(
                             (Array.isArray(userSettings)
                               ? userSettings
                               : []
-                            ).map((setting) => [setting.id, setting]),
+                            ).map((setting) => [setting.id, setting])
                           ),
                         }),
                       ]}
@@ -221,14 +221,14 @@ export function App({
 
           <div className="absolute bottom-4 pt-8 border-t border-border">
             <p className="text-[10px] text-[#878787]">
-              All apps on the Midday App Store are open-source and
-              peer-reviewed. Midday Labs AB maintains high standards but doesn't
-              endorse third-party apps. Apps published by Midday are officially
-              certified. Report any concerns about app content or behavior.
+              All apps on the iq24 App Store are open-source and peer-reviewed.
+              iq24 Labs AB maintains high standards but doesn't endorse
+              third-party apps. Apps published by iq24 are officially certified.
+              Report any concerns about app content or behavior.
             </p>
 
             <a
-              href="mailto:support@midday.dev"
+              href="mailto:support@iq24ev"
               className="text-[10px] text-red-500"
             >
               Report app

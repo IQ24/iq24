@@ -1,7 +1,7 @@
 "use client";
 
-import { cn } from "@midday/ui/cn";
-import { Icons } from "@midday/ui/icons";
+import { cn } from "@iq24/ui/cn";
+import { Icons } from "@iq24i/icons";
 
 type Props = {
   value: string;

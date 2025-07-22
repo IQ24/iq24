@@ -11,9 +11,9 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@midday/ui/alert-dialog";
-import { cn } from "@midday/ui/cn";
-import { Dialog } from "@midday/ui/dialog";
+} from "@iq24/ui/alert-dialog";
+import { cn } from "@iq24i/cn";
+import { Dialog } from "@iq24i/dialog";
 import {
   Table,
   TableBody,
@@ -21,8 +21,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@midday/ui/table";
-import { useToast } from "@midday/ui/use-toast";
+} from "@iq24i/table";
+import { useToast } from "@iq24i/use-toast";
 import {
   flexRender,
   getCoreRowModel,

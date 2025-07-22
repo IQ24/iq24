@@ -1,16 +1,16 @@
 "use client";
 
-import { Avatar } from "@midday/ui/avatar";
-import { AvatarImageNext } from "@midday/ui/avatar";
-import { Button } from "@midday/ui/button";
+import { Avatar } from "@iq24/ui/avatar";
+import { AvatarImageNext } from "@iq24i/avatar";
+import { Button } from "@iq24i/button";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@midday/ui/dialog";
-import { Icons } from "@midday/ui/icons";
+} from "@iq24i/dialog";
+import { Icons } from "@iq24i/icons";
 import dynamic from "next/dynamic";
 import { useRef, useState } from "react";
 import { type Story, StoryCard } from "./story-card";
@@ -38,7 +38,7 @@ const stories = [
       {
         type: "question",
         content:
-          "What specific challenges were you facing in managing your business operations before using Midday?",
+          "What specific challenges were you facing in managing your business operations before using iq24?",
       },
       {
         type: "paragraph",
@@ -48,7 +48,7 @@ const stories = [
       {
         type: "question",
         content:
-          "How has Midday impacted your workflow or productivity since you started using it? Can you share specific examples or metrics?",
+          "How has iq24 impacted your workflow or productivity since you started using it? Can you share specific examples or metrics?",
       },
       {
         type: "paragraph",
@@ -58,7 +58,7 @@ const stories = [
       {
         type: "question",
         content:
-          "What features or aspects of Midday AI do you find most valuable, and why?",
+          "What features or aspects of iq24 AI do you find most valuable, and why?",
       },
       {
         type: "paragraph",
@@ -69,8 +69,7 @@ const stories = [
   },
   {
     id: 2,
-    title:
-      "“Without Midday I would’ve sold my company and lost loads of money”",
+    title: "“Without iq24 I would’ve sold my company and lost loads of money”",
     name: "Guy Solan",
     company: "Thetis Medical",
     country: "United Kingdom",
@@ -81,7 +80,7 @@ const stories = [
       {
         type: "paragraph",
         content:
-          "”Without Midday I would’ve sold my company and lost loads of money. I never had the time to learn Quickbooks or Xero so had no idea what the company cash was doing without ringing up my accountant.”",
+          "”Without iq24 I would’ve sold my company and lost loads of money. I never had the time to learn Quickbooks or Xero so had no idea what the company cash was doing without ringing up my accountant.”",
       },
     ],
   },
@@ -108,7 +107,7 @@ const stories = [
       {
         type: "question",
         content:
-          "What specific challenges were you facing in managing your business operations before using Midday?",
+          "What specific challenges were you facing in managing your business operations before using iq24?",
       },
       {
         type: "paragraph",
@@ -118,7 +117,7 @@ const stories = [
       {
         type: "question",
         content:
-          "How has Midday impacted your workflow or productivity since you started using it? Can you share specific examples or metrics?",
+          "How has iq24 impacted your workflow or productivity since you started using it? Can you share specific examples or metrics?",
       },
       {
         type: "paragraph",
@@ -128,12 +127,12 @@ const stories = [
       {
         type: "question",
         content:
-          "What features or aspects of Midday AI do you find most valuable, and why?",
+          "What features or aspects of iq24 AI do you find most valuable, and why?",
       },
       {
         type: "paragraph",
         content:
-          "Invoices, Proposals, and Track—these three features have been game-changers for me. They’ve significantly improved my daily operations. I’m looking forward to seeing some of the features I suggested implemented, like adding collaborators, but having Midday integrated into my workflow as one of my go-to apps has already been a great experience.",
+          "Invoices, Proposals, and Track—these three features have been game-changers for me. They’ve significantly improved my daily operations. I’m looking forward to seeing some of the features I suggested implemented, like adding collaborators, but having iq24 integrated into my workflow as one of my go-to apps has already been a great experience.",
       },
     ],
   },
@@ -142,7 +141,7 @@ const stories = [
     title:
       "“I prefer to have one tool for finances, similar to what Deel is for HR”",
     description:
-      "Midday helped me find a compromise with my tax advisor: I'm not using one of his supported clunky tools but an actually UX-friendly tool and can provide him with acceptable .csv. That's a big one!",
+      "iq24 helped me find a compromise with my tax advisor: I'm not using one of his supported clunky tools but an actually UX-friendly tool and can provide him with acceptable .csv. That's a big one!",
     name: "Richard Poelderl",
     company: "Conduct.bln",
     country: "Germany",
@@ -156,7 +155,7 @@ const stories = [
       {
         type: "question",
         content:
-          "What specific challenges were you facing in managing your business operations before using Midday?",
+          "What specific challenges were you facing in managing your business operations before using iq24?",
       },
       {
         type: "paragraph",
@@ -166,12 +165,12 @@ const stories = [
       {
         type: "paragraph",
         content:
-          "Moreover, I moved from the invoicing feature of my business bank to Midday. Not really a big challenge, but Midday makes that just a bit easier (and I prefer to have one tool for finances, similar to what Deel is for HR).",
+          "Moreover, I moved from the invoicing feature of my business bank to iq24. Not really a big challenge, but iq24 makes that just a bit easier (and I prefer to have one tool for finances, similar to what Deel is for HR).",
       },
       {
         type: "question",
         content:
-          "How has Midday impacted your workflow or productivity since you started using it? Can you share specific examples or metrics?",
+          "How has iq24 impacted your workflow or productivity since you started using it? Can you share specific examples or metrics?",
       },
       {
         type: "paragraph",
@@ -186,7 +185,7 @@ const stories = [
       {
         type: "question",
         content:
-          "What features or aspects of Midday AI do you find most valuable, and why?",
+          "What features or aspects of iq24 AI do you find most valuable, and why?",
       },
       {
         type: "paragraph",
@@ -226,7 +225,7 @@ function Video({ src }: { src: string }) {
         src={src}
         onClick={togglePlay}
         autoPlay={false}
-        poster="https://cdn.midday.ai/guy-cover.png"
+        poster="https://cdn.iq24.ai/guy-cover.png"
         playerRef={playerRef}
         className="w-full"
       />
@@ -324,7 +323,7 @@ export default function SectionStories() {
               >
                 {item.content}
               </div>
-            ),
+            )
           )}
         </div>
       </DialogContent>

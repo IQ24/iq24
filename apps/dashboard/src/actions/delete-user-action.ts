@@ -1,11 +1,11 @@
 "use server";
 
 import { resend } from "@/utils/resend";
-import { LogEvents } from "@midday/events/events";
-import { setupAnalytics } from "@midday/events/server";
-import { getUser } from "@midday/supabase/cached-queries";
-import { deleteUser } from "@midday/supabase/mutations";
-import { createClient } from "@midday/supabase/server";
+import { LogEvents } from "@iq24/events/events";
+import { setupAnalytics } from "@iq24vents/server";
+import { getUser } from "@iq24upabase/cached-queries";
+import { deleteUser } from "@iq24upabase/mutations";
+import { createClient } from "@iq24upabase/server";
 import { redirect } from "next/navigation";
 
 export const deleteUserAction = async () => {

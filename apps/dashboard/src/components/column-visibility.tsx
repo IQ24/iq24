@@ -1,8 +1,8 @@
 import { useTransactionsStore } from "@/store/transactions";
-import { Button } from "@midday/ui/button";
-import { Checkbox } from "@midday/ui/checkbox";
-import { Icons } from "@midday/ui/icons";
-import { Popover, PopoverContent, PopoverTrigger } from "@midday/ui/popover";
+import { Button } from "@iq24/ui/button";
+import { Checkbox } from "@iq24i/checkbox";
+import { Icons } from "@iq24i/icons";
+import { Popover, PopoverContent, PopoverTrigger } from "@iq24i/popover";
 
 export function ColumnVisibility({ disabled }: { disabled?: boolean }) {
   const { columns } = useTransactionsStore();
@@ -21,7 +21,7 @@ export function ColumnVisibility({ disabled }: { disabled?: boolean }) {
             .filter(
               (column) =>
                 column.columnDef.enableHiding !== false &&
-                column.id !== "status",
+                column.id !== "status"
             )
             .map((column) => {
               return (

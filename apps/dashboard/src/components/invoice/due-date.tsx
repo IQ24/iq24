@@ -1,8 +1,8 @@
 import type { InvoiceFormValues } from "@/actions/invoice/schema";
 import { updateInvoiceTemplateAction } from "@/actions/invoice/update-invoice-template-action";
 import { TZDate } from "@date-fns/tz";
-import { Calendar } from "@midday/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@midday/ui/popover";
+import { Calendar } from "@iq24/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@iq24i/popover";
 import { format } from "date-fns";
 import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";

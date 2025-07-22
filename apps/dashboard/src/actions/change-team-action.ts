@@ -1,7 +1,7 @@
 "use server";
 
-import { LogEvents } from "@midday/events/events";
-import { updateUser } from "@midday/supabase/mutations";
+import { LogEvents } from "@iq24/events/events";
+import { updateUser } from "@iq24upabase/mutations";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { authActionClient } from "./safe-action";
@@ -27,5 +27,5 @@ export const changeTeamAction = authActionClient
       revalidateTag(`user_${user.data.id}`);
 
       redirect(redirectTo);
-    },
+    }
   );

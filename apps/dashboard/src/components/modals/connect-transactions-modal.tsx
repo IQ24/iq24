@@ -4,19 +4,19 @@ import { createPlaidLinkTokenAction } from "@/actions/institutions/create-plaid-
 import { exchangePublicToken } from "@/actions/institutions/exchange-public-token";
 import { getInstitutions } from "@/actions/institutions/get-institutions";
 import { useConnectParams } from "@/hooks/use-connect-params";
-import type { Institutions } from "@midday-ai/engine/resources/institutions/institutions";
-import { track } from "@midday/events/client";
-import { LogEvents } from "@midday/events/events";
-import { Button } from "@midday/ui/button";
+import type { Institutions } from "@iq24-ai/engine/resources/institutions/institutions";
+import { track } from "@iq24vents/client";
+import { LogEvents } from "@iq24vents/events";
+import { Button } from "@iq24i/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@midday/ui/dialog";
-import { Input } from "@midday/ui/input";
-import { Skeleton } from "@midday/ui/skeleton";
+} from "@iq24i/dialog";
+import { Input } from "@iq24i/input";
+import { Skeleton } from "@iq24i/skeleton";
 import { useDebounce, useScript } from "@uidotdev/usehooks";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -132,7 +132,7 @@ export function ConnectTransactionsModal({
     token: plaidToken,
     publicKey: "",
     env: process.env.NEXT_PUBLIC_PLAID_ENVIRONMENT!,
-    clientName: "Midday",
+    clientName: "iq24",
     product: ["transactions"],
     onSuccess: async (public_token, metadata) => {
       const { access_token, item_id } = await exchangePublicToken(public_token);
@@ -172,7 +172,7 @@ export function ConnectTransactionsModal({
       {
         // NOTE: Rerender so the overview modal is visible
         shallow: false,
-      },
+      }
     );
   };
 

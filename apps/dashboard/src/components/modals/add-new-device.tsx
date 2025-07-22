@@ -1,10 +1,10 @@
 "use client";
 
 import { mfaVerifyAction } from "@/actions/mfa-verify-action";
-import { createClient } from "@midday/supabase/client";
-import { Button } from "@midday/ui/button";
-import { Dialog, DialogContent } from "@midday/ui/dialog";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "@midday/ui/input-otp";
+import { createClient } from "@iq24/supabase/client";
+import { Button } from "@iq24i/button";
+import { Dialog, DialogContent } from "@iq24i/dialog";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@iq24i/input-otp";
 import { useAction } from "next-safe-action/hooks";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";

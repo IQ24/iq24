@@ -1,8 +1,8 @@
 "use client";
 
 import { useI18n } from "@/locales/client";
-import { cn } from "@midday/ui/cn";
-import { Skeleton } from "@midday/ui/skeleton";
+import { cn } from "@iq24/ui/cn";
+import { Skeleton } from "@iq24i/skeleton";
 
 export function Tag({
   name,
@@ -27,7 +27,7 @@ export function Tag({
     <div
       className={cn(
         "p-1 text-[#878787] bg-[#F2F1EF] text-[10px] dark:bg-[#1D1D1D] px-3 py-1 rounded-full cursor-default font-mono inline-flex max-w-full",
-        className,
+        className
       )}
     >
       <span className="line-clamp-1 truncate inline-block">

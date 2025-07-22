@@ -1,7 +1,7 @@
 "use server";
 
-import { LogEvents } from "@midday/events/events";
-import { updateTeam } from "@midday/supabase/mutations";
+import { LogEvents } from "@iq24/events/events";
+import { updateTeam } from "@iq24upabase/mutations";
 import { updateBaseCurrency } from "jobs/tasks/transactions/update-base-currency";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { z } from "zod";
@@ -11,7 +11,7 @@ export const updateCurrencyAction = authActionClient
   .schema(
     z.object({
       baseCurrency: z.string(),
-    }),
+    })
   )
   .metadata({
     name: "update-currency",
@@ -40,5 +40,5 @@ export const updateCurrencyAction = authActionClient
       });
 
       return event;
-    },
+    }
   );

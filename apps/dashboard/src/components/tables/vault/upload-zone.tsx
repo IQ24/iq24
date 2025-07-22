@@ -4,15 +4,15 @@ import { invalidateCacheAction } from "@/actions/invalidate-cache-action";
 import { useUserContext } from "@/store/user/hook";
 import { useVaultContext } from "@/store/vault/hook";
 import { resumableUpload } from "@/utils/upload";
-import { createClient } from "@midday/supabase/client";
-import { cn } from "@midday/ui/cn";
+import { createClient } from "@iq24/supabase/client";
+import { cn } from "@iq24i/cn";
 import {
   ContextMenu,
   ContextMenuContent,
   ContextMenuItem,
   ContextMenuTrigger,
-} from "@midday/ui/context-menu";
-import { useToast } from "@midday/ui/use-toast";
+} from "@iq24i/context-menu";
+import { useToast } from "@iq24i/use-toast";
 import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
@@ -88,13 +88,13 @@ export function UploadZone({ children }: Props) {
                 (acc, currentValue) => {
                   return acc + currentValue;
                 },
-                0,
+                0
               );
 
               setProgress(Math.round(_progress / files.length));
             },
           });
-        }),
+        })
       );
 
       // Reset once done
@@ -162,7 +162,7 @@ export function UploadZone({ children }: Props) {
             <div
               className={cn(
                 "bg-background dark:bg-[#1A1A1A] h-full flex items-center justify-center text-center invisible",
-                isDragActive && "visible",
+                isDragActive && "visible"
               )}
             >
               <input {...getInputProps()} id="upload-files" />

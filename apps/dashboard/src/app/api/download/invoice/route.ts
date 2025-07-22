@@ -1,6 +1,6 @@
-import { PdfTemplate, renderToStream } from "@midday/invoice";
-import { getInvoiceQuery } from "@midday/supabase/queries";
-import { createClient } from "@midday/supabase/server";
+import { PdfTemplate, renderToStream } from "@iq24/invoice";
+import { getInvoiceQuery } from "@iq24upabase/queries";
+import { createClient } from "@iq24upabase/server";
 import type { NextRequest } from "next/server";
 import { z } from "zod";
 
@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
   const requestUrl = new URL(req.url);
 
   const result = paramsSchema.safeParse(
-    Object.fromEntries(requestUrl.searchParams.entries()),
+    Object.fromEntries(requestUrl.searchParams.entries())
   );
 
   if (!result.success) {
@@ -43,8 +43,9 @@ export async function GET(req: NextRequest) {
   };
 
   if (!preview) {
-    headers["Content-Disposition"] =
-      `attachment; filename="${data.invoice_number}.pdf"`;
+    headers[
+      "Content-Disposition"
+    ] = `attachment; filename="${data.invoice_number}.pdf"`;
   }
 
   return new Response(blob, { headers });

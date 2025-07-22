@@ -1,7 +1,7 @@
 "use client";
-import { cn } from "@midday/ui/cn";
-import { Skeleton } from "@midday/ui/skeleton";
-import { Table, TableBody, TableCell, TableRow } from "@midday/ui/table";
+import { cn } from "@iq24/ui/cn";
+import { Skeleton } from "@iq24i/skeleton";
+import { Table, TableBody, TableCell, TableRow } from "@iq24i/table";
 import { DataTableHeader } from "./data-table-header";
 
 const data = [...Array(40)].map((_, i) => ({ id: i.toString() }));
@@ -60,7 +60,7 @@ export function Loading({ isEmpty }: { isEmpty?: boolean }) {
               <Skeleton
                 className={cn(
                   "h-[20px] w-[20px] rounded-full",
-                  isEmpty && "animate-none",
+                  isEmpty && "animate-none"
                 )}
               />
             </TableCell>

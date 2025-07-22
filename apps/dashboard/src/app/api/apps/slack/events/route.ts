@@ -2,8 +2,8 @@ import {
   config,
   handleSlackEvent,
   verifySlackRequest,
-} from "@midday/app-store/slack";
-import { createClient } from "@midday/supabase/server";
+} from "@iq24/app-store/slack";
+import { createClient } from "@iq24upabase/server";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 
@@ -27,7 +27,7 @@ export async function POST(req: Request) {
     console.error("Slack request verification failed:", error);
     return NextResponse.json(
       { error: "Invalid Slack request" },
-      { status: 401 },
+      { status: 401 }
     );
   }
 
@@ -50,7 +50,7 @@ export async function POST(req: Request) {
   if (!data) {
     return NextResponse.json(
       { error: "Unauthorized: No matching team found" },
-      { status: 401 },
+      { status: 401 }
     );
   }
 

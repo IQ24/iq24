@@ -2,8 +2,8 @@
 
 import { deleteCustomerAction } from "@/actions/delete-customer-action";
 import { useCustomerParams } from "@/hooks/use-customer-params";
-import { Spinner } from "@midday/ui/spinner";
-import { Table, TableBody } from "@midday/ui/table";
+import { Spinner } from "@iq24/ui/spinner";
+import { Table, TableBody } from "@iq24i/table";
 import {
   getCoreRowModel,
   getFilteredRowModel,

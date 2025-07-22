@@ -4,16 +4,16 @@ import {
   updateInboxSchema,
 } from "@/actions/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@midday/ui/button";
+import { Button } from "@iq24/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@midday/ui/dialog";
-import { Form, FormControl, FormField, FormItem } from "@midday/ui/form";
-import { Input } from "@midday/ui/input";
+} from "@iq24i/dialog";
+import { Form, FormControl, FormField, FormItem } from "@iq24i/form";
+import { Input } from "@iq24i/input";
 import { Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useEffect } from "react";
@@ -106,7 +106,7 @@ export function EditInboxModal({
                             className="w-full text-xs"
                             {...field}
                             currencies={Object.values(currencies)?.map(
-                              (currency) => currency,
+                              (currency) => currency
                             )}
                           />
                         </FormControl>

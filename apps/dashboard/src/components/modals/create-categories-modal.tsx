@@ -5,18 +5,18 @@ import {
 } from "@/actions/schema";
 import { InputColor } from "@/components/input-color";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@midday/ui/button";
+import { Button } from "@iq24/ui/button";
 import {
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@midday/ui/dialog";
-import { Form, FormControl, FormField, FormItem } from "@midday/ui/form";
-import { Icons } from "@midday/ui/icons";
-import { Input } from "@midday/ui/input";
-import { useToast } from "@midday/ui/use-toast";
+} from "@iq24i/dialog";
+import { Form, FormControl, FormField, FormItem } from "@iq24i/form";
+import { Icons } from "@iq24i/icons";
+import { Input } from "@iq24i/input";
+import { useToast } from "@iq24i/use-toast";
 import { Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useEffect } from "react";
@@ -73,7 +73,7 @@ export function CreateCategoriesModal({ onOpenChange, isOpen }: Props) {
   const onSubmit = form.handleSubmit((data) => {
     createCategories.execute({
       categories: data.categories.filter(
-        (category) => category.name !== undefined,
+        (category) => category.name !== undefined
       ),
     });
   });
@@ -112,12 +112,12 @@ export function CreateCategoriesModal({ onOpenChange, isOpen }: Props) {
                                 field.onChange(name);
                                 form.setValue(
                                   `categories.${index}.color`,
-                                  color,
+                                  color
                                 );
                               }}
                               defaultValue={field.value}
                               defaultColor={form.watch(
-                                `categories.${index}.color`,
+                                `categories.${index}.color`
                               )}
                             />
                           </FormControl>
@@ -142,7 +142,7 @@ export function CreateCategoriesModal({ onOpenChange, isOpen }: Props) {
                                   if (vat) {
                                     form.setValue(
                                       `categories.${index}.vat`,
-                                      vat.toString(),
+                                      vat.toString()
                                     );
                                   }
                                 }}

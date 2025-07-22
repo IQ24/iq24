@@ -5,18 +5,18 @@ import { useSyncStatus } from "@/hooks/use-sync-status";
 import { useUpload } from "@/hooks/use-upload";
 import { useUserContext } from "@/store/user/hook";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AnimatedSizeContainer } from "@midday/ui/animated-size-container";
-import { Button } from "@midday/ui/button";
+import { AnimatedSizeContainer } from "@iq24/ui/animated-size-container";
+import { Button } from "@iq24i/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@midday/ui/dialog";
-import { Icons } from "@midday/ui/icons";
-import { useToast } from "@midday/ui/use-toast";
-import { stripSpecialCharacters } from "@midday/utils";
+} from "@iq24i/dialog";
+import { Icons } from "@iq24i/icons";
+import { useToast } from "@iq24i/use-toast";
+import { stripSpecialCharacters } from "@iq24tils";
 import { ErrorBoundary } from "@sentry/nextjs";
 import { Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
@@ -45,7 +45,7 @@ export function ImportModal({ currencies, defaultCurrency }: Props) {
   const [isImporting, setIsImporting] = useState(false);
   const [fileColumns, setFileColumns] = useState<string[] | null>(null);
   const [firstRows, setFirstRows] = useState<Record<string, string>[] | null>(
-    null,
+    null
   );
 
   const { team_id: teamId } = useUserContext((state) => state.data);
@@ -220,7 +220,7 @@ export function ImportModal({ currencies, defaultCurrency }: Props) {
 
                         if (data.import_type === "csv") {
                           const filename = stripSpecialCharacters(
-                            data.file.name,
+                            data.file.name
                           );
                           const { path } = await uploadFile({
                             bucket: "vault",

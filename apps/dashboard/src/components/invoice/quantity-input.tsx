@@ -1,5 +1,5 @@
-import { cn } from "@midday/ui/cn";
-import { QuantityInput as BaseQuantityInput } from "@midday/ui/quantity-input";
+import { cn } from "@iq24/ui/cn";
+import { QuantityInput as BaseQuantityInput } from "@iq24i/quantity-input";
 import { useState } from "react";
 import { useController, useFormContext } from "react-hook-form";
 
@@ -28,7 +28,7 @@ export function QuantityInput({
         onChange={onChange}
         onFocus={() => setIsFocused(true)}
         className={cn(
-          isPlaceholder && "opacity-0 [&_button]:pointer-events-none",
+          isPlaceholder && "opacity-0 [&_button]:pointer-events-none"
         )}
         onBlur={() => {
           setIsFocused(false);

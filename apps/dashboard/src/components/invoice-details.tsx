@@ -1,16 +1,16 @@
-import { createClient } from "@midday/supabase/client";
-import { getInvoiceQuery } from "@midday/supabase/queries";
+import { createClient } from "@iq24/supabase/client";
+import { getInvoiceQuery } from "@iq24upabase/queries";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@midday/ui/accordion";
-import { Avatar, AvatarFallback, AvatarImageNext } from "@midday/ui/avatar";
-import { Button } from "@midday/ui/button";
-import { cn } from "@midday/ui/cn";
-import { Icons } from "@midday/ui/icons";
-import { Skeleton } from "@midday/ui/skeleton";
+} from "@iq24i/accordion";
+import { Avatar, AvatarFallback, AvatarImageNext } from "@iq24i/avatar";
+import { Button } from "@iq24i/button";
+import { cn } from "@iq24i/cn";
+import { Icons } from "@iq24i/icons";
+import { Skeleton } from "@iq24i/skeleton";
 import { format } from "date-fns";
 import { useEffect, useState } from "react";
 import { CopyInput } from "./copy-input";

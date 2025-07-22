@@ -1,8 +1,8 @@
 "use client";
 
-import { Button } from "@midday/ui/button";
-import { Spinner } from "@midday/ui/spinner";
-import { Table, TableBody } from "@midday/ui/table";
+import { Button } from "@iq24/ui/button";
+import { Spinner } from "@iq24i/spinner";
+import { Table, TableBody } from "@iq24i/table";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { DataTableHeader } from "./data-table-header";

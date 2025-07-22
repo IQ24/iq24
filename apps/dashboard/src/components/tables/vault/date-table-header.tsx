@@ -1,4 +1,4 @@
-import { TableHead, TableHeader, TableRow } from "@midday/ui/table";
+import { TableHead, TableHeader, TableRow } from "@iq24/ui/table";
 
 export function DataTableHeader() {
   return (

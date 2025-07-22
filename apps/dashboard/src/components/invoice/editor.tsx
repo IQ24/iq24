@@ -1,7 +1,7 @@
 "use client";
 
-import { cn } from "@midday/ui/cn";
-import { Editor as BaseEditor } from "@midday/ui/editor";
+import { cn } from "@iq24/ui/cn";
+import { Editor as BaseEditor } from "@iq24i/editor";
 import type { Editor as EditorInstance, JSONContent } from "@tiptap/react";
 import { useCallback, useState } from "react";
 
@@ -26,7 +26,7 @@ export function Editor({
 }: Props) {
   const [isFocused, setIsFocused] = useState(false);
   const [content, setContent] = useState<JSONContent | null | undefined>(
-    initialContent,
+    initialContent
   );
 
   const handleUpdate = useCallback(
@@ -37,7 +37,7 @@ export function Editor({
       setContent(newIsEmpty ? null : json);
       onChange?.(newIsEmpty ? null : json);
     },
-    [onChange],
+    [onChange]
   );
 
   const handleBlur = useCallback(() => {
@@ -58,7 +58,7 @@ export function Editor({
         "font-mono text-[11px] text-primary leading-[18px] invoice-editor",
         showPlaceholder &&
           "w-full bg-[repeating-linear-gradient(-60deg,#DBDBDB,#DBDBDB_1px,transparent_1px,transparent_5px)] dark:bg-[repeating-linear-gradient(-60deg,#2C2C2C,#2C2C2C_1px,transparent_1px,transparent_5px)]",
-        className,
+        className
       )}
       placeholder={placeholder}
       initialContent={content ?? undefined}

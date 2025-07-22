@@ -6,25 +6,25 @@ import {
   inviteTeamMembersSchema,
 } from "@/actions/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@midday/ui/button";
+import { Button } from "@iq24/ui/button";
 import {
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@midday/ui/dialog";
-import { Form, FormControl, FormField, FormItem } from "@midday/ui/form";
-import { Icons } from "@midday/ui/icons";
-import { Input } from "@midday/ui/input";
+} from "@iq24i/dialog";
+import { Form, FormControl, FormField, FormItem } from "@iq24i/form";
+import { Icons } from "@iq24i/icons";
+import { Input } from "@iq24i/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@midday/ui/select";
-import { useToast } from "@midday/ui/use-toast";
+} from "@iq24i/select";
+import { useToast } from "@iq24i/use-toast";
 import { Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useEffect } from "react";

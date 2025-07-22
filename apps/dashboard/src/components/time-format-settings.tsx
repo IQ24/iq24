@@ -7,14 +7,14 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@midday/ui/card";
+} from "@iq24/ui/card";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@midday/ui/select";
+} from "@iq24i/select";
 import { useAction } from "next-safe-action/hooks";
 
 type Props = {

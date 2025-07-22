@@ -1,4 +1,4 @@
-import { Skeleton } from "@midday/ui/skeleton";
+import { Skeleton } from "@iq24/ui/skeleton";
 import {
   Table,
   TableBody,
@@ -6,7 +6,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@midday/ui/table";
+} from "@iq24i/table";
 import { Header } from "./header";
 
 export function CategoriesSkeleton() {

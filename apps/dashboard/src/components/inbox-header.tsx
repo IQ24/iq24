@@ -1,5 +1,5 @@
-import { Button } from "@midday/ui/button";
-import { TabsList, TabsTrigger } from "@midday/ui/tabs";
+import { Button } from "@iq24/ui/button";
+import { TabsList, TabsTrigger } from "@iq24i/tabs";
 import { parseAsString, useQueryStates } from "nuqs";
 import { startTransition } from "react";
 import { InboxOrdering } from "./inbox-ordering";
@@ -30,7 +30,7 @@ export function InboxHeader({
     },
     {
       startTransition,
-    },
+    }
   );
 
   return (

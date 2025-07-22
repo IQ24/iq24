@@ -3,9 +3,9 @@
 import type { InvoiceFormValues } from "@/actions/invoice/schema";
 import { updateInvoiceTemplateAction } from "@/actions/invoice/update-invoice-template-action";
 import { formatAmount } from "@/utils/format";
-import { calculateLineItemTotal } from "@midday/invoice/calculate";
-import { Button } from "@midday/ui/button";
-import { Icons } from "@midday/ui/icons";
+import { calculateLineItemTotal } from "@iq24/invoice/calculate";
+import { Button } from "@iq24i/button";
+import { Icons } from "@iq24i/icons";
 import { Reorder, useDragControls } from "framer-motion";
 import { useAction } from "next-safe-action/hooks";
 import { useFieldArray, useFormContext, useWatch } from "react-hook-form";
@@ -40,12 +40,12 @@ export function LineItems() {
 
   const reorderList = (newFields: typeof fields) => {
     const firstDiffIndex = fields.findIndex(
-      (field, index) => field.id !== newFields[index]?.id,
+      (field, index) => field.id !== newFields[index]?.id
     );
 
     if (firstDiffIndex !== -1) {
       const newIndex = newFields.findIndex(
-        (field) => field.id === fields[firstDiffIndex]?.id,
+        (field) => field.id === fields[firstDiffIndex]?.id
       );
 
       if (newIndex !== -1) {
@@ -63,7 +63,11 @@ export function LineItems() {
   return (
     <div className="space-y-4">
       <div
-        className={`grid ${includeUnits ? "grid-cols-[1.5fr_15%25%_15%]" : "grid-cols-[1.5fr_15%_15%_15%]"} gap-4 items-end mb-2`}
+        className={`grid ${
+          includeUnits
+            ? "grid-cols-[1.5fr_15%25%_15%]"
+            : "grid-cols-[1.5fr_15%_15%_15%]"
+        } gap-4 items-end mb-2`}
       >
         <LabelInput
           name="template.description_label"
@@ -178,7 +182,11 @@ function LineItemRow({
 
   return (
     <Reorder.Item
-      className={`grid ${includeUnits ? "grid-cols-[1.5fr_15%25%_15%]" : "grid-cols-[1.5fr_15%_15%_15%]"} gap-4 items-start relative group mb-2 w-full`}
+      className={`grid ${
+        includeUnits
+          ? "grid-cols-[1.5fr_15%25%_15%]"
+          : "grid-cols-[1.5fr_15%_15%_15%]"
+      } gap-4 items-start relative group mb-2 w-full`}
       value={item}
       dragListener={false}
       dragControls={controls}

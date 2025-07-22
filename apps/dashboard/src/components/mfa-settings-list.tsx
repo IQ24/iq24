@@ -1,4 +1,4 @@
-import { Button } from "@midday/ui/button";
+import { Button } from "@iq24/ui/button";
 import {
   Card,
   CardContent,
@@ -6,7 +6,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@midday/ui/card";
+} from "@iq24i/card";
 import Link from "next/link";
 import { UnenrollMFA } from "./unenroll-mfa";
 

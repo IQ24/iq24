@@ -1,7 +1,7 @@
 "use server";
 
-import { client as RedisClient } from "@midday/kv";
-import { getSession, getUser } from "@midday/supabase/cached-queries";
+import { client as RedisClient } from "@iq24/kv";
+import { getSession, getUser } from "@iq24upabase/cached-queries";
 import type { Chat, SettingsResponse } from "./types";
 
 export async function getAssistantSettings(): Promise<SettingsResponse> {
@@ -15,7 +15,7 @@ export async function getAssistantSettings(): Promise<SettingsResponse> {
   };
 
   const settings = await RedisClient.get(
-    `assistant:${teamId}:user:${userId}:settings`,
+    `assistant:${teamId}:user:${userId}:settings`
   );
 
   return {
@@ -48,11 +48,14 @@ export async function setAssistantSettings({
 export async function clearChats({
   teamId,
   userId,
-}: { teamId: string; userId: string }) {
+}: {
+  teamId: string;
+  userId: string;
+}) {
   const chats: string[] = await RedisClient.zrange(
     `chat:${teamId}:user:${userId}`,
     0,
-    -1,
+    -1
   );
 
   const pipeline = RedisClient.pipeline();
@@ -81,7 +84,7 @@ export async function getLatestChat() {
       1,
       {
         rev: true,
-      },
+      }
     );
 
     const lastId = chat.at(0);
@@ -108,7 +111,7 @@ export async function getChats() {
       -1,
       {
         rev: true,
-      },
+      }
     );
 
     for (const chat of chats) {

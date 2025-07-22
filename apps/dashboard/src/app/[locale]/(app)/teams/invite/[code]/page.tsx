@@ -1,9 +1,9 @@
 import { SignOutButton } from "@/components/sign-out-button";
 import { UserMenu } from "@/components/user-menu";
-import { joinTeamByInviteCode } from "@midday/supabase/mutations";
-import { createClient } from "@midday/supabase/server";
-import { Button } from "@midday/ui/button";
-import { Icons } from "@midday/ui/icons";
+import { joinTeamByInviteCode } from "@iq24/supabase/mutations";
+import { createClient } from "@iq24upabase/server";
+import { Button } from "@iq24i/button";
+import { Icons } from "@iq24i/icons";
 import type { Metadata } from "next";
 import { revalidateTag } from "next/cache";
 import Link from "next/link";
@@ -11,12 +11,14 @@ import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
-  title: "Join team | Midday",
+  title: "Join team | iq24",
 };
 
 export default async function InviteCode({
   params,
-}: { params: { code: string } }) {
+}: {
+  params: { code: string };
+}) {
   const supabase = createClient();
   const { code } = params;
 
