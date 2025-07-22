@@ -1,0 +1,4 @@
+Contact: security@iq24.ai
+Preferred-Languages: en
+Canonical: https://iq24.ai/.well-known/security.txt
+Policy: https://github.com/iq24-ai/iq24/blob/main/SECURITY.md

@@ -1,0 +1,3 @@
+{
+  "extends": "@iq24/tsconfig/base.json"
+}

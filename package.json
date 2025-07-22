@@ -1,0 +1,38 @@
+{
+  "name": "iq24",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*",
+    "packages/email/*"
+  ],
+  "scripts": {
+    "build": "turbo build",
+    "clean": "git clean -xdf node_modules",
+    "clean:workspaces": "turbo clean",
+    "dev": "turbo dev --parallel",
+    "test": "turbo test --parallel",
+    "start:dashboard": "turbo start --filter=@iq24/dashboard",
+    "start:website": "turbo start --filter=@iq24/website",
+    "dev:api": "turbo dev --filter=@iq24/api",
+    "dev:dashboard": "turbo dev --filter=@iq24/dashboard",
+    "build:dashboard": "turbo build --filter=@iq24/dashboard",
+    "dev:engine": "turbo dev --filter=@iq24/engine",
+    "dev:website": "turbo dev --filter=@iq24/website ",
+    "dev:desktop": "turbo dev --filter=@iq24/desktop",
+    "jobs:dashboard": "turbo jobs --filter=@iq24/dashboard",
+    "format": "biome format --write .",
+    "lint": "turbo lint && manypkg check",
+    "typecheck": "turbo typecheck"
+  },
+  "dependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@manypkg/cli": "^0.23.0",
+    "turbo": "2.3.3",
+    "typescript": "^5.7.2"
+  },
+  "packageManager": "bun@1.1.38",
+  "resolutions": {
+    "jackspeak": "2.1.1"
+  }
+}
