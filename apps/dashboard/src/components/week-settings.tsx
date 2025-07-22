@@ -7,8 +7,8 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@midday/ui/card";
-import { Switch } from "@midday/ui/switch";
+} from "@iq24/ui/card";
+import { Switch } from "@iq24/ui/switch";
 import { useAction } from "next-safe-action/hooks";
 
 type Props = {

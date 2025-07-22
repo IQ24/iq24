@@ -2,8 +2,8 @@
 
 import { generateVaultFilters } from "@/actions/ai/filters/generate-vault-filters";
 import { useI18n } from "@/locales/client";
-import { Calendar } from "@midday/ui/calendar";
-import { cn } from "@midday/ui/cn";
+import { Calendar } from "@iq24/ui/calendar";
+import { cn } from "@iq24/ui/cn";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -14,9 +14,9 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@midday/ui/dropdown-menu";
-import { Icons } from "@midday/ui/icons";
-import { Input } from "@midday/ui/input";
+} from "@iq24/ui/dropdown-menu";
+import { Icons } from "@iq24/ui/icons";
+import { Input } from "@iq24/ui/input";
 import { readStreamableValue } from "ai/rsc";
 import { formatISO } from "date-fns";
 import { parseAsArrayOf, parseAsString, useQueryStates } from "nuqs";
@@ -52,7 +52,7 @@ export function VaultSearchFilter({ members }: { members: any[] }) {
     },
     {
       shallow: false,
-    },
+    }
   );
 
   const tags = TAGS.map((tag) => ({
@@ -71,7 +71,7 @@ export function VaultSearchFilter({ members }: { members: any[] }) {
     {
       enableOnFormTags: true,
       enabled: Boolean(prompt),
-    },
+    }
   );
 
   useHotkeys("meta+s", (evt) => {
@@ -103,7 +103,7 @@ export function VaultSearchFilter({ members }: { members: any[] }) {
       `
         Users: ${members.map((member) => member.name).join(", ")},
         Tags: ${tags.map((tag) => tag.name).join(", ")},
-        `,
+        `
     );
 
     let finalObject = {};
@@ -116,11 +116,11 @@ export function VaultSearchFilter({ members }: { members: any[] }) {
           owners:
             partialObject?.owners?.map(
               (name: string) =>
-                members?.find((member) => member.name === name)?.id,
+                members?.find((member) => member.name === name)?.id
             ) ?? null,
           tags:
             partialObject?.tags?.map(
-              (name: string) => tags?.find((tag) => tag.name === name)?.id,
+              (name: string) => tags?.find((tag) => tag.name === name)?.id
             ) ?? null,
           q: partialObject?.name ?? null,
         };
@@ -137,7 +137,7 @@ export function VaultSearchFilter({ members }: { members: any[] }) {
 
   const hasValidFilters =
     Object.entries(filters).filter(
-      ([key, value]) => value !== null && key !== "q",
+      ([key, value]) => value !== null && key !== "q"
     ).length > 0;
 
   return (
@@ -178,7 +178,7 @@ export function VaultSearchFilter({ members }: { members: any[] }) {
               className={cn(
                 "absolute z-10 right-3 top-[10px] opacity-50 transition-opacity duration-300 hover:opacity-100",
                 hasValidFilters && "opacity-100",
-                isOpen && "opacity-100",
+                isOpen && "opacity-100"
               )}
             >
               <Icons.Filter />

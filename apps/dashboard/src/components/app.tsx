@@ -4,11 +4,11 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@midday/ui/accordion";
-import { Button } from "@midday/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@midday/ui/card";
-import { ScrollArea } from "@midday/ui/scroll-area";
-import { Sheet, SheetContent, SheetHeader } from "@midday/ui/sheet";
+} from "@iq24/ui/accordion";
+import { Button } from "@iq24/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@iq24/ui/card";
+import { ScrollArea } from "@iq24/ui/scroll-area";
+import { Sheet, SheetContent, SheetHeader } from "@iq24/ui/sheet";
 import { useAction } from "next-safe-action/hooks";
 import Image from "next/image";
 import { parseAsBoolean, parseAsString, useQueryStates } from "nuqs";
@@ -201,14 +201,14 @@ export function App({
                         ...Object.values({
                           ...Object.fromEntries(
                             (Array.isArray(settings) ? settings : []).map(
-                              (setting) => [setting.id, setting],
-                            ),
+                              (setting) => [setting.id, setting]
+                            )
                           ),
                           ...Object.fromEntries(
                             (Array.isArray(userSettings)
                               ? userSettings
                               : []
-                            ).map((setting) => [setting.id, setting]),
+                            ).map((setting) => [setting.id, setting])
                           ),
                         }),
                       ]}
@@ -228,7 +228,7 @@ export function App({
             </p>
 
             <a
-              href="mailto:support@midday.dev"
+              href="mailto:support@iq24.dev"
               className="text-[10px] text-red-500"
             >
               Report app

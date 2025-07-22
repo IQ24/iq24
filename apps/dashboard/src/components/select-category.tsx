@@ -1,10 +1,10 @@
 import { createCategoriesAction } from "@/actions/create-categories-action";
 import { useUserContext } from "@/store/user/hook";
 import { getColorFromName } from "@/utils/categories";
-import { createClient } from "@midday/supabase/client";
-import { getCategoriesQuery } from "@midday/supabase/queries";
-import { ComboboxDropdown } from "@midday/ui/combobox-dropdown";
-import { Spinner } from "@midday/ui/spinner";
+import { createClient } from "@iq24/supabase/client";
+import { getCategoriesQuery } from "@iq24/supabase/queries";
+import { ComboboxDropdown } from "@iq24/ui/combobox-dropdown";
+import { Spinner } from "@iq24/ui/spinner";
 import { useAction } from "next-safe-action/hooks";
 import { useEffect, useState } from "react";
 import { CategoryColor } from "./category";

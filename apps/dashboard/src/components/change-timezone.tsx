@@ -8,8 +8,8 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@midday/ui/card";
-import { ComboboxDropdown } from "@midday/ui/combobox-dropdown";
+} from "@iq24/ui/card";
+import { ComboboxDropdown } from "@iq24/ui/combobox-dropdown";
 import { useOptimisticAction } from "next-safe-action/hooks";
 
 type Props = {
@@ -47,7 +47,7 @@ export function ChangeTimezone({ timezone, timezones }: Props) {
           <ComboboxDropdown
             placeholder={t("timezone.placeholder")}
             selectedItem={timezoneItems.find(
-              (item) => item.value === optimisticState.timezone,
+              (item) => item.value === optimisticState.timezone
             )}
             searchPlaceholder={t("timezone.searchPlaceholder")}
             items={timezoneItems}

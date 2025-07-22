@@ -17,8 +17,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@midday/ui/table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@midday/ui/tabs";
+} from "@iq24/ui/table";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@iq24/ui/tabs";
 
 import type { Metadata } from "next";
 

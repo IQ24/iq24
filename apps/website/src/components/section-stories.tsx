@@ -1,16 +1,16 @@
 "use client";
 
-import { Avatar } from "@midday/ui/avatar";
-import { AvatarImageNext } from "@midday/ui/avatar";
-import { Button } from "@midday/ui/button";
+import { Avatar } from "@iq24/ui/avatar";
+import { AvatarImageNext } from "@iq24/ui/avatar";
+import { Button } from "@iq24/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@midday/ui/dialog";
-import { Icons } from "@midday/ui/icons";
+} from "@iq24/ui/dialog";
+import { Icons } from "@iq24/ui/icons";
 import dynamic from "next/dynamic";
 import { useRef, useState } from "react";
 import { type Story, StoryCard } from "./story-card";
@@ -58,7 +58,7 @@ const stories = [
       {
         type: "question",
         content:
-          "What features or aspects of Midday AI do you find most valuable, and why?",
+          "What features or aspects of iq24.ai do you find most valuable, and why?",
       },
       {
         type: "paragraph",
@@ -128,7 +128,7 @@ const stories = [
       {
         type: "question",
         content:
-          "What features or aspects of Midday AI do you find most valuable, and why?",
+          "What features or aspects of iq24.ai do you find most valuable, and why?",
       },
       {
         type: "paragraph",
@@ -186,7 +186,7 @@ const stories = [
       {
         type: "question",
         content:
-          "What features or aspects of Midday AI do you find most valuable, and why?",
+          "What features or aspects of iq24.ai do you find most valuable, and why?",
       },
       {
         type: "paragraph",
@@ -226,7 +226,7 @@ function Video({ src }: { src: string }) {
         src={src}
         onClick={togglePlay}
         autoPlay={false}
-        poster="https://cdn.midday.ai/guy-cover.png"
+        poster="https://cdn.iq24.ai/guy-cover.png"
         playerRef={playerRef}
         className="w-full"
       />
@@ -324,7 +324,7 @@ export default function SectionStories() {
               >
                 {item.content}
               </div>
-            ),
+            )
           )}
         </div>
       </DialogContent>

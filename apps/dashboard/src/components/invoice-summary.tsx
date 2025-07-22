@@ -1,9 +1,9 @@
 "use client";
 
 import { useI18n } from "@/locales/client";
-import { Card, CardContent, CardHeader, CardTitle } from "@midday/ui/card";
-import { cn } from "@midday/ui/cn";
-import { Skeleton } from "@midday/ui/skeleton";
+import { Card, CardContent, CardHeader, CardTitle } from "@iq24/ui/card";
+import { cn } from "@iq24/ui/cn";
+import { Skeleton } from "@iq24/ui/skeleton";
 import { useState } from "react";
 import { AnimatedNumber } from "./animated-number";
 
@@ -71,7 +71,7 @@ export function InvoiceSummary({
                   onClick={() => setActiveIndex(idx)}
                   className={cn(
                     "w-[10px] h-[3px] bg-[#1D1D1D] dark:bg-[#D9D9D9] opacity-30 transition-all",
-                    idx === activeIndex && "opacity-100",
+                    idx === activeIndex && "opacity-100"
                   )}
                 />
               ))}

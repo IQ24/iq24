@@ -1,7 +1,7 @@
 "use client";
 
-import { apps } from "@midday/app-store";
-import { Button } from "@midday/ui/button";
+import { apps } from "@iq24/app-store";
+import { Button } from "@iq24/ui/button";
 import { useRouter, useSearchParams } from "next/navigation";
 import { App } from "./app";
 
@@ -14,7 +14,11 @@ export function Apps({
   user,
   installedApps,
   settings,
-}: { user: User; installedApps: string[]; settings: Record<string, any>[] }) {
+}: {
+  user: User;
+  installedApps: string[];
+  settings: Record<string, any>[];
+}) {
   const searchParams = useSearchParams();
   const isInstalledPage = searchParams.get("tab") === "installed";
   const search = searchParams.get("q");
@@ -23,7 +27,7 @@ export function Apps({
   const filteredApps = apps
     .filter((app) => !isInstalledPage || installedApps.includes(app.id))
     .filter(
-      (app) => !search || app.name.toLowerCase().includes(search.toLowerCase()),
+      (app) => !search || app.name.toLowerCase().includes(search.toLowerCase())
     );
 
   return (

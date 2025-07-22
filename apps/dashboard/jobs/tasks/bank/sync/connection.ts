@@ -1,5 +1,5 @@
-import { client } from "@midday/engine/client";
-import { createClient } from "@midday/supabase/job";
+import { client } from "@iq24/engine/client";
+import { createClient } from "@iq24/supabase/job";
 import { logger, schemaTask } from "@trigger.dev/sdk/v3";
 import { revalidateCache } from "jobs/utils/revalidate-cache";
 import { triggerSequenceAndWait } from "jobs/utils/trigger-sequence";
@@ -63,7 +63,7 @@ export const syncConnection = schemaTask({
         const query = supabase
           .from("bank_accounts")
           .select(
-            "id, team_id, account_id, type, bank_connection:bank_connection_id(id, provider, access_token, status)",
+            "id, team_id, account_id, type, bank_connection:bank_connection_id(id, provider, access_token, status)"
           )
           .eq("bank_connection_id", connectionId)
           .eq("enabled", true)
@@ -110,7 +110,7 @@ export const syncConnection = schemaTask({
         if (!manualSync) {
           await transactionNotifications.trigger(
             { teamId: data.team_id },
-            { delay: "1m" },
+            { delay: "1m" }
           );
         }
 
@@ -128,11 +128,11 @@ export const syncConnection = schemaTask({
 
           if (
             bankAccountsData?.every(
-              (account) => (account.error_retries ?? 0) >= 3,
+              (account) => (account.error_retries ?? 0) >= 3
             )
           ) {
             logger.info(
-              "All bank accounts have 3+ error retries, disconnecting connection",
+              "All bank accounts have 3+ error retries, disconnecting connection"
             );
 
             await supabase

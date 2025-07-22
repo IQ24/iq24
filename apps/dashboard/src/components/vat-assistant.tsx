@@ -1,14 +1,14 @@
 import { getVatRateAction } from "@/actions/ai/get-vat-rate";
 import { Experimental } from "@/components/experimental";
-import { Button } from "@midday/ui/button";
-import { cn } from "@midday/ui/cn";
-import { Icons } from "@midday/ui/icons";
+import { Button } from "@iq24/ui/button";
+import { cn } from "@iq24/ui/cn";
+import { Icons } from "@iq24/ui/icons";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@midday/ui/tooltip";
+} from "@iq24/ui/tooltip";
 import { useAction } from "next-safe-action/hooks";
 import { useEffect, useState } from "react";
 
@@ -60,7 +60,7 @@ export function VatAssistant({ name, onSelect, isFocused, value }: Props) {
               className={cn(
                 "pointer-events-none opacity-50 transition-colors",
                 result?.vat && "opacity-100",
-                isLoading && "animate-pulse opacity-100",
+                isLoading && "animate-pulse opacity-100"
               )}
             />
           </div>

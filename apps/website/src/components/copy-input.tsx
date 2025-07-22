@@ -1,7 +1,7 @@
 "use client";
 
-import { cn } from "@midday/ui/cn";
-import { Icons } from "@midday/ui/icons";
+import { cn } from "@iq24/ui/cn";
+import { Icons } from "@iq24/ui/icons";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
@@ -29,7 +29,7 @@ export function CopyInput({ value, className }: Props) {
     <div
       className={cn(
         "flex items-center relative w-full border border-border py-2 px-4",
-        className,
+        className
       )}
     >
       <div className="pr-7 text-[#878787] text-sm">{value}</div>

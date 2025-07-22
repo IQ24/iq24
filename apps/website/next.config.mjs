@@ -2,7 +2,7 @@
 const config = {
   poweredByHeader: false,
   reactStrictMode: true,
-  transpilePackages: ["@midday/ui", "@midday/tailwind", "next-mdx-remote"],
+  transpilePackages: ["@iq24/ui", "@iq24/tailwind", "next-mdx-remote"],
   eslint: {
     ignoreDuringBuilds: true,
   },

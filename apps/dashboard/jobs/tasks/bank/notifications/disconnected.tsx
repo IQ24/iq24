@@ -1,5 +1,5 @@
 import { resend } from "@/utils/resend";
-import ConnectionIssueEmail from "@midday/email/emails/connection-issue";
+import ConnectionIssueEmail from "@iq24/email/emails/connection-issue";
 import { render } from "@react-email/components";
 import { schemaTask } from "@trigger.dev/sdk/v3";
 import { z } from "zod";
@@ -21,7 +21,7 @@ export const disconnectedNotifications = schemaTask({
           full_name: z.string(),
           locale: z.string(),
         }),
-      }),
+      })
     ),
   }),
   run: async ({ users }) => {
@@ -31,11 +31,11 @@ export const disconnectedNotifications = schemaTask({
           fullName={user.full_name}
           bankName={bankName}
           teamName={teamName}
-        />,
+        />
       );
 
       return {
-        from: "Middaybot <middaybot@midday.ai>",
+        from: "Middaybot <middaybot@iq24i>",
         to: [user.email],
         subject: "Bank Connection Expiring Soon",
         html,

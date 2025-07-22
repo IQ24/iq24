@@ -46,7 +46,7 @@ exports[`Transform account 1`] = `
   "id": "83435345-d61cb425f293",
   "institution": {
     "id": "477e20fa50a6",
-    "logo": "https://cdn-engine.midday.ai/SEB.png",
+    "logo": "https://cdn-engine.iq24.ai/SEB.png",
     "name": "SEB",
     "provider": "enablebanking",
   },

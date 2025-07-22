@@ -1,11 +1,11 @@
-import { createClient } from "@midday/supabase/client";
-import { Button } from "@midday/ui/button";
+import { createClient } from "@iq24/supabase/client";
+import { Button } from "@iq24/ui/button";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@midday/ui/collapsible";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "@midday/ui/input-otp";
+} from "@iq24/ui/collapsible";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@iq24/ui/input-otp";
 import { CaretSortIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -46,7 +46,7 @@ export function EnrollMFA() {
     async function enroll() {
       const { data, error } = await supabase.auth.mfa.enroll({
         factorType: "totp",
-        issuer: "app.midday.ai",
+        issuer: "app.iq24.ai",
       });
 
       if (error) {

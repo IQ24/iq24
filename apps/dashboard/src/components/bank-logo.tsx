@@ -1,5 +1,5 @@
-import { Avatar } from "@midday/ui/avatar";
-import { cn } from "@midday/ui/cn";
+import { Avatar } from "@iq24/ui/avatar";
+import { cn } from "@iq24/ui/cn";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -26,12 +26,12 @@ export function BankLogo({ src, alt, size = 34 }: Props) {
         />
       )}
       <Image
-        src="https://cdn-engine.midday.ai/default.jpg"
+        src="https://cdn-engine.iq24.ai/default.jpg"
         alt={alt}
         className={cn(
           "absolute object-contain",
           src && "opacity-0",
-          !src || hasError ? "" : "-z-10",
+          !src || hasError ? "" : "-z-10"
         )}
         width={size}
         height={size}

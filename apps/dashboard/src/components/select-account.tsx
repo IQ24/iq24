@@ -1,9 +1,9 @@
 import { createBankAccountAction } from "@/actions/create-bank-account-action";
 import { useUserContext } from "@/store/user/hook";
 import { formatAccountName } from "@/utils/format";
-import { createClient } from "@midday/supabase/client";
-import { getTeamBankAccountsQuery } from "@midday/supabase/queries";
-import { ComboboxDropdown } from "@midday/ui/combobox-dropdown";
+import { createClient } from "@iq24/supabase/client";
+import { getTeamBankAccountsQuery } from "@iq24/supabase/queries";
+import { ComboboxDropdown } from "@iq24/ui/combobox-dropdown";
 import { useAction } from "next-safe-action/hooks";
 import { useEffect, useState } from "react";
 import { TransactionBankAccount } from "./transaction-bank-account";
@@ -49,7 +49,7 @@ export function SelectAccount({ placeholder, onChange, value }: Props) {
           logo: account?.logo_url,
           currency: account.currency,
           type: account.type,
-        })),
+        }))
       );
     }
 

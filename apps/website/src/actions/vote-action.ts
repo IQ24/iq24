@@ -1,6 +1,6 @@
 "use server";
 
-import { client } from "@midday/kv";
+import { client } from "@iq24/kv";
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import { z } from "zod";
@@ -10,7 +10,7 @@ export const voteAction = actionClient
   .schema(
     z.object({
       id: z.string(),
-    }),
+    })
   )
   .action(async ({ parsedInput: { id } }) => {
     const clientIP = (await headers()).get("x-forwarded-for");

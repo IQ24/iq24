@@ -1,6 +1,6 @@
-import { Button } from "@midday/ui/button";
-import { Card } from "@midday/ui/card";
-import { cn } from "@midday/ui/cn";
+import { Button } from "@iq24/ui/button";
+import { Card } from "@iq24/ui/card";
+import { cn } from "@iq24/ui/cn";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -106,13 +106,13 @@ export default function Page() {
                     alt={name}
                     className={cn(
                       "transition-transform duration-300 group-hover:-translate-y-2",
-                      className,
+                      className
                     )}
                   />
                 </div>
               </Card>
             </Link>
-          ),
+          )
         )}
       </div>
     </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCarousel } from "@midday/ui/carousel";
+import { useCarousel } from "@iq24/ui/carousel";
 import { parseAsString, useQueryStates } from "nuqs";
 import { useHotkeys } from "react-hotkeys-hook";
 

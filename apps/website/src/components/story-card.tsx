@@ -1,7 +1,7 @@
 "use client";
 
-import { Avatar, AvatarImageNext } from "@midday/ui/avatar";
-import { Icons } from "@midday/ui/icons";
+import { Avatar, AvatarImageNext } from "@iq24/ui/avatar";
+import { Icons } from "@iq24/ui/icons";
 
 export type Story = {
   id: number;

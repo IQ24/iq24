@@ -1,14 +1,14 @@
 import { getConnectionsStatus } from "@/utils/connection-status";
-import { getBankConnectionsByTeamId } from "@midday/supabase/cached-queries";
-import { Button } from "@midday/ui/button";
-import { cn } from "@midday/ui/cn";
-import { Icons } from "@midday/ui/icons";
+import { getBankConnectionsByTeamId } from "@iq24/supabase/cached-queries";
+import { Button } from "@iq24/ui/button";
+import { cn } from "@iq24/ui/cn";
+import { Icons } from "@iq24/ui/icons";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@midday/ui/tooltip";
+} from "@iq24/ui/tooltip";
 import Link from "next/link";
 
 export async function ConnectionStatus() {
@@ -19,7 +19,7 @@ export async function ConnectionStatus() {
   }
 
   const connectionIssue = bankConnections?.data?.some(
-    (bank) => bank.status === "disconnected",
+    (bank) => bank.status === "disconnected"
   );
 
   if (connectionIssue) {
@@ -74,7 +74,7 @@ export async function ConnectionStatus() {
                 size={16}
                 className={cn(
                   error && "text-[#FF3638]",
-                  warning && "text-[#FFD02B]",
+                  warning && "text-[#FFD02B]"
                 )}
               />
             </Button>

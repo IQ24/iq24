@@ -1,4 +1,4 @@
-import { createClient } from "@midday/supabase/job";
+import { createClient } from "@iq24/supabase/job";
 import { schemaTask } from "@trigger.dev/sdk/v3";
 import { revalidateCache } from "jobs/utils/revalidate-cache";
 import { triggerSequenceAndWait } from "jobs/utils/trigger-sequence";
@@ -42,7 +42,7 @@ export const updateBaseCurrency = schemaTask({
         updateAccountBaseCurrency,
         {
           delayMinutes: 0,
-        },
+        }
       );
 
       await revalidateCache({ tag: "bank", id: teamId });

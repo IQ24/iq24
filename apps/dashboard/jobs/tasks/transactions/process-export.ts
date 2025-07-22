@@ -1,5 +1,5 @@
-import { createClient } from "@midday/supabase/job";
-import { download } from "@midday/supabase/storage";
+import { createClient } from "@iq24/supabase/job";
+import { download } from "@iq24/supabase/storage";
 import { schemaTask } from "@trigger.dev/sdk/v3";
 import { blobToSerializable } from "jobs/utils/blob";
 import { processBatch } from "jobs/utils/process-batch";
@@ -25,7 +25,8 @@ export const processExport = schemaTask({
 
     const { data: transactionsData } = await supabase
       .from("transactions")
-      .select(`
+      .select(
+        `
         id,
         date,
         name,
@@ -38,7 +39,8 @@ export const processExport = schemaTask({
         attachments:transaction_attachments(*),
         category:transaction_categories(id, name, description),
         bank_account:bank_accounts(id, name)
-      `)
+      `
+      )
       .in("id", ids)
       .throwOnError();
 
@@ -69,13 +71,13 @@ export const processExport = schemaTask({
                   name,
                   blob: data ? await blobToSerializable(data) : null,
                 };
-              },
+              }
             );
-          }),
+          })
         );
 
         return batchAttachments.flat();
-      },
+      }
     );
 
     const rows = transactionsData

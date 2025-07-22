@@ -1,13 +1,13 @@
 "use client";
 
 import { useInvoiceParams } from "@/hooks/use-invoice-params";
-import { Button } from "@midday/ui/button";
+import { Button } from "@iq24/ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@midday/ui/tooltip";
+} from "@iq24/ui/tooltip";
 import { motion } from "framer-motion";
 import {
   MdChatBubbleOutline,

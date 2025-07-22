@@ -1,6 +1,6 @@
 import { useInitialConnectionStatus } from "@/hooks/use-initial-connection-status";
-import { Button } from "@midday/ui/button";
-import { cn } from "@midday/ui/cn";
+import { Button } from "@iq24/ui/button";
+import { cn } from "@iq24/ui/cn";
 import { useTheme } from "next-themes";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
@@ -76,7 +76,7 @@ export function LoadingTransactionsEvent({
         <li
           className={cn(
             "opacity-50 dark:opacity-20",
-            step > 0 && "!opacity-100",
+            step > 0 && "!opacity-100"
           )}
         >
           Connecting bank
@@ -85,7 +85,7 @@ export function LoadingTransactionsEvent({
         <li
           className={cn(
             "opacity-50 dark:opacity-20",
-            step > 1 && "!opacity-100",
+            step > 1 && "!opacity-100"
           )}
         >
           Getting transactions
@@ -94,7 +94,7 @@ export function LoadingTransactionsEvent({
         <li
           className={cn(
             "opacity-50 dark:opacity-20",
-            step > 2 && "!opacity-100",
+            step > 2 && "!opacity-100"
           )}
         >
           Completed

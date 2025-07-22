@@ -3,15 +3,15 @@
 import { shareFileAction } from "@/actions/share-file-action";
 import { useExportStatus } from "@/hooks/use-export-status";
 import { useExportStore } from "@/store/export";
-import { Button } from "@midday/ui/button";
+import { Button } from "@iq24/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@midday/ui/dropdown-menu";
-import { Icons } from "@midday/ui/icons";
-import { useToast } from "@midday/ui/use-toast";
+} from "@iq24/ui/dropdown-menu";
+import { Icons } from "@iq24/ui/icons";
+import { useToast } from "@iq24/ui/use-toast";
 import ms from "ms";
 import { useAction } from "next-safe-action/hooks";
 import { useEffect, useState } from "react";

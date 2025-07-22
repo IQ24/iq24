@@ -1,6 +1,6 @@
-import { getSubscriberPreferences } from "@midday/notification";
-import { getUser } from "@midday/supabase/cached-queries";
-import { Skeleton } from "@midday/ui/skeleton";
+import { getSubscriberPreferences } from "@iq24/notification";
+import { getUser } from "@iq24/supabase/cached-queries";
+import { Skeleton } from "@iq24/ui/skeleton";
 import { NotificationSetting } from "./notification-setting";
 
 export function NotificationSettingsSkeleton() {
@@ -18,7 +18,7 @@ export async function NotificationSettings() {
 
   const inAppSettings = subscriberPreferences
     ?.filter((setting) =>
-      Object.keys(setting.preference.channels).includes("in_app"),
+      Object.keys(setting.preference.channels).includes("in_app")
     )
     .map((setting) => {
       return (
@@ -36,7 +36,7 @@ export async function NotificationSettings() {
 
   const emailSettings = subscriberPreferences
     ?.filter((setting) =>
-      Object.keys(setting.preference.channels).includes("email"),
+      Object.keys(setting.preference.channels).includes("email")
     )
     .map((setting) => {
       return (

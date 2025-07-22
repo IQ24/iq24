@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@midday/ui/button";
+import { Button } from "@iq24/ui/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -36,7 +36,7 @@ export function FooterCTA() {
             </Button>
           </Link>
 
-          <a href="https://app.midday.ai">
+          <a href="https://app.iq24.ai">
             <Button className="h-12 px-5 bg-black text-white dark:bg-white dark:text-black hover:bg-black/80 dark:hover:bg-white/80">
               Try it for free
             </Button>

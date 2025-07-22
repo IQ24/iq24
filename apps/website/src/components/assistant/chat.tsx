@@ -1,8 +1,8 @@
 "use client";
 
-import { useEnterSubmit } from "@midday/ui/hooks";
-import { ScrollArea } from "@midday/ui/scroll-area";
-import { Textarea } from "@midday/ui/textarea";
+import { useEnterSubmit } from "@iq24/ui/hooks";
+import { ScrollArea } from "@iq24/ui/scroll-area";
+import { Textarea } from "@iq24/ui/textarea";
 import { motion } from "framer-motion";
 import { nanoid } from "nanoid";
 import { useState } from "react";
@@ -36,7 +36,7 @@ export function Chat({ messages, submitMessage, input, setInput }) {
     ]);
 
     const content = chatExamples.find(
-      (example) => example.title === input,
+      (example) => example.title === input
     )?.content;
 
     if (content) {
@@ -57,7 +57,7 @@ export function Chat({ messages, submitMessage, input, setInput }) {
               ),
             },
           ]),
-        500,
+        500
       );
     } else {
       setTimeout(
@@ -70,7 +70,7 @@ export function Chat({ messages, submitMessage, input, setInput }) {
               display: <SignUpCard />,
             },
           ]),
-        200,
+        200
       );
     }
   };

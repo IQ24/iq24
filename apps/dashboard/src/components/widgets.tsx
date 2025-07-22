@@ -4,7 +4,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@midday/ui/carousel";
+} from "@iq24/ui/carousel";
 import * as React from "react";
 import { Spending } from "./charts/spending";
 import { Transactions } from "./charts/transactions";

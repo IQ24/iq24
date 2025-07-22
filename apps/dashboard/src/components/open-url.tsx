@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@midday/ui/cn";
+import { cn } from "@iq24/ui/cn";
 import { platform } from "@todesktop/client-core";
 import { isDesktopApp } from "@todesktop/client-core/platform/todesktop";
 
@@ -8,7 +8,11 @@ export function OpenURL({
   href,
   children,
   className,
-}: { href: string; children: React.ReactNode; className?: string }) {
+}: {
+  href: string;
+  children: React.ReactNode;
+  className?: string;
+}) {
   const handleOnClick = () => {
     if (isDesktopApp()) {
       platform.os.openURL(href);

@@ -1,4 +1,4 @@
-import { createClient } from "@midday/supabase/server";
+import { createClient } from "@iq24/supabase/server";
 import { logger, schedules } from "@trigger.dev/sdk/v3";
 import { disconnectedNotifications } from "../notifications/disconnected";
 

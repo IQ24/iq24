@@ -1,4 +1,4 @@
-import { createClient } from "@midday/supabase/job";
+import { createClient } from "@iq24/supabase/job";
 import { logger, schemaTask } from "@trigger.dev/sdk/v3";
 import {
   getAccountBalance,
@@ -59,7 +59,7 @@ export const updateAccountBaseCurrency = schemaTask({
       "get_all_transactions_by_account",
       {
         account_id: accountId,
-      },
+      }
     );
 
     const formattedTransactions = transactionsData?.map(
@@ -73,7 +73,7 @@ export const updateAccountBaseCurrency = schemaTask({
           rate: exchangeRate?.rate,
         }),
         base_currency: baseCurrency,
-      }),
+      })
     );
 
     await processBatch(
@@ -86,7 +86,7 @@ export const updateAccountBaseCurrency = schemaTask({
         });
 
         return batch;
-      },
+      }
     );
   },
 });

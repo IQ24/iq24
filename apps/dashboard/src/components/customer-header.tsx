@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImageNext } from "@midday/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImageNext } from "@iq24/ui/avatar";
 import { InvoiceStatus } from "./invoice-status";
 
 type Props = {

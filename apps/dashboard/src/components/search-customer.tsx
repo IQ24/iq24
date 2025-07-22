@@ -3,7 +3,7 @@
 import type { Customer } from "@/components/invoice/customer-details";
 import { useCustomerParams } from "@/hooks/use-customer-params";
 import { useInvoiceParams } from "@/hooks/use-invoice-params";
-import { ComboboxDropdown } from "@midday/ui/combobox-dropdown";
+import { ComboboxDropdown } from "@iq24/ui/combobox-dropdown";
 import { useEffect } from "react";
 
 type Props = {

@@ -5,7 +5,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@midday/ui/card";
+} from "@iq24/ui/card";
 
 export function ChangeTheme() {
   return (

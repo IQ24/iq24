@@ -1,6 +1,6 @@
 import { CopyInput } from "@/components/copy-input";
 import { Keyboard } from "@/components/keyboard";
-import { Button } from "@midday/ui/button";
+import { Button } from "@iq24/ui/button";
 import type { Metadata } from "next";
 import Image from "next/image";
 import appIcon from "public/app-icon.png";
@@ -34,7 +34,7 @@ export default function Page() {
         accessible just one click away.
       </p>
 
-      <a href="https://go.midday.ai/d" download>
+      <a href="https://go.iq24.ai/d" download>
         <Button
           variant="outline"
           className="border border-primary h-12 px-6 mt-8"
@@ -48,7 +48,7 @@ export default function Page() {
       </p>
 
       <CopyInput
-        value="curl -sL https://go.midday.ai/d | tar -xz"
+        value="curl -sL https://go.iq24.ai/d | tar -xz"
         className="max-w-[410px] mt-8 font-mono font-normal hidden md:block rounded-full"
       />
     </div>

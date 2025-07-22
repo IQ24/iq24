@@ -2,8 +2,8 @@ import { createTagAction } from "@/actions/create-tag-action";
 import { deleteTagAction } from "@/actions/delete-tag-action";
 import { updateTagAction } from "@/actions/update-tag-action";
 import { useUserContext } from "@/store/user/hook";
-import { createClient } from "@midday/supabase/client";
-import { getTagsQuery } from "@midday/supabase/queries";
+import { createClient } from "@iq24/supabase/client";
+import { getTagsQuery } from "@iq24/supabase/queries";
 import {
   Dialog,
   DialogContent,
@@ -11,11 +11,11 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@midday/ui/dialog";
-import { Input } from "@midday/ui/input";
-import { Label } from "@midday/ui/label";
-import MultipleSelector, { type Option } from "@midday/ui/multiple-selector";
-import { SubmitButton } from "@midday/ui/submit-button";
+} from "@iq24/ui/dialog";
+import { Input } from "@iq24/ui/input";
+import { Label } from "@iq24/ui/label";
+import MultipleSelector, { type Option } from "@iq24/ui/multiple-selector";
+import { SubmitButton } from "@iq24/ui/submit-button";
 import { useAction } from "next-safe-action/hooks";
 import React, { useEffect, useState } from "react";
 
@@ -80,7 +80,7 @@ export function SelectTags({
             label: tag.name,
             value: tag.name,
             id: tag.id,
-          })),
+          }))
         );
       }
     }
@@ -101,8 +101,8 @@ export function SelectTags({
       data.map((tag) =>
         tag.id === editingTag?.id
           ? { ...tag, label: editingTag.value, value: editingTag.value }
-          : tag,
-      ),
+          : tag
+      )
     );
   };
 
@@ -140,7 +140,7 @@ export function SelectTags({
             onChange?.(options);
 
             const newTag = options.find(
-              (tag) => !selected.find((opt) => opt.value === tag.value),
+              (tag) => !selected.find((opt) => opt.value === tag.value)
             );
 
             if (newTag) {
@@ -150,7 +150,7 @@ export function SelectTags({
 
             if (options.length < selected.length) {
               const removedTag = selected.find(
-                (tag) => !options.find((opt) => opt.value === tag.value),
+                (tag) => !options.find((opt) => opt.value === tag.value)
               ) as Option & { id: string };
 
               if (removedTag) {

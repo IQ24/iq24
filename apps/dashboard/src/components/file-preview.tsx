@@ -1,15 +1,11 @@
 "use client";
 
-import { Button } from "@midday/ui/button";
-import { cn } from "@midday/ui/cn";
-import {
-  Dialog,
-  DialogContentFrameless,
-  DialogTrigger,
-} from "@midday/ui/dialog";
-import { Icons } from "@midday/ui/icons";
-import { Skeleton } from "@midday/ui/skeleton";
-import { FileType } from "@midday/utils";
+import { Button } from "@iq24/ui/button";
+import { cn } from "@iq24/ui/cn";
+import { Dialog, DialogContentFrameless, DialogTrigger } from "@iq24/ui/dialog";
+import { Icons } from "@iq24/ui/icons";
+import { Skeleton } from "@iq24/ui/skeleton";
+import { FileType } from "@iq24/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { useState } from "react";
@@ -188,7 +184,7 @@ export function FilePreview({
                 isLoaded && "hidden",
                 error && "hidden",
                 isFullscreen &&
-                  "absolute top-0 left-0 z-20 pointer-events-none w-full h-full",
+                  "absolute top-0 left-0 z-20 pointer-events-none w-full h-full"
               )}
             />
           </div>
@@ -198,7 +194,7 @@ export function FilePreview({
           className={cn(
             "w-full h-full items-center flex justify-center bg-[#F2F1EF] dark:bg-secondary",
             !isLoaded && "hidden",
-            error && "visible bg-transparent",
+            error && "visible bg-transparent"
           )}
         >
           <AnimatePresence>

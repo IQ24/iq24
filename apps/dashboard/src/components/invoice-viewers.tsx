@@ -1,21 +1,21 @@
 "use client";
 
 import { formatRelativeTime } from "@/utils/format";
-import { createClient } from "@midday/supabase/client";
-import { AnimatedSizeContainer } from "@midday/ui/animated-size-container";
+import { createClient } from "@iq24/supabase/client";
+import { AnimatedSizeContainer } from "@iq24/ui/animated-size-container";
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
   AvatarImageNext,
-} from "@midday/ui/avatar";
-import { Separator } from "@midday/ui/separator";
+} from "@iq24/ui/avatar";
+import { Separator } from "@iq24/ui/separator";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@midday/ui/tooltip";
+} from "@iq24/ui/tooltip";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import type { Customer } from "./invoice-toolbar";

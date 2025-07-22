@@ -1,4 +1,4 @@
-import { createClient } from "@midday/supabase/job";
+import { createClient } from "@iq24/supabase/job";
 import { logger } from "@trigger.dev/sdk/v3";
 import { sendInvoiceNotifications } from "jobs/tasks/invoice/notifications/send-notifications";
 

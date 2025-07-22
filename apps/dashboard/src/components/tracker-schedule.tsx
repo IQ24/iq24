@@ -14,17 +14,17 @@ import {
   transformTrackerData,
   updateEventTime,
 } from "@/utils/tracker";
-import { createClient } from "@midday/supabase/client";
-import { getTrackerRecordsByDateQuery } from "@midday/supabase/queries";
-import { cn } from "@midday/ui/cn";
+import { createClient } from "@iq24/supabase/client";
+import { getTrackerRecordsByDateQuery } from "@iq24/supabase/queries";
+import { cn } from "@iq24/ui/cn";
 import {
   ContextMenu,
   ContextMenuContent,
   ContextMenuItem,
   ContextMenuShortcut,
   ContextMenuTrigger,
-} from "@midday/ui/context-menu";
-import { ScrollArea } from "@midday/ui/scroll-area";
+} from "@iq24/ui/context-menu";
+import { ScrollArea } from "@iq24/ui/scroll-area";
 import {
   addMinutes,
   addSeconds,
@@ -74,7 +74,7 @@ export function TrackerSchedule({
   const scrollRef = useRef<HTMLDivElement>(null);
   const { selectedDate, range } = useTrackerParams();
   const [selectedEvent, setSelectedEvent] = useState<TrackerRecord | null>(
-    null,
+    null
   );
   const hours = Array.from({ length: 24 }, (_, i) => i);
   const [data, setData] = useState<TrackerRecord[]>([]);
@@ -82,7 +82,7 @@ export function TrackerSchedule({
   const [dragStartSlot, setDragStartSlot] = useState<number | null>(null);
   const [totalDuration, setTotalDuration] = useState(0);
   const [resizingEvent, setResizingEvent] = useState<TrackerRecord | null>(
-    null,
+    null
   );
   const [resizeStartY, setResizeStartY] = useState(0);
   const [resizeType, setResizeType] = useState<"top" | "bottom" | null>(null);
@@ -90,7 +90,7 @@ export function TrackerSchedule({
   const [moveStartY, setMoveStartY] = useState(0);
   const [isContextMenuOpen, setIsContextMenuOpen] = useState(false);
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(
-    projectId ?? null,
+    projectId ?? null
   );
 
   const createTrackerEntries = useAction(createTrackerEntriesAction, {
@@ -99,7 +99,7 @@ export function TrackerSchedule({
 
       setData((prevData) => {
         const processedData = result?.data.map((event) =>
-          transformTrackerData(event, selectedDate),
+          transformTrackerData(event, selectedDate)
         );
         return [
           ...prevData.filter((event) => event.id !== NEW_EVENT_ID),
@@ -123,7 +123,7 @@ export function TrackerSchedule({
 
       const lastEvent = result.data.at(-1);
       setSelectedEvent(
-        lastEvent ? transformTrackerData(lastEvent, selectedDate) : null,
+        lastEvent ? transformTrackerData(lastEvent, selectedDate) : null
       );
     },
   });
@@ -142,7 +142,7 @@ export function TrackerSchedule({
 
       if (trackerData?.data) {
         const processedData = trackerData.data.map((event: any) =>
-          transformTrackerData(event, selectedDate),
+          transformTrackerData(event, selectedDate)
         );
 
         setData(processedData);
@@ -183,7 +183,7 @@ export function TrackerSchedule({
       setTotalDuration((prevDuration) => {
         const deletedEventDuration = differenceInSeconds(
           new Date(data.find((event) => event.id === eventId)?.end || 0),
-          new Date(data.find((event) => event.id === eventId)?.start || 0),
+          new Date(data.find((event) => event.id === eventId)?.start || 0)
         );
         return Math.max(0, prevDuration - deletedEventDuration);
       });
@@ -197,7 +197,7 @@ export function TrackerSchedule({
         handleDeleteEvent(selectedEvent.id);
       }
     },
-    [selectedEvent],
+    [selectedEvent]
   );
 
   const currentOrNewEvent =
@@ -206,7 +206,7 @@ export function TrackerSchedule({
   const handleMouseDown = (slot: number) => {
     if (selectedEvent && selectedEvent.id === NEW_EVENT_ID) {
       setData((prevData) =>
-        prevData.filter((event) => event.id !== selectedEvent.id),
+        prevData.filter((event) => event.id !== selectedEvent.id)
       );
     }
     setSelectedEvent(null);
@@ -228,20 +228,20 @@ export function TrackerSchedule({
       const end = Math.max(dragStartSlot, slot);
       const startDate = setMinutes(
         setHours(new Date(), Math.floor(start / 4)),
-        (start % 4) * 15,
+        (start % 4) * 15
       );
       const endDate = addMinutes(startDate, (end - start + 1) * 15);
       setData((prevData) =>
         prevData.map((event) =>
           event.id === selectedEvent.id
             ? updateEventTime(event, startDate, endDate)
-            : event,
-        ),
+            : event
+        )
       );
       setSelectedEvent((prev) =>
         prev && prev.id === selectedEvent.id
           ? updateEventTime(prev, startDate, endDate)
-          : prev,
+          : prev
       );
     } else if (resizingEvent && resizingEvent.id !== NEW_EVENT_ID) {
       const deltaY = e.clientY - resizeStartY;
@@ -252,13 +252,13 @@ export function TrackerSchedule({
           prevData.map((event) =>
             event.id === resizingEvent.id
               ? updateEventTime(event, event.start, newEnd)
-              : event,
-          ),
+              : event
+          )
         );
         setSelectedEvent((prev) =>
           prev && prev.id === resizingEvent.id
             ? updateEventTime(prev, prev.start, newEnd)
-            : prev,
+            : prev
         );
       } else if (resizeType === "top") {
         const newStart = addMinutes(resizingEvent.start, deltaSlots * 15);
@@ -266,13 +266,13 @@ export function TrackerSchedule({
           prevData.map((event) =>
             event.id === resizingEvent.id
               ? updateEventTime(event, newStart, event.end)
-              : event,
-          ),
+              : event
+          )
         );
         setSelectedEvent((prev) =>
           prev && prev.id === resizingEvent.id
             ? updateEventTime(prev, newStart, prev.end)
-            : prev,
+            : prev
         );
       }
     } else if (movingEvent) {
@@ -290,13 +290,13 @@ export function TrackerSchedule({
           prevData.map((event) =>
             event.id === movingEvent.id
               ? updateEventTime(event, newStart, newEnd)
-              : event,
-          ),
+              : event
+          )
         );
         setSelectedEvent((prev) =>
           prev && prev.id === movingEvent.id
             ? updateEventTime(prev, newStart, newEnd)
-            : prev,
+            : prev
         );
       }
     }
@@ -318,7 +318,7 @@ export function TrackerSchedule({
   const handleEventResizeStart = (
     e: React.MouseEvent,
     event: TrackerRecord,
-    type: "top" | "bottom",
+    type: "top" | "bottom"
   ) => {
     if (event.id !== NEW_EVENT_ID) {
       e.stopPropagation();
@@ -443,7 +443,7 @@ export function TrackerSchedule({
                       className={cn(
                         "absolute w-full bg-[#F0F0F0]/[0.95] dark:bg-[#1D1D1D]/[0.95] text-[#606060] dark:text-[#878787] border-t border-border",
                         selectedEvent?.id === event.id && "!text-primary",
-                        event.id !== NEW_EVENT_ID && "cursor-move",
+                        event.id !== NEW_EVENT_ID && "cursor-move"
                       )}
                       style={{
                         top: `${startSlot * SLOT_HEIGHT}px`,
@@ -458,7 +458,7 @@ export function TrackerSchedule({
                         <span>
                           {event.project.name} (
                           {secondsToHoursAndMinutes(
-                            differenceInSeconds(event.end, event.start),
+                            differenceInSeconds(event.end, event.start)
                           )}
                           )
                         </span>
@@ -529,8 +529,8 @@ export function TrackerSchedule({
                       ...event,
                       project: { id: project.id, name: project.name },
                     }
-                  : event,
-              ),
+                  : event
+              )
             );
           }
         }}

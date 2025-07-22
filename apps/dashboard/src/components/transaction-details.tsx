@@ -5,17 +5,17 @@ import type { UpdateTransactionValues } from "@/actions/schema";
 import { updateSimilarTransactionsCategoryAction } from "@/actions/update-similar-transactions-action";
 import { updateSimilarTransactionsRecurringAction } from "@/actions/update-similar-transactions-recurring";
 import { useUserContext } from "@/store/user/hook";
-import { createClient } from "@midday/supabase/client";
-import { getTransactionQuery } from "@midday/supabase/queries";
-import { getSimilarTransactions } from "@midday/supabase/queries";
+import { createClient } from "@iq24/supabase/client";
+import { getTransactionQuery } from "@iq24/supabase/queries";
+import { getSimilarTransactions } from "@iq24/supabase/queries";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@midday/ui/accordion";
-import { cn } from "@midday/ui/cn";
-import { Label } from "@midday/ui/label";
+} from "@iq24/ui/accordion";
+import { cn } from "@iq24/ui/cn";
+import { Label } from "@iq24/ui/label";
 import {
   Select,
   SelectContent,
@@ -23,11 +23,11 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@midday/ui/select";
-import { Skeleton } from "@midday/ui/skeleton";
-import { Switch } from "@midday/ui/switch";
-import { ToastAction } from "@midday/ui/toast";
-import { useToast } from "@midday/ui/use-toast";
+} from "@iq24/ui/select";
+import { Skeleton } from "@iq24/ui/skeleton";
+import { Switch } from "@iq24/ui/switch";
+import { ToastAction } from "@iq24/ui/toast";
+import { useToast } from "@iq24/ui/use-toast";
 import { format } from "date-fns";
 import { useAction } from "next-safe-action/hooks";
 import { useQueryState } from "nuqs";
@@ -46,7 +46,7 @@ type Props = {
   ids?: string[];
   updateTransaction: (
     values: UpdateTransactionValues,
-    optimisticData: any,
+    optimisticData: any
   ) => void;
 };
 
@@ -61,10 +61,10 @@ export function TransactionDetails({
   const supabase = createClient();
   const [isLoading, setLoading] = useState(true);
   const updateSimilarTransactionsCategory = useAction(
-    updateSimilarTransactionsCategoryAction,
+    updateSimilarTransactionsCategoryAction
   );
   const updateSimilarTransactionsRecurring = useAction(
-    updateSimilarTransactionsRecurringAction,
+    updateSimilarTransactionsRecurringAction
   );
   const createAttachments = useAction(createAttachmentsAction);
   const createTransactionTag = useAction(createTransactionTagAction);
@@ -97,7 +97,7 @@ export function TransactionDetails({
         }
       }
     },
-    { enabled },
+    { enabled }
   );
 
   useEffect(() => {
@@ -131,7 +131,7 @@ export function TransactionDetails({
   }) => {
     updateTransaction(
       { id: data?.id, category_slug: category.slug },
-      { category },
+      { category }
     );
 
     const transactions = await getSimilarTransactions(supabase, {
@@ -143,7 +143,7 @@ export function TransactionDetails({
       toast({
         duration: 6000,
         variant: "ai",
-        title: "Midday AI",
+        title: "iq24.ai",
         description: `Do you want to mark ${transactions?.data?.length} similar transactions from ${data?.name} as ${category.name} too?`,
         footer: (
           <div className="flex space-x-2 mt-4">
@@ -168,7 +168,7 @@ export function TransactionDetails({
   const handleOnChangeRecurring = async (value: boolean) => {
     updateTransaction(
       { id: data?.id, recurring: value, frequency: value ? "monthly" : null },
-      { recurring: value, frequency: value ? "monthly" : null },
+      { recurring: value, frequency: value ? "monthly" : null }
     );
 
     const transactions = await getSimilarTransactions(supabase, {
@@ -180,8 +180,12 @@ export function TransactionDetails({
       toast({
         duration: 6000,
         variant: "ai",
-        title: "Midday AI",
-        description: `Do you want to mark ${transactions?.data?.length} similar transactions from ${data?.name} as ${value ? "Recurring" : "Non Recurring"} too?`,
+        title: "iq24.ai",
+        description: `Do you want to mark ${
+          transactions?.data?.length
+        } similar transactions from ${data?.name} as ${
+          value ? "Recurring" : "Non Recurring"
+        } too?`,
         footer: (
           <div className="flex space-x-2 mt-4">
             <ToastAction altText="Cancel" className="pl-5 pr-5">
@@ -250,7 +254,7 @@ export function TransactionDetails({
                 <span
                   className={cn(
                     "text-4xl font-mono select-text",
-                    data?.category?.slug === "income" && "text-[#00C969]",
+                    data?.category?.slug === "income" && "text-[#00C969]"
                   )}
                 >
                   <FormatAmount
@@ -302,7 +306,7 @@ export function TransactionDetails({
             onSelect={(user) => {
               updateTransaction(
                 { assigned_id: user?.id, id: data?.id },
-                { assigned: user },
+                { assigned: user }
               );
             }}
           />
@@ -348,7 +352,7 @@ export function TransactionDetails({
                     files.map((file) => ({
                       ...file,
                       transaction_id: data?.id,
-                    })),
+                    }))
                   );
                 }
               }}
@@ -374,7 +378,7 @@ export function TransactionDetails({
               onCheckedChange={() => {
                 updateTransaction(
                   { id: data?.id, internal: !data?.internal },
-                  { internal: !data?.internal },
+                  { internal: !data?.internal }
                 );
               }}
             />
@@ -403,7 +407,7 @@ export function TransactionDetails({
                 onValueChange={(value) => {
                   updateTransaction(
                     { id: data?.id, frequency: value },
-                    { frequency: value },
+                    { frequency: value }
                   );
 
                   updateSimilarTransactionsRecurring.execute({ id: data?.id });

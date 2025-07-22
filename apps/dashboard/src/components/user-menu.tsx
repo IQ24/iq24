@@ -1,5 +1,5 @@
-import { getUser } from "@midday/supabase/cached-queries";
-import { Avatar, AvatarFallback, AvatarImageNext } from "@midday/ui/avatar";
+import { getUser } from "@iq24/supabase/cached-queries";
+import { Avatar, AvatarFallback, AvatarImageNext } from "@iq24/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from "@midday/ui/dropdown-menu";
+} from "@iq24/ui/dropdown-menu";
 import Link from "next/link";
 import { SignOut } from "./sign-out";
 import { ThemeSwitch } from "./theme-switch";

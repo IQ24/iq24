@@ -2,9 +2,9 @@ import { useTrackerParams } from "@/hooks/use-tracker-params";
 import { formatDateRange } from "@/utils/format";
 import { getTrackerDates } from "@/utils/tracker";
 import { TZDate } from "@date-fns/tz";
-import { Button } from "@midday/ui/button";
-import { cn } from "@midday/ui/cn";
-import { Icons } from "@midday/ui/icons";
+import { Button } from "@iq24/ui/button";
+import { cn } from "@iq24/ui/cn";
+import { Icons } from "@iq24/ui/icons";
 import { addDays, formatISO, subDays } from "date-fns";
 import { useHotkeys } from "react-hotkeys-hook";
 
@@ -56,10 +56,10 @@ export function TrackerDaySelect({ className }: Props) {
                 new TZDate(currentDate[0].getTime(), "UTC"),
                 new TZDate(
                   currentDate[1]?.getTime() ?? currentDate[0].getTime(),
-                  "UTC",
+                  "UTC"
                 ),
               ]
-            : [new TZDate(currentDate[0].getTime(), "UTC")],
+            : [new TZDate(currentDate[0].getTime(), "UTC")]
         )}
       </span>
       <Button

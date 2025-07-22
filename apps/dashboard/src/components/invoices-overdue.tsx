@@ -1,4 +1,4 @@
-import { getInvoiceSummary } from "@midday/supabase/cached-queries";
+import { getInvoiceSummary } from "@iq24/supabase/cached-queries";
 import Link from "next/link";
 import { InvoiceSummary } from "./invoice-summary";
 

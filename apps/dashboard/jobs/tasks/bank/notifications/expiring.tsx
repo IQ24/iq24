@@ -1,5 +1,5 @@
 import { resend } from "@/utils/resend";
-import ConnectionExpireEmail from "@midday/email/emails/connection-expire";
+import ConnectionExpireEmail from "@iq24/email/emails/connection-expire";
 import { render } from "@react-email/components";
 import { schemaTask } from "@trigger.dev/sdk/v3";
 import { z } from "zod";
@@ -22,7 +22,7 @@ export const expiringNotifications = schemaTask({
           full_name: z.string(),
           locale: z.string(),
         }),
-      }),
+      })
     ),
   }),
   run: async ({ users }) => {
@@ -34,16 +34,16 @@ export const expiringNotifications = schemaTask({
             bankName={bankName}
             teamName={teamName}
             expiresAt={expiresAt}
-          />,
+          />
         );
 
         return {
-          from: "Middaybot <middaybot@midday.ai>",
+          from: "Middaybot <middaybot@iq24i>",
           to: [user.email],
           subject: "Bank Connection Expiring Soon",
           html,
         };
-      },
+      }
     );
 
     const emails = await Promise.all(emailPromises);

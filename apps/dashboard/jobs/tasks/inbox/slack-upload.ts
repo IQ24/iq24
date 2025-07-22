@@ -1,9 +1,9 @@
 import {
   createSlackWebClient,
   downloadFile,
-} from "@midday/app-store/slack-client";
-import { DocumentClient, prepareDocument } from "@midday/documents";
-import { createClient } from "@midday/supabase/job";
+} from "@iq24/app-store/slack-client";
+import { DocumentClient, prepareDocument } from "@iq24/documents";
+import { createClient } from "@iq24/supabase/job";
 import { schemaTask } from "@trigger.dev/sdk/v3";
 import { format } from "date-fns";
 import { z } from "zod";
@@ -132,15 +132,16 @@ export const inboxSlackUpload = schemaTask({
                 type: "section",
                 text: {
                   type: "mrkdwn",
-                  text: `Here's the information I extracted from your receipt:\n\n• *Vendor:* ${updatedInbox.display_name}\n• *Amount:* ${new Intl.NumberFormat(
-                    "en-US",
-                    {
-                      style: "currency",
-                      currency: updatedInbox.currency!,
-                    },
-                  ).format(
-                    updatedInbox.amount,
-                  )}\n• *Date:* ${updatedInbox.date ? format(new Date(updatedInbox.date), "MMM d") : ""}\n\nWe'll notify you when we match it to a transaction.`,
+                  text: `Here's the information I extracted from your receipt:\n\n• *Vendor:* ${
+                    updatedInbox.display_name
+                  }\n• *Amount:* ${new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: updatedInbox.currency!,
+                  }).format(updatedInbox.amount)}\n• *Date:* ${
+                    updatedInbox.date
+                      ? format(new Date(updatedInbox.date), "MMM d")
+                      : ""
+                  }\n\nWe'll notify you when we match it to a transaction.`,
                 },
               },
               {
@@ -153,7 +154,9 @@ export const inboxSlackUpload = schemaTask({
                       text: "Show receipt",
                       emoji: true,
                     },
-                    url: `https://app.midday.ai/inbox?id=${encodeURIComponent(updatedInbox.id)}`,
+                    url: `https://app.iq24.ai/inbox?id=${encodeURIComponent(
+                      updatedInbox.id
+                    )}`,
                     action_id: "view_receipt",
                   },
                 ],

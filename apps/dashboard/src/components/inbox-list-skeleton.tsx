@@ -1,5 +1,5 @@
-import { cn } from "@midday/ui/cn";
-import { Skeleton } from "@midday/ui/skeleton";
+import { cn } from "@iq24/ui/cn";
+import { Skeleton } from "@iq24/ui/skeleton";
 
 type InboxSkeletonProps = {
   numberOfItems: number;

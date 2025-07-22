@@ -3,10 +3,10 @@ import { Footer } from "@/components/footer";
 import { FooterCTA } from "@/components/footer-cta";
 import { Header } from "@/components/header";
 import "@/styles/globals.css";
-import { cn } from "@midday/ui/cn";
-import "@midday/ui/globals.css";
+import { cn } from "@iq24/ui/cn";
+import "@iq24/ui/globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Provider as Analytics } from "@midday/events/client";
+import { Provider as Analytics } from "@iq24/events/client";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
@@ -34,12 +34,12 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://cdn.midday.ai/opengraph-image.jpg",
+        url: "https://cdn.iq24.ai/opengraph-image.jpg",
         width: 800,
         height: 600,
       },
       {
-        url: "https://cdn.midday.ai/opengraph-image.jpg",
+        url: "https://cdn.iq24.ai/opengraph-image.jpg",
         width: 1800,
         height: 1600,
       },
@@ -51,12 +51,12 @@ export const metadata: Metadata = {
       "Midday provides you with greater insight into your business and automates the boring tasks, allowing you to focus on what you love to do instead.",
     images: [
       {
-        url: "https://cdn.midday.ai/opengraph-image.jpg",
+        url: "https://cdn.iq24.ai/opengraph-image.jpg",
         width: 800,
         height: 600,
       },
       {
-        url: "https://cdn.midday.ai/opengraph-image.jpg",
+        url: "https://cdn.iq24.ai/opengraph-image.jpg",
         width: 1800,
         height: 1600,
       },
@@ -88,7 +88,7 @@ export default function Layout({ children }: { children: ReactElement }) {
       <body
         className={cn(
           `${GeistSans.variable} ${GeistMono.variable}`,
-          "bg-[#fbfbfb] dark:bg-[#0C0C0C] overflow-x-hidden antialiased",
+          "bg-[#fbfbfb] dark:bg-[#0C0C0C] overflow-x-hidden antialiased"
         )}
       >
         <ThemeProvider

@@ -1,5 +1,5 @@
-import { PdfTemplate, renderToBuffer } from "@midday/invoice";
-import { createClient } from "@midday/supabase/job";
+import { PdfTemplate, renderToBuffer } from "@iq24/invoice";
+import { createClient } from "@iq24/supabase/job";
 import { logger, schemaTask } from "@trigger.dev/sdk/v3";
 import { z } from "zod";
 
@@ -20,7 +20,7 @@ export const generateInvoice = schemaTask({
     const { data: invoiceData } = await supabase
       .from("invoices")
       .select(
-        "*, team_id, customer:customer_id(name), user:user_id(timezone, locale)",
+        "*, team_id, customer:customer_id(name), user:user_id(timezone, locale)"
       )
       .eq("id", invoiceId)
       .single()

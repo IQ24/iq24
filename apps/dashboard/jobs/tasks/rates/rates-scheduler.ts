@@ -1,5 +1,5 @@
-import { client } from "@midday/engine/client";
-import { createClient } from "@midday/supabase/job";
+import { client } from "@iq24/engine/client";
+import { createClient } from "@iq24/supabase/job";
 import { logger, schedules } from "@trigger.dev/sdk/v3";
 import { processBatch } from "jobs/utils/process-batch";
 

@@ -2,7 +2,7 @@
 
 import { useCustomerParams } from "@/hooks/use-customer-params";
 import { useInvoiceParams } from "@/hooks/use-invoice-params";
-import { Button } from "@midday/ui/button";
+import { Button } from "@iq24/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -10,8 +10,8 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@midday/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@midday/ui/popover";
+} from "@iq24/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@iq24/ui/popover";
 import React from "react";
 
 type Props = {
