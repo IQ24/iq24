@@ -1,5 +1,5 @@
 import { DataTable } from "@/components/tables/tracker/data-table";
-import { getTrackerProjects } from "@midday/supabase/cached-queries";
+import { getTrackerProjects } from "@iq24/supabase/cached-queries";
 import { EmptyState, NoResults } from "./empty-states";
 
 const pageSize = 20;

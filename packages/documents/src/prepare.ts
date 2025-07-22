@@ -1,4 +1,4 @@
-import { stripSpecialCharacters } from "@midday/utils";
+import { stripSpecialCharacters } from "@iq24/utils";
 import { decode } from "base64-arraybuffer";
 import convert from "heic-convert";
 import sharp from "sharp";
@@ -7,7 +7,7 @@ import type { Document, DocumentResponse } from "./types";
 const MAX_SIZE = 1500;
 
 export async function prepareDocument(
-  document: Document,
+  document: Document
 ): Promise<DocumentResponse> {
   const buffer = decode(document.Content);
   const fileName = document.Name.split(".")?.at(0) ?? "File";

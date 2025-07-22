@@ -1,6 +1,6 @@
 "use server";
 
-import { LogEvents } from "@midday/events/events";
+import { LogEvents } from "@iq24/events/events";
 import { revalidatePath } from "next/cache";
 import { authActionClient } from "./safe-action";
 import { mfaVerifySchema } from "./schema";
@@ -28,5 +28,5 @@ export const mfaVerifyAction = authActionClient
       revalidatePath("/account/security");
 
       return data;
-    },
+    }
   );

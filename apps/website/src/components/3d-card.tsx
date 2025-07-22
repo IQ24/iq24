@@ -2,7 +2,7 @@
 
 "use client";
 
-import { cn } from "@midday/ui/cn";
+import { cn } from "@iq24/ui/cn";
 
 import React, {
   createContext,

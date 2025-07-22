@@ -1,4 +1,4 @@
-import { Skeleton } from "@midday/ui/skeleton";
+import { Skeleton } from "@iq24/ui/skeleton";
 
 export function Loading() {
   return (

@@ -1,4 +1,4 @@
-import { getBankAccountsCurrencies } from "@midday/supabase/cached-queries";
+import { getBankAccountsCurrencies } from "@iq24/supabase/cached-queries";
 import { Suspense } from "react";
 import { ChartFilters } from "./chart-filters";
 

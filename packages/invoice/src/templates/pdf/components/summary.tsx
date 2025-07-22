@@ -1,4 +1,4 @@
-import { formatAmount } from "@midday/utils/format";
+import { formatAmount } from "@iq24/utils/format";
 import { Text, View } from "@react-pdf/renderer";
 
 interface SummaryProps {

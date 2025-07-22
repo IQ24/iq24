@@ -1,4 +1,4 @@
-import { stripSpecialCharacters } from "@midday/utils";
+import { stripSpecialCharacters } from "@iq24/utils";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import * as tus from "tus-js-client";
 
@@ -11,7 +11,7 @@ type ResumableUploadParmas = {
 
 export async function resumableUpload(
   client: SupabaseClient,
-  { file, path, bucket, onProgress }: ResumableUploadParmas,
+  { file, path, bucket, onProgress }: ResumableUploadParmas
 ) {
   const {
     data: { session },

@@ -1,6 +1,6 @@
 "use server";
 
-import { LogEvents } from "@midday/events/events";
+import { LogEvents } from "@iq24/events/events";
 import { revalidateTag } from "next/cache";
 import { authActionClient } from "./safe-action";
 import { deleteTransactionTagSchema } from "./schema";
@@ -28,5 +28,5 @@ export const deleteTransactionTagAction = authActionClient
       revalidateTag(`transactions_${user.team_id}`);
 
       return data;
-    },
+    }
   );

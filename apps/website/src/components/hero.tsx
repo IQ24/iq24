@@ -1,4 +1,4 @@
-import { Button } from "@midday/ui/button";
+import { Button } from "@iq24/ui/button";
 import Link from "next/link";
 import { HeroImage } from "./hero-image";
 import { Metrics } from "./metrics";
@@ -36,7 +36,7 @@ export function Hero() {
         <div className="mt-8 md:mt-10">
           <div className="flex items-center space-x-4">
             <Link
-              href="https://cal.com/pontus-midday/15min"
+              href="https://cal.com/pontus-iq24/15min"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -48,7 +48,7 @@ export function Hero() {
               </Button>
             </Link>
 
-            <a href="https://app.midday.ai">
+            <a href="https://app.iq24.ai">
               <Button className="h-11 px-5">Try it for free</Button>
             </a>
           </div>

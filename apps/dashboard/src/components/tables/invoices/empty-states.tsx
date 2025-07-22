@@ -1,7 +1,7 @@
 "use client";
 
 import { useInvoiceParams } from "@/hooks/use-invoice-params";
-import { Button } from "@midday/ui/button";
+import { Button } from "@iq24/ui/button";
 
 export function EmptyState() {
   const { setParams } = useInvoiceParams();

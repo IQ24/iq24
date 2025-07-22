@@ -10,7 +10,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@midday/ui/select";
+} from "@iq24/ui/select";
 
 type Theme = "dark" | "system" | "light";
 

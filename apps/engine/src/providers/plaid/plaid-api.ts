@@ -60,16 +60,16 @@ export class PlaidApi {
 
   #generateWebhookUrl(environment: "sandbox" | "production") {
     if (environment === "sandbox") {
-      return "https://staging.app.midday.ai/api/webhook/plaid";
+      return "https://staging.app.iq24.ai/api/webhook/plaid";
     }
 
-    return "https://app.midday.ai/api/webhook/plaid";
+    return "https://app.iq24.ai/api/webhook/plaid";
   }
 
   async getHealthCheck() {
     try {
       const response = await fetch(
-        "https://status.plaid.com/api/v2/status.json",
+        "https://status.plaid.com/api/v2/status.json"
       );
 
       const data = (await response.json()) as GetStatusResponse;
@@ -186,7 +186,7 @@ export class PlaidApi {
     return this.#client.linkTokenCreate({
       client_id: this.#clientId,
       secret: this.#clientSecret,
-      client_name: "Midday",
+      client_name: "iq24",
       products: [Products.Transactions],
       language,
       access_token: accessToken,
@@ -249,7 +249,7 @@ export class PlaidApi {
             })
             .then(({ data }) => {
               return data.institutions;
-            }),
+            })
         ),
     });
   }

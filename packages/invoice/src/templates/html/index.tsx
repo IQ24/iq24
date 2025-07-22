@@ -1,4 +1,4 @@
-import { ScrollArea } from "@midday/ui/scroll-area";
+import { ScrollArea } from "@iq24/ui/scroll-area";
 import type { TemplateProps } from "../types";
 import { EditorContent } from "./components/editor-content";
 import { LineItems } from "./components/line-items";

@@ -1,12 +1,12 @@
 import { InviteForm } from "@/components/forms/invite-form";
 import { UserMenu } from "@/components/user-menu";
-import { Icons } from "@midday/ui/icons";
+import { Icons } from "@iq24/ui/icons";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
-  title: "Invite Team Member | Midday",
+  title: "Invite Team Member | iq24",
 };
 
 export default async function InviteMembers() {

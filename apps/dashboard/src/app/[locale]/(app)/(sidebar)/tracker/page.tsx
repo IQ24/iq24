@@ -7,14 +7,14 @@ import {
   getCustomers,
   getTrackerRecordsByRange,
   getUser,
-} from "@midday/supabase/cached-queries";
+} from "@iq24/supabase/cached-queries";
 import { endOfMonth, formatISO, startOfMonth } from "date-fns";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { searchParamsCache } from "./search-params";
 
 export const metadata: Metadata = {
-  title: "Tracker | Midday",
+  title: "Tracker | iq24",
 };
 
 type Props = {

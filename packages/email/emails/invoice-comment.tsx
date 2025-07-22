@@ -20,7 +20,7 @@ interface Props {
 
 export const InvoiceCommentEmail = ({
   invoiceNumber = "INV-0001",
-  link = "https://app.midday.ai/i/1234567890",
+  link = "https://app.iq24.ai/i/1234567890",
 }: Props) => {
   const text = `New comment on Invoice ${invoiceNumber}`;
 

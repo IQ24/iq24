@@ -1,6 +1,6 @@
 "use server";
 
-import { LogEvents } from "@midday/events/events";
+import { LogEvents } from "@iq24/events/events";
 import {
   revalidatePath as revalidatePathFunc,
   revalidateTag,
@@ -34,5 +34,5 @@ export const deleteCategoriesAction = authActionClient
       revalidateTag(`spending_${user.team_id}`);
 
       return response;
-    },
+    }
   );

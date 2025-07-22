@@ -1,4 +1,4 @@
-import { CurrencyInput } from "@midday/ui/currency-input";
+import { CurrencyInput } from "@iq24/ui/currency-input";
 import { useController, useFormContext } from "react-hook-form";
 
 export function VATInput() {

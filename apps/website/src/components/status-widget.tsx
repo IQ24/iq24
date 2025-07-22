@@ -1,7 +1,7 @@
 "use client";
 
 import { fetchStatus } from "@/actions/fetch-status";
-import { cn } from "@midday/ui/cn";
+import { cn } from "@iq24/ui/cn";
 import { useEffect, useState } from "react";
 
 export function StatusWidget() {
@@ -70,7 +70,7 @@ export function StatusWidget() {
   return (
     <a
       className="flex justify-between space-x-2 items-center w-full border border-border rounded-full px-3 py-1.5"
-      href="https://midday.openstatus.dev"
+      href="https://iq24.openstatus.dev"
       target="_blank"
       rel="noreferrer"
     >

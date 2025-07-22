@@ -24,7 +24,7 @@ export async function sendSlackTransactionNotifications({
     .single();
 
   const enabled = data?.settings?.find(
-    (setting: { id: string; value: boolean }) => setting.id === "transactions",
+    (setting: { id: string; value: boolean }) => setting.id === "transactions"
   )?.value;
 
   if (!enabled || !data?.config?.access_token) {
@@ -44,7 +44,7 @@ export async function sendSlackTransactionNotifications({
           type: "section",
           text: {
             type: "mrkdwn",
-            text: "You got some new transactions! We'll do our best to match these with receipts in your Inbox or you can simply upload them in your <slack://app?id=A07PN48FW3A|Midday Assistant>.",
+            text: "You got some new transactions! We'll do our best to match these with receipts in your Inbox or you can simply upload them in your <slack://app?id=A07PN48FW3A|iq24 Assistant>.",
           },
         },
         {
@@ -75,7 +75,7 @@ export async function sendSlackTransactionNotifications({
                 type: "plain_text",
                 text: "View transactions",
               },
-              url: "https://app.midday.ai/transactions",
+              url: "https://app.iq24.ai/transactions",
               action_id: "button_click",
             },
           ],

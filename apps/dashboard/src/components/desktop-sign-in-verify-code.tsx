@@ -15,7 +15,7 @@ export function DesktopSignInVerifyCode({
 
   useEffect(() => {
     if (code && !hasRunned.current) {
-      window.location.replace(`midday://api/auth/callback?code=${code}`);
+      window.location.replace(`iq24://api/auth/callback?code=${code}`);
       hasRunned.current = true;
     }
   }, [code]);
@@ -27,16 +27,16 @@ export function DesktopSignInVerifyCode({
           src={appIcon}
           width={80}
           height={80}
-          alt="Midday"
+          alt="iq24"
           quality={100}
           className="mb-10"
         />
         <p>Signing in...</p>
         <p className="mb-4">
-          If Midday dosen't open in a few seconds,{" "}
+          If iq24 dosen't open in a few seconds,{" "}
           <a
             className="underline"
-            href={`midday://api/auth/callback?code=${code}`}
+            href={`iq24://api/auth/callback?code=${code}`}
           >
             click here
           </a>

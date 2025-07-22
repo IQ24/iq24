@@ -2,7 +2,7 @@
 
 import { authActionClient } from "@/actions/safe-action";
 import { parseInputValue } from "@/components/invoice/utils";
-import { generateToken } from "@midday/invoice/token";
+import { generateToken } from "@iq24/invoice/token";
 import { revalidateTag } from "next/cache";
 import { draftInvoiceSchema } from "./schema";
 
@@ -55,7 +55,7 @@ export const draftInvoiceAction = authActionClient
           {
             onConflict: "id",
             merge: true,
-          },
+          }
         )
         .select("*")
         .single();
@@ -65,5 +65,5 @@ export const draftInvoiceAction = authActionClient
       revalidateTag(`invoice_number_${teamId}`);
 
       return data;
-    },
+    }
   );

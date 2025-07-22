@@ -3,11 +3,11 @@ import { ChangeTheme } from "@/components/change-theme";
 import { DeleteAccount } from "@/components/delete-account";
 import { DisplayName } from "@/components/display-name";
 import { UserAvatar } from "@/components/user-avatar";
-import { getUser } from "@midday/supabase/cached-queries";
+import { getUser } from "@iq24/supabase/cached-queries";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Account Settings | Midday",
+  title: "Account Settings | iq24",
 };
 
 export default async function Account() {

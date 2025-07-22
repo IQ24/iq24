@@ -1,6 +1,6 @@
 "use server";
 
-import { LogEvents } from "@midday/events/events";
+import { LogEvents } from "@iq24/events/events";
 import { exportTransactions } from "jobs/tasks/transactions/export";
 import { authActionClient } from "./safe-action";
 import { exportTransactionsSchema } from "./schema";

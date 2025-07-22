@@ -33,7 +33,7 @@ export async function PdfTemplate({
   let qrCode = null;
 
   if (template.include_qr) {
-    qrCode = await QRCodeUtil.toDataURL(`https://app.midday.ai/i/${token}`, {
+    qrCode = await QRCodeUtil.toDataURL(`https://app.iq24.ai/i/${token}`, {
       width: 40 * 3,
       height: 40 * 3,
       margin: 0,

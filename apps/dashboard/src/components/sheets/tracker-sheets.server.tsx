@@ -1,5 +1,5 @@
 import { Cookies } from "@/utils/constants";
-import { getCustomers } from "@midday/supabase/cached-queries";
+import { getCustomers } from "@iq24/supabase/cached-queries";
 import { cookies } from "next/headers";
 import { TrackerCreateSheet } from "./tracker-create-sheet";
 import { TrackerScheduleSheet } from "./tracker-schedule-sheet";

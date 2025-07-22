@@ -1,5 +1,5 @@
 import type { Chat } from "@/actions/ai/types";
-import { cn } from "@midday/ui/cn";
+import { cn } from "@iq24/ui/cn";
 
 interface SidebarItemProps {
   chat: Chat;

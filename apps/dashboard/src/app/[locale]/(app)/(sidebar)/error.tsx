@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@midday/ui/button";
+import { Button } from "@iq24/ui/button";
 import * as Sentry from "@sentry/nextjs";
 import Link from "next/link";
 import { useEffect } from "react";
@@ -8,7 +8,10 @@ import { useEffect } from "react";
 export default function ErrorPage({
   reset,
   error,
-}: { reset: () => void; error: Error & { digest?: string } }) {
+}: {
+  reset: () => void;
+  error: Error & { digest?: string };
+}) {
   useEffect(() => {
     Sentry.captureException(error);
   }, [error]);

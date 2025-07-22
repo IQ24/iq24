@@ -1,6 +1,6 @@
 "use server";
 
-import type { Database } from "@midday/supabase/types";
+import type { Database } from "@iq24/supabase/types";
 import { createServerClient } from "@supabase/ssr";
 
 export async function fetchStats() {
@@ -19,7 +19,7 @@ export async function fetchStats() {
           return null;
         },
       },
-    },
+    }
   );
 
   const supabaseStorage = createServerClient<Database>(
@@ -38,7 +38,7 @@ export async function fetchStats() {
         },
       },
       db: { schema: "storage" },
-    },
+    }
   );
 
   const [

@@ -1,4 +1,4 @@
-import { getCustomers } from "@midday/supabase/cached-queries";
+import { getCustomers } from "@iq24/supabase/cached-queries";
 import { EmptyState, NoResults } from "./empty-states";
 import { DataTable } from "./table";
 
@@ -36,7 +36,7 @@ export async function CustomersTable({ query, sort, start, end, page }: Props) {
   });
 
   const hasNextPage = Boolean(
-    meta?.count && meta.count / (page + 1) > pageSize,
+    meta?.count && meta.count / (page + 1) > pageSize
   );
 
   if (!data?.length) {

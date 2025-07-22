@@ -1,4 +1,4 @@
-import { cn } from "@midday/ui/cn";
+import { cn } from "@iq24/ui/cn";
 import { useClickAway } from "@uidotdev/usehooks";
 import { SidebarItems } from "./sidebar-items";
 import { Toolbar } from "./toolbar";

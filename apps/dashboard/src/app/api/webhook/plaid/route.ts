@@ -1,5 +1,5 @@
 import { logger } from "@/utils/logger";
-import { createClient } from "@midday/supabase/server";
+import { createClient } from "@iq24/supabase/server";
 import { isAfter, subDays } from "date-fns";
 import { syncConnection } from "jobs/tasks/bank/sync/connection";
 import { type NextRequest, NextResponse } from "next/server";
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
   if (!ALLOWED_IPS.includes(clientIp)) {
     return NextResponse.json(
       { error: "Unauthorized IP address" },
-      { status: 403 },
+      { status: 403 }
     );
   }
 
@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(
       { error: "Invalid webhook payload", details: result.error.issues },
-      { status: 400 },
+      { status: 400 }
     );
   }
 
@@ -74,7 +74,7 @@ export async function POST(req: NextRequest) {
   if (!connectionData) {
     return NextResponse.json(
       { error: "Connection not found" },
-      { status: 404 },
+      { status: 404 }
     );
   }
 

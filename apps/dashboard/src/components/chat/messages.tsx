@@ -1,7 +1,7 @@
 "use client";
 
 import { useStreamableText } from "@/hooks/use-streamable-text";
-import { cn } from "@midday/ui/cn";
+import { cn } from "@iq24/ui/cn";
 import type { StreamableValue } from "ai/rsc";
 import { ErrorBoundary } from "next/dist/client/components/error-boundary";
 import { ErrorFallback } from "../error-fallback";
@@ -93,7 +93,7 @@ export function BotCard({
         <div
           className={cn(
             "ml-4 flex-1 space-y-2 overflow-hidden pl-2 text-xs font-mono leading-relaxed",
-            className,
+            className
           )}
         >
           {children}

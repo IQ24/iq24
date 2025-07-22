@@ -1,4 +1,4 @@
-import { getEmailUrl } from "@midday/utils/envs";
+import { getEmailUrl } from "@iq24/utils/envs";
 import {
   Column,
   Hr,
@@ -38,7 +38,7 @@ export function Footer() {
             <Row className="mb-1.5">
               <Link
                 className="text-[#707070] text-[14px]"
-                href="https://go.midday.ai/bOp4NOx"
+                href="https://go.iq24.ai/bOp4NOx"
               >
                 Overview
               </Link>
@@ -46,7 +46,7 @@ export function Footer() {
             <Row className="mb-1.5">
               <Link
                 className="text-[#707070] text-[14px]"
-                href="https://go.midday.ai/VFcNsmQ"
+                href="https://go.iq24.ai/VFcNsmQ"
               >
                 Inbox
               </Link>
@@ -54,7 +54,7 @@ export function Footer() {
             <Row className="mb-1.5">
               <Link
                 className="text-[#707070] text-[14px]"
-                href="https://go.midday.ai/uA06kWO"
+                href="https://go.iq24.ai/uA06kWO"
               >
                 Vault
               </Link>
@@ -62,7 +62,7 @@ export function Footer() {
             <Row className="mb-1.5">
               <Link
                 className="text-[#707070] text-[14px]"
-                href="https://go.midday.ai/x7Fow9L"
+                href="https://go.iq24.ai/x7Fow9L"
               >
                 Tracker
               </Link>
@@ -71,7 +71,7 @@ export function Footer() {
             <Row className="mb-1.5">
               <Link
                 className="text-[#707070] text-[14px]"
-                href="https://go.midday.ai/fkYXc95"
+                href="https://go.iq24.ai/fkYXc95"
               >
                 Invoice
               </Link>
@@ -80,7 +80,7 @@ export function Footer() {
             <Row className="mb-1.5">
               <Link
                 className="text-[#707070] text-[14px]"
-                href="https://go.midday.ai/dEnP9h5"
+                href="https://go.iq24.ai/dEnP9h5"
               >
                 Pricing
               </Link>
@@ -89,7 +89,7 @@ export function Footer() {
             <Row className="mb-1.5">
               <Link
                 className="text-[#707070] text-[14px]"
-                href="https://go.midday.ai/E24P3oY"
+                href="https://go.iq24.ai/E24P3oY"
               >
                 Engine
               </Link>
@@ -98,7 +98,7 @@ export function Footer() {
             <Row className="mb-1.5">
               <Link
                 className="text-[#707070] text-[14px]"
-                href="https://midday.ai/download"
+                href="https://iq24.ai/download"
               >
                 Download
               </Link>
@@ -114,7 +114,7 @@ export function Footer() {
             <Row className="mb-1.5">
               <Link
                 className="text-[#707070] text-[14px]"
-                href="https://go.midday.ai/fhEy5CL"
+                href="https://go.iq24.ai/fhEy5CL"
               >
                 Homepage
               </Link>
@@ -122,7 +122,7 @@ export function Footer() {
             <Row className="mb-1.5">
               <Link
                 className="text-[#707070] text-[14px]"
-                href="https://git.new/midday"
+                href="https://git.new/iq24"
               >
                 Github
               </Link>
@@ -130,7 +130,7 @@ export function Footer() {
             <Row className="mb-1.5">
               <Link
                 className="text-[#707070] text-[14px]"
-                href="https://go.midday.ai/ZrhEMbR"
+                href="https://go.iq24.ai/ZrhEMbR"
               >
                 Support
               </Link>
@@ -138,7 +138,7 @@ export function Footer() {
             <Row className="mb-1.5">
               <Link
                 className="text-[#707070] text-[14px]"
-                href="https://go.midday.ai/rofdWKi"
+                href="https://go.iq24.ai/rofdWKi"
               >
                 Terms of service
               </Link>
@@ -146,7 +146,7 @@ export function Footer() {
             <Row className="mb-1.5">
               <Link
                 className="text-[#707070] text-[14px]"
-                href="https://go.midday.ai/TJIL5mQ"
+                href="https://go.iq24.ai/TJIL5mQ"
               >
                 Privacy policy
               </Link>
@@ -155,7 +155,7 @@ export function Footer() {
             <Row className="mb-1.5">
               <Link
                 className="text-[#707070] text-[14px]"
-                href="https://go.midday.ai/IQ1kcN0"
+                href="https://go.iq24.ai/IQ1kcN0"
               >
                 Branding
               </Link>
@@ -164,7 +164,7 @@ export function Footer() {
             <Row className="mb-1.5">
               <Link
                 className="text-[#707070] text-[14px]"
-                href="https://go.midday.ai/x5ohOs7"
+                href="https://go.iq24.ai/x5ohOs7"
               >
                 Feature Request
               </Link>
@@ -180,7 +180,7 @@ export function Footer() {
             <Row className="mb-1.5">
               <Link
                 className="text-[#707070] text-[14px]"
-                href="https://go.midday.ai/186swoH"
+                href="https://go.iq24.ai/186swoH"
               >
                 Story
               </Link>
@@ -188,7 +188,7 @@ export function Footer() {
             <Row className="mb-1.5">
               <Link
                 className="text-[#707070] text-[14px]"
-                href="https://go.midday.ai/QWyX8Um"
+                href="https://go.iq24.ai/QWyX8Um"
               >
                 Updates
               </Link>
@@ -196,7 +196,7 @@ export function Footer() {
             <Row className="mb-1.5">
               <Link
                 className="text-[#707070] text-[14px]"
-                href="https://go.midday.ai/Dd7M8cl"
+                href="https://go.iq24.ai/Dd7M8cl"
               >
                 Open startup
               </Link>
@@ -204,7 +204,7 @@ export function Footer() {
             <Row className="mb-1.5">
               <Link
                 className="text-[#707070] text-[14px]"
-                href="https://go.midday.ai/M2Hv420"
+                href="https://go.iq24.ai/M2Hv420"
               >
                 OSS Friends
               </Link>
@@ -219,44 +219,44 @@ export function Footer() {
 
       <Row>
         <Column className="align-middle w-[40px]">
-          <Link href="https://go.midday.ai/lS72Toq">
+          <Link href="https://go.iq24.ai/lS72Toq">
             <Img
               src={`${baseUrl}/email/x.png`}
               width="22"
               height="22"
-              alt="Midday on X"
+              alt="iq24 on X"
             />
           </Link>
         </Column>
         <Column className="align-middle w-[40px]">
-          <Link href="https://go.midday.ai/7rhA3rz">
+          <Link href="https://go.iq24.ai/7rhA3rz">
             <Img
               src={`${baseUrl}/email/producthunt.png`}
               width="22"
               height="22"
-              alt="Midday on Producthunt"
+              alt="iq24 on Producthunt"
             />
           </Link>
         </Column>
 
         <Column className="align-middle w-[40px]">
-          <Link href="https://go.midday.ai/anPiuRx">
+          <Link href="https://go.iq24.ai/anPiuRx">
             <Img
               src={`${baseUrl}/email/discord.png`}
               width="22"
               height="22"
-              alt="Midday on Discord"
+              alt="iq24 on Discord"
             />
           </Link>
         </Column>
 
         <Column className="align-middle">
-          <Link href="https://go.midday.ai/Ct3xybK">
+          <Link href="https://go.iq24.ai/Ct3xybK">
             <Img
               src={`${baseUrl}/email/linkedin.png`}
               width="22"
               height="22"
-              alt="Midday on LinkedIn"
+              alt="iq24 on LinkedIn"
             />
           </Link>
         </Column>
@@ -267,14 +267,14 @@ export function Footer() {
 
       <Row>
         <Text className="text-[#B8B8B8] text-xs">
-          Midday Labs AB - Torsgatan 59 113 37, Stockholm, Sweden.
+          iq24 Labs AB - Torsgatan 59 113 37, Stockholm, Sweden.
         </Text>
       </Row>
 
       <Row>
         <Link
           className="text-[#707070] text-[14px]"
-          href="https://app.midday.ai/settings/notifications"
+          href="https://app.iq24.ai/settings/notifications"
           title="Unsubscribe"
         >
           Notification preferences
@@ -285,11 +285,11 @@ export function Footer() {
       <br />
 
       <Row>
-        <Link href="https://go.midday.ai/FZwOHud">
+        <Link href="https://go.iq24.ai/FZwOHud">
           <Img
             src={`${baseUrl}/email/logo-footer.png`}
             width="100"
-            alt="Midday"
+            alt="iq24"
             className="block"
           />
         </Link>

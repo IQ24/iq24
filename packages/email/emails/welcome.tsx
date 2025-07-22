@@ -1,4 +1,4 @@
-import { getEmailUrl } from "@midday/utils/envs";
+import { getEmailUrl } from "@iq24/utils/envs";
 import {
   Body,
   Container,
@@ -23,7 +23,7 @@ const baseUrl = getEmailUrl();
 
 export const WelcomeEmail = ({ fullName = "Viktor Hofte" }: Props) => {
   const firstName = fullName.split(" ").at(0);
-  const text = `Hi ${firstName}, Welcome to Midday! I'm Pontus, one of the founders. It's really important to us that you have a great experience ramping up.`;
+  const text = `Hi ${firstName}, Welcome to iq24! I'm Pontus, one of the founders. It's really important to us that you have a great experience ramping up.`;
 
   return (
     <Html>
@@ -60,17 +60,17 @@ export const WelcomeEmail = ({ fullName = "Viktor Hofte" }: Props) => {
           >
             <Logo />
             <Heading className="text-[#121212] text-[21px] font-normal text-center p-0 my-[30px] mx-0">
-              Welcome to Midday
+              Welcome to iq24
             </Heading>
 
             <br />
 
             <span className="font-medium">Hi {firstName},</span>
             <Text className="text-[#121212]">
-              Welcome to Midday! I'm Pontus, one of the founders.
+              Welcome to iq24! I'm Pontus, one of the founders.
               <br />
               <br />
-              We've been working on Midday for the past months, and during this
+              We've been working on iq24 for the past months, and during this
               time, we've implemented the basic functionality to get started.
               However, with your feedback, we can make the right decisions to
               help run your business smarter.
@@ -83,7 +83,7 @@ export const WelcomeEmail = ({ fullName = "Viktor Hofte" }: Props) => {
               Should you have any questions, please don't hesitate to reply
               directly to this email or to{" "}
               <Link
-                href="https://cal.com/pontus-midday/15min"
+                href="https://cal.com/pontus-iq24/15min"
                 className="text-[#121212] underline"
               >
                 schedule a call with me

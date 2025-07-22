@@ -1,7 +1,7 @@
 "use client";
 
 import { useCustomerParams } from "@/hooks/use-customer-params";
-import { Button } from "@midday/ui/button";
+import { Button } from "@iq24/ui/button";
 
 export function EmptyState() {
   const { setParams } = useCustomerParams();

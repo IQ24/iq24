@@ -1,4 +1,4 @@
-import { createSlackWebClient } from "@midday/app-store/slack";
+import { createSlackWebClient } from "@iq24/app-store/slack";
 import type { SlackEvent } from "@slack/bolt";
 import { waitUntil } from "@vercel/functions";
 import { fileShare } from "./file";
@@ -6,7 +6,7 @@ import { assistantThreadMessage, assistantThreadStarted } from "./thread";
 
 export async function handleSlackEvent(
   event: SlackEvent,
-  options: { token: string; teamId: string },
+  options: { token: string; teamId: string }
 ) {
   const client = createSlackWebClient({
     token: options.token,

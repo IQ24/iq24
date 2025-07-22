@@ -1,6 +1,6 @@
 "use server";
 
-import { LogEvents } from "@midday/events/events";
+import { LogEvents } from "@iq24/events/events";
 import { inboxUpload } from "jobs/tasks/inbox/upload";
 import { authActionClient } from "./safe-action";
 import { inboxUploadSchema } from "./schema";
@@ -26,7 +26,7 @@ export const inboxUploadAction = authActionClient
           id: `upload-${idx}`,
           teamId: user.team_id!,
         },
-      })),
+      }))
     );
 
     return results;

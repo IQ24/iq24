@@ -1,6 +1,6 @@
 import type { InvoiceFormValues } from "@/actions/invoice/schema";
 import { updateInvoiceTemplateAction } from "@/actions/invoice/update-invoice-template-action";
-import { calculateTotal } from "@midday/invoice/calculate";
+import { calculateTotal } from "@iq24/invoice/calculate";
 import { useAction } from "next-safe-action/hooks";
 import { useCallback, useEffect } from "react";
 import { useFormContext, useWatch } from "react-hook-form";

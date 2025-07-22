@@ -10,14 +10,14 @@ import { InvoicesOverdue } from "@/components/invoices-overdue";
 import { InvoicesPaid } from "@/components/invoices-paid";
 import { InvoicesTable } from "@/components/tables/invoices";
 import { InvoiceSkeleton } from "@/components/tables/invoices/skeleton";
-import { getDefaultSettings } from "@midday/invoice/default";
+import { getDefaultSettings } from "@iq24/invoice/default";
 import type { Metadata } from "next";
 import { ErrorBoundary } from "next/dist/client/components/error-boundary";
 import { Suspense } from "react";
 import { searchParamsCache } from "./search-params";
 
 export const metadata: Metadata = {
-  title: "Invoices | Midday",
+  title: "Invoices | iq24",
 };
 
 export default async function Page({

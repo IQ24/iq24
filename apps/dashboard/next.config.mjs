@@ -21,7 +21,7 @@ const config = {
       },
     ],
   },
-  transpilePackages: ["@midday/ui", "@midday/tailwind", "@midday/invoice"],
+  transpilePackages: ["@iq24/ui", "@iq24/tailwind", "@iq24/invoice"],
   eslint: {
     ignoreDuringBuilds: true,
   },

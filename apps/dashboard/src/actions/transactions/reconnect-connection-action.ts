@@ -2,7 +2,7 @@
 
 import { authActionClient } from "@/actions/safe-action";
 import { reconnectConnectionSchema } from "@/actions/schema";
-import { LogEvents } from "@midday/events/events";
+import { LogEvents } from "@iq24/events/events";
 import { reconnectConnection } from "jobs/tasks/reconnect/connection";
 
 export const reconnectConnectionAction = authActionClient
@@ -23,5 +23,5 @@ export const reconnectConnectionAction = authActionClient
       });
 
       return event;
-    },
+    }
   );

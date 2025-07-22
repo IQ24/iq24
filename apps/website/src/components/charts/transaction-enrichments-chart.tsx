@@ -10,7 +10,7 @@ export async function TransactionEnrichmentsChart() {
       <p className="text-[#878787] text-sm text-center">
         Number of enriched categories using{" "}
         <Link href="/engine" className="underline">
-          Midday Engine
+          iq24 Engine
         </Link>
         .
       </p>
@@ -24,7 +24,7 @@ export async function TransactionEnrichmentsChart() {
         <span className="mt-auto font-mono text-[80px] md:text-[110px]">
           {transactionEnrichments &&
             Intl.NumberFormat("en", { notation: "compact" }).format(
-              transactionEnrichments,
+              transactionEnrichments
             )}
         </span>
       </div>

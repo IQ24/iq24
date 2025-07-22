@@ -1,5 +1,5 @@
 import type { MutableAIState } from "@/actions/ai/types";
-import { getMetrics } from "@midday/supabase/cached-queries";
+import { getMetrics } from "@iq24/supabase/cached-queries";
 import { startOfMonth } from "date-fns";
 import { nanoid } from "nanoid";
 import { z } from "zod";

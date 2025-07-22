@@ -1,34 +1,37 @@
 ---
-title: "Building the Midday Slack Assistant"
+title: "Building the iq24 Slack Assistant"
 publishedAt: "2024-09-29"
-summary: "This is a technical deep dive into how we built the Midday Slack Assistant using Vercel AI SDK, Trigger.dev and Supabase."
+summary: "This is a technical deep dive into how we built the iq24 Slack Assistant using Vercel AI SDK, Trigger.dev and Supabase."
 image: "/images/update/apps/slack.png"
 tag: "Updates"
 ---
 
-In this technical deep dive, we’ll explore how we built the Midday Slack Assistant by leveraging the Vercel AI SDK, Trigger.dev, and Supabase. Our goal was to create an AI-powered assistant that helps users gain financial insights, upload receipts, and manage invoices—all seamlessly from within their Slack workspace.
+In this technical deep dive, we’ll explore how we built the iq24 Slack Assistant by leveraging the Vercel AI SDK, Trigger.dev, and Supabase. Our goal was to create an AI-powered assistant that helps users gain financial insights, upload receipts, and manage invoices—all seamlessly from within their Slack workspace.
 
 ## Background
-Midday already has an assistant available on both web and desktop via Electron, but we haven’t yet built a dedicated mobile app. As we continue iterating on our web app, we plan to eventually create a mobile version using Expo. In the meantime, we wanted to give our users a way to interact with Midday on the go. With that in mind, we turned to Slack, where users can quickly upload receipts and invoices without leaving the app they’re already using for work.
+
+iq24 already has an assistant available on both web and desktop via Electron, but we haven’t yet built a dedicated mobile app. As we continue iterating on our web app, we plan to eventually create a mobile version using Expo. In the meantime, we wanted to give our users a way to interact with iq24 on the go. With that in mind, we turned to Slack, where users can quickly upload receipts and invoices without leaving the app they’re already using for work.
 
 <br />
-## Goals
-We aimed to enable our users to:
+## Goals We aimed to enable our users to:
 
 - Upload receipts and invoices, and match them to transactions.
 - Query their financial status (e.g., burn rate, cash flow).
 - Receive notifications about transactions.
 
 <br />
-## Slack Assistant
-Slack recently introduced a new messaging experience for app agents and assistants, making them more discoverable and accessible in user workflows. This update allows developers to build AI assistants based on their own APIs, seamlessly integrated into the Slack interface.
+## Slack Assistant Slack recently introduced a new messaging experience for app agents
+and assistants, making them more discoverable and accessible in user workflows. This
+update allows developers to build AI assistants based on their own APIs, seamlessly
+integrated into the Slack interface.
 <br />
 
-When users install our Slack app from the <a href="https://midday.ai/updates/apps">Apps section within Midday</a>, we obtain the necessary permissions to interact with the Slack API, send messages, and listen to events.
-<br />
+When users install our Slack app from the <a href="https://iq24.ai/updates/apps">Apps section within iq24</a>, we obtain the necessary permissions to interact with the Slack API, send messages, and listen to events.
 
+<br />
 
 ## Authentication
+
 To connect the Slack app to a user’s workspace, we utilize Slack’s OAuth flow to retrieve an access token with the required scopes. These scopes include:
 
 - `assistant_thread_context_changed`: Detects changes in the assistant thread context.
@@ -36,7 +39,7 @@ To connect the Slack app to a user’s workspace, we utilize Slack’s OAuth flo
 - `file_created`: Monitors file uploads.
 - `message.channel`: Captures messages posted in public channels.
 - `message.im`: Captures direct messages.
-<br />
+  <br />
 
 Once authenticated, we store this data in our `apps` table along with the team ID and access token, structured as a JSONB column for flexibility.
 
@@ -51,11 +54,13 @@ Here’s where the magic happens: We use a Next.js route to handle incoming Slac
 ## File Upload Handling
 
 When a file upload event occurs, we send the file to a background job and save it in our Supabase database. Using OCR, we extract key details such as `amount`, `currency`, `date`, and `merchant` from the receipt. Then, we attempt to match the data with existing transactions in our system using Azure Document Intelligence Models.
+
 <br />
 
 Here’s a quick demo of how the file upload works in Slack:
+
 <br />
-<div className="relative" style={{ paddingTop: '71.05263157894737%' }}>
+<div className="relative" style={{ paddingTop: "71.05263157894737%" }}>
   <iframe
     src="https://customer-oh6t55xltlgrfayh.cloudflarestream.com/7ac615c3849c444f56c555f7b1ff3e31/iframe?poster=https%3A%2F%2Fcustomer-oh6t55xltlgrfayh.cloudflarestream.com%2F7ac615c3849c444f56c555f7b1ff3e31%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600"
     loading="lazy"
@@ -126,7 +131,7 @@ Here is the code for the assistant thread message:
 
 ```
 import { openai } from "@ai-sdk/openai";
-import { createClient } from "@midday/supabase/server";
+import { createClient } from "@iq24/supabase/server";
 import { generateText } from "ai";
 import { startOfMonth, subMonths } from "date-fns";
 import { getRunwayTool, systemPrompt } from "../../tools";
@@ -192,7 +197,7 @@ export async function assistantThreadMessage(
 
 ## Demo of the Slack Assistant
 
-<div className="relative" style={{ paddingTop: '71.05263157894737%' }}>
+<div className="relative" style={{ paddingTop: "71.05263157894737%" }}>
   <iframe
     src="https://customer-oh6t55xltlgrfayh.cloudflarestream.com/362a7a9d09135cdca97d950074336c7d/iframe?poster=https%3A%2F%2Fcustomer-oh6t55xltlgrfayh.cloudflarestream.com%2F362a7a9d09135cdca97d950074336c7d%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600"
     loading="lazy"
@@ -204,6 +209,10 @@ export async function assistantThreadMessage(
 
 <br />
 
-Midday is fully open-source, and you can find the pull request for the Slack Assistant and Apps <a href="https://github.com/midday-ai/midday/pull/262">here</a>.
-<br/>
-You can aslo try Midday for your own business by <a href="https://app.midday.ai">signing up here</a>.
+iq24 is fully open-source, and you can find the pull request for the Slack Assistant and Apps <a href="https://github.com/iq24-ai/iq24/pull/262">here</a>.
+
+<br />
+You can aslo try iq24 for your own business by <a href="https://app.iq24.ai">
+  signing up here
+</a>
+.

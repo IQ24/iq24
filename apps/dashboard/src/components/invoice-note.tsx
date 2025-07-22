@@ -1,5 +1,5 @@
 import { updateInvoiceAction } from "@/actions/invoice/update-invoice-action";
-import { Textarea } from "@midday/ui/textarea";
+import { Textarea } from "@iq24/ui/textarea";
 import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";
 

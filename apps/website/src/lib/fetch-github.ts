@@ -77,15 +77,15 @@ async function githubRequest({ owner, name }) {
 
 export async function getGithubStats() {
   const stargazers = await getAllStargazers({
-    owner: "midday-ai",
-    name: "midday",
+    owner: "iq24-ai",
+    name: "iq24",
   });
 
   const {
     data: { repository },
   } = await githubRequest({
-    owner: "midday-ai",
-    name: "midday",
+    owner: "iq24-ai",
+    name: "iq24",
   });
 
   const starsPerDate = stargazers.reduce((acc, curr) => {

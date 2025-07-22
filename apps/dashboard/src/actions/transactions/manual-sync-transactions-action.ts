@@ -2,7 +2,7 @@
 
 import { authActionClient } from "@/actions/safe-action";
 import { manualSyncTransactionsSchema } from "@/actions/schema";
-import { LogEvents } from "@midday/events/events";
+import { LogEvents } from "@iq24/events/events";
 import { syncConnection } from "jobs/tasks/bank/sync/connection";
 
 export const manualSyncTransactionsAction = authActionClient

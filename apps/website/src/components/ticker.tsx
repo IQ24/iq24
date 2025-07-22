@@ -1,4 +1,4 @@
-import type { Database } from "@midday/supabase/types";
+import type { Database } from "@iq24/supabase/types";
 import { createServerClient } from "@supabase/ssr";
 import Link from "next/link";
 
@@ -20,7 +20,7 @@ export async function Ticker() {
           return null;
         },
       },
-    },
+    }
   );
 
   const [

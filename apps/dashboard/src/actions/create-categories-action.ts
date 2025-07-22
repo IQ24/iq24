@@ -1,6 +1,6 @@
 "use server";
 
-import { LogEvents } from "@midday/events/events";
+import { LogEvents } from "@iq24/events/events";
 import { revalidateTag } from "next/cache";
 import { authActionClient } from "./safe-action";
 import { createCategoriesSchema } from "./schema";
@@ -23,7 +23,7 @@ export const createCategoriesAction = authActionClient
         categories.map((category) => ({
           ...category,
           team_id: teamId,
-        })),
+        }))
       )
       .select("id, name, color, vat, slug");
 

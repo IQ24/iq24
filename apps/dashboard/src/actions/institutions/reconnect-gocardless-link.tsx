@@ -1,6 +1,6 @@
 "use server";
 
-import { client } from "@midday/engine/client";
+import { client } from "@iq24/engine/client";
 import { nanoid } from "nanoid";
 import { redirect } from "next/navigation";
 import { z } from "zod";
@@ -14,7 +14,7 @@ export const reconnectGoCardLessLinkAction = authActionClient
       availableHistory: z.number(),
       isDesktop: z.boolean(),
       redirectTo: z.string(),
-    }),
+    })
   )
   .metadata({
     name: "create-gocardless-link",
@@ -67,5 +67,5 @@ export const reconnectGoCardLessLinkAction = authActionClient
       }
 
       return redirect(linkData.link);
-    },
+    }
   );

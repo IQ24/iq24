@@ -1,6 +1,6 @@
 "use server";
 
-import { updateSubscriberPreference } from "@midday/notification";
+import { updateSubscriberPreference } from "@iq24/notification";
 import { revalidatePath as revalidatePathFunc } from "next/cache";
 import { authActionClient } from "./safe-action";
 import { updateSubscriberPreferenceSchema } from "./schema";

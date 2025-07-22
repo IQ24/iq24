@@ -1,6 +1,6 @@
 "use server";
 
-import { updateUser } from "@midday/supabase/mutations";
+import { updateUser } from "@iq24/supabase/mutations";
 import {
   revalidatePath as nextRevalidatePath,
   revalidateTag,
@@ -39,5 +39,5 @@ export const updateUserAction = authActionClient
       }
 
       return user;
-    },
+    }
   );

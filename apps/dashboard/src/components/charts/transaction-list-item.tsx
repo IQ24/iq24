@@ -3,7 +3,7 @@
 import type { UpdateTransactionValues } from "@/actions/schema";
 import { updateTransactionAction } from "@/actions/update-transaction-action";
 import { TransactionSheet } from "@/components/sheets/transaction-sheet";
-import { cn } from "@midday/ui/cn";
+import { cn } from "@iq24/ui/cn";
 import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";
 import { FormatAmount } from "../format-amount";
@@ -34,7 +34,7 @@ export function TransactionListItem({ transaction, disabled }: Props) {
               className={cn(
                 "text-sm line-clamp-1",
                 disabled && "skeleton-box animate-none",
-                transaction?.category?.slug === "income" && "text-[#00C969]",
+                transaction?.category?.slug === "income" && "text-[#00C969]"
               )}
             >
               {transaction.name}
@@ -45,7 +45,7 @@ export function TransactionListItem({ transaction, disabled }: Props) {
               className={cn(
                 "text-sm line-clamp-1",
                 disabled && "skeleton-box animate-none",
-                transaction?.category?.slug === "income" && "text-[#00C969]",
+                transaction?.category?.slug === "income" && "text-[#00C969]"
               )}
             >
               <FormatAmount

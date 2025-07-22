@@ -1,4 +1,4 @@
-import { createClient } from "@midday/supabase/job";
+import { createClient } from "@iq24/supabase/job";
 import { schemaTask } from "@trigger.dev/sdk/v3";
 import {
   handleOverdueInvoiceNotifications,
@@ -21,7 +21,7 @@ export const sendInvoiceNotifications = schemaTask({
     const { data: user } = await supabase
       .from("users_on_team")
       .select(
-        "id, team_id, user:users(id, full_name, avatar_url, email, locale)",
+        "id, team_id, user:users(id, full_name, avatar_url, email, locale)"
       )
       .eq("team_id", teamId)
       .eq("role", "owner");

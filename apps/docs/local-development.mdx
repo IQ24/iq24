@@ -1,7 +1,7 @@
 ---
 title: "Local Development"
-"og:title": "How to setup Midday for Local Development"
-description: "A guide on how to run Midday's codebase locally."
+"og:title": "How to setup iq24 for Local Development"
+description: "A guide on how to run iq24's codebase locally."
 icon: code
 ---
 
@@ -9,7 +9,7 @@ icon: code
 
 ## Introduction
 
-Midday's codebase is set up in a monorepo via [Turborepo](https://turbo.build/repo) and is fully [open-source on GitHub](https://git.new/midday).
+iq24's codebase is set up in a monorepo via [Turborepo](https://turbo.build/repo) and is fully [open-source on GitHub](https://git.new/iq24).
 
 Here's the monorepo structure:
 
@@ -39,12 +39,12 @@ packages
 
 The `apps` directory contains the code for:
 
-- `api`: The backend for Midday (supabase).
-- `dashboard`: Midday's application ([app.midday.ai](https://app.midday.ai)).
-- `docs`: Midday's documentation site ([midday.ai/docs](https://midday.ai/docs)).
-- `engine`: Midday's bank engine ([midday.ai/engine](https://midday.ai/engine)).
-- `mobile`: Midday's mobile app.
-- `website`: Midday's website app ([midday.ai](https://midday.ai)).
+- `api`: The backend for iq24 (supabase).
+- `dashboard`: iq24's application ([app.iq24.ai](https://app.iq24.ai)).
+- `docs`: iq24's documentation site ([iq24.ai/docs](https://iq24.ai/docs)).
+- `engine`: iq24's bank engine ([iq24.ai/engine](https://iq24.ai/engine)).
+- `mobile`: iq24's mobile app.
+- `website`: iq24's website app ([iq24.ai](https://iq24.ai)).
 
 The `packages` directory contains the code for:
 
@@ -57,29 +57,29 @@ The `packages` directory contains the code for:
 - `location`: Location related utils.
 - `notification`: Notifications client.
 - `supabase`: Queries and client.
-- `tsconfig`: The TypeScript configuration for Midday's web app.
+- `tsconfig`: The TypeScript configuration for iq24's web app.
 - `ui`: UI component library.
-- `utils`: A collection of utility functions and constants used across Midday's codebase.
+- `utils`: A collection of utility functions and constants used across iq24's codebase.
 
-## Running Midday locally
+## Running iq24 locally
 
-To run Midday locally, you'll need to set up the following:
+To run iq24 locally, you'll need to set up the following:
 
 - A [Supabase](https://supabase.com/) account
 - An [Upstash](https://upstash.com/) account
 
 ## Step 1: Local setup
 
-First, you'll need to clone the Midday repo and install the dependencies.
+First, you'll need to clone the iq24 repo and install the dependencies.
 
 <Steps>
 
   <Step title="Clone the repo">
 
-First, clone the [midday.ai repo](https://d.to/github) into a public GitHub repository.
+First, clone the [iq24.ai repo](https://d.to/github) into a public GitHub repository.
 
     ```bash Terminal
-    git clone https://github.com/midday-ai/midday.git
+    git clone https://github.com/iq24-ai/iq24.git
     ```
 
   </Step>

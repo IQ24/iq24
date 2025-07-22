@@ -1,5 +1,5 @@
 import { createGoCardLessLinkAction } from "@/actions/institutions/create-gocardless-link";
-import { useToast } from "@midday/ui/use-toast";
+import { useToast } from "@iq24/ui/use-toast";
 import { isDesktopApp } from "@todesktop/client-core/platform/todesktop";
 import { useAction } from "next-safe-action/hooks";
 import { BankConnectButton } from "./bank-connect-button";
@@ -29,7 +29,7 @@ export function GoCardLessConnect({ onSelect, id, availableHistory }: Props) {
     createGoCardLessLink.execute({
       institutionId: id,
       availableHistory: availableHistory,
-      redirectBase: isDesktopApp() ? "midday://" : window.location.origin,
+      redirectBase: isDesktopApp() ? "iq24://" : window.location.origin,
     });
   };
 

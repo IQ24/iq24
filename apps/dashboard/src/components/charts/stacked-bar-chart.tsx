@@ -3,7 +3,7 @@
 import { useI18n } from "@/locales/client";
 import { useUserContext } from "@/store/user/hook";
 import { formatAmount } from "@/utils/format";
-import { Icons } from "@midday/ui/icons";
+import { Icons } from "@iq24/ui/icons";
 import { format } from "date-fns";
 import {
   Bar,

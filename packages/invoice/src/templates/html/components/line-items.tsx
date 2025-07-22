@@ -1,4 +1,4 @@
-import { formatAmount } from "@midday/utils/format";
+import { formatAmount } from "@iq24/utils/format";
 import { calculateLineItemTotal } from "../../../utils/calculate";
 import type { LineItem } from "../../types";
 import { Description } from "./description";

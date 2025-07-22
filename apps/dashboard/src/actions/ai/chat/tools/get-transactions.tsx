@@ -1,5 +1,5 @@
 import type { MutableAIState } from "@/actions/ai/types";
-import { getTransactions } from "@midday/supabase/cached-queries";
+import { getTransactions } from "@iq24/supabase/cached-queries";
 import { nanoid } from "nanoid";
 import { z } from "zod";
 import { TransactionsUI } from "./ui/transactions-ui";
@@ -29,7 +29,7 @@ export function getTransactionsTool({ aiState }: Args) {
       attachments: z
         .enum(["include", "exclude"])
         .describe(
-          "Filter transactions if they are completed or not, if they have receipts or attachments",
+          "Filter transactions if they are completed or not, if they have receipts or attachments"
         )
         .optional(),
       limit: z.number().describe("Limit the number of transactions").optional(),

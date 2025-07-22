@@ -1,6 +1,6 @@
 import { CopyInput } from "@/components/copy-input";
 import { Keyboard } from "@/components/keyboard";
-import { Button } from "@midday/ui/button";
+import { Button } from "@iq24/ui/button";
 import type { Metadata } from "next";
 import Image from "next/image";
 import appIcon from "public/app-icon.png";
@@ -8,7 +8,7 @@ import appIcon from "public/app-icon.png";
 export const metadata: Metadata = {
   title: "Download",
   description:
-    "With Midday on Mac you have everything accessible just one click away.",
+    "With iq24 on Mac you have everything accessible just one click away.",
 };
 
 export default function Page() {
@@ -22,19 +22,19 @@ export default function Page() {
 
       <Image
         src={appIcon}
-        alt="Midday App"
+        alt="iq24 App"
         width={120}
         height={120}
         quality={90}
         className="w-[80px] h-[80px] mt-12 md:mt-0 md:h-auto md:w-auto"
       />
-      <p className="mb-4 text-2xl	font-medium mt-8">Midday for Mac</p>
+      <p className="mb-4 text-2xl	font-medium mt-8">iq24 for Mac</p>
       <p className="text-[#878787] font-sm max-w-[500px]">
-        With Midday on Mac you have everything <br />
+        With iq24 on Mac you have everything <br />
         accessible just one click away.
       </p>
 
-      <a href="https://go.midday.ai/d" download>
+      <a href="https://go.iq24.ai/d" download>
         <Button
           variant="outline"
           className="border border-primary h-12 px-6 mt-8"
@@ -48,7 +48,7 @@ export default function Page() {
       </p>
 
       <CopyInput
-        value="curl -sL https://go.midday.ai/d | tar -xz"
+        value="curl -sL https://go.iq24.ai/d | tar -xz"
         className="max-w-[410px] mt-8 font-mono font-normal hidden md:block rounded-full"
       />
     </div>

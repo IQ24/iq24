@@ -1,7 +1,7 @@
 import {
   getTrackerRecordsByRange,
   getUser,
-} from "@midday/supabase/cached-queries";
+} from "@iq24/supabase/cached-queries";
 import { endOfMonth, formatISO, startOfMonth } from "date-fns";
 import { TrackerHeader } from "./tracker-header";
 import { TrackerWidget } from "./tracker-widget";

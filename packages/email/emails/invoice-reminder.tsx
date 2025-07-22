@@ -22,9 +22,9 @@ interface Props {
 
 export const InvoiceReminderEmail = ({
   companyName = "Customer",
-  teamName = "Midday",
+  teamName = "iq24",
   invoiceNumber = "INV-0001",
-  link = "https://app.midday.ai/i/1234567890",
+  link = "https://app.iq24.ai/i/1234567890",
 }: Props) => {
   const text = `Reminder: Payment for ${invoiceNumber}`;
 

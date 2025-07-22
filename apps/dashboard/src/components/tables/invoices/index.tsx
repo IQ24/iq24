@@ -1,4 +1,4 @@
-import { getInvoices } from "@midday/supabase/cached-queries";
+import { getInvoices } from "@iq24/supabase/cached-queries";
 import { EmptyState, NoResults } from "./empty-states";
 import { DataTable } from "./table";
 
@@ -50,7 +50,7 @@ export async function InvoicesTable({
   });
 
   const hasNextPage = Boolean(
-    meta?.count && meta.count / (page + 1) > pageSize,
+    meta?.count && meta.count / (page + 1) > pageSize
   );
 
   if (!data?.length) {

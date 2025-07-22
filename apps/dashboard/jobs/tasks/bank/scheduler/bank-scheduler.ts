@@ -1,4 +1,4 @@
-import { createClient } from "@midday/supabase/job";
+import { createClient } from "@iq24/supabase/job";
 import { logger, schedules } from "@trigger.dev/sdk/v3";
 import { syncConnection } from "../sync/connection";
 

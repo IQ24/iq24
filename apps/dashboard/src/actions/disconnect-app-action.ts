@@ -1,6 +1,6 @@
 "use server";
 
-import { LogEvents } from "@midday/events/events";
+import { LogEvents } from "@iq24/events/events";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { authActionClient } from "./safe-action";
@@ -9,7 +9,7 @@ export const disconnectAppAction = authActionClient
   .schema(
     z.object({
       appId: z.string(),
-    }),
+    })
   )
   .metadata({
     name: "disconnect-app",

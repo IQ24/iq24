@@ -1,4 +1,4 @@
-import { Button } from "@midday/ui/button";
+import { Button } from "@iq24/ui/button";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
 

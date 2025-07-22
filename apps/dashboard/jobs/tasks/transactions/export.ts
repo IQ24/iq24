@@ -1,5 +1,5 @@
 import { writeToString } from "@fast-csv/format";
-import { createClient } from "@midday/supabase/job";
+import { createClient } from "@iq24/supabase/job";
 import { metadata, schemaTask } from "@trigger.dev/sdk/v3";
 import { BlobReader, BlobWriter, TextReader, ZipWriter } from "@zip.js/zip.js";
 import { serializableToBlob } from "jobs/utils/blob";
@@ -61,11 +61,11 @@ export const exportTransactions = schemaTask({
       .sort(
         (a, b) =>
           new Date(b[0] as string).getTime() -
-          new Date(a[0] as string).getTime(),
+          new Date(a[0] as string).getTime()
       );
 
     const attachments = results.flatMap((r) =>
-      r.ok ? r.output.attachments : [],
+      r.ok ? r.output.attachments : []
     );
 
     const csv = await writeToString(rows, {
@@ -100,7 +100,7 @@ export const exportTransactions = schemaTask({
       if (attachment.blob) {
         zipWriter.add(
           attachment.name,
-          new BlobReader(serializableToBlob(attachment.blob)),
+          new BlobReader(serializableToBlob(attachment.blob))
         );
       }
     });

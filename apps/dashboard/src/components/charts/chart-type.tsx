@@ -8,7 +8,7 @@ import {
   SelectGroup,
   SelectItem,
   SelectTrigger,
-} from "@midday/ui/select";
+} from "@iq24/ui/select";
 import { useOptimisticAction } from "next-safe-action/hooks";
 
 const options = ["profit", "revenue", "expense", "burn_rate"];
@@ -25,7 +25,7 @@ export function ChartType({ initialValue, disabled }: Props) {
     {
       currentState: initialValue,
       updateFn: (_, newState) => newState,
-    },
+    }
   );
 
   return (

@@ -13,7 +13,7 @@ import {
   getTeamBankAccounts,
   getTeamMembers,
   getUser,
-} from "@midday/supabase/cached-queries";
+} from "@iq24/supabase/cached-queries";
 import type { Metadata } from "next";
 import { ErrorBoundary } from "next/dist/client/components/error-boundary";
 import { cookies } from "next/headers";
@@ -21,7 +21,7 @@ import { Suspense } from "react";
 import { searchParamsCache } from "./search-params";
 
 export const metadata: Metadata = {
-  title: "Transactions | Midday",
+  title: "Transactions | iq24",
 };
 
 export default async function Transactions({

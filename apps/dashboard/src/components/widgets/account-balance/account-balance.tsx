@@ -4,7 +4,7 @@ import { AddAccountButton } from "@/components/add-account-button";
 import { FormatAmount } from "@/components/format-amount";
 import { useI18n } from "@/locales/client";
 import { formatAccountName } from "@/utils/format";
-import { cn } from "@midday/ui/cn";
+import { cn } from "@iq24/ui/cn";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -90,7 +90,7 @@ export function AccountBalance({ data }: Props) {
               key={account.id}
               className={cn(
                 "w-[8px] h-[8px] rounded-full bg-[#1D1D1D] dark:bg-[#D9D9D9] opacity-30 transition-all cursor-pointer",
-                idx === activeIndex && "opacity-1",
+                idx === activeIndex && "opacity-1"
               )}
             />
           ))}

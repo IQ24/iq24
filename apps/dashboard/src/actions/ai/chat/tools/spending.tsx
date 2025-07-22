@@ -1,5 +1,5 @@
 import type { MutableAIState } from "@/actions/ai/types";
-import { getSpending } from "@midday/supabase/cached-queries";
+import { getSpending } from "@iq24/supabase/cached-queries";
 import { startOfMonth } from "date-fns";
 import { nanoid } from "nanoid";
 import { z } from "zod";
@@ -37,7 +37,7 @@ export function getSpendingTool({ aiState, dateFrom, dateTo }: Args) {
       });
 
       const found = data.find(
-        (c) => category.toLowerCase() === c?.name?.toLowerCase(),
+        (c) => category.toLowerCase() === c?.name?.toLowerCase()
       );
 
       const props = {

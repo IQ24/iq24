@@ -12,7 +12,7 @@ export function Footer() {
         <div className="flex justify-between items-center border-border border-b-[1px] pb-10 md:pb-16 mb-12">
           <Link href="/" className="scale-50 -ml-[52px] md:ml-0 md:scale-100">
             <LogoLarge />
-            <span className="sr-only">Midday</span>
+            <span className="sr-only">iq24</span>
           </Link>
 
           <span className="font-normal md:text-2xl text-right">
@@ -56,7 +56,7 @@ export function Footer() {
               <span>Resources</span>
               <ul>
                 <li className="transition-colors text-[#878787]">
-                  <Link href="https://git.new/midday">Github</Link>
+                  <Link href="https://git.new/iq24">Github</Link>
                 </li>
                 <li className="transition-colors text-[#878787]">
                   <Link href="/support">Support</Link>
@@ -114,7 +114,7 @@ export function Footer() {
       </div>
 
       <h5 className="dark:text-[#161616] text-[#F4F4F3] text-[500px] leading-none text-center pointer-events-none">
-        midday
+        iq24
       </h5>
     </footer>
   );

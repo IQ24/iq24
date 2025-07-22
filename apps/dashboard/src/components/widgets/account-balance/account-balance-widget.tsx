@@ -1,4 +1,4 @@
-import { getBankAccountsBalances } from "@midday/supabase/cached-queries";
+import { getBankAccountsBalances } from "@iq24/supabase/cached-queries";
 import { AccountBalance } from "./account-balance";
 
 export function AccountBalanceSkeleton() {

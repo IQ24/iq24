@@ -1,5 +1,5 @@
 import { Cookies } from "@/utils/constants";
-import { getUser } from "@midday/supabase/cached-queries";
+import { getUser } from "@iq24/supabase/cached-queries";
 import { cookies } from "next/headers";
 import { Suspense } from "react";
 import { CustomerCreateSheet } from "./customer-create-sheet";

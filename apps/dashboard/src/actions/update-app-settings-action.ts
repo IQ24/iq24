@@ -1,6 +1,6 @@
 "use server";
 
-import { LogEvents } from "@midday/events/events";
+import { LogEvents } from "@iq24/events/events";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { authActionClient } from "./safe-action";
@@ -13,7 +13,7 @@ export const updateAppSettingsAction = authActionClient
         id: z.string(),
         value: z.unknown(),
       }),
-    }),
+    })
   )
   .metadata({
     name: "update-app-settings",
@@ -57,5 +57,5 @@ export const updateAppSettingsAction = authActionClient
       revalidatePath("/apps");
 
       return data;
-    },
+    }
   );

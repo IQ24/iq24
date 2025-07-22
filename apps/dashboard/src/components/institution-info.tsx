@@ -3,7 +3,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@midday/ui/tooltip";
+} from "@iq24/ui/tooltip";
 import type { ReactNode } from "react";
 
 type Props = {

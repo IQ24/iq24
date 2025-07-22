@@ -1,6 +1,6 @@
 "use server";
 
-import { client } from "@midday/engine/client";
+import { client } from "@iq24/engine/client";
 
 type GetAccountParams = {
   id?: string; // EnableBanking & GoCardLess

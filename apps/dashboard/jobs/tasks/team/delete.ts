@@ -1,4 +1,4 @@
-import { client } from "@midday/engine/client";
+import { client } from "@iq24/engine/client";
 import { logger, schemaTask } from "@trigger.dev/sdk/v3";
 import { z } from "zod";
 
@@ -13,7 +13,7 @@ export const deleteTeam = schemaTask({
           .nullable(),
         reference_id: z.string().nullable(),
         access_token: z.string().nullable(),
-      }),
+      })
     ),
   }),
   maxDuration: 300,

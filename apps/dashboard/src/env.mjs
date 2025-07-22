@@ -25,8 +25,8 @@ export const env = createEnv({
     RESEND_API_KEY: z.string(),
     RESEND_AUDIENCE_ID: z.string(),
     OPENPANEL_SECRET_KEY: z.string(),
-    MIDDAY_ENGINE_API_KEY: z.string(),
-    MIDDAY_CACHE_API_SECRET: z.string(),
+    iq24_ENGINE_API_KEY: z.string(),
+    iq24_CACHE_API_SECRET: z.string(),
     WEBHOOK_SECRET_KEY: z.string(),
     AZURE_DOCUMENT_INTELLIGENCE_ENDPOINT: z.string(),
     AZURE_DOCUMENT_INTELLIGENCE_KEY: z.string(),
@@ -75,8 +75,8 @@ export const env = createEnv({
     NEXT_PUBLIC_OPENPANEL_CLIENT_ID:
       process.env.NEXT_PUBLIC_OPENPANEL_CLIENT_ID,
     OPENPANEL_SECRET_KEY: process.env.OPENPANEL_SECRET_KEY,
-    MIDDAY_ENGINE_API_KEY: process.env.MIDDAY_ENGINE_API_KEY,
-    MIDDAY_CACHE_API_SECRET: process.env.MIDDAY_CACHE_API_SECRET,
+    iq24_ENGINE_API_KEY: process.env.iq24_ENGINE_API_KEY,
+    iq24_CACHE_API_SECRET: process.env.iq24_CACHE_API_SECRET,
     WEBHOOK_SECRET_KEY: process.env.WEBHOOK_SECRET_KEY,
     AZURE_DOCUMENT_INTELLIGENCE_ENDPOINT:
       process.env.AZURE_DOCUMENT_INTELLIGENCE_ENDPOINT,

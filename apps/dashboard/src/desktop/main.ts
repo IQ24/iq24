@@ -1,4 +1,4 @@
-import { createClient } from "@midday/supabase/client";
+import { createClient } from "@iq24/supabase/client";
 import {
   globalShortcut,
   nativeWindow,
@@ -13,7 +13,7 @@ const windows = {
 async function main() {
   // Menu items
   await object.on("open-x", () => {
-    platform.os.openURL("https://x.com/middayai");
+    platform.os.openURL("https://x.com/iq24ai");
   });
 
   await object.on("open-discord", () => {
@@ -21,7 +21,7 @@ async function main() {
   });
 
   await object.on("open-github", () => {
-    platform.os.openURL("https://github.com/midday-ai/midday");
+    platform.os.openURL("https://github.com/iq24-ai/iq24");
   });
 
   // Command menu

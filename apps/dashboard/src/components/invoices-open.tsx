@@ -1,4 +1,4 @@
-import { getInvoiceSummary } from "@midday/supabase/cached-queries";
+import { getInvoiceSummary } from "@iq24/supabase/cached-queries";
 import Link from "next/link";
 import { InvoiceSummary } from "./invoice-summary";
 
@@ -10,7 +10,7 @@ export async function InvoicesOpen({ defaultCurrency }: Props) {
   const { data } = await getInvoiceSummary();
   const totalInvoiceCount = data?.reduce(
     (acc, curr) => acc + (curr.invoice_count ?? 0),
-    0,
+    0
   );
 
   return (

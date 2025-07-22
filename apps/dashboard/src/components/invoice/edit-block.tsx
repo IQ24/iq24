@@ -1,7 +1,7 @@
 "use client";
 
 import type { InvoiceFormValues } from "@/actions/invoice/schema";
-import { cn } from "@midday/ui/cn";
+import { cn } from "@iq24/ui/cn";
 import { Controller, useFormContext } from "react-hook-form";
 import { Editor } from "./editor";
 
@@ -29,7 +29,7 @@ export function EditBlock({ name }: Props) {
             disablePlaceholder
             className={cn(
               "transition-opacity",
-              field.value ? "opacity-100" : "opacity-0 group-hover:opacity-100",
+              field.value ? "opacity-100" : "opacity-0 group-hover:opacity-100"
             )}
           />
         )}

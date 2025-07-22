@@ -1,7 +1,7 @@
 "use client";
 
 import type { AI } from "@/actions/ai/chat";
-import { Avatar, AvatarImageNext } from "@midday/ui/avatar";
+import { Avatar, AvatarImageNext } from "@iq24/ui/avatar";
 import { useAIState } from "ai/rsc";
 
 type Props = {

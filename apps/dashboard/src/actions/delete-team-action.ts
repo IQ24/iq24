@@ -1,6 +1,6 @@
 "use server";
 
-import { LogEvents } from "@midday/events/events";
+import { LogEvents } from "@iq24/events/events";
 import { deleteTeam } from "jobs/tasks/team/delete";
 import { revalidateTag } from "next/cache";
 import { authActionClient } from "./safe-action";

@@ -1,9 +1,9 @@
 import { SupportForm } from "@/components/support-form";
-import { getUser } from "@midday/supabase/cached-queries";
+import { getUser } from "@iq24/supabase/cached-queries";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Support | Midday",
+  title: "Support | iq24",
 };
 
 export default async function Support() {

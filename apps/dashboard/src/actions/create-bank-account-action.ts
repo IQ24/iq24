@@ -1,6 +1,6 @@
 "use server";
 
-import { LogEvents } from "@midday/events/events";
+import { LogEvents } from "@iq24/events/events";
 import { nanoid } from "nanoid";
 import { revalidateTag } from "next/cache";
 import { authActionClient } from "./safe-action";
@@ -39,5 +39,5 @@ export const createBankAccountAction = authActionClient
       revalidateTag(`bank_accounts_currencies_${user.team_id}`);
 
       return data;
-    },
+    }
   );

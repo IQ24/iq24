@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@midday/ui/cn";
+import { cn } from "@iq24/ui/cn";
 import { useFormContext } from "react-hook-form";
 
 type Props = {
@@ -18,7 +18,7 @@ export function LabelInput({ name, className, onSave }: Props) {
     <span
       className={cn(
         "text-[11px] text-[#878787] min-w-10 font-mono outline-none",
-        className,
+        className
       )}
       id={name}
       contentEditable

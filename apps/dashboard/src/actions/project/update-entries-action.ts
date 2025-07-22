@@ -3,7 +3,7 @@
 import { authActionClient } from "@/actions/safe-action";
 import { updateEntriesSchema } from "@/actions/schema";
 import { Cookies } from "@/utils/constants";
-import { LogEvents } from "@midday/events/events";
+import { LogEvents } from "@iq24/events/events";
 import { addYears } from "date-fns";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";

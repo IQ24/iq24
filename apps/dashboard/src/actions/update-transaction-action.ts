@@ -1,6 +1,6 @@
 "use server";
 
-import { updateTransaction } from "@midday/supabase/mutations";
+import { updateTransaction } from "@iq24/supabase/mutations";
 import { revalidateTag } from "next/cache";
 import { authActionClient } from "./safe-action";
 import { updateTransactionSchema } from "./schema";
@@ -22,5 +22,5 @@ export const updateTransactionAction = authActionClient
       revalidateTag(`expenses_${user.team_id}`);
 
       return data;
-    },
+    }
   );

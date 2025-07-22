@@ -5,7 +5,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@midday/ui/card";
+} from "@iq24/ui/card";
 
 export function ChangeTheme() {
   return (
@@ -13,7 +13,7 @@ export function ChangeTheme() {
       <CardHeader>
         <CardTitle>Appearance</CardTitle>
         <CardDescription>
-          Customize how Midday looks on your device.
+          Customize how iq24 looks on your device.
         </CardDescription>
       </CardHeader>
 

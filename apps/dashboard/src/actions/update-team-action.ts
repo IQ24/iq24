@@ -1,6 +1,6 @@
 "use server";
 
-import { updateTeam } from "@midday/supabase/mutations";
+import { updateTeam } from "@iq24/supabase/mutations";
 import {
   revalidatePath as revalidatePathFunc,
   revalidateTag,
@@ -27,5 +27,5 @@ export const updateTeamAction = authActionClient
       revalidateTag(`user_${user.id}`);
 
       return team;
-    },
+    }
   );

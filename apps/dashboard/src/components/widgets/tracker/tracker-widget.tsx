@@ -2,7 +2,7 @@
 
 import { useTrackerParams } from "@/hooks/use-tracker-params";
 import { sortDates } from "@/utils/tracker";
-import { cn } from "@midday/ui/cn";
+import { cn } from "@iq24/ui/cn";
 import { useClickAway } from "@uidotdev/usehooks";
 import {
   eachDayOfInterval,
@@ -165,7 +165,7 @@ export function TrackerWidget({
                       date >= new Date(sortedDates[0] || 0) &&
                       date <= new Date(sortedDates[1] || 0))) &&
                     "ring-1 ring-primary",
-                  isInDragRange && "ring-1 ring-primary",
+                  isInDragRange && "ring-1 ring-primary"
                 )}
               >
                 <div>{format(date, "d")}</div>

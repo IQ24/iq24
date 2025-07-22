@@ -1,4 +1,4 @@
-import { getSession } from "@midday/supabase/cached-queries";
+import { getSession } from "@iq24/supabase/cached-queries";
 import { type NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -19,6 +19,6 @@ export async function GET(req: NextRequest) {
       headers: {
         authorization: `Bearer ${session?.access_token}`,
       },
-    },
+    }
   );
 }

@@ -1,4 +1,4 @@
-import { client } from "@midday/engine/client";
+import { client } from "@iq24/engine/client";
 import { type NextRequest, NextResponse } from "next/server";
 
 export const preferredRegion = ["fra1", "sfo1", "iad1"];
@@ -28,14 +28,14 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(
       new URL(
         `/?ref=${sessionData.session_id}&provider=enablebanking&step=account`,
-        request.url,
-      ),
+        request.url
+      )
     );
   }
 
   if (errorCode === "already_authorized") {
     return NextResponse.redirect(
-      new URL("/?error=already_authorized", request.url),
+      new URL("/?error=already_authorized", request.url)
     );
   }
 
