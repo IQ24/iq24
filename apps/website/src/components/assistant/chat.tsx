@@ -1,8 +1,8 @@
 "use client";
 
 import { useEnterSubmit } from "@iq24/ui/hooks";
-import { ScrollArea } from "@iq24i/scroll-area";
-import { Textarea } from "@iq24i/textarea";
+import { ScrollArea } from "@iq24/ui/scroll-area";
+import { Textarea } from "@iq24/ui/textarea";
 import { motion } from "framer-motion";
 import { nanoid } from "nanoid";
 import { useState } from "react";
@@ -101,7 +101,7 @@ export function Chat({ messages, submitMessage, input, setInput }) {
             autoCorrect="off"
             value={input}
             className="h-12 min-h-12 pt-3 resize-none border-none"
-            placeholder="Ask iq24 a question..."
+            placeholder="Ask Midday a question..."
             onKeyDown={onKeyDown}
             onChange={(evt) => {
               setInput(evt.target.value);

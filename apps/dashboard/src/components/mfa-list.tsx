@@ -1,6 +1,6 @@
 import { getI18n } from "@/locales/server";
 import { createClient } from "@iq24/supabase/server";
-import { Skeleton } from "@iq24i/skeleton";
+import { Skeleton } from "@iq24/ui/skeleton";
 import { format } from "date-fns";
 import { RemoveMFAButton } from "./remove-mfa-button";
 

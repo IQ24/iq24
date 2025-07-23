@@ -11,15 +11,15 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@iq24i/card";
+} from "@iq24/ui/card";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from "@iq24i/form";
-import { Input } from "@iq24i/input";
+} from "@iq24/ui/form";
+import { Input } from "@iq24/ui/input";
 import { Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";

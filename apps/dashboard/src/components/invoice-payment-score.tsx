@@ -1,7 +1,7 @@
 import { getI18n } from "@/locales/server";
 import { getPaymentStatus } from "@iq24/supabase/cached-queries";
-import { Card, CardContent, CardHeader, CardTitle } from "@iq24i/card";
-import { Skeleton } from "@iq24i/skeleton";
+import { Card, CardContent, CardHeader, CardTitle } from "@iq24/ui/card";
+import { Skeleton } from "@iq24/ui/skeleton";
 import { PaymentScoreVisualizer } from "./payment-score-visualizer";
 
 export function InvoicePaymentScoreSkeleton() {

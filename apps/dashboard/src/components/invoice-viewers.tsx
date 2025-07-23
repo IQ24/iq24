@@ -2,20 +2,20 @@
 
 import { formatRelativeTime } from "@/utils/format";
 import { createClient } from "@iq24/supabase/client";
-import { AnimatedSizeContainer } from "@iq24i/animated-size-container";
+import { AnimatedSizeContainer } from "@iq24/ui/animated-size-container";
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
   AvatarImageNext,
-} from "@iq24i/avatar";
-import { Separator } from "@iq24i/separator";
+} from "@iq24/ui/avatar";
+import { Separator } from "@iq24/ui/separator";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@iq24i/tooltip";
+} from "@iq24/ui/tooltip";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import type { Customer } from "./invoice-toolbar";

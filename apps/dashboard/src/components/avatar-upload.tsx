@@ -3,8 +3,8 @@
 import { updateUserAction } from "@/actions/update-user-action";
 import { useUpload } from "@/hooks/use-upload";
 import { Avatar, AvatarFallback, AvatarImage } from "@iq24/ui/avatar";
-import { Icons } from "@iq24i/icons";
-import { stripSpecialCharacters } from "@iq24tils";
+import { Icons } from "@iq24/ui/icons";
+import { stripSpecialCharacters } from "@iq24/utils";
 import { Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useRef, useState } from "react";

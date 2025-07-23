@@ -1,7 +1,7 @@
 "use client";
 
 import { Separator } from "@iq24/ui/separator";
-import { Skeleton } from "@iq24i/skeleton";
+import { Skeleton } from "@iq24/ui/skeleton";
 
 export function InboxDetailsSkeleton() {
   return (

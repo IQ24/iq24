@@ -3,14 +3,14 @@
 import { createReportAction } from "@/actions/report/create-report-action";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@iq24/ui/button";
-import { Calendar } from "@iq24i/calendar";
+import { Calendar } from "@iq24/ui/calendar";
 import {
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@iq24i/dialog";
+} from "@iq24/ui/dialog";
 import {
   Form,
   FormControl,
@@ -18,9 +18,9 @@ import {
   FormField,
   FormItem,
   FormMessage,
-} from "@iq24i/form";
-import { Popover, PopoverContent, PopoverTrigger } from "@iq24i/popover";
-import { useToast } from "@iq24i/use-toast";
+} from "@iq24/ui/form";
+import { Popover, PopoverContent, PopoverTrigger } from "@iq24/ui/popover";
+import { useToast } from "@iq24/ui/use-toast";
 import { format } from "date-fns";
 import { Loader2 } from "lucide-react";
 import { CalendarIcon } from "lucide-react";

@@ -8,7 +8,7 @@ import {
   CommandItem,
   CommandList,
   Command as CommandPrimitive,
-} from "@iq24i/command";
+} from "@iq24/ui/command";
 import { useJsApiLoader } from "@react-google-maps/api";
 import { useClickAway } from "@uidotdev/usehooks";
 import { Check } from "lucide-react";

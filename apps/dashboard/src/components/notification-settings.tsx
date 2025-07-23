@@ -1,6 +1,6 @@
 import { getSubscriberPreferences } from "@iq24/notification";
-import { getUser } from "@iq24upabase/cached-queries";
-import { Skeleton } from "@iq24i/skeleton";
+import { getUser } from "@iq24/supabase/cached-queries";
+import { Skeleton } from "@iq24/ui/skeleton";
 import { NotificationSetting } from "./notification-setting";
 
 export function NotificationSettingsSkeleton() {

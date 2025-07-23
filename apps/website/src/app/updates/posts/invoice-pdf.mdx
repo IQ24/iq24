@@ -1,7 +1,7 @@
 ---
 title: "Generating PDF Invoices: Our Approach"
 publishedAt: "2024-10-23"
-summary: "Discover how we're implementing PDF invoice generation in iq24, using React-based solutions for customizable, efficient document creation."
+summary: "Discover how we're implementing PDF invoice generation in Midday, using React-based solutions for customizable, efficient document creation."
 image: "/images/update/invoice-pdf/pdf.jpg"
 tag: "Updates"
 ---
@@ -13,13 +13,13 @@ We've noticed that generating PDF invoices is a common challenge in the develope
 community, so we decided to share our solution with you.
 <br />
 
-## Invoice in iq24
+## Invoice in Midday
 
 ![PDF Invoices](/images/update/invoice-pdf/invoice.jpg)
 
 <br />
-We are building a new experience for invoices in iq24. You'll be able to create and
-send invoices to your customers, as well as generate PDFs for each invoice.
+We are building a new experience for invoices in Midday. You'll be able to create
+and send invoices to your customers, as well as generate PDFs for each invoice.
 
 <br />
 
@@ -66,8 +66,8 @@ We first create an API endpoint that will generate the PDF and return the PDF as
 
 ```tsx
 import { InvoiceTemplate, renderToStream } from "@iq24/invoice";
-import { getInvoiceQuery } from "@iq24upabase/queries";
-import { createClient } from "@iq24upabase/server";
+import { getInvoiceQuery } from "@iq24/supabase/queries";
+import { createClient } from "@iq24/supabase/server";
 import type { NextRequest } from "next/server";
 
 export const preferredRegion = ["fra1", "sfo1", "iad1"];
@@ -282,4 +282,4 @@ We would love to hear what you think about the Invoicing feature, and we would l
 
 <br />
 
-[Sign up for an account](https://app.iq24.ai) and start using iq24 today.
+[Sign up for an account](https://app.iq24.ai) and start using Midday today.

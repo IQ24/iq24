@@ -1,22 +1,22 @@
 import { secondsToHoursAndMinutes } from "@/utils/format";
 import { UTCDate } from "@date-fns/utc";
 import { createClient } from "@iq24/supabase/client";
-import { Button } from "@iq24i/button";
-import { Calendar } from "@iq24i/calendar";
+import { Button } from "@iq24/ui/button";
+import { Calendar } from "@iq24/ui/calendar";
 import {
   DropdownMenuGroup,
   DropdownMenuPortal,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
-} from "@iq24i/dropdown-menu";
+} from "@iq24/ui/dropdown-menu";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@iq24i/select";
+} from "@iq24/ui/select";
 import { endOfMonth, format, startOfMonth, subMonths } from "date-fns";
 import Papa from "papaparse";
 import React, { useState } from "react";

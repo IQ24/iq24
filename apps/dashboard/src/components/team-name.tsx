@@ -11,15 +11,15 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@iq24i/card";
+} from "@iq24/ui/card";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from "@iq24i/form";
-import { Input } from "@iq24i/input";
+} from "@iq24/ui/form";
+import { Input } from "@iq24/ui/input";
 import { Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
@@ -45,7 +45,7 @@ export function TeamName({ name }) {
           <CardHeader>
             <CardTitle>Team Name</CardTitle>
             <CardDescription>
-              This is your team's visible name within iq24. For example, the
+              This is your team's visible name within Midday. For example, the
               name of your company or department.
             </CardDescription>
           </CardHeader>

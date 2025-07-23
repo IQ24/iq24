@@ -1,5 +1,5 @@
 import { client } from "@iq24/engine/client";
-import { createClient } from "@iq24upabase/job";
+import { createClient } from "@iq24/supabase/job";
 import { logger, schemaTask } from "@trigger.dev/sdk/v3";
 import { revalidateCache } from "jobs/utils/revalidate-cache";
 import { triggerSequenceAndWait } from "jobs/utils/trigger-sequence";

@@ -1,12 +1,12 @@
 import { InvoiceOverdueEmail } from "@iq24/email/emails/invoice-overdue";
-import { InvoicePaidEmail } from "@iq24mail/emails/invoice-paid";
-import { getI18n } from "@iq24mail/locales";
+import { InvoicePaidEmail } from "@iq24/email/emails/invoice-paid";
+import { getI18n } from "@iq24/email/locales";
 import {
   NotificationTypes,
   TriggerEvents,
   triggerBulk,
-} from "@iq24otification";
-import { getAppUrl } from "@iq24tils/envs";
+} from "@iq24/notification";
+import { getAppUrl } from "@iq24/utils/envs";
 import { render } from "@react-email/render";
 import { logger } from "@trigger.dev/sdk/v3";
 

@@ -2,8 +2,8 @@ import { type UpdateTeamFormValues, updateTeamSchema } from "@/actions/schema";
 import { updateTeamAction } from "@/actions/update-team-action";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getInboxEmail } from "@iq24/inbox";
-import { Button } from "@iq24i/button";
-import { Collapsible, CollapsibleContent } from "@iq24i/collapsible";
+import { Button } from "@iq24/ui/button";
+import { Collapsible, CollapsibleContent } from "@iq24/ui/collapsible";
 import {
   Form,
   FormControl,
@@ -12,10 +12,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@iq24i/form";
-import { Input } from "@iq24i/input";
-import { Label } from "@iq24i/label";
-import { Switch } from "@iq24i/switch";
+} from "@iq24/ui/form";
+import { Input } from "@iq24/ui/input";
+import { Label } from "@iq24/ui/label";
+import { Switch } from "@iq24/ui/switch";
 import { Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";

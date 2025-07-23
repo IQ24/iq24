@@ -2,7 +2,7 @@
 
 import { trackingConsentAction } from "@/actions/tracking-consent-action";
 import { Button } from "@iq24/ui/button";
-import { cn } from "@iq24i/cn";
+import { cn } from "@iq24/ui/cn";
 import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";
 

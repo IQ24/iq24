@@ -1,21 +1,21 @@
 "use client";
 
 import { Button } from "@iq24/ui/button";
-import { cn } from "@iq24i/cn";
+import { cn } from "@iq24/ui/cn";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@iq24i/dialog";
-import { Icons } from "@iq24i/icons";
+} from "@iq24/ui/dialog";
+import { Icons } from "@iq24/ui/icons";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@iq24i/tooltip";
+} from "@iq24/ui/tooltip";
 import { usePathname } from "next/navigation";
 import { useHotkeys } from "react-hotkeys-hook";
 import { FaXTwitter } from "react-icons/fa6";

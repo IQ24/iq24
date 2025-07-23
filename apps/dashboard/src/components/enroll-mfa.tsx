@@ -1,11 +1,11 @@
 import { createClient } from "@iq24/supabase/client";
-import { Button } from "@iq24i/button";
+import { Button } from "@iq24/ui/button";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@iq24i/collapsible";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "@iq24i/input-otp";
+} from "@iq24/ui/collapsible";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@iq24/ui/input-otp";
 import { CaretSortIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import { useRouter } from "next/navigation";

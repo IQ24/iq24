@@ -1,5 +1,5 @@
 import { Avatar } from "@iq24/ui/avatar";
-import { cn } from "@iq24i/cn";
+import { cn } from "@iq24/ui/cn";
 import Image from "next/image";
 import { useState } from "react";
 

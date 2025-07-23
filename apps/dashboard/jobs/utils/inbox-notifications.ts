@@ -1,7 +1,7 @@
 import { NotificationTypes } from "@iq24/notification";
-import { triggerBulk } from "@iq24otification";
-import { TriggerEvents } from "@iq24otification";
-import { createClient } from "@iq24upabase/job";
+import { triggerBulk } from "@iq24/notification";
+import { TriggerEvents } from "@iq24/notification";
+import { createClient } from "@iq24/supabase/job";
 
 export async function handleInboxNotifications({
   inboxId,

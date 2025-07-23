@@ -1,11 +1,11 @@
 "use client";
 
 import { Button } from "@iq24/ui/button";
-import { cn } from "@iq24i/cn";
-import { Dialog, DialogContentFrameless, DialogTrigger } from "@iq24i/dialog";
-import { Icons } from "@iq24i/icons";
-import { Skeleton } from "@iq24i/skeleton";
-import { FileType } from "@iq24tils";
+import { cn } from "@iq24/ui/cn";
+import { Dialog, DialogContentFrameless, DialogTrigger } from "@iq24/ui/dialog";
+import { Icons } from "@iq24/ui/icons";
+import { Skeleton } from "@iq24/ui/skeleton";
+import { FileType } from "@iq24/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { useState } from "react";

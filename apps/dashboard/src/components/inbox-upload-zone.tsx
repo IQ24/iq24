@@ -3,8 +3,8 @@
 import { inboxUploadAction } from "@/actions/inbox-upload-action";
 import { resumableUpload } from "@/utils/upload";
 import { createClient } from "@iq24/supabase/client";
-import { cn } from "@iq24i/cn";
-import { useToast } from "@iq24i/use-toast";
+import { cn } from "@iq24/ui/cn";
+import { useToast } from "@iq24/ui/use-toast";
 import { useAction } from "next-safe-action/hooks";
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";

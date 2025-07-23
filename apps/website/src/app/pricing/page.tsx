@@ -5,13 +5,13 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@iq24/ui/accordion";
-import { Button } from "@iq24i/button";
+import { Button } from "@iq24/ui/button";
 import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Pricing",
-  description: "iq24's pricing",
+  description: "Midday's pricing",
 };
 
 export default function Page() {
@@ -34,7 +34,7 @@ export default function Page() {
             <div className="mt-8">
               <div className="flex items-center space-x-4">
                 <Link
-                  href="https://cal.com/pontus-iq24/15min"
+                  href="https://cal.com/pontus-midday/15min"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -75,7 +75,7 @@ export default function Page() {
                   <a
                     target="_blank"
                     rel="noreferrer"
-                    href="https://git.new/iq24"
+                    href="https://git.new/midday"
                     className="underline"
                   >
                     here
@@ -93,7 +93,7 @@ export default function Page() {
                   <a
                     target="_blank"
                     rel="noreferrer"
-                    href="https://git.new/iq24"
+                    href="https://git.new/midday"
                     className="underline"
                   >
                     here
@@ -108,7 +108,7 @@ export default function Page() {
                   <a
                     target="_blank"
                     rel="noreferrer"
-                    href="https://git.new/iq24"
+                    href="https://git.new/midday"
                     className="underline"
                   >
                     here
@@ -140,7 +140,7 @@ export default function Page() {
                 </AccordionTrigger>
                 <AccordionContent>
                   Yes, you can cancel your subscription at any time. If you
-                  cancel your subscription, you will still be able to use iq24
+                  cancel your subscription, you will still be able to use Midday
                   until the end of your billing period.
                 </AccordionContent>
               </AccordionItem>

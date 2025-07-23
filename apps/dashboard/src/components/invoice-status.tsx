@@ -2,7 +2,7 @@
 
 import { useI18n } from "@/locales/client";
 import { cn } from "@iq24/ui/cn";
-import { Skeleton } from "@iq24i/skeleton";
+import { Skeleton } from "@iq24/ui/skeleton";
 
 export function InvoiceStatus({
   status,

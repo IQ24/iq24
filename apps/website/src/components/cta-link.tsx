@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@iq24/ui/cn";
-import { Icons } from "@iq24i/icons";
+import { Icons } from "@iq24/ui/icons";
 import Link from "next/link";
 
 export function CtaLink({

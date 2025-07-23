@@ -9,8 +9,8 @@ import {
   FormItem,
   FormLabel,
 } from "@iq24/ui/form";
-import { SubmitButton } from "@iq24i/submit-button";
-import { Switch } from "@iq24i/switch";
+import { SubmitButton } from "@iq24/ui/submit-button";
+import { Switch } from "@iq24/ui/switch";
 import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
 

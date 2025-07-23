@@ -12,16 +12,16 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@iq24/ui/alert-dialog";
-import { Button } from "@iq24i/button";
+import { Button } from "@iq24/ui/button";
 import {
   Card,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@iq24i/card";
-import { Input } from "@iq24i/input";
-import { Label } from "@iq24i/label";
+} from "@iq24/ui/card";
+import { Input } from "@iq24/ui/input";
+import { Label } from "@iq24/ui/label";
 import { Loader2 } from "lucide-react";
 import { useState, useTransition } from "react";
 
@@ -35,7 +35,7 @@ export function DeleteAccount() {
         <CardTitle>Delete account</CardTitle>
         <CardDescription>
           Permanently remove your Personal Account and all of its contents from
-          the iq24 platform. This action is not reversible, so please continue
+          the Midday platform. This action is not reversible, so please continue
           with caution.
         </CardDescription>
       </CardHeader>

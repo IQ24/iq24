@@ -3,7 +3,7 @@ import { deleteTagAction } from "@/actions/delete-tag-action";
 import { updateTagAction } from "@/actions/update-tag-action";
 import { useUserContext } from "@/store/user/hook";
 import { createClient } from "@iq24/supabase/client";
-import { getTagsQuery } from "@iq24upabase/queries";
+import { getTagsQuery } from "@iq24/supabase/queries";
 import {
   Dialog,
   DialogContent,
@@ -11,11 +11,11 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@iq24i/dialog";
-import { Input } from "@iq24i/input";
-import { Label } from "@iq24i/label";
-import MultipleSelector, { type Option } from "@iq24i/multiple-selector";
-import { SubmitButton } from "@iq24i/submit-button";
+} from "@iq24/ui/dialog";
+import { Input } from "@iq24/ui/input";
+import { Label } from "@iq24/ui/label";
+import MultipleSelector, { type Option } from "@iq24/ui/multiple-selector";
+import { SubmitButton } from "@iq24/ui/submit-button";
 import { useAction } from "next-safe-action/hooks";
 import React, { useEffect, useState } from "react";
 

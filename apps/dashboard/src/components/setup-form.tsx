@@ -12,9 +12,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@iq24i/form";
-import { Input } from "@iq24i/input";
-import { useToast } from "@iq24i/use-toast";
+} from "@iq24/ui/form";
+import { Input } from "@iq24/ui/input";
+import { useToast } from "@iq24/ui/use-toast";
 import { Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useRouter } from "next/navigation";

@@ -15,16 +15,16 @@ import {
   updateEventTime,
 } from "@/utils/tracker";
 import { createClient } from "@iq24/supabase/client";
-import { getTrackerRecordsByDateQuery } from "@iq24upabase/queries";
-import { cn } from "@iq24i/cn";
+import { getTrackerRecordsByDateQuery } from "@iq24/supabase/queries";
+import { cn } from "@iq24/ui/cn";
 import {
   ContextMenu,
   ContextMenuContent,
   ContextMenuItem,
   ContextMenuShortcut,
   ContextMenuTrigger,
-} from "@iq24i/context-menu";
-import { ScrollArea } from "@iq24i/scroll-area";
+} from "@iq24/ui/context-menu";
+import { ScrollArea } from "@iq24/ui/scroll-area";
 import {
   addMinutes,
   addSeconds,

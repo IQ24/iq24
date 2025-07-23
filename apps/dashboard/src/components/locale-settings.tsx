@@ -9,8 +9,8 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@iq24i/card";
-import { ComboboxDropdown } from "@iq24i/combobox-dropdown";
+} from "@iq24/ui/card";
+import { ComboboxDropdown } from "@iq24/ui/combobox-dropdown";
 import { useOptimisticAction } from "next-safe-action/hooks";
 
 type Props = {

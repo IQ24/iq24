@@ -1,5 +1,5 @@
 import { updateSession } from "@iq24/supabase/middleware";
-import { createClient } from "@iq24upabase/server";
+import { createClient } from "@iq24/supabase/server";
 import { createI18nMiddleware } from "next-international/middleware";
 import { type NextRequest, NextResponse } from "next/server";
 

@@ -1,5 +1,5 @@
 import { Tabs } from "@iq24/ui/tabs";
-import { TooltipProvider } from "@iq24i/tooltip";
+import { TooltipProvider } from "@iq24/ui/tooltip";
 import { useQueryState } from "nuqs";
 import { InboxDetailsSkeleton } from "./inbox-details-skeleton";
 import { InboxListSkeleton } from "./inbox-list-skeleton";

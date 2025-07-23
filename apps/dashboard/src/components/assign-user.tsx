@@ -1,14 +1,14 @@
 import { useUserContext } from "@/store/user/hook";
 import { createClient } from "@iq24/supabase/client";
-import { getTeamMembersQuery } from "@iq24upabase/queries";
+import { getTeamMembersQuery } from "@iq24/supabase/queries";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@iq24i/select";
-import { Skeleton } from "@iq24i/skeleton";
+} from "@iq24/ui/select";
+import { Skeleton } from "@iq24/ui/skeleton";
 import { useEffect, useState } from "react";
 import { AssignedUser } from "./assigned-user";
 

@@ -1,0 +1,35 @@
+{
+  "name": "@iq24/agents",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@iq24/types": "workspace:*",
+    "@iq24/data-pipelines": "workspace:*",
+    "@iq24/feature-store": "workspace:*",
+    "@iq24/model-store": "workspace:*",
+    "openai": "^4.67.1",
+    "anthropic": "^0.34.0",
+    "langchain": "^0.3.0",
+    "@langchain/core": "^0.3.0",
+    "@langchain/openai": "^0.3.0",
+    "puppeteer": "^23.10.4",
+    "playwright": "^1.48.2",
+    "cheerio": "^1.0.0",
+    "neo4j-driver": "^5.26.0",
+    "axios": "^1.7.9",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@iq24/tsconfig": "workspace:*",
+    "@types/cheerio": "^0.22.35",
+    "typescript": "^5.7.2"
+  }
+}

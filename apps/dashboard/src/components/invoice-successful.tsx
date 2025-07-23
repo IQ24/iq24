@@ -1,6 +1,6 @@
 import { formatEditorContent } from "@iq24/invoice/format-to-html";
-import { Button } from "@iq24i/button";
-import { Icons } from "@iq24i/icons";
+import { Button } from "@iq24/ui/button";
+import { Icons } from "@iq24/ui/icons";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
 import { CopyInput } from "./copy-input";

@@ -2,10 +2,10 @@
 
 import { useNotifications } from "@/hooks/use-notifications";
 import { Button } from "@iq24/ui/button";
-import { Icons } from "@iq24i/icons";
-import { Popover, PopoverContent, PopoverTrigger } from "@iq24i/popover";
-import { ScrollArea } from "@iq24i/scroll-area";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@iq24i/tabs";
+import { Icons } from "@iq24/ui/icons";
+import { Popover, PopoverContent, PopoverTrigger } from "@iq24/ui/popover";
+import { ScrollArea } from "@iq24/ui/scroll-area";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@iq24/ui/tabs";
 import { formatDistanceToNow } from "date-fns";
 import Link from "next/link";
 import { useEffect, useState } from "react";

@@ -1,8 +1,8 @@
 import { useTrackerParams } from "@/hooks/use-tracker-params";
 import { TZDate } from "@date-fns/tz";
 import { Button } from "@iq24/ui/button";
-import { cn } from "@iq24i/cn";
-import { Icons } from "@iq24i/icons";
+import { cn } from "@iq24/ui/cn";
+import { Icons } from "@iq24/ui/icons";
 import { addMonths, format, formatISO, startOfMonth } from "date-fns";
 
 type Props = {

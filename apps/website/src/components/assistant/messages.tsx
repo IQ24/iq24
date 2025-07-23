@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@iq24/ui/button";
-import { cn } from "@iq24i/cn";
+import { cn } from "@iq24/ui/cn";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { ChatAvatar } from "./chat-avatar";

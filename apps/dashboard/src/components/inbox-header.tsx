@@ -1,5 +1,5 @@
 import { Button } from "@iq24/ui/button";
-import { TabsList, TabsTrigger } from "@iq24i/tabs";
+import { TabsList, TabsTrigger } from "@iq24/ui/tabs";
 import { parseAsString, useQueryStates } from "nuqs";
 import { startTransition } from "react";
 import { InboxOrdering } from "./inbox-ordering";

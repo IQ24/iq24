@@ -2,13 +2,13 @@
 
 import { validateVatNumberAction } from "@/actions/validate-vat-number-action";
 import { Icons } from "@iq24/ui/icons";
-import { Input } from "@iq24i/input";
+import { Input } from "@iq24/ui/input";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@iq24i/tooltip";
+} from "@iq24/ui/tooltip";
 import { useDebounce } from "@uidotdev/usehooks";
 import { Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";

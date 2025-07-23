@@ -2,8 +2,8 @@ import {
   createSlackWebClient,
   downloadFile,
 } from "@iq24/app-store/slack-client";
-import { DocumentClient, prepareDocument } from "@iq24ocuments";
-import { createClient } from "@iq24upabase/job";
+import { DocumentClient, prepareDocument } from "@iq24/documents";
+import { createClient } from "@iq24/supabase/job";
 import { schemaTask } from "@trigger.dev/sdk/v3";
 import { format } from "date-fns";
 import { z } from "zod";

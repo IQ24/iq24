@@ -10,14 +10,14 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@iq24/ui/accordion";
-import { Icons } from "@iq24i/icons";
+import { Icons } from "@iq24/ui/icons";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@iq24i/tooltip";
-import { useToast } from "@iq24i/use-toast";
+} from "@iq24/ui/tooltip";
+import { useToast } from "@iq24/ui/use-toast";
 import { differenceInDays, formatDistanceToNow } from "date-fns";
 import { useAction } from "next-safe-action/hooks";
 import { useRouter } from "next/navigation";

@@ -1,5 +1,5 @@
 import { Icons } from "@iq24/ui/icons";
-import { Popover, PopoverContent, PopoverTrigger } from "@iq24i/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@iq24/ui/popover";
 import { useRouter } from "next/navigation";
 
 type Props = {
@@ -29,7 +29,7 @@ export function Footer({ onSubmit }: Props) {
               <button
                 type="button"
                 className="flex space-x-2 items-center text-xs hover:bg-[#2b2b2b] rounded-md transition-colors w-full p-1"
-                onClick={() => router.push("https://x.com/iq24ai")}
+                onClick={() => router.push("https://x.com/middayai")}
               >
                 <Icons.X className="w-[16px] h-[16px]" />
                 <span>Follow us</span>
@@ -50,7 +50,7 @@ export function Footer({ onSubmit }: Props) {
               <button
                 type="button"
                 className="flex space-x-2 items-center text-xs hover:bg-[#2b2b2b] rounded-md transition-colors w-full p-1"
-                onClick={() => router.push("https://git.new/iq24")}
+                onClick={() => router.push("https://git.new/midday")}
               >
                 <Icons.GithubOutline className="w-[16px] h-[16px]" />
                 <span>Github</span>

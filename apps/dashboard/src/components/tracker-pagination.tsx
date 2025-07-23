@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@iq24/ui/button";
-import { Icons } from "@iq24i/icons";
+import { Icons } from "@iq24/ui/icons";
 import {
   addMonths,
   format,

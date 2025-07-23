@@ -1,7 +1,7 @@
 import { formatAccountName } from "@/utils/format";
 import { Button } from "@iq24/ui/button";
-import { Icons } from "@iq24i/icons";
-import { Skeleton } from "@iq24i/skeleton";
+import { Icons } from "@iq24/ui/icons";
+import { Skeleton } from "@iq24/ui/skeleton";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
 import { formatDateRange } from "little-date";

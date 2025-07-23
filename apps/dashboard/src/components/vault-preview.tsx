@@ -7,7 +7,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@iq24/ui/hover-card";
-import { type FileType, isSupportedFilePreview } from "@iq24tils";
+import { type FileType, isSupportedFilePreview } from "@iq24/utils";
 import { FileIcon } from "./file-icon";
 
 type Props = {

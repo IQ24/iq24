@@ -6,14 +6,14 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@iq24/ui/accordion";
-import { cn } from "@iq24i/cn";
+import { cn } from "@iq24/ui/cn";
 import {
   ContextMenu,
   ContextMenuContent,
   ContextMenuItem,
   ContextMenuTrigger,
-} from "@iq24i/context-menu";
-import { Icons } from "@iq24i/icons";
+} from "@iq24/ui/context-menu";
+import { Icons } from "@iq24/ui/icons";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -156,7 +156,7 @@ export function Header() {
       ),
       children: [
         {
-          path: "https://git.new/iq24",
+          path: "https://git.new/midday",
           title: "Open Source",
           icon: <FaGithub size={19} />,
         },
@@ -199,7 +199,7 @@ export function Header() {
         <ContextMenu>
           <ContextMenuTrigger>
             <Link href="/">
-              <span className="sr-only">iq24 Logo</span>
+              <span className="sr-only">Midday Logo</span>
               <LogoIcon />
             </Link>
           </ContextMenuTrigger>
@@ -354,7 +354,7 @@ export function Header() {
         >
           <div className="mt-4 flex justify-between p-3 px-4 relative ml-[1px]">
             <button type="button" onClick={handleToggleMenu}>
-              <span className="sr-only">iq24 Logo</span>
+              <span className="sr-only">Midday Logo</span>
               <LogoIcon />
             </button>
 

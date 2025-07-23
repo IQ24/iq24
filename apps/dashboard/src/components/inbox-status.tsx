@@ -6,7 +6,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@iq24i/tooltip";
+} from "@iq24/ui/tooltip";
 
 export function InboxStatus({ item }) {
   if (item.status === "processing" || item.status === "new") {

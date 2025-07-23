@@ -1,5 +1,5 @@
 import { PdfTemplate, renderToBuffer } from "@iq24/invoice";
-import { createClient } from "@iq24upabase/job";
+import { createClient } from "@iq24/supabase/job";
 import { logger, schemaTask } from "@trigger.dev/sdk/v3";
 import { z } from "zod";
 

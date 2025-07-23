@@ -10,8 +10,8 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@iq24i/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@iq24i/popover";
+} from "@iq24/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@iq24/ui/popover";
 import React from "react";
 
 type Props = {

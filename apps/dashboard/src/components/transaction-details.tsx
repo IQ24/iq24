@@ -6,16 +6,16 @@ import { updateSimilarTransactionsCategoryAction } from "@/actions/update-simila
 import { updateSimilarTransactionsRecurringAction } from "@/actions/update-similar-transactions-recurring";
 import { useUserContext } from "@/store/user/hook";
 import { createClient } from "@iq24/supabase/client";
-import { getTransactionQuery } from "@iq24upabase/queries";
-import { getSimilarTransactions } from "@iq24upabase/queries";
+import { getTransactionQuery } from "@iq24/supabase/queries";
+import { getSimilarTransactions } from "@iq24/supabase/queries";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@iq24i/accordion";
-import { cn } from "@iq24i/cn";
-import { Label } from "@iq24i/label";
+} from "@iq24/ui/accordion";
+import { cn } from "@iq24/ui/cn";
+import { Label } from "@iq24/ui/label";
 import {
   Select,
   SelectContent,
@@ -23,11 +23,11 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@iq24i/select";
-import { Skeleton } from "@iq24i/skeleton";
-import { Switch } from "@iq24i/switch";
-import { ToastAction } from "@iq24i/toast";
-import { useToast } from "@iq24i/use-toast";
+} from "@iq24/ui/select";
+import { Skeleton } from "@iq24/ui/skeleton";
+import { Switch } from "@iq24/ui/switch";
+import { ToastAction } from "@iq24/ui/toast";
+import { useToast } from "@iq24/ui/use-toast";
 import { format } from "date-fns";
 import { useAction } from "next-safe-action/hooks";
 import { useQueryState } from "nuqs";
@@ -143,7 +143,7 @@ export function TransactionDetails({
       toast({
         duration: 6000,
         variant: "ai",
-        title: "iq24 AI",
+        title: "iq24.ai",
         description: `Do you want to mark ${transactions?.data?.length} similar transactions from ${data?.name} as ${category.name} too?`,
         footer: (
           <div className="flex space-x-2 mt-4">
@@ -180,7 +180,7 @@ export function TransactionDetails({
       toast({
         duration: 6000,
         variant: "ai",
-        title: "iq24 AI",
+        title: "iq24.ai",
         description: `Do you want to mark ${
           transactions?.data?.length
         } similar transactions from ${data?.name} as ${

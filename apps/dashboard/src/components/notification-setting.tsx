@@ -3,7 +3,7 @@
 import { updateSubscriberPreferenceAction } from "@/actions/update-subscriber-preference-action";
 import { useI18n } from "@/locales/client";
 import { Label } from "@iq24/ui/label";
-import { Switch } from "@iq24i/switch";
+import { Switch } from "@iq24/ui/switch";
 import { useOptimisticAction } from "next-safe-action/hooks";
 
 type Props = {

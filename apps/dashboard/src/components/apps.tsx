@@ -1,7 +1,7 @@
 "use client";
 
 import { apps } from "@iq24/app-store";
-import { Button } from "@iq24i/button";
+import { Button } from "@iq24/ui/button";
 import { useRouter, useSearchParams } from "next/navigation";
 import { App } from "./app";
 

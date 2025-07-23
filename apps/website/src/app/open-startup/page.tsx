@@ -18,7 +18,7 @@ import {
   TableHeader,
   TableRow,
 } from "@iq24/ui/table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@iq24i/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@iq24/ui/tabs";
 
 import type { Metadata } from "next";
 
@@ -132,7 +132,7 @@ export default async function Page() {
             </TableBody>
           </Table>
           <p className="text-xs text-center mt-4 text-[#878787]">
-            iq24 Labs AB
+            Midday Labs AB
           </p>
         </TabsContent>
       </Tabs>

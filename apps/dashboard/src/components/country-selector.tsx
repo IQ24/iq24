@@ -1,18 +1,18 @@
 import countries from "@iq24/location/country-flags";
-import { Button } from "@iq24i/button";
-import { cn } from "@iq24i/cn";
+import { Button } from "@iq24/ui/button";
+import { cn } from "@iq24/ui/cn";
 import {
   Command,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
-} from "@iq24i/command";
+} from "@iq24/ui/command";
 import {
   Popover,
   PopoverContentWithoutPortal,
   PopoverTrigger,
-} from "@iq24i/popover";
+} from "@iq24/ui/popover";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 import * as React from "react";
 import { useEffect } from "react";

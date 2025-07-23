@@ -1,5 +1,5 @@
 import { createClient } from "@iq24/supabase/client";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "@iq24i/input-otp";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@iq24/ui/input-otp";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 

@@ -1,6 +1,6 @@
 import { updateAppSettingsAction } from "@/actions/update-app-settings-action";
 import { Label } from "@iq24/ui/label";
-import { Switch } from "@iq24i/switch";
+import { Switch } from "@iq24/ui/switch";
 import { useAction } from "next-safe-action/hooks";
 
 type AppSettingsItem = {

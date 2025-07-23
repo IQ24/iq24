@@ -8,7 +8,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@iq24i/select";
+} from "@iq24/ui/select";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { useDraggable } from "react-use-draggable-scroll";

@@ -15,25 +15,25 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@iq24/ui/alert-dialog";
-import { Avatar, AvatarFallback } from "@iq24i/avatar";
-import { cn } from "@iq24i/cn";
+import { Avatar, AvatarFallback } from "@iq24/ui/avatar";
+import { cn } from "@iq24/ui/cn";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@iq24i/dropdown-menu";
-import { Icons } from "@iq24i/icons";
-import { Input } from "@iq24i/input";
-import { Label } from "@iq24i/label";
-import { Switch } from "@iq24i/switch";
+} from "@iq24/ui/dropdown-menu";
+import { Icons } from "@iq24/ui/icons";
+import { Input } from "@iq24/ui/input";
+import { Label } from "@iq24/ui/label";
+import { Switch } from "@iq24/ui/switch";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@iq24i/tooltip";
+} from "@iq24/ui/tooltip";
 import { MoreHorizontal } from "lucide-react";
 import { Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";

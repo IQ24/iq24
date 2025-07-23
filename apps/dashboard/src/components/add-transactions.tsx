@@ -6,8 +6,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@iq24i/dropdown-menu";
-import { Icons } from "@iq24i/icons";
+} from "@iq24/ui/dropdown-menu";
+import { Icons } from "@iq24/ui/icons";
 import { parseAsBoolean, parseAsString, useQueryStates } from "nuqs";
 
 export function AddTransactions() {

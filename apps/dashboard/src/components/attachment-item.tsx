@@ -4,9 +4,9 @@ import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@iq24i/hover-card";
-import { Skeleton } from "@iq24i/skeleton";
-import { isSupportedFilePreview } from "@iq24tils";
+} from "@iq24/ui/hover-card";
+import { Skeleton } from "@iq24/ui/skeleton";
+import { isSupportedFilePreview } from "@iq24/utils";
 import { X } from "lucide-react";
 import { FilePreview } from "./file-preview";
 

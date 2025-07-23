@@ -1,5 +1,5 @@
 import { getTeamBankAccounts } from "@iq24/supabase/cached-queries";
-import { Skeleton } from "@iq24i/skeleton";
+import { Skeleton } from "@iq24/ui/skeleton";
 import { BankConnections } from "./bank-connections";
 import { ManualAccounts } from "./manual-accounts";
 

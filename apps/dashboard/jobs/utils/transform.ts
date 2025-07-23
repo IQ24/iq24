@@ -1,5 +1,5 @@
-import type { Transactions } from "@iq24-ai/engine/resources/transactions";
-import type { Database } from "@iq24upabase/types";
+import type { Transactions } from "@iq24.ai/engine/resources/transactions";
+import type { Database } from "@iq24/supabase/types";
 
 type TransformTransactionData = {
   transaction: Transactions.Data;

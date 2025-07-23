@@ -9,8 +9,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@iq24i/card";
-import { stripSpecialCharacters } from "@iq24tils";
+} from "@iq24/ui/card";
+import { stripSpecialCharacters } from "@iq24/utils";
 import { Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useRef } from "react";

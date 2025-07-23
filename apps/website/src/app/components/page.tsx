@@ -1,6 +1,6 @@
 import { Button } from "@iq24/ui/button";
-import { Card } from "@iq24i/card";
-import { cn } from "@iq24i/cn";
+import { Card } from "@iq24/ui/card";
+import { cn } from "@iq24/ui/cn";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,7 +12,7 @@ import invoice from "./invoice.png";
 import pdf from "./pdf.png";
 
 export const metadata: Metadata = {
-  title: "Components | iq24",
+  title: "Components | Midday",
   description:
     "A list of open source components that can be used in your project.",
 };
@@ -76,11 +76,11 @@ export default function Page() {
 
         <div className="flex items-center flex-col text-center relative">
           <p className="text-lg mt-4 max-w-[600px]">
-            A collection of open-source components based on iq24 features.
+            A collection of open-source components based on Midday features.
           </p>
         </div>
 
-        <a href="https://git.new/iq24" target="_blank" rel="noreferrer">
+        <a href="https://git.new/midday" target="_blank" rel="noreferrer">
           <Button className="mt-8">View on Github</Button>
         </a>
       </div>

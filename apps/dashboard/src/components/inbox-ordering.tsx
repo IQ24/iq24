@@ -7,8 +7,8 @@ import {
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@iq24i/dropdown-menu";
-import { Icons } from "@iq24i/icons";
+} from "@iq24/ui/dropdown-menu";
+import { Icons } from "@iq24/ui/icons";
 import { useOptimisticAction } from "next-safe-action/hooks";
 
 type Props = {

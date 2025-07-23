@@ -3,10 +3,10 @@
 import { useSliderWithInput } from "@/hooks/use-slider-with-input";
 import { useUserContext } from "@/store/user/hook";
 import { createClient } from "@iq24/supabase/client";
-import { Button } from "@iq24i/button";
-import { Input } from "@iq24i/input";
-import { Label } from "@iq24i/label";
-import { Slider } from "@iq24i/slider";
+import { Button } from "@iq24/ui/button";
+import { Input } from "@iq24/ui/input";
+import { Label } from "@iq24/ui/label";
+import { Slider } from "@iq24/ui/slider";
 import { parseAsArrayOf, parseAsInteger, useQueryState } from "nuqs";
 import { useEffect, useState } from "react";
 

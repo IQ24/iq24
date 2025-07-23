@@ -10,9 +10,9 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@iq24i/card";
-import { Switch } from "@iq24i/switch";
-import { useToast } from "@iq24i/use-toast";
+} from "@iq24/ui/card";
+import { Switch } from "@iq24/ui/switch";
+import { useToast } from "@iq24/ui/use-toast";
 import { useUIState } from "ai/rsc";
 import { useAction, useOptimisticAction } from "next-safe-action/hooks";
 

@@ -1,6 +1,6 @@
 import { useInitialConnectionStatus } from "@/hooks/use-initial-connection-status";
 import { Button } from "@iq24/ui/button";
-import { cn } from "@iq24i/cn";
+import { cn } from "@iq24/ui/cn";
 import { useTheme } from "next-themes";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";

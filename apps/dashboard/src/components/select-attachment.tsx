@@ -4,8 +4,8 @@ import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@iq24i/hover-card";
-import { isSupportedFilePreview } from "@iq24tils";
+} from "@iq24/ui/hover-card";
+import { isSupportedFilePreview } from "@iq24/utils";
 import { useDebounce } from "@uidotdev/usehooks";
 import { format } from "date-fns";
 import { useAction } from "next-safe-action/hooks";

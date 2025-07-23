@@ -2,9 +2,9 @@
 
 import { createProjectAction } from "@/actions/project/create-project-action";
 import { createClient } from "@iq24/supabase/client";
-import { getTrackerProjectsQuery } from "@iq24upabase/queries";
-import { Combobox } from "@iq24i/combobox";
-import { useToast } from "@iq24i/use-toast";
+import { getTrackerProjectsQuery } from "@iq24/supabase/queries";
+import { Combobox } from "@iq24/ui/combobox";
+import { useToast } from "@iq24/ui/use-toast";
 import { useAction } from "next-safe-action/hooks";
 import { useEffect, useState } from "react";
 

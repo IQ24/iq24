@@ -1,14 +1,14 @@
 import { getConnectionsStatus } from "@/utils/connection-status";
 import { getBankConnectionsByTeamId } from "@iq24/supabase/cached-queries";
-import { Button } from "@iq24i/button";
-import { cn } from "@iq24i/cn";
-import { Icons } from "@iq24i/icons";
+import { Button } from "@iq24/ui/button";
+import { cn } from "@iq24/ui/cn";
+import { Icons } from "@iq24/ui/icons";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@iq24i/tooltip";
+} from "@iq24/ui/tooltip";
 import Link from "next/link";
 
 export async function ConnectionStatus() {

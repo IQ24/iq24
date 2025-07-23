@@ -1,5 +1,5 @@
 import { createClient } from "@iq24/supabase/job";
-import { download } from "@iq24upabase/storage";
+import { download } from "@iq24/supabase/storage";
 import { schemaTask } from "@trigger.dev/sdk/v3";
 import { blobToSerializable } from "jobs/utils/blob";
 import { processBatch } from "jobs/utils/process-batch";

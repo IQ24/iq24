@@ -1,7 +1,7 @@
 import { getUser } from "@iq24/supabase/cached-queries";
-import { getVaultActivityQuery } from "@iq24upabase/queries";
-import { createClient } from "@iq24upabase/server";
-import { Icons } from "@iq24i/icons";
+import { getVaultActivityQuery } from "@iq24/supabase/queries";
+import { createClient } from "@iq24/supabase/server";
+import { Icons } from "@iq24/ui/icons";
 import Link from "next/link";
 import { VaultPreview } from "./vault-preview";
 

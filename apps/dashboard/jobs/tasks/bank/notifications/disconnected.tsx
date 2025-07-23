@@ -21,7 +21,7 @@ export const disconnectedNotifications = schemaTask({
           full_name: z.string(),
           locale: z.string(),
         }),
-      }),
+      })
     ),
   }),
   run: async ({ users }) => {
@@ -31,11 +31,12 @@ export const disconnectedNotifications = schemaTask({
           fullName={user.full_name}
           bankName={bankName}
           teamName={teamName}
-        />,
+        />
       );
 
       return {
         from: "iq24bot <iq24bot@iq2@iq24
+        from: "Middaybot <middaybot@iq24i>",
         to: [user.email],
         subject: "Bank Connection Expiring Soon",
         html,

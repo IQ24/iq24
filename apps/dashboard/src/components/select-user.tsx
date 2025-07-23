@@ -2,8 +2,8 @@
 
 import { useUserContext } from "@/store/user/hook";
 import { createClient } from "@iq24/supabase/client";
-import { getTeamMembersQuery } from "@iq24upabase/queries";
-import { Spinner } from "@iq24i/spinner";
+import { getTeamMembersQuery } from "@iq24/supabase/queries";
+import { Spinner } from "@iq24/ui/spinner";
 import { useEffect, useState } from "react";
 import { AssignedUser } from "./assigned-user";
 

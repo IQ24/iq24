@@ -1,6 +1,6 @@
 import { Button } from "@iq24/ui/button";
-import { Icons } from "@iq24i/icons";
-import { ScrollArea } from "@iq24i/scroll-area";
+import { Icons } from "@iq24/ui/icons";
+import { ScrollArea } from "@iq24/ui/scroll-area";
 import { AnimatePresence, motion } from "framer-motion";
 import { InboxItem } from "./inbox-item";
 

@@ -5,13 +5,13 @@ import { useUserContext } from "@/store/user/hook";
 import { formatAmount, secondsToHoursAndMinutes } from "@/utils/format";
 import { TZDate } from "@date-fns/tz";
 import { cn } from "@iq24/ui/cn";
-import { Icons } from "@iq24i/icons";
+import { Icons } from "@iq24/ui/icons";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@iq24i/tooltip";
+} from "@iq24/ui/tooltip";
 import NumberFlow from "@number-flow/react";
 import { useClickAway } from "@uidotdev/usehooks";
 import {

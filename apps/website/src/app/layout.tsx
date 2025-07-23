@@ -4,9 +4,9 @@ import { FooterCTA } from "@/components/footer-cta";
 import { Header } from "@/components/header";
 import "@/styles/globals.css";
 import { cn } from "@iq24/ui/cn";
-import "@iq24i/globals.css";
+import "@iq24/ui/globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Provider as Analytics } from "@iq24vents/client";
+import { Provider as Analytics } from "@iq24/events/client";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
@@ -18,18 +18,18 @@ export const preferredRegion = ["fra1", "sfo1", "iad1"];
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "iq24 | Run your business smarter",
-    template: "%s | iq24",
+    default: "Midday | Run your business smarter",
+    template: "%s | Midday",
   },
   description:
-    "iq24 provides you with greater insight into your business and automates the boring tasks, allowing you to focus on what you love to do instead.",
+    "Midday provides you with greater insight into your business and automates the boring tasks, allowing you to focus on what you love to do instead.",
   openGraph: {
-    title: "iq24 | Run your business smarter",
+    title: "Midday | Run your business smarter",
     description:
-      "iq24 provides you with greater insight into your business and automates the boring tasks, allowing you to focus on what you love to do instead.",
+      "Midday provides you with greater insight into your business and automates the boring tasks, allowing you to focus on what you love to do instead.",
     url: baseUrl,
     siteName:
-      "iq24 provides you with greater insight into your business and automates the boring tasks, allowing you to focus on what you love to do instead.",
+      "Midday provides you with greater insight into your business and automates the boring tasks, allowing you to focus on what you love to do instead.",
     locale: "en_US",
     type: "website",
     images: [
@@ -46,9 +46,9 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    title: "iq24 | Run your business smarter",
+    title: "Midday | Run your business smarter",
     description:
-      "iq24 provides you with greater insight into your business and automates the boring tasks, allowing you to focus on what you love to do instead.",
+      "Midday provides you with greater insight into your business and automates the boring tasks, allowing you to focus on what you love to do instead.",
     images: [
       {
         url: "https://cdn.iq24.ai/opengraph-image.jpg",

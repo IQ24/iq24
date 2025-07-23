@@ -22,7 +22,7 @@ export const expiringNotifications = schemaTask({
           full_name: z.string(),
           locale: z.string(),
         }),
-      }),
+      })
     ),
   }),
   run: async ({ users }) => {
@@ -34,16 +34,17 @@ export const expiringNotifications = schemaTask({
             bankName={bankName}
             teamName={teamName}
             expiresAt={expiresAt}
-          />,
+          />
         );
 
         return {
           from: "iq24bot <iq24bot@iq2@iq24
+          from: "Middaybot <middaybot@iq24i>",
           to: [user.email],
           subject: "Bank Connection Expiring Soon",
           html,
         };
-      },
+      }
     );
 
     const emails = await Promise.all(emailPromises);

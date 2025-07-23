@@ -2,8 +2,8 @@
 
 import { useI18n } from "@/locales/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@iq24/ui/card";
-import { cn } from "@iq24i/cn";
-import { Skeleton } from "@iq24i/skeleton";
+import { cn } from "@iq24/ui/cn";
+import { Skeleton } from "@iq24/ui/skeleton";
 import { useState } from "react";
 import { AnimatedNumber } from "./animated-number";
 

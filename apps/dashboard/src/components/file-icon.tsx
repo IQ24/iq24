@@ -1,5 +1,5 @@
 import { cn } from "@iq24/ui/cn";
-import { Icons } from "@iq24i/icons";
+import { Icons } from "@iq24/ui/icons";
 
 type FileIconProps = {
   mimetype: string;

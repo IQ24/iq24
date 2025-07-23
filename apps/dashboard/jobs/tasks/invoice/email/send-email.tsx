@@ -1,7 +1,7 @@
 import { resend } from "@/utils/resend";
 import InvoiceEmail from "@iq24/email/emails/invoice";
-import { createClient } from "@iq24upabase/job";
-import { getAppUrl } from "@iq24tils/envs";
+import { createClient } from "@iq24/supabase/job";
+import { getAppUrl } from "@iq24/utils/envs";
 import { render } from "@react-email/render";
 import { logger, schemaTask } from "@trigger.dev/sdk/v3";
 import { nanoid } from "nanoid";
@@ -22,7 +22,7 @@ export const sendInvoiceEmail = schemaTask({
     const { data: invoice } = await supabase
       .from("invoices")
       .select(
-        "id, token, customer:customer_id(name, website, email), team:team_id(name, email)",
+        "id, token, customer:customer_id(name, website, email), team:team_id(name, email)"
       )
       .eq("id", invoiceId)
       .single();
@@ -40,7 +40,7 @@ export const sendInvoiceEmail = schemaTask({
     }
 
     const response = await resend.emails.send({
-      from: "iq24 <iq24bot@iq2@iq24
+      from: "Midday <middaybot@iq24i>",
       to: customerEmail,
       replyTo: invoice?.team.email ?? undefined,
       subject: `${invoice?.team.name} sent you an invoice`,
@@ -52,7 +52,7 @@ export const sendInvoiceEmail = schemaTask({
           customerName={invoice?.customer.name}
           teamName={invoice?.team.name}
           link={`${getAppUrl()}/i/${invoice?.token}`}
-        />,
+        />
       ),
     });
 

@@ -10,7 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@iq24i/dialog";
+} from "@iq24/ui/dialog";
 import {
   Form,
   FormControl,
@@ -18,16 +18,16 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@iq24i/form";
-import { Input } from "@iq24i/input";
+} from "@iq24/ui/form";
+import { Input } from "@iq24/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@iq24i/select";
-import { Textarea } from "@iq24i/textarea";
+} from "@iq24/ui/select";
+import { Textarea } from "@iq24/ui/textarea";
 import { Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";

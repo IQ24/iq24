@@ -6,7 +6,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@iq24i/card";
+} from "@iq24/ui/card";
 import Link from "next/link";
 import { UnenrollMFA } from "./unenroll-mfa";
 

@@ -3,8 +3,8 @@ import { formatDateRange } from "@/utils/format";
 import { getTrackerDates } from "@/utils/tracker";
 import { TZDate } from "@date-fns/tz";
 import { Button } from "@iq24/ui/button";
-import { cn } from "@iq24i/cn";
-import { Icons } from "@iq24i/icons";
+import { cn } from "@iq24/ui/cn";
+import { Icons } from "@iq24/ui/icons";
 import { addDays, formatISO, subDays } from "date-fns";
 import { useHotkeys } from "react-hotkeys-hook";
 

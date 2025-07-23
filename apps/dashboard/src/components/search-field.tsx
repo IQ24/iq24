@@ -1,7 +1,7 @@
 "use client";
 
 import { Icons } from "@iq24/ui/icons";
-import { Input } from "@iq24i/input";
+import { Input } from "@iq24/ui/input";
 import { useQueryState } from "nuqs";
 import { useHotkeys } from "react-hotkeys-hook";
 

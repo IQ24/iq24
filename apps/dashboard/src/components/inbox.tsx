@@ -1,6 +1,6 @@
 import { getUser } from "@iq24/supabase/cached-queries";
-import { getInboxQuery } from "@iq24upabase/queries";
-import { createClient } from "@iq24upabase/server";
+import { getInboxQuery } from "@iq24/supabase/queries";
+import { createClient } from "@iq24/supabase/server";
 import { UploadZone } from "./inbox-upload-zone";
 import { InboxView } from "./inbox-view";
 

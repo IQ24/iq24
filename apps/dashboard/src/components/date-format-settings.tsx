@@ -14,7 +14,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@iq24i/select";
+} from "@iq24/ui/select";
 import { useAction } from "next-safe-action/hooks";
 
 type Props = {

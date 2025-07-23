@@ -1,14 +1,14 @@
 import { getVatRateAction } from "@/actions/ai/get-vat-rate";
 import { Experimental } from "@/components/experimental";
 import { Button } from "@iq24/ui/button";
-import { cn } from "@iq24i/cn";
-import { Icons } from "@iq24i/icons";
+import { cn } from "@iq24/ui/cn";
+import { Icons } from "@iq24/ui/icons";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@iq24i/tooltip";
+} from "@iq24/ui/tooltip";
 import { useAction } from "next-safe-action/hooks";
 import { useEffect, useState } from "react";
 

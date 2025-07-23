@@ -1,13 +1,13 @@
 import { sendSlackTransactionNotifications } from "@iq24/app-store/slack-notifications";
-import TransactionsEmail from "@iq24mail/emails/transactions";
-import { getI18n } from "@iq24mail/locales";
-import { getInboxEmail } from "@iq24nbox";
+import TransactionsEmail from "@iq24/email/emails/transactions";
+import { getI18n } from "@iq24/email/locales";
+import { getInboxEmail } from "@iq24/inbox";
 import {
   NotificationTypes,
   TriggerEvents,
   triggerBulk,
-} from "@iq24otification";
-import { createClient } from "@iq24upabase/job";
+} from "@iq24/notification";
+import { createClient } from "@iq24/supabase/job";
 import { render } from "@react-email/render";
 import { logger } from "@trigger.dev/sdk/v3";
 

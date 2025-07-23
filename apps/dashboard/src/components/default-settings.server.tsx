@@ -1,8 +1,8 @@
 import { getTimezone } from "@iq24/location";
-import { getLocale } from "@iq24ocation";
-import { getDateFormat } from "@iq24ocation";
-import { getUser } from "@iq24upabase/cached-queries";
-import { createClient } from "@iq24upabase/server";
+import { getLocale } from "@iq24/location";
+import { getDateFormat } from "@iq24/location";
+import { getUser } from "@iq24/supabase/cached-queries";
+import { createClient } from "@iq24/supabase/server";
 
 export async function DefaultSettings() {
   const supabase = createClient();

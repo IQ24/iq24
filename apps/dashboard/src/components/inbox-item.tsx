@@ -1,7 +1,7 @@
 import { useUserContext } from "@/store/user/hook";
 import { formatDate } from "@/utils/format";
 import { cn } from "@iq24/ui/cn";
-import { Skeleton } from "@iq24i/skeleton";
+import { Skeleton } from "@iq24/ui/skeleton";
 import { useQueryState } from "nuqs";
 import { FormatAmount } from "./format-amount";
 import { InboxStatus } from "./inbox-status";

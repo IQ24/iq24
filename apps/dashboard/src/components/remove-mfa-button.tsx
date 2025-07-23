@@ -2,7 +2,7 @@
 
 import { unenrollMfaAction } from "@/actions/unenroll-mfa-action";
 import { Button } from "@iq24/ui/button";
-import { useToast } from "@iq24i/use-toast";
+import { useToast } from "@iq24/ui/use-toast";
 import { useAction } from "next-safe-action/hooks";
 
 type Props = {

@@ -1,5 +1,5 @@
 import { cn } from "@iq24/ui/cn";
-import { Skeleton } from "@iq24i/skeleton";
+import { Skeleton } from "@iq24/ui/skeleton";
 import { useEffect, useRef, useState } from "react";
 
 export function Iframe({

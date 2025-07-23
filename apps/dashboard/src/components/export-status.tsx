@@ -9,9 +9,9 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@iq24i/dropdown-menu";
-import { Icons } from "@iq24i/icons";
-import { useToast } from "@iq24i/use-toast";
+} from "@iq24/ui/dropdown-menu";
+import { Icons } from "@iq24/ui/icons";
+import { useToast } from "@iq24/ui/use-toast";
 import ms from "ms";
 import { useAction } from "next-safe-action/hooks";
 import { useEffect, useState } from "react";

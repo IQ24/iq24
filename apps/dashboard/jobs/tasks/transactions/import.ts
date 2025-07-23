@@ -1,7 +1,7 @@
 import { mapTransactions } from "@iq24/import/mappings";
-import { transform } from "@iq24mport/transform";
-import { validateTransactions } from "@iq24mport/validate";
-import { createClient } from "@iq24upabase/job";
+import { transform } from "@iq24/import/transform";
+import { validateTransactions } from "@iq24/import/validate";
+import { createClient } from "@iq24/supabase/job";
 import { logger, schemaTask } from "@trigger.dev/sdk/v3";
 import { processBatch } from "jobs/utils/process-batch";
 import { revalidateCache } from "jobs/utils/revalidate-cache";

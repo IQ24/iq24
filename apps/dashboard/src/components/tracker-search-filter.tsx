@@ -2,7 +2,7 @@
 
 import { generateTrackerFilters } from "@/actions/ai/filters/generate-tracker-filters";
 import { Calendar } from "@iq24/ui/calendar";
-import { cn } from "@iq24i/cn";
+import { cn } from "@iq24/ui/cn";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -14,9 +14,9 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@iq24i/dropdown-menu";
-import { Icons } from "@iq24i/icons";
-import { Input } from "@iq24i/input";
+} from "@iq24/ui/dropdown-menu";
+import { Icons } from "@iq24/ui/icons";
+import { Input } from "@iq24/ui/input";
 import { readStreamableValue } from "ai/rsc";
 import { formatISO } from "date-fns";
 import {

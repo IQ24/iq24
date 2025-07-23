@@ -11,17 +11,17 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@iq24i/form";
-import { Input } from "@iq24i/input";
+} from "@iq24/ui/form";
+import { Input } from "@iq24/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@iq24i/select";
-import { Textarea } from "@iq24i/textarea";
-import { useToast } from "@iq24i/use-toast";
+} from "@iq24/ui/select";
+import { Textarea } from "@iq24/ui/textarea";
+import { useToast } from "@iq24/ui/use-toast";
 import { Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";

@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@iq24/ui/card";
-import { Switch } from "@iq24i/switch";
+import { Switch } from "@iq24/ui/switch";
 import { useAction } from "next-safe-action/hooks";
 
 type Props = {
