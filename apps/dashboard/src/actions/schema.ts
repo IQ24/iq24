@@ -1,5 +1,9 @@
-import { isValid } from "date-fns";
 import { z } from "zod";
+
+// Native date validation to replace date-fns isValid
+const isValidDate = (date: Date): boolean => {
+  return date instanceof Date && !isNaN(date.getTime());
+};
 
 export const updateUserSchema = z.object({
   full_name: z.string().min(2).max(32).optional(),
@@ -507,7 +511,7 @@ export const assistantSettingsSchema = z.object({
 export const parseDateSchema = z
   .date()
   .transform((value) => new Date(value))
-  .transform((v) => isValid(v))
+  .transform((v) => isValidDate(v))
   .refine((v) => !!v, { message: "Invalid date" });
 
 export const filterTransactionsSchema = z.object({
