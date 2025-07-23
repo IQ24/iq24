@@ -1,13 +1,22 @@
 import "@/styles/globals.css";
 import { cn } from "@iq24/ui/cn";
-import "@iq24i/globals.css";
-import { Provider as Analytics } from "@iq24vents/client";
-import { Toaster } from "@iq24i/toaster";
+import "@iq24/ui/globals.css";
+import { Provider as Analytics } from "@iq24/events/client";
+import { Toaster } from "@iq24/ui/toaster";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
+import { IBM_Plex_Mono } from "next/font/google";
 import type { Metadata } from "next";
 import type { ReactElement } from "react";
 import { Providers } from "./providers";
+
+// Configure IBM Plex Mono for Numora design system
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-ibm-plex-mono",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://app.iq24.ai"),
@@ -79,7 +88,7 @@ export default function Layout({
     <html lang={locale} suppressHydrationWarning>
       <body
         className={cn(
-          `${GeistSans.variable} ${GeistMono.variable}`,
+          `${GeistSans.variable} ${GeistMono.variable} ${ibmPlexMono.variable}`,
           "whitespace-pre-line overscroll-none antialiased",
         )}
       >

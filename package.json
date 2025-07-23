@@ -30,6 +30,8 @@
   "dependencies": {
     "@biomejs/biome": "1.9.4",
     "@manypkg/cli": "^0.23.0",
+    "caniuse-lite": "^1.0.30001727",
+    "date-fns": "^4.1.0",
     "lodash": "^4.17.21",
     "turbo": "2.3.3",
     "typescript": "^5.7.2"

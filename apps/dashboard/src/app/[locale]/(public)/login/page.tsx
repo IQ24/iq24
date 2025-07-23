@@ -12,8 +12,8 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@iq24i/accordion";
-import { Icons } from "@iq24i/icons";
+} from "@iq24/ui/accordion";
+import { Icons } from "@iq24/ui/icons";
 import type { Metadata } from "next";
 import { cookies, headers } from "next/headers";
 import Link from "next/link";

@@ -1,79 +1,108 @@
-import { ChartSelectors } from "@/components/charts/chart-selectors";
-import { Charts } from "@/components/charts/charts";
-import { EmptyState } from "@/components/charts/empty-state";
-import { OverviewModal } from "@/components/modals/overview-modal";
-import { Widgets } from "@/components/widgets";
-import { Cookies } from "@/utils/constants";
-import { getTeamBankAccounts } from "@iq24/supabase/cached-queries";
-import { cn } from "@iq24i/cn";
-import { startOfMonth, startOfYear, subMonths } from "date-fns";
+import { 
+  DashboardContainer, 
+  DashboardGrid, 
+  DashboardWidget, 
+  DashboardHeader, 
+  DashboardDivider 
+} from "@/components/dashboard/main-dashboard-layout";
+import { CampaignPerformanceChart } from "@/components/dashboard/widgets/campaign-performance-chart";
+import { PerformanceSnapshot } from "@/components/dashboard/widgets/performance-snapshot";
+import { ActivityHeatmap } from "@/components/dashboard/widgets/activity-heatmap";
+import { LeadQualitySource } from "@/components/dashboard/widgets/lead-quality-source";
+import { EngagementVolumeSentiment } from "@/components/dashboard/widgets/engagement-volume-sentiment";
+import { ChannelMixWidget } from "@/components/dashboard/widgets/channel-mix";
+import { AIAssistantWidget } from "@/components/dashboard/widgets/ai-assistant";
+import { Button } from "@iq24/ui/button";
+import { Badge } from "@iq24/ui/badge";
+import { Calendar, Settings, Download, RefreshCw } from "lucide-react";
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
 
 // NOTE: GoCardLess serverAction needs this currently
 // (Fetch accounts takes up to 20s and default limit is 15s)
 export const maxDuration = 30;
 
 export const metadata: Metadata = {
-  title: "Overview | iq24",
+  title: "AI Marketing Dashboard | IQ24.ai",
+  description: "Comprehensive AI-powered marketing analytics and campaign management dashboard"
 };
 
-const defaultValue = {
-  from: subMonths(startOfMonth(new Date()), 12).toISOString(),
-  to: new Date().toISOString(),
-  period: "monthly",
-};
-
-export default async function Overview({ searchParams }) {
-  const accounts = await getTeamBankAccounts();
-  const chartType = cookies().get(Cookies.ChartType)?.value ?? "profit";
-
-  const hideConnectFlow = cookies().has(Cookies.HideConnectFlow);
-
-  const initialPeriod = cookies().has(Cookies.SpendingPeriod)
-    ? JSON.parse(cookies().get(Cookies.SpendingPeriod)?.value)
-    : {
-        id: "this_year",
-        from: startOfYear(new Date()).toISOString(),
-        to: new Date().toISOString(),
-      };
-
-  const value = {
-    ...(searchParams.from && { from: searchParams.from }),
-    ...(searchParams.to && { to: searchParams.to }),
-  };
-
-  const isEmpty = !accounts?.data?.length;
+export default async function MarketingDashboard({ searchParams }) {
+  // Simulate loading state - in production this would come from API
+  const isLoading = false;
+  const hasData = true;
 
   return (
-    <>
-      <div>
-        <div className="h-[530px] mb-4">
-          <ChartSelectors defaultValue={defaultValue} />
-
-          <div className="mt-8 relative">
-            {isEmpty && <EmptyState />}
-
-            <div className={cn(isEmpty && "blur-[8px] opacity-20")}>
-              <Charts
-                value={value}
-                defaultValue={defaultValue}
-                disabled={isEmpty}
-                type={chartType}
-                currency={searchParams.currency}
-              />
-            </div>
-          </div>
+    <DashboardContainer>
+      {/* Dashboard Header */}
+      <DashboardHeader>
+        <div className="space-y-1">
+          <h1 className="text-3xl font-bold tracking-tight">
+            AI Marketing Dashboard
+          </h1>
+          <p className="text-muted-foreground">
+            Comprehensive insights into your marketing campaigns and performance
+          </p>
         </div>
+        <div className="flex items-center space-x-2">
+          <Badge variant="outline" className="text-xs">
+            <div className="w-2 h-2 bg-green-500 rounded-full mr-2" />
+            Live Data
+          </Badge>
+          <Button variant="outline" size="sm">
+            <Calendar className="h-4 w-4 mr-2" />
+            Last 30 days
+          </Button>
+          <Button variant="outline" size="sm">
+            <RefreshCw className="h-4 w-4 mr-2" />
+            Refresh
+          </Button>
+          <Button variant="outline" size="sm">
+            <Download className="h-4 w-4 mr-2" />
+            Export
+          </Button>
+          <Button variant="outline" size="sm">
+            <Settings className="h-4 w-4" />
+          </Button>
+        </div>
+      </DashboardHeader>
 
-        <Widgets
-          initialPeriod={initialPeriod}
-          disabled={isEmpty}
-          searchParams={searchParams}
-        />
-      </div>
+      {/* Main Dashboard Grid */}
+      <DashboardGrid>
+        {/* Campaign Performance Chart - Extra Large Widget */}
+        <DashboardWidget size="extra-large">
+          <CampaignPerformanceChart />
+        </DashboardWidget>
 
-      <OverviewModal defaultOpen={isEmpty && !hideConnectFlow} />
-    </>
+        {/* Performance Snapshot - Medium Widget */}
+        <DashboardWidget size="medium">
+          <PerformanceSnapshot />
+        </DashboardWidget>
+
+        {/* Activity Heatmap - Medium Widget */}
+        <DashboardWidget size="medium">
+          <ActivityHeatmap />
+        </DashboardWidget>
+
+        {/* Lead Quality & Source - Medium Widget */}
+        <DashboardWidget size="medium">
+          <LeadQualitySource />
+        </DashboardWidget>
+
+        {/* Engagement Volume & Sentiment - Medium Widget */}
+        <DashboardWidget size="medium">
+          <EngagementVolumeSentiment />
+        </DashboardWidget>
+
+        {/* Channel Mix - Medium Widget */}
+        <DashboardWidget size="medium">
+          <ChannelMixWidget />
+        </DashboardWidget>
+
+        {/* AI Assistant - Large Widget */}
+        <DashboardWidget size="large">
+          <AIAssistantWidget />
+        </DashboardWidget>
+      </DashboardGrid>
+    </DashboardContainer>
   );
 }

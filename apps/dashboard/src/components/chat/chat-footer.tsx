@@ -1,6 +1,6 @@
 import { useAssistantStore } from "@/store/assistant";
 import { Icons } from "@iq24/ui/icons";
-import { Popover, PopoverContent, PopoverTrigger } from "@iq24i/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@iq24/ui/popover";
 import { app, platform } from "@todesktop/client-core";
 import { isDesktopApp } from "@todesktop/client-core/platform/todesktop";
 import { useRouter } from "next/navigation";

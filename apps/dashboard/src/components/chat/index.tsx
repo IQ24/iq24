@@ -5,7 +5,7 @@ import { useEnterSubmit } from "@/hooks/use-enter-submit";
 import { useScrollAnchor } from "@/hooks/use-scroll-anchor";
 import { useAssistantStore } from "@/store/assistant";
 import { ScrollArea } from "@iq24/ui/scroll-area";
-import { Textarea } from "@iq24i/textarea";
+import { Textarea } from "@iq24/ui/textarea";
 import { useActions } from "ai/rsc";
 import { nanoid } from "nanoid";
 import { useEffect, useRef } from "react";
