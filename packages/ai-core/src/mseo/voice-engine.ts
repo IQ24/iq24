@@ -1,28 +1,28 @@
 /**
  * Voice Generation Engine - MSEO Component
- * 
+ *
  * Handles AI-powered voice synthesis for personalized outreach campaigns
  */
 
-import { EventEmitter } from 'events';
-import { Logger } from '../utils/logger';
-import { 
-  MSEOConfig, 
-  MSEOGenerationRequest, 
-  MSEOGenerationResult, 
-  VoiceTemplate 
-} from './types';
+import { EventEmitter } from "events";
+import { Logger } from "../utils/logger";
+import {
+  MSEOConfig,
+  MSEOGenerationRequest,
+  MSEOGenerationResult,
+  VoiceTemplate,
+} from "./types";
 
 export interface VoiceGenerationParams {
   text: string;
-  provider: 'elevenlabs' | 'openai' | 'azure';
+  provider: "elevenlabs" | "openai" | "azure";
   voice: string;
   speed?: number;
   stability?: number;
   similarityBoost?: number;
   style?: number;
-  outputFormat?: 'mp3' | 'wav' | 'flac' | 'ogg';
-  quality?: 'standard' | 'high' | 'premium';
+  outputFormat?: "mp3" | "wav" | "flac" | "ogg";
+  quality?: "standard" | "high" | "premium";
 }
 
 export interface VoiceGenerationResponse {
@@ -38,13 +38,16 @@ export interface VoiceGenerationResponse {
 }
 
 export class VoiceEngine extends EventEmitter {
-  private config: MSEOConfig['voice'];
+  private config: MSEOConfig["voice"];
   private logger: Logger;
-  private cache: Map<string, { buffer: Buffer; metadata: any; expiresAt: Date }>;
+  private cache: Map<
+    string,
+    { buffer: Buffer; metadata: any; expiresAt: Date }
+  >;
   private activeGenerations: Map<string, Promise<VoiceGenerationResponse>>;
   private rateLimits: Map<string, { requests: number; resetTime: Date }>;
 
-  constructor(config: MSEOConfig['voice'], logger: Logger) {
+  constructor(config: MSEOConfig["voice"], logger: Logger) {
     super();
     this.config = config;
     this.logger = logger;
@@ -59,15 +62,17 @@ export class VoiceEngine extends EventEmitter {
   /**
    * Generate voice audio from text using specified provider and settings
    */
-  async generateVoice(params: VoiceGenerationParams): Promise<VoiceGenerationResponse> {
+  async generateVoice(
+    params: VoiceGenerationParams,
+  ): Promise<VoiceGenerationResponse> {
     try {
       const cacheKey = this.getCacheKey(params);
-      
+
       // Check cache first
       if (this.config.cachingEnabled) {
         const cached = this.getCachedResult(cacheKey);
         if (cached) {
-          this.logger.info('Voice generation cache hit', { cacheKey });
+          this.logger.info("Voice generation cache hit", { cacheKey });
           return cached;
         }
       }
@@ -75,7 +80,7 @@ export class VoiceEngine extends EventEmitter {
       // Check if generation is already in progress
       const existingGeneration = this.activeGenerations.get(cacheKey);
       if (existingGeneration) {
-        this.logger.info('Reusing active voice generation', { cacheKey });
+        this.logger.info("Reusing active voice generation", { cacheKey });
         return await existingGeneration;
       }
 
@@ -88,17 +93,17 @@ export class VoiceEngine extends EventEmitter {
 
       try {
         const result = await generationPromise;
-        
+
         // Cache the result
         if (this.config.cachingEnabled) {
           this.cacheResult(cacheKey, result);
         }
 
-        this.emit('voiceGenerated', {
+        this.emit("voiceGenerated", {
           provider: params.provider,
           voice: params.voice,
           duration: result.metadata.duration,
-          cost: result.metadata.cost
+          cost: result.metadata.cost,
         });
 
         return result;
@@ -106,18 +111,18 @@ export class VoiceEngine extends EventEmitter {
         this.activeGenerations.delete(cacheKey);
       }
     } catch (error) {
-      this.logger.error('Voice generation failed', { 
-        error: error.message, 
-        provider: params.provider,
-        voice: params.voice 
-      });
-      
-      this.emit('voiceGenerationFailed', {
+      this.logger.error("Voice generation failed", {
+        error: error.message,
         provider: params.provider,
         voice: params.voice,
-        error: error.message
       });
-      
+
+      this.emit("voiceGenerationFailed", {
+        provider: params.provider,
+        voice: params.voice,
+        error: error.message,
+      });
+
       throw error;
     }
   }
@@ -128,38 +133,48 @@ export class VoiceEngine extends EventEmitter {
   async generatePersonalizedVoice(
     template: VoiceTemplate,
     variables: Record<string, any>,
-    prospectData: any
+    prospectData: any,
   ): Promise<VoiceGenerationResponse> {
     try {
       // Process template with variables and personalization
-      const personalizedScript = this.personalizeScript(template.script, variables, prospectData);
-      
+      const personalizedScript = this.personalizeScript(
+        template.script,
+        variables,
+        prospectData,
+      );
+
       // Apply voice settings from template
       const params: VoiceGenerationParams = {
         text: personalizedScript,
         provider: template.voiceSettings.provider as any,
         voice: template.voiceSettings.voice,
         outputFormat: this.config.outputFormat,
-        quality: this.config.quality
+        quality: this.config.quality,
       };
 
       // Apply provider-specific settings
-      if (params.provider === 'elevenlabs' && this.config.providers.elevenlabs.enabled) {
+      if (
+        params.provider === "elevenlabs" &&
+        this.config.providers.elevenlabs.enabled
+      ) {
         const elevenlabsConfig = this.config.providers.elevenlabs;
         params.stability = elevenlabsConfig.stability;
         params.similarityBoost = elevenlabsConfig.similarityBoost;
         params.style = elevenlabsConfig.style;
-      } else if (params.provider === 'openai' && this.config.providers.openai.enabled) {
+      } else if (
+        params.provider === "openai" &&
+        this.config.providers.openai.enabled
+      ) {
         const openaiConfig = this.config.providers.openai;
         params.speed = openaiConfig.speed;
       }
 
       return await this.generateVoice(params);
     } catch (error) {
-      this.logger.error('Personalized voice generation failed', {
+      this.logger.error("Personalized voice generation failed", {
         error: error.message,
         templateId: template.id,
-        prospectId: prospectData.id
+        prospectId: prospectData.id,
       });
       throw error;
     }
@@ -168,13 +183,15 @@ export class VoiceEngine extends EventEmitter {
   /**
    * Execute voice generation with specific provider
    */
-  private async executeVoiceGeneration(params: VoiceGenerationParams): Promise<VoiceGenerationResponse> {
+  private async executeVoiceGeneration(
+    params: VoiceGenerationParams,
+  ): Promise<VoiceGenerationResponse> {
     switch (params.provider) {
-      case 'elevenlabs':
+      case "elevenlabs":
         return await this.generateWithElevenLabs(params);
-      case 'openai':
+      case "openai":
         return await this.generateWithOpenAI(params);
-      case 'azure':
+      case "azure":
         return await this.generateWithAzure(params);
       default:
         throw new Error(`Unsupported voice provider: ${params.provider}`);
@@ -184,20 +201,22 @@ export class VoiceEngine extends EventEmitter {
   /**
    * Generate voice using ElevenLabs API
    */
-  private async generateWithElevenLabs(params: VoiceGenerationParams): Promise<VoiceGenerationResponse> {
+  private async generateWithElevenLabs(
+    params: VoiceGenerationParams,
+  ): Promise<VoiceGenerationResponse> {
     if (!this.config.providers.elevenlabs.enabled) {
-      throw new Error('ElevenLabs provider is not enabled');
+      throw new Error("ElevenLabs provider is not enabled");
     }
 
     const config = this.config.providers.elevenlabs;
     const url = `https://api.elevenlabs.io/v1/text-to-speech/${config.voiceId}`;
-    
+
     const response = await fetch(url, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Accept': 'audio/mpeg',
-        'Content-Type': 'application/json',
-        'xi-api-key': config.apiKey
+        Accept: "audio/mpeg",
+        "Content-Type": "application/json",
+        "xi-api-key": config.apiKey,
       },
       body: JSON.stringify({
         text: params.text,
@@ -206,60 +225,66 @@ export class VoiceEngine extends EventEmitter {
           stability: params.stability || config.stability,
           similarity_boost: params.similarityBoost || config.similarityBoost,
           style: params.style || config.style,
-          use_speaker_boost: config.useSpeakerBoost
-        }
-      })
+          use_speaker_boost: config.useSpeakerBoost,
+        },
+      }),
     });
 
     if (!response.ok) {
       const errorText = await response.text();
-      throw new Error(`ElevenLabs API error: ${response.status} - ${errorText}`);
+      throw new Error(
+        `ElevenLabs API error: ${response.status} - ${errorText}`,
+      );
     }
 
     const audioBuffer = Buffer.from(await response.arrayBuffer());
-    
+
     return {
       audioBuffer,
       metadata: {
-        duration: this.estimateAudioDuration(params.text, 'elevenlabs'),
-        format: params.outputFormat || 'mp3',
-        provider: 'elevenlabs',
+        duration: this.estimateAudioDuration(params.text, "elevenlabs"),
+        format: params.outputFormat || "mp3",
+        provider: "elevenlabs",
         voice: params.voice,
-        cost: this.calculateCost('elevenlabs', params.text.length),
-        quality: params.quality || 'standard'
-      }
+        cost: this.calculateCost("elevenlabs", params.text.length),
+        quality: params.quality || "standard",
+      },
     };
   }
 
   /**
    * Generate voice using OpenAI TTS API
    */
-  private async generateWithOpenAI(params: VoiceGenerationParams): Promise<VoiceGenerationResponse> {
+  private async generateWithOpenAI(
+    params: VoiceGenerationParams,
+  ): Promise<VoiceGenerationResponse> {
     if (!this.config.providers.openai.enabled) {
-      throw new Error('OpenAI provider is not enabled');
+      throw new Error("OpenAI provider is not enabled");
     }
 
     const config = this.config.providers.openai;
-    const url = 'https://api.openai.com/v1/audio/speech';
+    const url = "https://api.openai.com/v1/audio/speech";
 
     const response = await fetch(url, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Authorization': `Bearer ${config.apiKey}`,
-        'Content-Type': 'application/json'
+        Authorization: `Bearer ${config.apiKey}`,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         model: config.model,
         input: params.text,
         voice: config.voice,
         speed: params.speed || config.speed,
-        response_format: params.outputFormat || 'mp3'
-      })
+        response_format: params.outputFormat || "mp3",
+      }),
     });
 
     if (!response.ok) {
       const errorText = await response.text();
-      throw new Error(`OpenAI TTS API error: ${response.status} - ${errorText}`);
+      throw new Error(
+        `OpenAI TTS API error: ${response.status} - ${errorText}`,
+      );
     }
 
     const audioBuffer = Buffer.from(await response.arrayBuffer());
@@ -267,22 +292,24 @@ export class VoiceEngine extends EventEmitter {
     return {
       audioBuffer,
       metadata: {
-        duration: this.estimateAudioDuration(params.text, 'openai'),
-        format: params.outputFormat || 'mp3',
-        provider: 'openai',
+        duration: this.estimateAudioDuration(params.text, "openai"),
+        format: params.outputFormat || "mp3",
+        provider: "openai",
         voice: params.voice,
-        cost: this.calculateCost('openai', params.text.length),
-        quality: params.quality || 'standard'
-      }
+        cost: this.calculateCost("openai", params.text.length),
+        quality: params.quality || "standard",
+      },
     };
   }
 
   /**
    * Generate voice using Azure Speech Services
    */
-  private async generateWithAzure(params: VoiceGenerationParams): Promise<VoiceGenerationResponse> {
+  private async generateWithAzure(
+    params: VoiceGenerationParams,
+  ): Promise<VoiceGenerationResponse> {
     if (!this.config.providers.azure.enabled) {
-      throw new Error('Azure Speech provider is not enabled');
+      throw new Error("Azure Speech provider is not enabled");
     }
 
     const config = this.config.providers.azure;
@@ -299,18 +326,20 @@ export class VoiceEngine extends EventEmitter {
     `;
 
     const response = await fetch(url, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Ocp-Apim-Subscription-Key': config.subscriptionKey,
-        'Content-Type': 'application/ssml+xml',
-        'X-Microsoft-OutputFormat': 'audio-24khz-48kbitrate-mono-mp3'
+        "Ocp-Apim-Subscription-Key": config.subscriptionKey,
+        "Content-Type": "application/ssml+xml",
+        "X-Microsoft-OutputFormat": "audio-24khz-48kbitrate-mono-mp3",
       },
-      body: ssml
+      body: ssml,
     });
 
     if (!response.ok) {
       const errorText = await response.text();
-      throw new Error(`Azure Speech API error: ${response.status} - ${errorText}`);
+      throw new Error(
+        `Azure Speech API error: ${response.status} - ${errorText}`,
+      );
     }
 
     const audioBuffer = Buffer.from(await response.arrayBuffer());
@@ -318,13 +347,13 @@ export class VoiceEngine extends EventEmitter {
     return {
       audioBuffer,
       metadata: {
-        duration: this.estimateAudioDuration(params.text, 'azure'),
-        format: params.outputFormat || 'mp3',
-        provider: 'azure',
+        duration: this.estimateAudioDuration(params.text, "azure"),
+        format: params.outputFormat || "mp3",
+        provider: "azure",
         voice: params.voice,
-        cost: this.calculateCost('azure', params.text.length),
-        quality: params.quality || 'standard'
-      }
+        cost: this.calculateCost("azure", params.text.length),
+        quality: params.quality || "standard",
+      },
     };
   }
 
@@ -332,29 +361,29 @@ export class VoiceEngine extends EventEmitter {
    * Personalize script with variables and prospect data
    */
   private personalizeScript(
-    script: string, 
-    variables: Record<string, any>, 
-    prospectData: any
+    script: string,
+    variables: Record<string, any>,
+    prospectData: any,
   ): string {
     let personalizedScript = script;
 
     // Replace template variables
     Object.entries(variables).forEach(([key, value]) => {
-      const regex = new RegExp(`{{${key}}}`, 'g');
+      const regex = new RegExp(`{{${key}}}`, "g");
       personalizedScript = personalizedScript.replace(regex, String(value));
     });
 
     // Add prospect-specific personalization
     if (prospectData) {
       const replacements = {
-        'prospect_name': prospectData.firstName || prospectData.name || 'there',
-        'prospect_company': prospectData.company || 'your company',
-        'prospect_title': prospectData.title || 'your role',
-        'prospect_industry': prospectData.industry || 'your industry'
+        prospect_name: prospectData.firstName || prospectData.name || "there",
+        prospect_company: prospectData.company || "your company",
+        prospect_title: prospectData.title || "your role",
+        prospect_industry: prospectData.industry || "your industry",
       };
 
       Object.entries(replacements).forEach(([key, value]) => {
-        const regex = new RegExp(`{{${key}}}`, 'g');
+        const regex = new RegExp(`{{${key}}}`, "g");
         personalizedScript = personalizedScript.replace(regex, String(value));
       });
     }
@@ -375,10 +404,10 @@ export class VoiceEngine extends EventEmitter {
       similarityBoost: params.similarityBoost,
       style: params.style,
       outputFormat: params.outputFormat,
-      quality: params.quality
+      quality: params.quality,
     };
-    
-    return Buffer.from(JSON.stringify(keyData)).toString('base64');
+
+    return Buffer.from(JSON.stringify(keyData)).toString("base64");
   }
 
   /**
@@ -389,7 +418,7 @@ export class VoiceEngine extends EventEmitter {
     if (cached && cached.expiresAt > new Date()) {
       return {
         audioBuffer: cached.buffer,
-        metadata: cached.metadata
+        metadata: cached.metadata,
       };
     }
     return null;
@@ -405,7 +434,7 @@ export class VoiceEngine extends EventEmitter {
     this.cache.set(cacheKey, {
       buffer: result.audioBuffer,
       metadata: result.metadata,
-      expiresAt
+      expiresAt,
     });
   }
 
@@ -427,7 +456,10 @@ export class VoiceEngine extends EventEmitter {
   private async checkRateLimit(provider: string): Promise<void> {
     const now = new Date();
     const rateLimitKey = provider;
-    const currentLimits = this.rateLimits.get(rateLimitKey) || { requests: 0, resetTime: now };
+    const currentLimits = this.rateLimits.get(rateLimitKey) || {
+      requests: 0,
+      resetTime: now,
+    };
 
     // Reset if time window has passed
     if (now >= currentLimits.resetTime) {
@@ -436,11 +468,14 @@ export class VoiceEngine extends EventEmitter {
     }
 
     // Check limits based on provider (simplified - should be configurable)
-    const maxRequestsPerMinute = provider === 'elevenlabs' ? 20 : provider === 'openai' ? 50 : 30;
-    
+    const maxRequestsPerMinute =
+      provider === "elevenlabs" ? 20 : provider === "openai" ? 50 : 30;
+
     if (currentLimits.requests >= maxRequestsPerMinute) {
       const waitTime = currentLimits.resetTime.getTime() - now.getTime();
-      throw new Error(`Rate limit exceeded for ${provider}. Try again in ${Math.ceil(waitTime / 1000)} seconds.`);
+      throw new Error(
+        `Rate limit exceeded for ${provider}. Try again in ${Math.ceil(waitTime / 1000)} seconds.`,
+      );
     }
 
     currentLimits.requests++;
@@ -454,11 +489,12 @@ export class VoiceEngine extends EventEmitter {
     // Rough estimation: average speaking rate is ~150 words per minute
     const wordCount = text.split(/\s+/).length;
     const baseRate = 150; // words per minute
-    
+
     // Adjust rate based on provider characteristics
-    const rateMultiplier = provider === 'elevenlabs' ? 1.1 : provider === 'azure' ? 0.9 : 1.0;
+    const rateMultiplier =
+      provider === "elevenlabs" ? 1.1 : provider === "azure" ? 0.9 : 1.0;
     const adjustedRate = baseRate * rateMultiplier;
-    
+
     return Math.ceil((wordCount / adjustedRate) * 60); // duration in seconds
   }
 
@@ -468,9 +504,9 @@ export class VoiceEngine extends EventEmitter {
   private calculateCost(provider: string, textLength: number): number {
     // Simplified cost calculation - should be based on actual provider pricing
     const costPerCharacter = {
-      'elevenlabs': 0.0001,
-      'openai': 0.000015,
-      'azure': 0.00001
+      elevenlabs: 0.0001,
+      openai: 0.000015,
+      azure: 0.00001,
     };
 
     return textLength * (costPerCharacter[provider] || 0.00001);
@@ -481,18 +517,18 @@ export class VoiceEngine extends EventEmitter {
    */
   getHealthStatus(): any {
     return {
-      status: 'healthy',
+      status: "healthy",
       providers: {
         elevenlabs: this.config.providers.elevenlabs.enabled,
         openai: this.config.providers.openai.enabled,
-        azure: this.config.providers.azure.enabled
+        azure: this.config.providers.azure.enabled,
       },
       cache: {
         size: this.cache.size,
-        enabled: this.config.cachingEnabled
+        enabled: this.config.cachingEnabled,
       },
       activeGenerations: this.activeGenerations.size,
-      rateLimits: Object.fromEntries(this.rateLimits)
+      rateLimits: Object.fromEntries(this.rateLimits),
     };
   }
 
@@ -500,16 +536,18 @@ export class VoiceEngine extends EventEmitter {
    * Clean shutdown
    */
   async shutdown(): Promise<void> {
-    this.logger.info('Shutting down Voice Engine...');
-    
+    this.logger.info("Shutting down Voice Engine...");
+
     // Wait for active generations to complete (with timeout)
     const activeGenerations = Array.from(this.activeGenerations.values());
     if (activeGenerations.length > 0) {
-      this.logger.info(`Waiting for ${activeGenerations.length} active voice generations to complete...`);
-      
-      const timeout = new Promise(resolve => setTimeout(resolve, 30000)); // 30 second timeout
+      this.logger.info(
+        `Waiting for ${activeGenerations.length} active voice generations to complete...`,
+      );
+
+      const timeout = new Promise((resolve) => setTimeout(resolve, 30000)); // 30 second timeout
       const completions = Promise.all(activeGenerations);
-      
+
       await Promise.race([completions, timeout]);
     }
 
@@ -517,7 +555,7 @@ export class VoiceEngine extends EventEmitter {
     this.cache.clear();
     this.activeGenerations.clear();
     this.rateLimits.clear();
-    
-    this.logger.info('Voice Engine shutdown complete');
+
+    this.logger.info("Voice Engine shutdown complete");
   }
 }

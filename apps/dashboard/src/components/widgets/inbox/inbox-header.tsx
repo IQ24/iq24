@@ -26,7 +26,7 @@ export function InboxHeader({ filter, disabled }: Props) {
     {
       currentState: filter,
       updateFn: (_, newState) => newState,
-    }
+    },
   );
 
   return (

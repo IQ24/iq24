@@ -25,7 +25,7 @@ export interface RetryPolicy {
 export interface ResourceAllocation {
   cpu: number;
   memory: number;
-  priority: 'low' | 'medium' | 'high';
+  priority: "low" | "medium" | "high";
 }
 
 // Task and Workflow Types
@@ -63,13 +63,13 @@ export interface Checkpoint {
   metadata: Record<string, any>;
 }
 
-export type TaskStatus = 
-  | 'pending'
-  | 'running'
-  | 'completed'
-  | 'failed'
-  | 'cancelled'
-  | 'paused';
+export type TaskStatus =
+  | "pending"
+  | "running"
+  | "completed"
+  | "failed"
+  | "cancelled"
+  | "paused";
 
 // Data Source Types
 export interface DataSourceConfig {
@@ -85,7 +85,7 @@ export interface DataSourceConfig {
 }
 
 export interface AuthConfig {
-  type: 'api_key' | 'oauth' | 'basic' | 'bearer';
+  type: "api_key" | "oauth" | "basic" | "bearer";
   credentials: Record<string, string>;
 }
 
@@ -136,7 +136,7 @@ export interface TargetAudience {
 }
 
 export interface CommunicationChannel {
-  type: 'email' | 'linkedin' | 'sms' | 'phone' | 'mail';
+  type: "email" | "linkedin" | "sms" | "phone" | "mail";
   enabled: boolean;
   priority: number;
   configuration: Record<string, any>;
@@ -151,7 +151,7 @@ export interface CampaignSchedule {
 }
 
 export interface ScheduleFrequency {
-  type: 'once' | 'daily' | 'weekly' | 'monthly' | 'custom';
+  type: "once" | "daily" | "weekly" | "monthly" | "custom";
   interval?: number;
   days?: number[];
   customPattern?: string;
@@ -165,7 +165,7 @@ export interface TimingPreferences {
 }
 
 export interface PersonalizationConfig {
-  level: 'basic' | 'advanced' | 'hyper';
+  level: "basic" | "advanced" | "hyper";
   dynamicFields: string[];
   templates: Record<string, any>;
   aiPersonalization: boolean;
@@ -238,9 +238,9 @@ export interface CompanyInfo {
 
 export interface ContactInfo {
   email: string;
-  emailStatus: 'valid' | 'invalid' | 'risky' | 'unknown';
+  emailStatus: "valid" | "invalid" | "risky" | "unknown";
   phone?: string;
-  phoneStatus?: 'valid' | 'invalid' | 'unknown';
+  phoneStatus?: "valid" | "invalid" | "unknown";
   linkedinUrl?: string;
   otherContacts?: Record<string, string>;
 }
@@ -330,7 +330,7 @@ export interface ComplianceMetrics {
 export interface SystemEvent {
   id: string;
   type: string;
-  category: 'info' | 'warning' | 'error' | 'critical';
+  category: "info" | "warning" | "error" | "critical";
   source: string;
   timestamp: Date;
   data: any;
@@ -342,9 +342,9 @@ export interface Notification {
   type: string;
   title: string;
   message: string;
-  priority: 'low' | 'medium' | 'high' | 'urgent';
+  priority: "low" | "medium" | "high" | "urgent";
   recipient: string;
-  channel: 'email' | 'sms' | 'push' | 'webhook';
+  channel: "email" | "sms" | "push" | "webhook";
   createdAt: Date;
   sentAt?: Date;
   readAt?: Date;
@@ -394,14 +394,14 @@ export interface RecoveryAction {
 
 // Health and Monitoring Types
 export interface HealthStatus {
-  status: 'healthy' | 'degraded' | 'unhealthy';
+  status: "healthy" | "degraded" | "unhealthy";
   components: Record<string, ComponentHealth>;
   timestamp: Date;
   uptime: number;
 }
 
 export interface ComponentHealth {
-  status: 'healthy' | 'degraded' | 'unhealthy';
+  status: "healthy" | "degraded" | "unhealthy";
   latency?: number;
   errorRate?: number;
   lastCheck: Date;

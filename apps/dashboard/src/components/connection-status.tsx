@@ -19,7 +19,7 @@ export async function ConnectionStatus() {
   }
 
   const connectionIssue = bankConnections?.data?.some(
-    (bank) => bank.status === "disconnected"
+    (bank) => bank.status === "disconnected",
   );
 
   if (connectionIssue) {
@@ -74,7 +74,7 @@ export async function ConnectionStatus() {
                 size={16}
                 className={cn(
                   error && "text-[#FF3638]",
-                  warning && "text-[#FFD02B]"
+                  warning && "text-[#FFD02B]",
                 )}
               />
             </Button>

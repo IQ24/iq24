@@ -83,7 +83,7 @@ export function InvoiceNo({ teamId }: Props) {
                 name="invoice_number"
                 className={cn(
                   "w-28 flex-shrink p-0 border-none text-[11px] h-4.5 overflow-hidden",
-                  isInvoiceNumberExists ? "text-red-500" : ""
+                  isInvoiceNumberExists ? "text-red-500" : "",
                 )}
               />
             </div>

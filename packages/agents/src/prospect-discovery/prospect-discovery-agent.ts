@@ -1,12 +1,18 @@
 // IQ24.ai Prospect Discovery Agent (PDA) - Advanced Lead Discovery & Intelligence
 
-import { Browser, Page, launch } from 'puppeteer';
-import { chromium } from 'playwright';
-import * as cheerio from 'cheerio';
-import axios from 'axios';
-import { z } from 'zod';
-import neo4j from 'neo4j-driver';
-import { BaseAgent, type AgentConfig, type AgentContext, type Task, type AgentType } from '../base/agent';
+import { Browser, Page, launch } from "puppeteer";
+import { chromium } from "playwright";
+import * as cheerio from "cheerio";
+import axios from "axios";
+import { z } from "zod";
+import neo4j from "neo4j-driver";
+import {
+  BaseAgent,
+  type AgentConfig,
+  type AgentContext,
+  type Task,
+  type AgentType,
+} from "../base/agent";
 
 type Prospect = {
   id: string;
@@ -35,35 +41,43 @@ type Contact = {
 
 const PDAConfigSchema = z.object({
   dataSourceApis: z.object({
-    apollo: z.object({
-      apiKey: z.string(),
-      baseUrl: z.string().default('https://api.apollo.io/v1')
-    }).optional(),
-    hunter: z.object({
-      apiKey: z.string(),
-      baseUrl: z.string().default('https://api.hunter.io/v2')
-    }).optional(),
-    linkedin: z.object({
-      sessionCookies: z.string(),
-      rateLimitDelay: z.number().default(2000)
-    }).optional()
+    apollo: z
+      .object({
+        apiKey: z.string(),
+        baseUrl: z.string().default("https://api.apollo.io/v1"),
+      })
+      .optional(),
+    hunter: z
+      .object({
+        apiKey: z.string(),
+        baseUrl: z.string().default("https://api.hunter.io/v2"),
+      })
+      .optional(),
+    linkedin: z
+      .object({
+        sessionCookies: z.string(),
+        rateLimitDelay: z.number().default(2000),
+      })
+      .optional(),
   }),
   scraping: z.object({
     maxConcurrentPages: z.number().default(5),
     requestDelay: z.number().default(1000),
-    userAgent: z.string().default('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'),
-    timeout: z.number().default(30000)
+    userAgent: z
+      .string()
+      .default("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"),
+    timeout: z.number().default(30000),
   }),
   graphDb: z.object({
     uri: z.string(),
     username: z.string(),
-    password: z.string()
+    password: z.string(),
   }),
   aiModels: z.object({
-    leadScoringModel: z.string().default('gpt-4'),
-    intentAnalysisModel: z.string().default('gpt-4'),
-    entityExtractionModel: z.string().default('gpt-3.5-turbo')
-  })
+    leadScoringModel: z.string().default("gpt-4"),
+    intentAnalysisModel: z.string().default("gpt-4"),
+    entityExtractionModel: z.string().default("gpt-3.5-turbo"),
+  }),
 });
 
 type PDAConfig = z.infer<typeof PDAConfigSchema>;
@@ -128,26 +142,29 @@ export class ProspectDiscoveryAgent extends BaseAgent {
 
   async execute(task: Task, context: AgentContext): Promise<DiscoveryResult> {
     const startTime = Date.now();
-    
+
     try {
       switch (task.type) {
-        case 'discover_prospects':
+        case "discover_prospects":
           return await this.discoverProspects(task.payload, context);
-        case 'enrich_company_data':
+        case "enrich_company_data":
           return await this.enrichCompanyData(task.payload, context);
-        case 'analyze_relationships':
+        case "analyze_relationships":
           return await this.analyzeRelationships(task.payload, context);
-        case 'score_leads':
+        case "score_leads":
           return await this.scoreLeads(task.payload, context);
         default:
           throw new Error(`Unknown task type: ${task.type}`);
       }
     } catch (error) {
-      this.dependencies.logger.error(`PDA execution failed for task ${task.id}`, {
-        error: error instanceof Error ? error.message : error,
-        taskType: task.type,
-        correlationId: context.correlationId
-      });
+      this.dependencies.logger.error(
+        `PDA execution failed for task ${task.id}`,
+        {
+          error: error instanceof Error ? error.message : error,
+          taskType: task.type,
+          correlationId: context.correlationId,
+        },
+      );
       throw error;
     }
   }
@@ -157,10 +174,10 @@ export class ProspectDiscoveryAgent extends BaseAgent {
       icp: z.object({
         industries: z.array(z.string()),
         companySizes: z.array(z.string()),
-        roles: z.array(z.string())
+        roles: z.array(z.string()),
       }),
       targetCount: z.number().min(1).max(10000),
-      filters: z.record(z.any()).optional()
+      filters: z.record(z.any()).optional(),
     });
 
     try {
@@ -175,21 +192,27 @@ export class ProspectDiscoveryAgent extends BaseAgent {
     const checks = await Promise.allSettled([
       this.checkApiConnections(),
       this.checkBrowserHealth(),
-      this.checkGraphDbConnection()
+      this.checkGraphDbConnection(),
     ]);
 
-    const healthyChecks = checks.filter(check => check.status === 'fulfilled').length;
+    const healthyChecks = checks.filter(
+      (check) => check.status === "fulfilled",
+    ).length;
     const totalChecks = checks.length;
 
     return {
-      status: healthyChecks === totalChecks ? 'healthy' as const : 
-              healthyChecks > totalChecks / 2 ? 'degraded' as const : 'unhealthy' as const,
+      status:
+        healthyChecks === totalChecks
+          ? ("healthy" as const)
+          : healthyChecks > totalChecks / 2
+            ? ("degraded" as const)
+            : ("unhealthy" as const),
       details: {
-        apiConnections: checks[0].status === 'fulfilled',
-        browserHealth: checks[1].status === 'fulfilled',
-        graphDbConnection: checks[2].status === 'fulfilled',
-        healthScore: healthyChecks / totalChecks
-      }
+        apiConnections: checks[0].status === "fulfilled",
+        browserHealth: checks[1].status === "fulfilled",
+        graphDbConnection: checks[2].status === "fulfilled",
+        healthScore: healthyChecks / totalChecks,
+      },
     };
   }
 
@@ -200,14 +223,20 @@ export class ProspectDiscoveryAgent extends BaseAgent {
   /**
    * Main prospect discovery method - orchestrates multiple data sources
    */
-  private async discoverProspects(payload: any, context: AgentContext): Promise<DiscoveryResult> {
+  private async discoverProspects(
+    payload: any,
+    context: AgentContext,
+  ): Promise<DiscoveryResult> {
     const { icp, targetCount, filters = {} } = payload;
     const startTime = Date.now();
 
-    this.dependencies.logger.info(`Starting prospect discovery for ${targetCount} prospects`, {
-      icp,
-      correlationId: context.correlationId
-    });
+    this.dependencies.logger.info(
+      `Starting prospect discovery for ${targetCount} prospects`,
+      {
+        icp,
+        correlationId: context.correlationId,
+      },
+    );
 
     // 1. Multi-source company discovery
     const companies = await this.discoverCompanies({
@@ -215,24 +244,28 @@ export class ProspectDiscoveryAgent extends BaseAgent {
       companySizes: icp.companySizes,
       technologies: icp.technologies || [],
       locations: filters.locations || [],
-      keywords: filters.keywords || []
+      keywords: filters.keywords || [],
     });
 
     // 2. People discovery within companies
     const prospects = await this.discoverPeopleInCompanies(companies, {
       roles: icp.roles,
       seniority: filters.seniority || [],
-      departments: filters.departments || []
+      departments: filters.departments || [],
     });
 
     // 3. AI-powered lead scoring
     const scoredProspects = await this.scoreProspectsWithAI(prospects, icp);
 
     // 4. Relationship graph analysis
-    const relationships = await this.analyzeProspectRelationships(scoredProspects);
+    const relationships =
+      await this.analyzeProspectRelationships(scoredProspects);
 
     // 5. Final filtering and ranking
-    const finalProspects = this.rankAndFilterProspects(scoredProspects, targetCount);
+    const finalProspects = this.rankAndFilterProspects(
+      scoredProspects,
+      targetCount,
+    );
 
     const result: DiscoveryResult = {
       prospects: finalProspects,
@@ -242,8 +275,8 @@ export class ProspectDiscoveryAgent extends BaseAgent {
         totalFound: prospects.length,
         processingTime: Date.now() - startTime,
         dataSources: this.getActiveDatasources(),
-        qualityScore: this.calculateQualityScore(finalProspects)
-      }
+        qualityScore: this.calculateQualityScore(finalProspects),
+      },
     };
 
     // Store results in graph database for future relationship analysis
@@ -255,7 +288,9 @@ export class ProspectDiscoveryAgent extends BaseAgent {
   /**
    * Discover companies using multiple data sources
    */
-  private async discoverCompanies(criteria: CompanySearchCriteria): Promise<any[]> {
+  private async discoverCompanies(
+    criteria: CompanySearchCriteria,
+  ): Promise<any[]> {
     const companies: any[] = [];
     const sources = [];
 
@@ -264,9 +299,9 @@ export class ProspectDiscoveryAgent extends BaseAgent {
       try {
         const apolloCompanies = await this.searchApollo(criteria);
         companies.push(...apolloCompanies);
-        sources.push('apollo');
+        sources.push("apollo");
       } catch (error) {
-        this.dependencies.logger.warn('Apollo search failed', { error });
+        this.dependencies.logger.warn("Apollo search failed", { error });
       }
     }
 
@@ -274,25 +309,27 @@ export class ProspectDiscoveryAgent extends BaseAgent {
     try {
       const scrapedCompanies = await this.scrapeCompanyDirectories(criteria);
       companies.push(...scrapedCompanies);
-      sources.push('web_scraping');
+      sources.push("web_scraping");
     } catch (error) {
-      this.dependencies.logger.warn('Web scraping failed', { error });
+      this.dependencies.logger.warn("Web scraping failed", { error });
     }
 
     // Crunchbase API (if available)
     try {
       const crunchbaseCompanies = await this.searchCrunchbase(criteria);
       companies.push(...crunchbaseCompanies);
-      sources.push('crunchbase');
+      sources.push("crunchbase");
     } catch (error) {
-      this.dependencies.logger.warn('Crunchbase search failed', { error });
+      this.dependencies.logger.warn("Crunchbase search failed", { error });
     }
 
     // Deduplicate companies
     const uniqueCompanies = this.deduplicateCompanies(companies);
-    
-    this.dependencies.logger.info(`Discovered ${uniqueCompanies.length} companies from sources: ${sources.join(', ')}`);
-    
+
+    this.dependencies.logger.info(
+      `Discovered ${uniqueCompanies.length} companies from sources: ${sources.join(", ")}`,
+    );
+
     return uniqueCompanies;
   }
 
@@ -304,13 +341,15 @@ export class ProspectDiscoveryAgent extends BaseAgent {
       return [];
     }
 
-    await this.respectRateLimit('apollo');
+    await this.respectRateLimit("apollo");
 
     const searchParams = {
       person_titles: criteria.industries, // Approximate mapping
-      organization_num_employees_ranges: this.mapCompanySizesToApollo(criteria.companySizes),
+      organization_num_employees_ranges: this.mapCompanySizesToApollo(
+        criteria.companySizes,
+      ),
       technologies: criteria.technologies,
-      per_page: 100
+      per_page: 100,
     };
 
     try {
@@ -319,15 +358,15 @@ export class ProspectDiscoveryAgent extends BaseAgent {
         searchParams,
         {
           headers: {
-            'X-Api-Key': this.pdaConfig.dataSourceApis.apollo.apiKey,
-            'Content-Type': 'application/json'
-          }
-        }
+            "X-Api-Key": this.pdaConfig.dataSourceApis.apollo.apiKey,
+            "Content-Type": "application/json",
+          },
+        },
       );
 
       return response.data.organizations || [];
     } catch (error) {
-      this.dependencies.logger.error('Apollo API error', { error });
+      this.dependencies.logger.error("Apollo API error", { error });
       return [];
     }
   }
@@ -340,7 +379,7 @@ export class ProspectDiscoveryAgent extends BaseAgent {
       return null;
     }
 
-    await this.respectRateLimit('hunter');
+    await this.respectRateLimit("hunter");
 
     try {
       const response = await axios.get(
@@ -349,14 +388,14 @@ export class ProspectDiscoveryAgent extends BaseAgent {
           params: {
             domain,
             api_key: this.pdaConfig.dataSourceApis.hunter.apiKey,
-            limit: 100
-          }
-        }
+            limit: 100,
+          },
+        },
       );
 
       return response.data.data;
     } catch (error) {
-      this.dependencies.logger.error('Hunter API error', { error, domain });
+      this.dependencies.logger.error("Hunter API error", { error, domain });
       return null;
     }
   }
@@ -364,16 +403,18 @@ export class ProspectDiscoveryAgent extends BaseAgent {
   /**
    * Advanced web scraping with ethical practices
    */
-  private async scrapeCompanyDirectories(criteria: CompanySearchCriteria): Promise<any[]> {
+  private async scrapeCompanyDirectories(
+    criteria: CompanySearchCriteria,
+  ): Promise<any[]> {
     if (!this.browser) {
       await this.initializeBrowser();
     }
 
     const companies: any[] = [];
     const targetSites = [
-      'https://www.crunchbase.com',
-      'https://angel.co',
-      'https://www.tracxn.com'
+      "https://www.crunchbase.com",
+      "https://angel.co",
+      "https://www.tracxn.com",
     ];
 
     for (const site of targetSites) {
@@ -391,10 +432,15 @@ export class ProspectDiscoveryAgent extends BaseAgent {
   /**
    * AI-powered lead scoring using LLMs
    */
-  private async scoreProspectsWithAI(prospects: Prospect[], icp: any): Promise<Prospect[]> {
+  private async scoreProspectsWithAI(
+    prospects: Prospect[],
+    icp: any,
+  ): Promise<Prospect[]> {
     const model = await this.getModel(this.pdaConfig.aiModels.leadScoringModel);
     if (!model) {
-      this.dependencies.logger.warn('Lead scoring model not available, using fallback scoring');
+      this.dependencies.logger.warn(
+        "Lead scoring model not available, using fallback scoring",
+      );
       return this.fallbackLeadScoring(prospects, icp);
     }
 
@@ -414,34 +460,40 @@ export class ProspectDiscoveryAgent extends BaseAgent {
   /**
    * Score a batch of prospects using AI
    */
-  private async scoreProspectBatch(prospects: Prospect[], icp: any, model: any): Promise<Prospect[]> {
+  private async scoreProspectBatch(
+    prospects: Prospect[],
+    icp: any,
+    model: any,
+  ): Promise<Prospect[]> {
     const prompt = this.buildLeadScoringPrompt(prospects, icp);
-    
+
     try {
       // This would integrate with your LLM service
       const scores = await this.dependencies.llmService.generate({
         model: model.model,
         prompt,
         temperature: 0.1,
-        maxTokens: 1000
+        maxTokens: 1000,
       });
 
       return this.parseLeadScores(prospects, scores);
     } catch (error) {
-      this.dependencies.logger.error('AI lead scoring failed', { error });
-      return prospects.map(p => ({ ...p, leadScore: 50 })); // Default score
+      this.dependencies.logger.error("AI lead scoring failed", { error });
+      return prospects.map((p) => ({ ...p, leadScore: 50 })); // Default score
     }
   }
 
   /**
    * Analyze relationships between prospects using graph analysis
    */
-  private async analyzeProspectRelationships(prospects: Prospect[]): Promise<Array<{
-    from: string;
-    to: string;
-    type: string;
-    strength: number;
-  }>> {
+  private async analyzeProspectRelationships(prospects: Prospect[]): Promise<
+    Array<{
+      from: string;
+      to: string;
+      type: string;
+      strength: number;
+    }>
+  > {
     if (!this.graphDriver) {
       return [];
     }
@@ -455,7 +507,7 @@ export class ProspectDiscoveryAgent extends BaseAgent {
 
     // Analyze company relationships
     const companyGroups = this.groupProspectsByCompany(prospects);
-    
+
     for (const [company, companyProspects] of companyGroups) {
       // Internal company relationships
       for (let i = 0; i < companyProspects.length; i++) {
@@ -463,8 +515,11 @@ export class ProspectDiscoveryAgent extends BaseAgent {
           relationships.push({
             from: companyProspects[i].id,
             to: companyProspects[j].id,
-            type: 'colleague',
-            strength: this.calculateRelationshipStrength(companyProspects[i], companyProspects[j])
+            type: "colleague",
+            strength: this.calculateRelationshipStrength(
+              companyProspects[i],
+              companyProspects[j],
+            ),
           });
         }
       }
@@ -472,7 +527,8 @@ export class ProspectDiscoveryAgent extends BaseAgent {
 
     // LinkedIn network analysis (if available)
     if (this.pdaConfig.dataSourceApis.linkedin) {
-      const linkedinRelationships = await this.analyzeLinkedInConnections(prospects);
+      const linkedinRelationships =
+        await this.analyzeLinkedInConnections(prospects);
       relationships.push(...linkedinRelationships);
     }
 
@@ -488,7 +544,10 @@ export class ProspectDiscoveryAgent extends BaseAgent {
     if (this.pdaConfig.graphDb) {
       this.graphDriver = neo4j.driver(
         this.pdaConfig.graphDb.uri,
-        neo4j.auth.basic(this.pdaConfig.graphDb.username, this.pdaConfig.graphDb.password)
+        neo4j.auth.basic(
+          this.pdaConfig.graphDb.username,
+          this.pdaConfig.graphDb.password,
+        ),
       );
     }
 
@@ -501,37 +560,38 @@ export class ProspectDiscoveryAgent extends BaseAgent {
       this.browser = await launch({
         headless: true,
         args: [
-          '--no-sandbox',
-          '--disable-setuid-sandbox',
-          '--disable-dev-shm-usage',
-          '--disable-accelerated-2d-canvas',
-          '--no-first-run',
-          '--no-zygote',
-          '--disable-gpu'
-        ]
+          "--no-sandbox",
+          "--disable-setuid-sandbox",
+          "--disable-dev-shm-usage",
+          "--disable-accelerated-2d-canvas",
+          "--no-first-run",
+          "--no-zygote",
+          "--disable-gpu",
+        ],
       });
     } catch (error) {
-      this.dependencies.logger.error('Failed to initialize browser', { error });
+      this.dependencies.logger.error("Failed to initialize browser", { error });
     }
   }
 
   private async respectRateLimit(source: string): Promise<void> {
     const lastCall = this.rateLimiters.get(source) || 0;
-    const delay = source === 'linkedin' ? 
-      this.pdaConfig.dataSourceApis.linkedin?.rateLimitDelay || 2000 :
-      1000;
-    
+    const delay =
+      source === "linkedin"
+        ? this.pdaConfig.dataSourceApis.linkedin?.rateLimitDelay || 2000
+        : 1000;
+
     const elapsed = Date.now() - lastCall;
     if (elapsed < delay) {
-      await new Promise(resolve => setTimeout(resolve, delay - elapsed));
+      await new Promise((resolve) => setTimeout(resolve, delay - elapsed));
     }
-    
+
     this.rateLimiters.set(source, Date.now());
   }
 
   private deduplicateCompanies(companies: any[]): any[] {
     const seen = new Set();
-    return companies.filter(company => {
+    return companies.filter((company) => {
       const key = company.domain || company.name?.toLowerCase();
       if (seen.has(key)) {
         return false;
@@ -543,12 +603,12 @@ export class ProspectDiscoveryAgent extends BaseAgent {
 
   private calculateQualityScore(prospects: Prospect[]): number {
     if (prospects.length === 0) return 0;
-    
-    const scores = prospects.map(p => p.leadScore || 0);
+
+    const scores = prospects.map((p) => p.leadScore || 0);
     const avgScore = scores.reduce((a, b) => a + b, 0) / scores.length;
-    
+
     // Factor in data completeness
-    const completeness = prospects.map(p => {
+    const completeness = prospects.map((p) => {
       let score = 0;
       if (p.email) score += 0.3;
       if (p.phone) score += 0.2;
@@ -557,37 +617,79 @@ export class ProspectDiscoveryAgent extends BaseAgent {
       if (p.position) score += 0.1;
       return score;
     });
-    
-    const avgCompleteness = completeness.reduce((a, b) => a + b, 0) / completeness.length;
-    
-    return Math.round((avgScore * 0.7 + avgCompleteness * 100 * 0.3));
+
+    const avgCompleteness =
+      completeness.reduce((a, b) => a + b, 0) / completeness.length;
+
+    return Math.round(avgScore * 0.7 + avgCompleteness * 100 * 0.3);
   }
 
   private getActiveDatasources(): string[] {
     const sources = [];
-    if (this.pdaConfig.dataSourceApis.apollo) sources.push('apollo');
-    if (this.pdaConfig.dataSourceApis.hunter) sources.push('hunter');
-    if (this.pdaConfig.dataSourceApis.linkedin) sources.push('linkedin');
-    sources.push('web_scraping');
+    if (this.pdaConfig.dataSourceApis.apollo) sources.push("apollo");
+    if (this.pdaConfig.dataSourceApis.hunter) sources.push("hunter");
+    if (this.pdaConfig.dataSourceApis.linkedin) sources.push("linkedin");
+    sources.push("web_scraping");
     return sources;
   }
 
   // Additional helper methods would be implemented here...
-  private async checkApiConnections(): Promise<boolean> { return true; }
-  private async checkBrowserHealth(): Promise<boolean> { return !!this.browser; }
-  private async checkGraphDbConnection(): Promise<boolean> { return !!this.graphDriver; }
-  private mapCompanySizesToApollo(sizes: string[]): string[] { return sizes; }
-  private async searchCrunchbase(criteria: CompanySearchCriteria): Promise<any[]> { return []; }
-  private async scrapeSpecificSite(site: string, criteria: CompanySearchCriteria): Promise<any[]> { return []; }
-  private async discoverPeopleInCompanies(companies: any[], criteria: PersonSearchCriteria): Promise<Prospect[]> { return []; }
-  private fallbackLeadScoring(prospects: Prospect[], icp: any): Prospect[] { return prospects; }
-  private buildLeadScoringPrompt(prospects: Prospect[], icp: any): string { return ''; }
-  private parseLeadScores(prospects: Prospect[], scores: string): Prospect[] { return prospects; }
-  private groupProspectsByCompany(prospects: Prospect[]): Map<string, Prospect[]> { return new Map(); }
-  private calculateRelationshipStrength(p1: Prospect, p2: Prospect): number { return 0.5; }
-  private async analyzeLinkedInConnections(prospects: Prospect[]): Promise<any[]> { return []; }
-  private rankAndFilterProspects(prospects: Prospect[], targetCount: number): Prospect[] { 
-    return prospects.slice(0, targetCount); 
+  private async checkApiConnections(): Promise<boolean> {
+    return true;
+  }
+  private async checkBrowserHealth(): Promise<boolean> {
+    return !!this.browser;
+  }
+  private async checkGraphDbConnection(): Promise<boolean> {
+    return !!this.graphDriver;
+  }
+  private mapCompanySizesToApollo(sizes: string[]): string[] {
+    return sizes;
+  }
+  private async searchCrunchbase(
+    criteria: CompanySearchCriteria,
+  ): Promise<any[]> {
+    return [];
+  }
+  private async scrapeSpecificSite(
+    site: string,
+    criteria: CompanySearchCriteria,
+  ): Promise<any[]> {
+    return [];
+  }
+  private async discoverPeopleInCompanies(
+    companies: any[],
+    criteria: PersonSearchCriteria,
+  ): Promise<Prospect[]> {
+    return [];
+  }
+  private fallbackLeadScoring(prospects: Prospect[], icp: any): Prospect[] {
+    return prospects;
+  }
+  private buildLeadScoringPrompt(prospects: Prospect[], icp: any): string {
+    return "";
+  }
+  private parseLeadScores(prospects: Prospect[], scores: string): Prospect[] {
+    return prospects;
+  }
+  private groupProspectsByCompany(
+    prospects: Prospect[],
+  ): Map<string, Prospect[]> {
+    return new Map();
+  }
+  private calculateRelationshipStrength(p1: Prospect, p2: Prospect): number {
+    return 0.5;
+  }
+  private async analyzeLinkedInConnections(
+    prospects: Prospect[],
+  ): Promise<any[]> {
+    return [];
+  }
+  private rankAndFilterProspects(
+    prospects: Prospect[],
+    targetCount: number,
+  ): Prospect[] {
+    return prospects.slice(0, targetCount);
   }
   private async storeInGraphDatabase(result: DiscoveryResult): Promise<void> {}
 }
@@ -597,9 +699,9 @@ export class ProspectDiscoveryAgent extends BaseAgent {
 // ============================================================================
 
 export function createProspectDiscoveryAgent(
-  config: AgentConfig, 
-  dependencies: any, 
-  pdaConfig: PDAConfig
+  config: AgentConfig,
+  dependencies: any,
+  pdaConfig: PDAConfig,
 ): ProspectDiscoveryAgent {
   return new ProspectDiscoveryAgent(config, dependencies, pdaConfig);
 }

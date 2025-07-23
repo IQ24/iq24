@@ -124,7 +124,7 @@ export function DataTableRow({ row, userId }: DataTableRowProps) {
             <span className="text-sm">
               {row.estimate
                 ? `${secondsToHoursAndMinutes(
-                    row.total_duration
+                    row.total_duration,
                   )} / ${secondsToHoursAndMinutes(row.estimate * 3600)}`
                 : secondsToHoursAndMinutes(row?.total_duration)}
             </span>

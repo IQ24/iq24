@@ -20,7 +20,7 @@ const defaultValues = {
 export async function assistantThreadMessage(
   event: AssistantThreadStartedEvent,
   client: WebClient,
-  { teamId }: { teamId: string }
+  { teamId }: { teamId: string },
 ) {
   const supabase = createClient({ admin: true });
 

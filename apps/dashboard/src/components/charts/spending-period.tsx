@@ -59,7 +59,7 @@ export function SpendingPeriod({ initialPeriod }: Props) {
     {
       currentState: initialPeriod,
       updateFn: (_, newState) => newState,
-    }
+    },
   );
 
   return (

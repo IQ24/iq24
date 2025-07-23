@@ -2,7 +2,5 @@
   "name": "@iq24/tsconfig",
   "private": true,
   "version": "1.0.0",
-  "files": [
-    "base.json"
-  ]
+  "files": ["base.json"]
 }

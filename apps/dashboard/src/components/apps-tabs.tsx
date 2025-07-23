@@ -32,7 +32,7 @@ export function AppsTabs() {
             "dark:bg-[#1D1D1D] dark:text-[#878787]",
             "bg-white text-gray-600",
             currentTab === tab.value &&
-              "text-primary dark:bg-[#2C2C2C] bg-gray-100"
+              "text-primary dark:bg-[#2C2C2C] bg-gray-100",
           )}
         >
           {tab.name}

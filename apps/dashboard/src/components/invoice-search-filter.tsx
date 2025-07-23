@@ -60,7 +60,7 @@ export function InvoiceSearchFilter({ customers: customersData }: Props) {
     {
       enableOnFormTags: true,
       enabled: Boolean(prompt),
-    }
+    },
   );
 
   useHotkeys("meta+s", (evt) => {
@@ -93,7 +93,7 @@ export function InvoiceSearchFilter({ customers: customersData }: Props) {
         .map((filter) => filter.name)
         .join(", ")}
        Customers: ${customersData?.map((customer) => customer.name).join(", ")}
-      `
+      `,
     );
 
     let finalObject = {};
@@ -105,12 +105,12 @@ export function InvoiceSearchFilter({ customers: customersData }: Props) {
           statuses: Array.isArray(partialObject?.statuses)
             ? partialObject?.statuses
             : partialObject?.statuses
-            ? [partialObject.statuses]
-            : null,
+              ? [partialObject.statuses]
+              : null,
           customers:
             partialObject?.customers?.map(
               (name: string) =>
-                customersData?.find((customer) => customer.name === name)?.id
+                customersData?.find((customer) => customer.name === name)?.id,
             ) ?? null,
           q: partialObject?.name ?? null,
           start: partialObject?.start ?? null,
@@ -136,7 +136,7 @@ export function InvoiceSearchFilter({ customers: customersData }: Props) {
   };
 
   const hasValidFilters = Object.values(filters).some(
-    (value) => value !== null
+    (value) => value !== null,
   );
 
   return (
@@ -169,7 +169,7 @@ export function InvoiceSearchFilter({ customers: customersData }: Props) {
               className={cn(
                 "absolute z-10 right-3 top-[10px] opacity-50 transition-opacity duration-300 hover:opacity-100",
                 hasValidFilters && "opacity-100",
-                isOpen && "opacity-100"
+                isOpen && "opacity-100",
               )}
             >
               <Icons.Filter />

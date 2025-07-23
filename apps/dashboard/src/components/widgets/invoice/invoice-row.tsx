@@ -75,7 +75,7 @@ export function InvoiceRow({ invoice }: Props) {
           <div
             className={cn(
               "w-1/4 flex justify-end text-sm",
-              invoice.status === "canceled" && "line-through"
+              invoice.status === "canceled" && "line-through",
             )}
           >
             <FormatAmount amount={invoice.amount} currency={invoice.currency} />

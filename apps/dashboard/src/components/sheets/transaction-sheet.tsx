@@ -12,7 +12,7 @@ type Props = {
   ids?: string[];
   updateTransaction: (
     values: UpdateTransactionValues,
-    optimisticData: any
+    optimisticData: any,
   ) => void;
 };
 

@@ -12,11 +12,9 @@
   },
   "dependencies": {
     "@iq24/types": "workspace:*",
-    "@iq24/data-pipelines": "workspace:*",
-    "@iq24/feature-store": "workspace:*",
-    "@iq24/model-store": "workspace:*",
+    "@iq24/data-pipeline": "workspace:*",
     "openai": "^4.67.1",
-    "anthropic": "^0.34.0",
+    "@anthropic-ai/sdk": "^0.57.0",
     "langchain": "^0.3.0",
     "@langchain/core": "^0.3.0",
     "@langchain/openai": "^0.3.0",

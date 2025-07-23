@@ -1,10 +1,10 @@
 /**
  * IQ24.ai AI-Native B2B Growth Engine
- * 
+ *
  * Main entry point for the sophisticated multi-agent AI orchestration system.
  * This is the central nervous system that coordinates all AI agents, workflows,
  * monitoring, error recovery, and performance optimization.
- * 
+ *
  * Features:
  * - 7 specialized AI agents for complete B2B growth automation
  * - Sophisticated workflow orchestration with checkpointing
@@ -15,54 +15,59 @@
  * - Event-driven architecture with real-time communication
  */
 
-import { MainOrchestrator, mainOrchestrator } from './orchestrator/main-orchestrator';
-import { ALOOrchestrator } from './orchestrator/aco-orchestrator';
-import { ConfigManager } from './config';
-import { Logger } from './utils/logger';
+import {
+  MainOrchestrator,
+  mainOrchestrator,
+} from "./orchestrator/main-orchestrator";
+import { ALOOrchestrator } from "./orchestrator/aco-orchestrator";
+import { ConfigManager } from "./config";
+import { Logger } from "./utils/logger";
 
 // Export all core components for external use
-export { MainOrchestrator, mainOrchestrator } from './orchestrator/main-orchestrator';
-export { ALOOrchestrator } from './orchestrator/aco-orchestrator';
-export { AIEngine } from './engine/ai-engine';
-export { CampaignWorkflow } from './workflows/campaign-workflow';
-export { SystemMonitor } from './monitoring/system-monitor';
-export { ErrorRecoverySystem } from './recovery/error-recovery';
-export { IntegrationTestSuite } from './testing/integration-tests';
-export { ConfigManager } from './config';
-export { DatabaseClient } from './database/client';
-export { ExternalServices } from './integrations/external-services';
+export {
+  MainOrchestrator,
+  mainOrchestrator,
+} from "./orchestrator/main-orchestrator";
+export { ALOOrchestrator } from "./orchestrator/aco-orchestrator";
+export { AIEngine } from "./engine/ai-engine";
+export { CampaignWorkflow } from "./workflows/campaign-workflow";
+export { SystemMonitor } from "./monitoring/system-monitor";
+export { ErrorRecoverySystem } from "./recovery/error-recovery";
+export { IntegrationTestSuite } from "./testing/integration-tests";
+export { ConfigManager } from "./config";
+export { DatabaseClient } from "./database/client";
+export { ExternalServices } from "./integrations/external-services";
 
 // Note: AI agents are exported from @iq24/agents package to avoid circular dependencies
 
 // Export types
-export * from './types';
+export * from "./types";
 
 // Initialize logger
-const logger = new Logger('IQ24-AI-System');
+const logger = new Logger("IQ24-AI-System");
 
 /**
  * Initialize and start the complete AI system
  */
 export async function startAISystem(): Promise<MainOrchestrator> {
   try {
-    logger.info('🚀 Starting IQ24.ai AI-Native B2B Growth Engine...');
-    
+    logger.info("🚀 Starting IQ24.ai AI-Native B2B Growth Engine...");
+
     // Initialize the main orchestrator
     await mainOrchestrator.initialize();
-    
+
     // Start the system
     await mainOrchestrator.start();
-    
-    logger.info('✅ IQ24.ai AI System started successfully!');
-    logger.info('🔥 Ready to revolutionize B2B growth with AI orchestration');
-    
+
+    logger.info("✅ IQ24.ai AI System started successfully!");
+    logger.info("🔥 Ready to revolutionize B2B growth with AI orchestration");
+
     // Set up graceful shutdown
     setupGracefulShutdown();
-    
+
     return mainOrchestrator;
-    
   } catch (error) {
-    logger.error('❌ Failed to start IQ24.ai AI System:', error);
+    logger.error("❌ Failed to start IQ24.ai AI System:", error);
     throw error;
   }
 }
@@ -72,14 +77,13 @@ export async function startAISystem(): Promise<MainOrchestrator> {
  */
 export async function stopAISystem(): Promise<void> {
   try {
-    logger.info('🛑 Stopping IQ24.ai AI System...');
-    
+    logger.info("🛑 Stopping IQ24.ai AI System...");
+
     await mainOrchestrator.stop();
-    
-    logger.info('✅ IQ24.ai AI System stopped successfully');
-    
+
+    logger.info("✅ IQ24.ai AI System stopped successfully");
   } catch (error) {
-    logger.error('❌ Error stopping IQ24.ai AI System:', error);
+    logger.error("❌ Error stopping IQ24.ai AI System:", error);
     throw error;
   }
 }
@@ -118,30 +122,30 @@ export async function optimizeSystemPerformance() {
 function setupGracefulShutdown(): void {
   const shutdownHandler = async (signal: string) => {
     logger.info(`Received ${signal}, initiating graceful shutdown...`);
-    
+
     try {
       await stopAISystem();
       process.exit(0);
     } catch (error) {
-      logger.error('Error during graceful shutdown:', error);
+      logger.error("Error during graceful shutdown:", error);
       process.exit(1);
     }
   };
 
   // Handle various shutdown signals
-  process.on('SIGTERM', () => shutdownHandler('SIGTERM'));
-  process.on('SIGINT', () => shutdownHandler('SIGINT'));
-  process.on('SIGUSR2', () => shutdownHandler('SIGUSR2')); // nodemon restart
-  
+  process.on("SIGTERM", () => shutdownHandler("SIGTERM"));
+  process.on("SIGINT", () => shutdownHandler("SIGINT"));
+  process.on("SIGUSR2", () => shutdownHandler("SIGUSR2")); // nodemon restart
+
   // Handle uncaught exceptions
-  process.on('uncaughtException', (error) => {
-    logger.error('Uncaught Exception:', error);
-    shutdownHandler('uncaughtException');
+  process.on("uncaughtException", (error) => {
+    logger.error("Uncaught Exception:", error);
+    shutdownHandler("uncaughtException");
   });
-  
-  process.on('unhandledRejection', (reason, promise) => {
-    logger.error('Unhandled Rejection at:', promise, 'reason:', reason);
-    shutdownHandler('unhandledRejection');
+
+  process.on("unhandledRejection", (reason, promise) => {
+    logger.error("Unhandled Rejection at:", promise, "reason:", reason);
+    shutdownHandler("unhandledRejection");
   });
 }
 
@@ -154,11 +158,13 @@ export const dev = {
    */
   async healthCheck() {
     const status = await getSystemStatus();
-    console.log('🔍 System Health Check:');
+    console.log("🔍 System Health Check:");
     console.log(`   Overall Health: ${status.health}`);
     console.log(`   Active Campaigns: ${status.metrics.activeCampaigns}`);
     console.log(`   Total Campaigns: ${status.metrics.totalCampaigns}`);
-    console.log(`   Error Rate: ${(status.metrics.errorRate * 100).toFixed(2)}%`);
+    console.log(
+      `   Error Rate: ${(status.metrics.errorRate * 100).toFixed(2)}%`,
+    );
     console.log(`   Uptime: ${status.metrics.uptime}%`);
     return status;
   },
@@ -168,7 +174,7 @@ export const dev = {
    */
   async diagnose() {
     const diagnostics = await runSystemDiagnostics();
-    console.log('🔧 System Diagnostics:');
+    console.log("🔧 System Diagnostics:");
     console.log(`   Health: ${diagnostics.health}`);
     console.log(`   Issues: ${diagnostics.issues.length}`);
     if (diagnostics.issues.length > 0) {
@@ -190,23 +196,23 @@ export const dev = {
    */
   async testCampaign() {
     const testConfig = {
-      name: 'Test Campaign',
-      type: 'prospecting',
+      name: "Test Campaign",
+      type: "prospecting",
       targetAudience: {
         size: 100,
         criteria: {
-          industry: 'Technology',
-          company_size: '10-50',
-          location: 'United States'
-        }
+          industry: "Technology",
+          company_size: "10-50",
+          location: "United States",
+        },
       },
       estimatedDuration: 3600000, // 1 hour
-      channels: ['email', 'linkedin'],
+      channels: ["email", "linkedin"],
       personalizations: {
-        level: 'high',
+        level: "high",
         includeCompanyNews: true,
-        includeSocialProof: true
-      }
+        includeSocialProof: true,
+      },
     };
 
     const workflowId = await createCampaign(testConfig);
@@ -222,27 +228,31 @@ export const dev = {
       try {
         const status = await getSystemStatus();
         console.clear();
-        console.log('📊 IQ24.ai AI System - Real-time Monitor');
-        console.log('=' .repeat(50));
+        console.log("📊 IQ24.ai AI System - Real-time Monitor");
+        console.log("=".repeat(50));
         console.log(`Health: ${status.health}`);
         console.log(`Active Campaigns: ${status.metrics.activeCampaigns}`);
         console.log(`Completed: ${status.metrics.completedCampaigns}`);
-        console.log(`Error Rate: ${(status.metrics.errorRate * 100).toFixed(2)}%`);
-        console.log(`Avg Response Time: ${status.metrics.averageResponseTime}ms`);
+        console.log(
+          `Error Rate: ${(status.metrics.errorRate * 100).toFixed(2)}%`,
+        );
+        console.log(
+          `Avg Response Time: ${status.metrics.averageResponseTime}ms`,
+        );
         console.log(`Uptime: ${status.metrics.uptime}%`);
-        console.log('=' .repeat(50));
-        console.log('Press Ctrl+C to stop monitoring');
+        console.log("=".repeat(50));
+        console.log("Press Ctrl+C to stop monitoring");
       } catch (error) {
-        console.error('Monitoring error:', error);
+        console.error("Monitoring error:", error);
       }
     }, intervalMs);
 
     // Return stop function
     return () => {
       clearInterval(interval);
-      console.log('Monitoring stopped');
+      console.log("Monitoring stopped");
     };
-  }
+  },
 };
 
 /**

@@ -81,7 +81,7 @@ export function BankAccount({
     <div
       className={cn(
         "flex justify-between items-center mb-4 pt-4",
-        !enabled && "opacity-60"
+        !enabled && "opacity-60",
       )}
     >
       <div className="flex items-center space-x-4 w-full mr-8">

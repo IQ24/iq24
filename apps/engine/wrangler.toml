@@ -3,6 +3,9 @@ workers_dev = false
 logpush = true
 compatibility_flags = ["nodejs_compat_v2"]
 
+[build]
+external = ["date-fns"]
+
 [observability]
 enabled = true
 

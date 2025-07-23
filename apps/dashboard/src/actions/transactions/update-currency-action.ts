@@ -11,7 +11,7 @@ export const updateCurrencyAction = authActionClient
   .schema(
     z.object({
       baseCurrency: z.string(),
-    })
+    }),
   )
   .metadata({
     name: "update-currency",
@@ -40,5 +40,5 @@ export const updateCurrencyAction = authActionClient
       });
 
       return event;
-    }
+    },
   );

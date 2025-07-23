@@ -81,7 +81,7 @@ export function FieldMapping({ currencies }: { currencies: string[] }) {
               isStreaming={isStreaming}
               currency={watch("currency")}
             />
-          )
+          ),
         )}
       </div>
 
@@ -167,7 +167,7 @@ export function FieldMapping({ currencies }: { currencies: string[] }) {
                 value={value}
                 onChange={onChange}
                 currencies={Object.values(currencies)?.map(
-                  (currency) => currency
+                  (currency) => currency,
                 )}
               />
             )}

@@ -106,7 +106,7 @@ export function EditInboxModal({
                             className="w-full text-xs"
                             {...field}
                             currencies={Object.values(currencies)?.map(
-                              (currency) => currency
+                              (currency) => currency,
                             )}
                           />
                         </FormControl>

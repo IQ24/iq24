@@ -31,7 +31,7 @@ export function CopyInput({ value, className }: Props) {
       onClick={handleClipboard}
       className={cn(
         "flex items-center relative w-full border py-2 px-4 cursor-pointer",
-        className
+        className,
       )}
     >
       <div className="pr-8 text-[#878787] text-sm truncate">{value}</div>

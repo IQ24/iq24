@@ -28,5 +28,5 @@ export const createTransactionTagAction = authActionClient
       revalidateTag(`transactions_${user.team_id}`);
 
       return data;
-    }
+    },
   );

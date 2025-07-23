@@ -50,7 +50,7 @@ export async function InvoicesTable({
   });
 
   const hasNextPage = Boolean(
-    meta?.count && meta.count / (page + 1) > pageSize
+    meta?.count && meta.count / (page + 1) > pageSize,
   );
 
   if (!data?.length) {

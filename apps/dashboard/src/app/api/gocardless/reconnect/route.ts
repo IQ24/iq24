@@ -29,11 +29,11 @@ export async function GET(req: NextRequest) {
 
   if (isDesktop === "true") {
     return NextResponse.redirect(
-      `iq24://settings/accounts?id=${id}&step=reconnect`
+      `iq24://settings/accounts?id=${id}&step=reconnect`,
     );
   }
 
   return NextResponse.redirect(
-    `${requestUrl.origin}/settings/accounts?id=${id}&step=reconnect`
+    `${requestUrl.origin}/settings/accounts?id=${id}&step=reconnect`,
   );
 }

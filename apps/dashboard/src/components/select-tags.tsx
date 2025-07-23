@@ -80,7 +80,7 @@ export function SelectTags({
             label: tag.name,
             value: tag.name,
             id: tag.id,
-          }))
+          })),
         );
       }
     }
@@ -101,8 +101,8 @@ export function SelectTags({
       data.map((tag) =>
         tag.id === editingTag?.id
           ? { ...tag, label: editingTag.value, value: editingTag.value }
-          : tag
-      )
+          : tag,
+      ),
     );
   };
 
@@ -140,7 +140,7 @@ export function SelectTags({
             onChange?.(options);
 
             const newTag = options.find(
-              (tag) => !selected.find((opt) => opt.value === tag.value)
+              (tag) => !selected.find((opt) => opt.value === tag.value),
             );
 
             if (newTag) {
@@ -150,7 +150,7 @@ export function SelectTags({
 
             if (options.length < selected.length) {
               const removedTag = selected.find(
-                (tag) => !options.find((opt) => opt.value === tag.value)
+                (tag) => !options.find((opt) => opt.value === tag.value),
               ) as Option & { id: string };
 
               if (removedTag) {

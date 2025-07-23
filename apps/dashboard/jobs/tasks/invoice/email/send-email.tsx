@@ -22,7 +22,7 @@ export const sendInvoiceEmail = schemaTask({
     const { data: invoice } = await supabase
       .from("invoices")
       .select(
-        "id, token, customer:customer_id(name, website, email), team:team_id(name, email)"
+        "id, token, customer:customer_id(name, website, email), team:team_id(name, email)",
       )
       .eq("id", invoiceId)
       .single();
@@ -52,7 +52,7 @@ export const sendInvoiceEmail = schemaTask({
           customerName={invoice?.customer.name}
           teamName={invoice?.team.name}
           link={`${getAppUrl()}/i/${invoice?.token}`}
-        />
+        />,
       ),
     });
 

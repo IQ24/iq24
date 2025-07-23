@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
   const requestUrl = new URL(req.url);
 
   const result = paramsSchema.safeParse(
-    Object.fromEntries(requestUrl.searchParams.entries())
+    Object.fromEntries(requestUrl.searchParams.entries()),
   );
 
   if (!result.success) {
@@ -43,9 +43,8 @@ export async function GET(req: NextRequest) {
   };
 
   if (!preview) {
-    headers[
-      "Content-Disposition"
-    ] = `attachment; filename="${data.invoice_number}.pdf"`;
+    headers["Content-Disposition"] =
+      `attachment; filename="${data.invoice_number}.pdf"`;
   }
 
   return new Response(blob, { headers });

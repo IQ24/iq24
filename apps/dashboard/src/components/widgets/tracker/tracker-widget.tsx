@@ -165,7 +165,7 @@ export function TrackerWidget({
                       date >= new Date(sortedDates[0] || 0) &&
                       date <= new Date(sortedDates[1] || 0))) &&
                     "ring-1 ring-primary",
-                  isInDragRange && "ring-1 ring-primary"
+                  isInDragRange && "ring-1 ring-primary",
                 )}
               >
                 <div>{format(date, "d")}</div>

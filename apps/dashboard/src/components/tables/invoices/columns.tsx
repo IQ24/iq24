@@ -182,7 +182,7 @@ export const columns: ColumnDef<Invoice>[] = [
       const handleCopyLink = async () => {
         try {
           await navigator.clipboard.writeText(
-            `${window.location.origin}/i/${row.original.token}`
+            `${window.location.origin}/i/${row.original.token}`,
           );
 
           toast({

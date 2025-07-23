@@ -27,13 +27,13 @@ function transformKeysToUppercase(obj: Record<string, number>) {
 
 export async function getRates() {
   const rates = await Promise.allSettled(
-    uniqueCurrencies.map((currency) => getCurrency(currency.toLowerCase()))
+    uniqueCurrencies.map((currency) => getCurrency(currency.toLowerCase())),
   );
 
   return rates
     .filter(
       (rate): rate is PromiseFulfilledResult<Record<string, unknown>> =>
-        rate.status === "fulfilled"
+        rate.status === "fulfilled",
     )
     .map((rate) => rate.value)
     .map((value) => {

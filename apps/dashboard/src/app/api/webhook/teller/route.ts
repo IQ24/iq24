@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
   if (!signatureValid) {
     return NextResponse.json(
       { error: "Invalid webhook signature" },
-      { status: 401 }
+      { status: 401 },
     );
   }
 
@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
   if (!result.success) {
     return NextResponse.json(
       { error: "Invalid webhook payload", details: result.error.issues },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
   if (!payload.enrollment_id) {
     return NextResponse.json(
       { error: "Missing enrollment_id" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -70,7 +70,7 @@ export async function POST(req: NextRequest) {
   if (!connectionData) {
     return NextResponse.json(
       { error: "Connection not found" },
-      { status: 404 }
+      { status: 404 },
     );
   }
 
@@ -80,7 +80,7 @@ export async function POST(req: NextRequest) {
         // Only run manual sync if the connection was created in the last 24 hours
         const manualSync = isAfter(
           new Date(connectionData.created_at),
-          subDays(new Date(), 1)
+          subDays(new Date(), 1),
         );
 
         await syncConnection.trigger({

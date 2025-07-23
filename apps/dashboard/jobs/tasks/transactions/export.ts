@@ -61,11 +61,11 @@ export const exportTransactions = schemaTask({
       .sort(
         (a, b) =>
           new Date(b[0] as string).getTime() -
-          new Date(a[0] as string).getTime()
+          new Date(a[0] as string).getTime(),
       );
 
     const attachments = results.flatMap((r) =>
-      r.ok ? r.output.attachments : []
+      r.ok ? r.output.attachments : [],
     );
 
     const csv = await writeToString(rows, {
@@ -100,7 +100,7 @@ export const exportTransactions = schemaTask({
       if (attachment.blob) {
         zipWriter.add(
           attachment.name,
-          new BlobReader(serializableToBlob(attachment.blob))
+          new BlobReader(serializableToBlob(attachment.blob)),
         );
       }
     });

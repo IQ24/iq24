@@ -19,7 +19,7 @@ export async function fetchStats() {
           return null;
         },
       },
-    }
+    },
   );
 
   const supabaseStorage = createServerClient<Database>(
@@ -38,7 +38,7 @@ export async function fetchStats() {
         },
       },
       db: { schema: "storage" },
-    }
+    },
   );
 
   const [

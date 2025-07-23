@@ -68,7 +68,7 @@ const formSchema = z.object({
       z.object({
         id: z.string().uuid(),
         value: z.string(),
-      })
+      }),
     )
     .optional()
     .nullable(),
@@ -451,7 +451,7 @@ export function CustomerForm({ data }: Props) {
                               {
                                 shouldDirty: true,
                                 shouldValidate: true,
-                              }
+                              },
                             );
                           }
                         }}
@@ -475,7 +475,7 @@ export function CustomerForm({ data }: Props) {
                               {
                                 shouldDirty: true,
                                 shouldValidate: true,
-                              }
+                              },
                             );
                           }
                         }}

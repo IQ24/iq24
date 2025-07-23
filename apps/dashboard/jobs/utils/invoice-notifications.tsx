@@ -64,7 +64,7 @@ export async function handlePaidInvoiceNotifications({
       }
 
       const html = await render(
-        <InvoicePaidEmail invoiceNumber={invoiceNumber} link={link} />
+        <InvoicePaidEmail invoiceNumber={invoiceNumber} link={link} />,
       );
 
       return {
@@ -153,7 +153,7 @@ export async function handleOverdueInvoiceNotifications({
           invoiceNumber={invoiceNumber}
           customerName={customerName}
           link={link}
-        />
+        />,
       );
 
       return {

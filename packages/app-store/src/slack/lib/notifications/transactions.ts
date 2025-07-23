@@ -24,7 +24,7 @@ export async function sendSlackTransactionNotifications({
     .single();
 
   const enabled = data?.settings?.find(
-    (setting: { id: string; value: boolean }) => setting.id === "transactions"
+    (setting: { id: string; value: boolean }) => setting.id === "transactions",
   )?.value;
 
   if (!enabled || !data?.config?.access_token) {

@@ -21,7 +21,7 @@ type Props = {
 export const AvatarUpload = forwardRef<HTMLInputElement, Props>(
   (
     { userId, avatarUrl: initialAvatarUrl, fullName, size = 65, onUpload },
-    ref
+    ref,
   ) => {
     const action = useAction(updateUserAction);
     const [avatar, setAvatar] = useState(initialAvatarUrl);
@@ -79,7 +79,7 @@ export const AvatarUpload = forwardRef<HTMLInputElement, Props>(
         />
       </Avatar>
     );
-  }
+  },
 );
 
 AvatarUpload.displayName = "AvatarUpload";

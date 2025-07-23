@@ -29,7 +29,7 @@ export function AssistantHistory({ enabled }: Props) {
     {
       currentState: enabled,
       updateFn: (_, { enabled }) => Boolean(enabled),
-    }
+    },
   );
 
   const clearHistory = useAction(clearHistoryAction, {

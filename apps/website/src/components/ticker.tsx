@@ -20,7 +20,7 @@ export async function Ticker() {
           return null;
         },
       },
-    }
+    },
   );
 
   const [

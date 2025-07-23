@@ -46,7 +46,7 @@ type Props = {
   ids?: string[];
   updateTransaction: (
     values: UpdateTransactionValues,
-    optimisticData: any
+    optimisticData: any,
   ) => void;
 };
 
@@ -61,10 +61,10 @@ export function TransactionDetails({
   const supabase = createClient();
   const [isLoading, setLoading] = useState(true);
   const updateSimilarTransactionsCategory = useAction(
-    updateSimilarTransactionsCategoryAction
+    updateSimilarTransactionsCategoryAction,
   );
   const updateSimilarTransactionsRecurring = useAction(
-    updateSimilarTransactionsRecurringAction
+    updateSimilarTransactionsRecurringAction,
   );
   const createAttachments = useAction(createAttachmentsAction);
   const createTransactionTag = useAction(createTransactionTagAction);
@@ -97,7 +97,7 @@ export function TransactionDetails({
         }
       }
     },
-    { enabled }
+    { enabled },
   );
 
   useEffect(() => {
@@ -131,7 +131,7 @@ export function TransactionDetails({
   }) => {
     updateTransaction(
       { id: data?.id, category_slug: category.slug },
-      { category }
+      { category },
     );
 
     const transactions = await getSimilarTransactions(supabase, {
@@ -168,7 +168,7 @@ export function TransactionDetails({
   const handleOnChangeRecurring = async (value: boolean) => {
     updateTransaction(
       { id: data?.id, recurring: value, frequency: value ? "monthly" : null },
-      { recurring: value, frequency: value ? "monthly" : null }
+      { recurring: value, frequency: value ? "monthly" : null },
     );
 
     const transactions = await getSimilarTransactions(supabase, {
@@ -254,7 +254,7 @@ export function TransactionDetails({
                 <span
                   className={cn(
                     "text-4xl font-mono select-text",
-                    data?.category?.slug === "income" && "text-[#00C969]"
+                    data?.category?.slug === "income" && "text-[#00C969]",
                   )}
                 >
                   <FormatAmount
@@ -306,7 +306,7 @@ export function TransactionDetails({
             onSelect={(user) => {
               updateTransaction(
                 { assigned_id: user?.id, id: data?.id },
-                { assigned: user }
+                { assigned: user },
               );
             }}
           />
@@ -352,7 +352,7 @@ export function TransactionDetails({
                     files.map((file) => ({
                       ...file,
                       transaction_id: data?.id,
-                    }))
+                    })),
                   );
                 }
               }}
@@ -378,7 +378,7 @@ export function TransactionDetails({
               onCheckedChange={() => {
                 updateTransaction(
                   { id: data?.id, internal: !data?.internal },
-                  { internal: !data?.internal }
+                  { internal: !data?.internal },
                 );
               }}
             />
@@ -407,7 +407,7 @@ export function TransactionDetails({
                 onValueChange={(value) => {
                   updateTransaction(
                     { id: data?.id, frequency: value },
-                    { frequency: value }
+                    { frequency: value },
                   );
 
                   updateSimilarTransactionsRecurring.execute({ id: data?.id });

@@ -42,7 +42,7 @@ export function TrackerExportCSV({ name, teamId, projectId, userId }: Props) {
     const query = supabase
       .from("tracker_entries")
       .select(
-        "date, description, duration, assigned:assigned_id(id, full_name), project:project_id(id, name)"
+        "date, description, duration, assigned:assigned_id(id, full_name), project:project_id(id, name)",
       )
       .eq("team_id", teamId)
       .gte("date", date?.from?.toISOString())

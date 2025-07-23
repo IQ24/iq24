@@ -26,7 +26,7 @@ export const inboxUploadAction = authActionClient
           id: `upload-${idx}`,
           teamId: user.team_id!,
         },
-      }))
+      })),
     );
 
     return results;

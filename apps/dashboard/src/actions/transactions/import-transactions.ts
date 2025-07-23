@@ -22,7 +22,7 @@ export const importTransactionsAction = authActionClient
         description: z.string(),
         balance: z.string().optional(),
       }),
-    })
+    }),
   )
   .metadata({
     name: "import-transactions",
@@ -66,5 +66,5 @@ export const importTransactionsAction = authActionClient
       });
 
       return event;
-    }
+    },
   );

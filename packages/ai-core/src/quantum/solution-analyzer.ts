@@ -1,15 +1,15 @@
-import { 
-  OptimizationSolution, 
-  OptimizationProblem, 
-  QuantumMetrics, 
-  PerformanceMetrics, 
-  SolutionQuality, 
+import {
+  OptimizationSolution,
+  OptimizationProblem,
+  QuantumMetrics,
+  PerformanceMetrics,
+  SolutionQuality,
   ConvergenceAnalysis,
   AlgorithmComparison,
   OptimizationHistory,
   SolutionInsights,
-  QualityThreshold
-} from './types.js';
+  QualityThreshold,
+} from "./types.js";
 
 /**
  * Advanced solution analyzer for quantum-inspired optimization results
@@ -33,7 +33,7 @@ export class SolutionAnalyzer {
   async analyzeSolution(
     solution: OptimizationSolution,
     problem: OptimizationProblem,
-    metrics: QuantumMetrics
+    metrics: QuantumMetrics,
   ): Promise<SolutionAnalysis> {
     const startTime = Date.now();
 
@@ -44,20 +44,20 @@ export class SolutionAnalyzer {
         performanceAnalysis,
         convergenceAnalysis,
         comparativeAnalysis,
-        insightsAnalysis
+        insightsAnalysis,
       ] = await Promise.all([
         this.analyzeQuality(solution, problem),
         this.analyzePerformance(metrics),
         this.analyzeConvergence(solution, problem),
         this.compareAlgorithms(solution, problem),
-        this.generateInsights(solution, problem, metrics)
+        this.generateInsights(solution, problem, metrics),
       ]);
 
       // Calculate overall solution score
       const overallScore = this.calculateOverallScore(
         qualityAnalysis,
         performanceAnalysis,
-        convergenceAnalysis
+        convergenceAnalysis,
       );
 
       // Generate recommendations
@@ -65,7 +65,7 @@ export class SolutionAnalyzer {
         solution,
         problem,
         qualityAnalysis,
-        performanceAnalysis
+        performanceAnalysis,
       );
 
       const analysis: SolutionAnalysis = {
@@ -78,7 +78,7 @@ export class SolutionAnalyzer {
         comparative: comparativeAnalysis,
         insights: insightsAnalysis,
         recommendations,
-        processingTime: Date.now() - startTime
+        processingTime: Date.now() - startTime,
       };
 
       // Store for historical analysis
@@ -86,7 +86,7 @@ export class SolutionAnalyzer {
 
       return analysis;
     } catch (error) {
-      console.error('Solution analysis failed:', error);
+      console.error("Solution analysis failed:", error);
       throw new Error(`Solution analysis failed: ${error.message}`);
     }
   }
@@ -96,36 +96,36 @@ export class SolutionAnalyzer {
    */
   private async analyzeQuality(
     solution: OptimizationSolution,
-    problem: OptimizationProblem
+    problem: OptimizationProblem,
   ): Promise<SolutionQuality> {
     const objectives = problem.objectives;
     const constraints = problem.constraints;
-    
+
     // Objective satisfaction analysis
-    const objectiveSatisfaction = objectives.map(obj => {
+    const objectiveSatisfaction = objectives.map((obj) => {
       const value = this.evaluateObjective(solution, obj);
       const satisfaction = this.calculateSatisfactionLevel(value, obj);
       return {
         objectiveId: obj.id,
         value,
         satisfaction,
-        weight: obj.weight
+        weight: obj.weight,
       };
     });
 
     // Constraint violation analysis
-    const constraintViolations = constraints.map(constraint => {
+    const constraintViolations = constraints.map((constraint) => {
       const violation = this.evaluateConstraintViolation(solution, constraint);
       return {
         constraintId: constraint.id,
         violation,
-        severity: this.calculateViolationSeverity(violation, constraint)
+        severity: this.calculateViolationSeverity(violation, constraint),
       };
     });
 
     // Feasibility assessment
     const feasibility = this.assessFeasibility(solution, problem);
-    
+
     // Optimality assessment
     const optimality = this.assessOptimality(solution, problem);
 
@@ -143,35 +143,37 @@ export class SolutionAnalyzer {
         constraintViolations,
         feasibility,
         optimality,
-        robustness
-      )
+        robustness,
+      ),
     };
   }
 
   /**
    * Analyze algorithm performance metrics
    */
-  private async analyzePerformance(metrics: QuantumMetrics): Promise<PerformanceMetrics> {
+  private async analyzePerformance(
+    metrics: QuantumMetrics,
+  ): Promise<PerformanceMetrics> {
     const algorithmId = metrics.algorithmUsed;
-    
+
     // Get historical performance data
     const history = this.performanceHistory.get(algorithmId) || [];
-    
+
     // Calculate performance indicators
     const executionTime = metrics.executionTime;
     const memoryUsage = metrics.memoryUsage;
     const iterations = metrics.iterations;
     const convergenceRate = metrics.convergenceRate;
-    
+
     // Compare with historical performance
     const relativePerformance = this.calculateRelativePerformance(
       metrics,
-      history
+      history,
     );
 
     // Efficiency metrics
     const efficiency = this.calculateEfficiency(metrics);
-    
+
     // Scalability assessment
     const scalability = this.assessScalability(metrics);
 
@@ -184,7 +186,7 @@ export class SolutionAnalyzer {
       efficiency,
       scalability,
       relativePerformance,
-      timestamp: new Date()
+      timestamp: new Date(),
     };
 
     // Update performance history
@@ -199,7 +201,7 @@ export class SolutionAnalyzer {
    */
   private async analyzeConvergence(
     solution: OptimizationSolution,
-    problem: OptimizationProblem
+    problem: OptimizationProblem,
   ): Promise<ConvergenceAnalysis> {
     return this.convergenceAnalyzer.analyze(solution, problem);
   }
@@ -209,15 +211,18 @@ export class SolutionAnalyzer {
    */
   private async compareAlgorithms(
     solution: OptimizationSolution,
-    problem: OptimizationProblem
+    problem: OptimizationProblem,
   ): Promise<AlgorithmComparison> {
     const currentAlgorithm = solution.algorithmUsed;
     const availableAlgorithms = this.getAvailableAlgorithms(problem);
-    
-    const comparisons = availableAlgorithms.map(algorithm => {
-      const historicalPerformance = this.getAlgorithmPerformance(algorithm, problem);
+
+    const comparisons = availableAlgorithms.map((algorithm) => {
+      const historicalPerformance = this.getAlgorithmPerformance(
+        algorithm,
+        problem,
+      );
       const effectiveness = this.calculateEffectiveness(algorithm, problem);
-      
+
       return {
         algorithm,
         effectiveness,
@@ -226,21 +231,21 @@ export class SolutionAnalyzer {
           algorithm,
           problem,
           effectiveness,
-          historicalPerformance
-        )
+          historicalPerformance,
+        ),
       };
     });
 
     return {
       currentAlgorithm,
       alternatives: comparisons,
-      bestAlternative: comparisons.reduce((best, current) => 
-        current.recommendationScore > best.recommendationScore ? current : best
+      bestAlternative: comparisons.reduce((best, current) =>
+        current.recommendationScore > best.recommendationScore ? current : best,
       ),
       improvementPotential: this.calculateImprovementPotential(
         currentAlgorithm,
-        comparisons
-      )
+        comparisons,
+      ),
     };
   }
 
@@ -250,7 +255,7 @@ export class SolutionAnalyzer {
   private async generateInsights(
     solution: OptimizationSolution,
     problem: OptimizationProblem,
-    metrics: QuantumMetrics
+    metrics: QuantumMetrics,
   ): Promise<SolutionInsights> {
     return this.insightsGenerator.generate(solution, problem, metrics);
   }
@@ -261,7 +266,7 @@ export class SolutionAnalyzer {
   private calculateOverallScore(
     quality: SolutionQuality,
     performance: PerformanceMetrics,
-    convergence: ConvergenceAnalysis
+    convergence: ConvergenceAnalysis,
   ): number {
     const qualityWeight = 0.5;
     const performanceWeight = 0.3;
@@ -285,41 +290,44 @@ export class SolutionAnalyzer {
     solution: OptimizationSolution,
     problem: OptimizationProblem,
     quality: SolutionQuality,
-    performance: PerformanceMetrics
+    performance: PerformanceMetrics,
   ): OptimizationRecommendation[] {
     const recommendations: OptimizationRecommendation[] = [];
 
     // Quality-based recommendations
     if (quality.overallQuality < 0.8) {
       recommendations.push({
-        type: 'quality',
-        priority: 'high',
-        description: 'Consider adjusting algorithm parameters for better quality',
-        action: 'parameter_tuning',
-        expectedImprovement: 0.15
+        type: "quality",
+        priority: "high",
+        description:
+          "Consider adjusting algorithm parameters for better quality",
+        action: "parameter_tuning",
+        expectedImprovement: 0.15,
       });
     }
 
     // Performance-based recommendations
     if (performance.efficiency < 0.7) {
       recommendations.push({
-        type: 'performance',
-        priority: 'medium',
-        description: 'Algorithm may benefit from different approach',
-        action: 'algorithm_switch',
-        expectedImprovement: 0.2
+        type: "performance",
+        priority: "medium",
+        description: "Algorithm may benefit from different approach",
+        action: "algorithm_switch",
+        expectedImprovement: 0.2,
       });
     }
 
     // Constraint violation recommendations
-    const violations = quality.constraintViolations.filter(v => v.violation > 0);
+    const violations = quality.constraintViolations.filter(
+      (v) => v.violation > 0,
+    );
     if (violations.length > 0) {
       recommendations.push({
-        type: 'feasibility',
-        priority: 'high',
-        description: 'Address constraint violations',
-        action: 'constraint_adjustment',
-        expectedImprovement: 0.3
+        type: "feasibility",
+        priority: "high",
+        description: "Address constraint violations",
+        action: "constraint_adjustment",
+        expectedImprovement: 0.3,
       });
     }
 
@@ -329,7 +337,10 @@ export class SolutionAnalyzer {
   /**
    * Helper methods for various calculations
    */
-  private evaluateObjective(solution: OptimizationSolution, objective: any): number {
+  private evaluateObjective(
+    solution: OptimizationSolution,
+    objective: any,
+  ): number {
     // Implement objective evaluation logic
     return 0.8; // Placeholder
   }
@@ -339,29 +350,44 @@ export class SolutionAnalyzer {
     return Math.min(value / objective.target, 1.0);
   }
 
-  private evaluateConstraintViolation(solution: OptimizationSolution, constraint: any): number {
+  private evaluateConstraintViolation(
+    solution: OptimizationSolution,
+    constraint: any,
+  ): number {
     // Implement constraint violation calculation
     return 0; // Placeholder
   }
 
-  private calculateViolationSeverity(violation: number, constraint: any): string {
-    if (violation === 0) return 'none';
-    if (violation < constraint.tolerance) return 'minor';
-    if (violation < constraint.tolerance * 2) return 'moderate';
-    return 'severe';
+  private calculateViolationSeverity(
+    violation: number,
+    constraint: any,
+  ): string {
+    if (violation === 0) return "none";
+    if (violation < constraint.tolerance) return "minor";
+    if (violation < constraint.tolerance * 2) return "moderate";
+    return "severe";
   }
 
-  private assessFeasibility(solution: OptimizationSolution, problem: OptimizationProblem): number {
+  private assessFeasibility(
+    solution: OptimizationSolution,
+    problem: OptimizationProblem,
+  ): number {
     // Implement feasibility assessment
     return 0.9; // Placeholder
   }
 
-  private assessOptimality(solution: OptimizationSolution, problem: OptimizationProblem): number {
+  private assessOptimality(
+    solution: OptimizationSolution,
+    problem: OptimizationProblem,
+  ): number {
     // Implement optimality assessment
     return 0.85; // Placeholder
   }
 
-  private async analyzeRobustness(solution: OptimizationSolution, problem: OptimizationProblem): Promise<number> {
+  private async analyzeRobustness(
+    solution: OptimizationSolution,
+    problem: OptimizationProblem,
+  ): Promise<number> {
     // Implement robustness analysis
     return 0.8; // Placeholder
   }
@@ -371,23 +397,42 @@ export class SolutionAnalyzer {
     violations: any[],
     feasibility: number,
     optimality: number,
-    robustness: number
+    robustness: number,
   ): number {
-    const objectiveScore = objectives.reduce((sum, obj) => sum + obj.satisfaction * obj.weight, 0);
-    const violationPenalty = violations.reduce((sum, viol) => sum + (viol.severity === 'severe' ? 0.3 : 0.1), 0);
-    
-    return Math.max(0, (objectiveScore + feasibility + optimality + robustness) / 4 - violationPenalty);
+    const objectiveScore = objectives.reduce(
+      (sum, obj) => sum + obj.satisfaction * obj.weight,
+      0,
+    );
+    const violationPenalty = violations.reduce(
+      (sum, viol) => sum + (viol.severity === "severe" ? 0.3 : 0.1),
+      0,
+    );
+
+    return Math.max(
+      0,
+      (objectiveScore + feasibility + optimality + robustness) / 4 -
+        violationPenalty,
+    );
   }
 
-  private calculateRelativePerformance(metrics: QuantumMetrics, history: PerformanceMetrics[]): number {
+  private calculateRelativePerformance(
+    metrics: QuantumMetrics,
+    history: PerformanceMetrics[],
+  ): number {
     if (history.length === 0) return 0.5;
-    
-    const avgExecutionTime = history.reduce((sum, h) => sum + h.executionTime, 0) / history.length;
-    const avgEfficiency = history.reduce((sum, h) => sum + h.efficiency, 0) / history.length;
-    
-    const timeImprovement = Math.max(0, (avgExecutionTime - metrics.executionTime) / avgExecutionTime);
-    const efficiencyImprovement = (metrics.convergenceRate - avgEfficiency) / avgEfficiency;
-    
+
+    const avgExecutionTime =
+      history.reduce((sum, h) => sum + h.executionTime, 0) / history.length;
+    const avgEfficiency =
+      history.reduce((sum, h) => sum + h.efficiency, 0) / history.length;
+
+    const timeImprovement = Math.max(
+      0,
+      (avgExecutionTime - metrics.executionTime) / avgExecutionTime,
+    );
+    const efficiencyImprovement =
+      (metrics.convergenceRate - avgEfficiency) / avgEfficiency;
+
     return (timeImprovement + efficiencyImprovement) / 2;
   }
 
@@ -395,7 +440,7 @@ export class SolutionAnalyzer {
     const timeEfficiency = 1 / (1 + metrics.executionTime / 1000); // Normalize execution time
     const memoryEfficiency = 1 / (1 + metrics.memoryUsage / 1024); // Normalize memory usage
     const convergenceEfficiency = metrics.convergenceRate;
-    
+
     return (timeEfficiency + memoryEfficiency + convergenceEfficiency) / 3;
   }
 
@@ -406,15 +451,27 @@ export class SolutionAnalyzer {
 
   private getAvailableAlgorithms(problem: OptimizationProblem): string[] {
     // Return available algorithms based on problem characteristics
-    return ['quantum_annealing', 'qaoa', 'quantum_walk', 'genetic_algorithm', 'simulated_annealing'];
+    return [
+      "quantum_annealing",
+      "qaoa",
+      "quantum_walk",
+      "genetic_algorithm",
+      "simulated_annealing",
+    ];
   }
 
-  private getAlgorithmPerformance(algorithm: string, problem: OptimizationProblem): number {
+  private getAlgorithmPerformance(
+    algorithm: string,
+    problem: OptimizationProblem,
+  ): number {
     // Get historical performance for algorithm on similar problems
     return 0.8; // Placeholder
   }
 
-  private calculateEffectiveness(algorithm: string, problem: OptimizationProblem): number {
+  private calculateEffectiveness(
+    algorithm: string,
+    problem: OptimizationProblem,
+  ): number {
     // Calculate algorithm effectiveness for problem type
     return 0.85; // Placeholder
   }
@@ -423,15 +480,22 @@ export class SolutionAnalyzer {
     algorithm: string,
     problem: OptimizationProblem,
     effectiveness: number,
-    performance: number
+    performance: number,
   ): number {
     return (effectiveness + performance) / 2;
   }
 
-  private calculateImprovementPotential(currentAlgorithm: string, alternatives: any[]): number {
-    const currentScore = alternatives.find(alt => alt.algorithm === currentAlgorithm)?.recommendationScore || 0;
-    const bestScore = Math.max(...alternatives.map(alt => alt.recommendationScore));
-    
+  private calculateImprovementPotential(
+    currentAlgorithm: string,
+    alternatives: any[],
+  ): number {
+    const currentScore =
+      alternatives.find((alt) => alt.algorithm === currentAlgorithm)
+        ?.recommendationScore || 0;
+    const bestScore = Math.max(
+      ...alternatives.map((alt) => alt.recommendationScore),
+    );
+
     return Math.max(0, (bestScore - currentScore) / currentScore);
   }
 
@@ -442,10 +506,10 @@ export class SolutionAnalyzer {
 
   private initializeQualityThresholds(): QualityThreshold[] {
     return [
-      { metric: 'overall_quality', excellent: 0.9, good: 0.7, acceptable: 0.5 },
-      { metric: 'feasibility', excellent: 0.95, good: 0.8, acceptable: 0.6 },
-      { metric: 'optimality', excellent: 0.9, good: 0.75, acceptable: 0.5 },
-      { metric: 'robustness', excellent: 0.85, good: 0.7, acceptable: 0.5 }
+      { metric: "overall_quality", excellent: 0.9, good: 0.7, acceptable: 0.5 },
+      { metric: "feasibility", excellent: 0.95, good: 0.8, acceptable: 0.6 },
+      { metric: "optimality", excellent: 0.9, good: 0.75, acceptable: 0.5 },
+      { metric: "robustness", excellent: 0.85, good: 0.7, acceptable: 0.5 },
     ];
   }
 }
@@ -454,9 +518,12 @@ export class SolutionAnalyzer {
  * Specialized convergence analyzer
  */
 class ConvergenceAnalyzer {
-  async analyze(solution: OptimizationSolution, problem: OptimizationProblem): Promise<ConvergenceAnalysis> {
+  async analyze(
+    solution: OptimizationSolution,
+    problem: OptimizationProblem,
+  ): Promise<ConvergenceAnalysis> {
     const history = solution.optimizationHistory || [];
-    
+
     if (history.length < 2) {
       return {
         converged: false,
@@ -464,7 +531,7 @@ class ConvergenceAnalyzer {
         stabilityScore: 0,
         plateauDetected: false,
         oscillationPattern: false,
-        convergencePoint: null
+        convergencePoint: null,
       };
     }
 
@@ -481,7 +548,7 @@ class ConvergenceAnalyzer {
       stabilityScore,
       plateauDetected,
       oscillationPattern,
-      convergencePoint
+      convergencePoint,
     };
   }
 
@@ -490,29 +557,36 @@ class ConvergenceAnalyzer {
 
     const improvements = [];
     for (let i = 1; i < history.length; i++) {
-      const improvement = (history[i].objectiveValue - history[i-1].objectiveValue) / history[i-1].objectiveValue;
+      const improvement =
+        (history[i].objectiveValue - history[i - 1].objectiveValue) /
+        history[i - 1].objectiveValue;
       improvements.push(Math.abs(improvement));
     }
 
     // Calculate convergence rate based on decreasing improvement rates
-    const avgImprovement = improvements.reduce((sum, imp) => sum + imp, 0) / improvements.length;
-    const recentImprovement = improvements.slice(-5).reduce((sum, imp) => sum + imp, 0) / Math.min(5, improvements.length);
+    const avgImprovement =
+      improvements.reduce((sum, imp) => sum + imp, 0) / improvements.length;
+    const recentImprovement =
+      improvements.slice(-5).reduce((sum, imp) => sum + imp, 0) /
+      Math.min(5, improvements.length);
 
-    return Math.max(0, 1 - (recentImprovement / avgImprovement));
+    return Math.max(0, 1 - recentImprovement / avgImprovement);
   }
 
   private calculateStabilityScore(history: OptimizationHistory[]): number {
     if (history.length < 5) return 0;
 
     const recent = history.slice(-10);
-    const values = recent.map(h => h.objectiveValue);
-    
+    const values = recent.map((h) => h.objectiveValue);
+
     const mean = values.reduce((sum, val) => sum + val, 0) / values.length;
-    const variance = values.reduce((sum, val) => sum + Math.pow(val - mean, 2), 0) / values.length;
+    const variance =
+      values.reduce((sum, val) => sum + Math.pow(val - mean, 2), 0) /
+      values.length;
     const standardDeviation = Math.sqrt(variance);
-    
+
     // Stability is inverse of relative standard deviation
-    return Math.max(0, 1 - (standardDeviation / mean));
+    return Math.max(0, 1 - standardDeviation / mean);
   }
 
   private detectPlateau(history: OptimizationHistory[]): boolean {
@@ -520,13 +594,16 @@ class ConvergenceAnalyzer {
 
     const recent = history.slice(-10);
     const improvements = [];
-    
+
     for (let i = 1; i < recent.length; i++) {
-      const improvement = Math.abs(recent[i].objectiveValue - recent[i-1].objectiveValue);
+      const improvement = Math.abs(
+        recent[i].objectiveValue - recent[i - 1].objectiveValue,
+      );
       improvements.push(improvement);
     }
 
-    const avgImprovement = improvements.reduce((sum, imp) => sum + imp, 0) / improvements.length;
+    const avgImprovement =
+      improvements.reduce((sum, imp) => sum + imp, 0) / improvements.length;
     const threshold = 0.001; // Very small improvement threshold
 
     return avgImprovement < threshold;
@@ -537,13 +614,16 @@ class ConvergenceAnalyzer {
 
     const recent = history.slice(-6);
     let oscillations = 0;
-    
+
     for (let i = 2; i < recent.length; i++) {
-      const prev = recent[i-1].objectiveValue;
+      const prev = recent[i - 1].objectiveValue;
       const curr = recent[i].objectiveValue;
-      const next = recent[i+1]?.objectiveValue;
-      
-      if (next && ((curr > prev && curr > next) || (curr < prev && curr < next))) {
+      const next = recent[i + 1]?.objectiveValue;
+
+      if (
+        next &&
+        ((curr > prev && curr > next) || (curr < prev && curr < next))
+      ) {
         oscillations++;
       }
     }
@@ -555,17 +635,20 @@ class ConvergenceAnalyzer {
     if (history.length < 10) return null;
 
     const threshold = 0.001;
-    
+
     for (let i = 10; i < history.length; i++) {
-      const recent = history.slice(i-10, i);
+      const recent = history.slice(i - 10, i);
       const improvements = [];
-      
+
       for (let j = 1; j < recent.length; j++) {
-        improvements.push(Math.abs(recent[j].objectiveValue - recent[j-1].objectiveValue));
+        improvements.push(
+          Math.abs(recent[j].objectiveValue - recent[j - 1].objectiveValue),
+        );
       }
-      
-      const avgImprovement = improvements.reduce((sum, imp) => sum + imp, 0) / improvements.length;
-      
+
+      const avgImprovement =
+        improvements.reduce((sum, imp) => sum + imp, 0) / improvements.length;
+
       if (avgImprovement < threshold) {
         return i;
       }
@@ -582,40 +665,45 @@ class InsightsGenerator {
   async generate(
     solution: OptimizationSolution,
     problem: OptimizationProblem,
-    metrics: QuantumMetrics
+    metrics: QuantumMetrics,
   ): Promise<SolutionInsights> {
     const insights = [];
 
     // Algorithm performance insights
     if (metrics.quantumAdvantage > 0.2) {
       insights.push({
-        type: 'performance',
-        category: 'quantum_advantage',
-        description: 'Quantum-inspired algorithm showed significant advantage over classical approaches',
+        type: "performance",
+        category: "quantum_advantage",
+        description:
+          "Quantum-inspired algorithm showed significant advantage over classical approaches",
         confidence: 0.9,
-        impact: 'high'
+        impact: "high",
       });
     }
 
     // Problem complexity insights
     if (problem.variables.length > 100) {
       insights.push({
-        type: 'complexity',
-        category: 'scale',
-        description: 'High-dimensional problem successfully optimized',
+        type: "complexity",
+        category: "scale",
+        description: "High-dimensional problem successfully optimized",
         confidence: 0.8,
-        impact: 'medium'
+        impact: "medium",
       });
     }
 
     // Optimization strategy insights
-    if (solution.algorithmUsed === 'quantum_annealing' && metrics.convergenceRate > 0.9) {
+    if (
+      solution.algorithmUsed === "quantum_annealing" &&
+      metrics.convergenceRate > 0.9
+    ) {
       insights.push({
-        type: 'strategy',
-        category: 'algorithm_selection',
-        description: 'Quantum annealing performed exceptionally well for this problem type',
+        type: "strategy",
+        category: "algorithm_selection",
+        description:
+          "Quantum annealing performed exceptionally well for this problem type",
         confidence: 0.95,
-        impact: 'high'
+        impact: "high",
       });
     }
 
@@ -623,11 +711,11 @@ class InsightsGenerator {
     const businessImpact = this.assessBusinessImpact(solution, problem);
     if (businessImpact.roi > 0.5) {
       insights.push({
-        type: 'business',
-        category: 'roi',
+        type: "business",
+        category: "roi",
         description: `Optimization solution provides significant ROI of ${(businessImpact.roi * 100).toFixed(1)}%`,
         confidence: 0.85,
-        impact: 'high'
+        impact: "high",
       });
     }
 
@@ -635,43 +723,54 @@ class InsightsGenerator {
       insights,
       keyFindings: this.extractKeyFindings(insights),
       businessImpact,
-      technicalRecommendations: this.generateTechnicalRecommendations(solution, problem, metrics)
+      technicalRecommendations: this.generateTechnicalRecommendations(
+        solution,
+        problem,
+        metrics,
+      ),
     };
   }
 
-  private assessBusinessImpact(solution: OptimizationSolution, problem: OptimizationProblem): any {
+  private assessBusinessImpact(
+    solution: OptimizationSolution,
+    problem: OptimizationProblem,
+  ): any {
     // Assess business impact based on problem type and solution quality
     return {
       roi: 0.65,
       costSavings: 125000,
       efficiencyGain: 0.3,
-      timeReduction: 0.4
+      timeReduction: 0.4,
     };
   }
 
   private extractKeyFindings(insights: any[]): string[] {
     return insights
-      .filter(insight => insight.impact === 'high')
-      .map(insight => insight.description);
+      .filter((insight) => insight.impact === "high")
+      .map((insight) => insight.description);
   }
 
   private generateTechnicalRecommendations(
     solution: OptimizationSolution,
     problem: OptimizationProblem,
-    metrics: QuantumMetrics
+    metrics: QuantumMetrics,
   ): string[] {
     const recommendations = [];
 
     if (metrics.executionTime > 5000) {
-      recommendations.push('Consider parameter tuning to reduce execution time');
+      recommendations.push(
+        "Consider parameter tuning to reduce execution time",
+      );
     }
 
     if (metrics.memoryUsage > 1024) {
-      recommendations.push('Optimize memory usage for better scalability');
+      recommendations.push("Optimize memory usage for better scalability");
     }
 
     if (metrics.convergenceRate < 0.8) {
-      recommendations.push('Adjust convergence criteria for better solution quality');
+      recommendations.push(
+        "Adjust convergence criteria for better solution quality",
+      );
     }
 
     return recommendations;
@@ -693,11 +792,15 @@ interface SolutionAnalysis {
 }
 
 interface OptimizationRecommendation {
-  type: 'quality' | 'performance' | 'feasibility' | 'strategy';
-  priority: 'high' | 'medium' | 'low';
+  type: "quality" | "performance" | "feasibility" | "strategy";
+  priority: "high" | "medium" | "low";
   description: string;
   action: string;
   expectedImprovement: number;
 }
 
-export { SolutionAnalyzer, type SolutionAnalysis, type OptimizationRecommendation };
+export {
+  SolutionAnalyzer,
+  type SolutionAnalysis,
+  type OptimizationRecommendation,
+};

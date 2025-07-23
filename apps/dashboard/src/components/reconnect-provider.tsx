@@ -105,7 +105,7 @@ export function ReconnectProvider({
     switch (provider) {
       case "plaid": {
         const token = await createPlaidLinkTokenAction(
-          accessToken ?? undefined
+          accessToken ?? undefined,
         );
 
         if (token) {

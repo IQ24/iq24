@@ -31,7 +31,7 @@ export function InvoiceStatus({
           "text-[#00C969] bg-[#DDF1E4] dark:text-[#00C969] dark:bg-[#00C969]/10",
         status === "unpaid" &&
           "text-[#1D1D1D] bg-[#878787]/10 dark:text-[#F5F5F3] dark:bg-[#F5F5F3]/10",
-        className
+        className,
       )}
     >
       <span className="line-clamp-1 truncate inline-block">

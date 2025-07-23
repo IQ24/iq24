@@ -28,5 +28,5 @@ export const mfaVerifyAction = authActionClient
       revalidatePath("/account/security");
 
       return data;
-    }
+    },
   );

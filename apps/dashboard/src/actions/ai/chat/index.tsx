@@ -33,7 +33,7 @@ const ratelimit = new Ratelimit({
 });
 
 export async function submitUserMessage(
-  content: string
+  content: string,
 ): Promise<ClientMessage> {
   "use server";
   const ip = headers().get("x-forwarded-for");

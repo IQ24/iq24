@@ -186,7 +186,7 @@ export function SelectBankAccountsModal() {
       {
         // NOTE: Rerender so the overview modal is visible
         shallow: false,
-      }
+      },
     );
   };
 
@@ -346,7 +346,7 @@ export function SelectBankAccountsModal() {
                                     checked={
                                       field.value.find(
                                         (value) =>
-                                          value.account_id === account.id
+                                          value.account_id === account.id,
                                       )?.enabled
                                     }
                                     onCheckedChange={(checked) => {
@@ -360,7 +360,7 @@ export function SelectBankAccountsModal() {
                                           }
 
                                           return value;
-                                        })
+                                        }),
                                       );
                                     }}
                                   />

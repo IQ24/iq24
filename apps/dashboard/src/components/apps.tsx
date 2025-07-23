@@ -27,7 +27,7 @@ export function Apps({
   const filteredApps = apps
     .filter((app) => !isInstalledPage || installedApps.includes(app.id))
     .filter(
-      (app) => !search || app.name.toLowerCase().includes(search.toLowerCase())
+      (app) => !search || app.name.toLowerCase().includes(search.toLowerCase()),
     );
 
   return (

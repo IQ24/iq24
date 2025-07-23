@@ -37,11 +37,31 @@
         "SENTRY_SUPPRESS_GLOBAL_ERROR_HANDLER_FILE_WARNING",
         "SLACK_CLIENT_SECRET",
         "SLACK_CLIENT_ID",
-        "SLACK_SIGNING_SECRET"
+        "SLACK_SIGNING_SECRET",
+        "ANTHROPIC_API_KEY",
+        "GEMINI_API_KEY",
+        "MIXPANEL_TOKEN",
+        "SEGMENT_WRITE_KEY",
+        "TEMPORAL_ADDRESS",
+        "TEMPORAL_NAMESPACE",
+        "REDIS_URL",
+        "POSTGRES_URL",
+        "AI_MODEL_API_KEY",
+        "VECTOR_DB_URL",
+        "ANALYTICS_API_KEY"
       ],
       "inputs": ["$TURBO_DEFAULT$", ".env"],
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**", "next-env.d.ts", ".expo/**"]
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        "next-env.d.ts",
+        ".expo/**",
+        "dist/**",
+        "build/**",
+        "lib/**",
+        "*.tsbuildinfo"
+      ]
     },
     "start": {
       "cache": false
@@ -65,6 +85,21 @@
     "typecheck": {
       "dependsOn": ["^topo"],
       "outputs": ["node_modules/.cache/tsbuildinfo.json"]
+    },
+    "clean": {
+      "cache": false
+    },
+    "db:generate": {
+      "cache": false
+    },
+    "db:push": {
+      "cache": false
+    },
+    "db:migrate": {
+      "cache": false
+    },
+    "db:seed": {
+      "cache": false
     }
   }
 }

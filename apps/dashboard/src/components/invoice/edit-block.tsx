@@ -29,7 +29,7 @@ export function EditBlock({ name }: Props) {
             disablePlaceholder
             className={cn(
               "transition-opacity",
-              field.value ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+              field.value ? "opacity-100" : "opacity-0 group-hover:opacity-100",
             )}
           />
         )}

@@ -29,7 +29,7 @@ export function ChartFilters({ currencies }: Props) {
     },
     {
       shallow: false,
-    }
+    },
   );
 
   const allCurrencies = [

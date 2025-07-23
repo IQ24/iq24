@@ -71,7 +71,7 @@ export function TrackerSelectProject({
     setData(projectsData);
 
     const foundProject = projectsData.find(
-      (project) => project?.id === selectedId
+      (project) => project?.id === selectedId,
     );
 
     if (foundProject) {

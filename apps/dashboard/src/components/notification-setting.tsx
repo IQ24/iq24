@@ -34,7 +34,7 @@ export function NotificationSetting({
           enabled: !state.enabled,
         };
       },
-    }
+    },
   );
 
   const onChange = () => {

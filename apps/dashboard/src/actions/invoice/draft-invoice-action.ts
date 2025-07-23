@@ -55,7 +55,7 @@ export const draftInvoiceAction = authActionClient
           {
             onConflict: "id",
             merge: true,
-          }
+          },
         )
         .select("*")
         .single();
@@ -65,5 +65,5 @@ export const draftInvoiceAction = authActionClient
       revalidateTag(`invoice_number_${teamId}`);
 
       return data;
-    }
+    },
   );

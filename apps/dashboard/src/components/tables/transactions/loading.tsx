@@ -60,7 +60,7 @@ export function Loading({ isEmpty }: { isEmpty?: boolean }) {
               <Skeleton
                 className={cn(
                   "h-[20px] w-[20px] rounded-full",
-                  isEmpty && "animate-none"
+                  isEmpty && "animate-none",
                 )}
               />
             </TableCell>

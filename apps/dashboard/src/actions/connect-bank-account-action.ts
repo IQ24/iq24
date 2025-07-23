@@ -69,5 +69,5 @@ export const connectBankAccountAction = authActionClient
       revalidateTag(`bank_connections_${teamId}`);
 
       return event;
-    }
+    },
   );

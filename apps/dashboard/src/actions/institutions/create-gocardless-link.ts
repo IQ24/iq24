@@ -70,5 +70,5 @@ export const createGoCardLessLinkAction = authActionClient
 
         throw error;
       }
-    }
+    },
   );

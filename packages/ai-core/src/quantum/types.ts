@@ -1,6 +1,6 @@
 /**
  * Quantum-Inspired Optimization Engine (QOE) Type Definitions
- * 
+ *
  * Defines types for quantum-inspired algorithms used in campaign optimization,
  * resource allocation, and multi-objective decision making for IQ24.ai platform.
  */
@@ -33,7 +33,7 @@ export interface QuantumEntanglement {
   readonly variableA: string;
   readonly variableB: string;
   readonly correlationStrength: number;
-  readonly type: 'positive' | 'negative' | 'complex';
+  readonly type: "positive" | "negative" | "complex";
 }
 
 // ==================== Optimization Problem Types ====================
@@ -51,15 +51,15 @@ export interface OptimizationProblem {
   readonly quantumProperties: QuantumProblemProperties;
 }
 
-export type OptimizationProblemType = 
-  | 'campaign_strategy'
-  | 'resource_allocation' 
-  | 'prospect_prioritization'
-  | 'channel_optimization'
-  | 'timing_optimization'
-  | 'content_optimization'
-  | 'budget_allocation'
-  | 'pipeline_optimization';
+export type OptimizationProblemType =
+  | "campaign_strategy"
+  | "resource_allocation"
+  | "prospect_prioritization"
+  | "channel_optimization"
+  | "timing_optimization"
+  | "content_optimization"
+  | "budget_allocation"
+  | "pipeline_optimization";
 
 /**
  * Individual optimization objective
@@ -70,19 +70,19 @@ export interface OptimizationObjective {
   readonly type: ObjectiveType;
   readonly weight: number;
   readonly target: number;
-  readonly minimizeOrMaximize: 'minimize' | 'maximize';
+  readonly minimizeOrMaximize: "minimize" | "maximize";
   readonly quantumInfluence: number; // 0-1 scale of quantum effects
 }
 
-export type ObjectiveType = 
-  | 'conversion_rate'
-  | 'cost_per_lead'
-  | 'engagement_rate'
-  | 'pipeline_velocity'
-  | 'roi'
-  | 'compliance_score'
-  | 'customer_satisfaction'
-  | 'resource_efficiency';
+export type ObjectiveType =
+  | "conversion_rate"
+  | "cost_per_lead"
+  | "engagement_rate"
+  | "pipeline_velocity"
+  | "roi"
+  | "compliance_score"
+  | "customer_satisfaction"
+  | "resource_efficiency";
 
 /**
  * Optimization constraint definition
@@ -95,13 +95,13 @@ export interface OptimizationConstraint {
   readonly quantumFlexibility: number; // 0-1 scale allowing quantum tunneling through constraints
 }
 
-export type ConstraintType = 
-  | 'budget_limit'
-  | 'time_limit'
-  | 'resource_capacity'
-  | 'compliance_requirement'
-  | 'quality_threshold'
-  | 'rate_limit';
+export type ConstraintType =
+  | "budget_limit"
+  | "time_limit"
+  | "resource_capacity"
+  | "compliance_requirement"
+  | "quality_threshold"
+  | "rate_limit";
 
 export interface ConstraintBounds {
   readonly min?: number;
@@ -122,12 +122,12 @@ export interface OptimizationVariable {
   readonly coherenceTime: number; // Time before quantum decoherence
 }
 
-export type VariableType = 
-  | 'continuous'
-  | 'discrete' 
-  | 'binary'
-  | 'categorical'
-  | 'quantum_superposition';
+export type VariableType =
+  | "continuous"
+  | "discrete"
+  | "binary"
+  | "categorical"
+  | "quantum_superposition";
 
 export interface VariableDomain {
   readonly min?: number;
@@ -137,7 +137,7 @@ export interface VariableDomain {
 }
 
 export interface ProbabilityDistribution {
-  readonly type: 'uniform' | 'normal' | 'exponential' | 'custom';
+  readonly type: "uniform" | "normal" | "exponential" | "custom";
   readonly parameters: Record<string, number>;
 }
 
@@ -165,13 +165,13 @@ export interface QuantumAlgorithmConfig {
   readonly quantumAdvantage: boolean;
 }
 
-export type QuantumAlgorithmType = 
-  | 'quantum_annealing'
-  | 'quantum_approximate_optimization'
-  | 'quantum_walk'
-  | 'variational_quantum_eigensolver'
-  | 'quantum_neural_network'
-  | 'adiabatic_quantum_computation';
+export type QuantumAlgorithmType =
+  | "quantum_annealing"
+  | "quantum_approximate_optimization"
+  | "quantum_walk"
+  | "variational_quantum_eigensolver"
+  | "quantum_neural_network"
+  | "adiabatic_quantum_computation";
 
 /**
  * Algorithm-specific parameters
@@ -187,7 +187,7 @@ export interface QuantumAlgorithmParameters {
 }
 
 export interface CoolingSchedule {
-  readonly type: 'linear' | 'exponential' | 'logarithmic' | 'adaptive';
+  readonly type: "linear" | "exponential" | "logarithmic" | "adaptive";
   readonly initialTemperature: number;
   readonly finalTemperature: number;
   readonly rate: number;
@@ -274,10 +274,10 @@ export interface QOEConfig {
 }
 
 export interface QuantumSimulatorConfig {
-  readonly type: 'local_simulator' | 'cloud_simulator' | 'hybrid';
+  readonly type: "local_simulator" | "cloud_simulator" | "hybrid";
   readonly qubits: number;
   readonly noiseModel: QuantumNoiseModel;
-  readonly provider?: 'qiskit' | 'cirq' | 'pennylane' | 'custom';
+  readonly provider?: "qiskit" | "cirq" | "pennylane" | "custom";
 }
 
 export interface QuantumNoiseModel {
@@ -321,18 +321,22 @@ export interface QOEFallbackConfig {
 }
 
 export interface FallbackTrigger {
-  readonly condition: 'timeout' | 'error' | 'poor_convergence' | 'resource_limit';
+  readonly condition:
+    | "timeout"
+    | "error"
+    | "poor_convergence"
+    | "resource_limit";
   readonly threshold: number;
-  readonly action: 'switch_to_classical' | 'hybrid_mode' | 'simplified_quantum';
+  readonly action: "switch_to_classical" | "hybrid_mode" | "simplified_quantum";
 }
 
-export type ClassicalAlgorithmType = 
-  | 'genetic_algorithm'
-  | 'simulated_annealing'
-  | 'particle_swarm'
-  | 'gradient_descent'
-  | 'nelder_mead'
-  | 'differential_evolution';
+export type ClassicalAlgorithmType =
+  | "genetic_algorithm"
+  | "simulated_annealing"
+  | "particle_swarm"
+  | "gradient_descent"
+  | "nelder_mead"
+  | "differential_evolution";
 
 // ==================== Campaign-Specific Types ====================
 
@@ -350,7 +354,13 @@ export interface CampaignOptimizationProblem extends OptimizationProblem {
 
 export interface CampaignChannel {
   readonly id: string;
-  readonly type: 'email' | 'linkedin' | 'phone' | 'direct_mail' | 'video' | 'voice';
+  readonly type:
+    | "email"
+    | "linkedin"
+    | "phone"
+    | "direct_mail"
+    | "video"
+    | "voice";
   readonly capacity: number;
   readonly costPerContact: number;
   readonly averageResponseRate: number;
@@ -413,7 +423,7 @@ export interface CampaignMetrics {
 export interface MarketConditions {
   readonly sentiment: number;
   readonly volatility: number;
-  readonly trend: 'bullish' | 'bearish' | 'sideways';
+  readonly trend: "bullish" | "bearish" | "sideways";
   readonly seasonality: number;
   readonly quantumMarketEffects: number;
 }
@@ -430,7 +440,7 @@ export interface CompetitorActivity {
 /**
  * QOE system events
  */
-export type QOEEvent = 
+export type QOEEvent =
   | OptimizationStartedEvent
   | OptimizationCompletedEvent
   | OptimizationFailedEvent
@@ -439,14 +449,14 @@ export type QOEEvent =
   | PerformanceAlertEvent;
 
 export interface OptimizationStartedEvent {
-  readonly type: 'optimization_started';
+  readonly type: "optimization_started";
   readonly problemId: string;
   readonly algorithm: QuantumAlgorithmType;
   readonly timestamp: Date;
 }
 
 export interface OptimizationCompletedEvent {
-  readonly type: 'optimization_completed';
+  readonly type: "optimization_completed";
   readonly problemId: string;
   readonly solutionId: string;
   readonly algorithm: QuantumAlgorithmType;
@@ -456,7 +466,7 @@ export interface OptimizationCompletedEvent {
 }
 
 export interface OptimizationFailedEvent {
-  readonly type: 'optimization_failed';
+  readonly type: "optimization_failed";
   readonly problemId: string;
   readonly algorithm: QuantumAlgorithmType;
   readonly error: string;
@@ -465,7 +475,7 @@ export interface OptimizationFailedEvent {
 }
 
 export interface QuantumAdvantageDetectedEvent {
-  readonly type: 'quantum_advantage_detected';
+  readonly type: "quantum_advantage_detected";
   readonly problemId: string;
   readonly advantage: number;
   readonly classicalTime: number;
@@ -474,7 +484,7 @@ export interface QuantumAdvantageDetectedEvent {
 }
 
 export interface FallbackTriggeredEvent {
-  readonly type: 'fallback_triggered';
+  readonly type: "fallback_triggered";
   readonly problemId: string;
   readonly trigger: FallbackTrigger;
   readonly fallbackAlgorithm: ClassicalAlgorithmType;
@@ -482,11 +492,11 @@ export interface FallbackTriggeredEvent {
 }
 
 export interface PerformanceAlertEvent {
-  readonly type: 'performance_alert';
+  readonly type: "performance_alert";
   readonly metric: string;
   readonly value: number;
   readonly threshold: number;
-  readonly severity: 'low' | 'medium' | 'high' | 'critical';
+  readonly severity: "low" | "medium" | "high" | "critical";
   readonly timestamp: Date;
 }
 
@@ -565,5 +575,5 @@ export interface CostBenefitAnalysis {
 export interface ReportingPeriod {
   readonly startDate: Date;
   readonly endDate: Date;
-  readonly granularity: 'hourly' | 'daily' | 'weekly' | 'monthly';
+  readonly granularity: "hourly" | "daily" | "weekly" | "monthly";
 }

@@ -12,29 +12,32 @@ import {
   FeatureQualityMetrics,
   FeatureStorageConfig,
   FeatureServingConfig,
-  FeatureRetrievalOptions
-} from '../types';
-import { EventEmitter } from 'events';
-import { Redis } from 'ioredis';
-import { Logger } from '../utils/logger';
+  FeatureRetrievalOptions,
+} from "../types";
+import { EventEmitter } from "events";
+import { Redis } from "ioredis";
+import { Logger } from "../utils/logger";
 
 /**
  * Online Feature Store Implementation
  * High-performance, low-latency feature serving for real-time inference
  */
-export class OnlineFeatureStoreImpl extends EventEmitter implements OnlineFeatureStore {
+export class OnlineFeatureStoreImpl
+  extends EventEmitter
+  implements OnlineFeatureStore
+{
   private redis: Redis;
   private logger: Logger;
   private registry: FeatureRegistry;
   private config: FeatureServingConfig;
-  private healthStatus: 'healthy' | 'degraded' | 'unhealthy' = 'healthy';
+  private healthStatus: "healthy" | "degraded" | "unhealthy" = "healthy";
   private metrics: Map<string, FeatureQualityMetrics> = new Map();
 
   constructor(
     redis: Redis,
     registry: FeatureRegistry,
     config: FeatureServingConfig,
-    logger: Logger
+    logger: Logger,
   ) {
     super();
     this.redis = redis;
@@ -44,35 +47,46 @@ export class OnlineFeatureStoreImpl extends EventEmitter implements OnlineFeatur
     this.startHealthCheck();
   }
 
-  async get(featureKey: string, entityId: string): Promise<FeatureValue | null> {
+  async get(
+    featureKey: string,
+    entityId: string,
+  ): Promise<FeatureValue | null> {
     try {
       const key = this.buildFeatureKey(featureKey, entityId);
       const value = await this.redis.get(key);
-      
+
       if (!value) {
-        this.logger.debug(`Feature not found: ${featureKey} for entity ${entityId}`);
+        this.logger.debug(
+          `Feature not found: ${featureKey} for entity ${entityId}`,
+        );
         return null;
       }
 
       const parsedValue = JSON.parse(value);
       this.updateAccessMetrics(featureKey);
-      
+
       return {
         value: parsedValue.value,
         timestamp: new Date(parsedValue.timestamp),
         version: parsedValue.version,
-        source: parsedValue.source
+        source: parsedValue.source,
       };
     } catch (error) {
-      this.logger.error('Failed to get feature from online store', { featureKey, entityId, error });
-      this.emit('error', { operation: 'get', featureKey, entityId, error });
+      this.logger.error("Failed to get feature from online store", {
+        featureKey,
+        entityId,
+        error,
+      });
+      this.emit("error", { operation: "get", featureKey, entityId, error });
       throw error;
     }
   }
 
-  async getBatch(queries: FeatureQuery[]): Promise<Map<string, FeatureValue | null>> {
+  async getBatch(
+    queries: FeatureQuery[],
+  ): Promise<Map<string, FeatureValue | null>> {
     const results = new Map<string, FeatureValue | null>();
-    
+
     try {
       // Build pipeline for batch retrieval
       const pipeline = this.redis.pipeline();
@@ -85,17 +99,20 @@ export class OnlineFeatureStoreImpl extends EventEmitter implements OnlineFeatur
       }
 
       const pipelineResults = await pipeline.exec();
-      
+
       if (!pipelineResults) {
-        throw new Error('Pipeline execution failed');
+        throw new Error("Pipeline execution failed");
       }
 
       for (let i = 0; i < queries.length; i++) {
         const [error, value] = pipelineResults[i];
         const queryKey = queryKeys[i];
-        
+
         if (error) {
-          this.logger.error('Failed to get feature in batch', { queryKey, error });
+          this.logger.error("Failed to get feature in batch", {
+            queryKey,
+            error,
+          });
           results.set(queryKey, null);
           continue;
         }
@@ -106,7 +123,7 @@ export class OnlineFeatureStoreImpl extends EventEmitter implements OnlineFeatur
             value: parsedValue.value,
             timestamp: new Date(parsedValue.timestamp),
             version: parsedValue.version,
-            source: parsedValue.source
+            source: parsedValue.source,
           });
           this.updateAccessMetrics(queries[i].featureKey);
         } else {
@@ -116,20 +133,27 @@ export class OnlineFeatureStoreImpl extends EventEmitter implements OnlineFeatur
 
       return results;
     } catch (error) {
-      this.logger.error('Failed to get batch features from online store', { queriesCount: queries.length, error });
-      this.emit('error', { operation: 'getBatch', queries, error });
+      this.logger.error("Failed to get batch features from online store", {
+        queriesCount: queries.length,
+        error,
+      });
+      this.emit("error", { operation: "getBatch", queries, error });
       throw error;
     }
   }
 
-  async set(featureKey: string, entityId: string, value: FeatureValue): Promise<void> {
+  async set(
+    featureKey: string,
+    entityId: string,
+    value: FeatureValue,
+  ): Promise<void> {
     try {
       const key = this.buildFeatureKey(featureKey, entityId);
       const serializedValue = JSON.stringify({
         value: value.value,
         timestamp: value.timestamp.toISOString(),
         version: value.version,
-        source: value.source
+        source: value.source,
       });
 
       // Set with TTL if configured
@@ -143,15 +167,25 @@ export class OnlineFeatureStoreImpl extends EventEmitter implements OnlineFeatur
       }
 
       this.updateWriteMetrics(featureKey);
-      this.emit('featureUpdated', { featureKey, entityId, value });
+      this.emit("featureUpdated", { featureKey, entityId, value });
     } catch (error) {
-      this.logger.error('Failed to set feature in online store', { featureKey, entityId, error });
-      this.emit('error', { operation: 'set', featureKey, entityId, error });
+      this.logger.error("Failed to set feature in online store", {
+        featureKey,
+        entityId,
+        error,
+      });
+      this.emit("error", { operation: "set", featureKey, entityId, error });
       throw error;
     }
   }
 
-  async setBatch(features: Array<{ featureKey: string; entityId: string; value: FeatureValue }>): Promise<void> {
+  async setBatch(
+    features: Array<{
+      featureKey: string;
+      entityId: string;
+      value: FeatureValue;
+    }>,
+  ): Promise<void> {
     try {
       const pipeline = this.redis.pipeline();
 
@@ -161,7 +195,7 @@ export class OnlineFeatureStoreImpl extends EventEmitter implements OnlineFeatur
           value: value.value,
           timestamp: value.timestamp.toISOString(),
           version: value.version,
-          source: value.source
+          source: value.source,
         });
 
         const feature = await this.registry.getFeature(featureKey);
@@ -177,10 +211,13 @@ export class OnlineFeatureStoreImpl extends EventEmitter implements OnlineFeatur
       }
 
       await pipeline.exec();
-      this.emit('batchFeaturesUpdated', { features });
+      this.emit("batchFeaturesUpdated", { features });
     } catch (error) {
-      this.logger.error('Failed to set batch features in online store', { featuresCount: features.length, error });
-      this.emit('error', { operation: 'setBatch', features, error });
+      this.logger.error("Failed to set batch features in online store", {
+        featuresCount: features.length,
+        error,
+      });
+      this.emit("error", { operation: "setBatch", features, error });
       throw error;
     }
   }
@@ -189,36 +226,44 @@ export class OnlineFeatureStoreImpl extends EventEmitter implements OnlineFeatur
     try {
       const key = this.buildFeatureKey(featureKey, entityId);
       await this.redis.del(key);
-      this.emit('featureDeleted', { featureKey, entityId });
+      this.emit("featureDeleted", { featureKey, entityId });
     } catch (error) {
-      this.logger.error('Failed to delete feature from online store', { featureKey, entityId, error });
-      this.emit('error', { operation: 'delete', featureKey, entityId, error });
+      this.logger.error("Failed to delete feature from online store", {
+        featureKey,
+        entityId,
+        error,
+      });
+      this.emit("error", { operation: "delete", featureKey, entityId, error });
       throw error;
     }
   }
 
-  async getHealth(): Promise<{ status: 'healthy' | 'degraded' | 'unhealthy'; latency: number; metrics: any }> {
+  async getHealth(): Promise<{
+    status: "healthy" | "degraded" | "unhealthy";
+    latency: number;
+    metrics: any;
+  }> {
     const start = Date.now();
-    
+
     try {
       await this.redis.ping();
       const latency = Date.now() - start;
-      
+
       return {
         status: this.healthStatus,
         latency,
         metrics: {
           totalFeatures: await this.redis.dbsize(),
-          memoryUsage: await this.redis.memory('usage'),
-          accessMetrics: Object.fromEntries(this.metrics)
-        }
+          memoryUsage: await this.redis.memory("usage"),
+          accessMetrics: Object.fromEntries(this.metrics),
+        },
       };
     } catch (error) {
-      this.healthStatus = 'unhealthy';
+      this.healthStatus = "unhealthy";
       return {
-        status: 'unhealthy',
+        status: "unhealthy",
         latency: Date.now() - start,
-        metrics: { error: error.message }
+        metrics: { error: error.message },
       };
     }
   }
@@ -233,7 +278,7 @@ export class OnlineFeatureStoreImpl extends EventEmitter implements OnlineFeatur
       lastAccessed: new Date(),
       avgLatency: 0,
       errorRate: 0,
-      qualityScore: 1.0
+      qualityScore: 1.0,
     };
 
     metrics.accessCount++;
@@ -247,7 +292,7 @@ export class OnlineFeatureStoreImpl extends EventEmitter implements OnlineFeatur
       lastAccessed: new Date(),
       avgLatency: 0,
       errorRate: 0,
-      qualityScore: 1.0
+      qualityScore: 1.0,
     };
 
     metrics.lastAccessed = new Date();
@@ -259,13 +304,13 @@ export class OnlineFeatureStoreImpl extends EventEmitter implements OnlineFeatur
       try {
         const health = await this.getHealth();
         if (health.latency > this.config.healthCheck.latencyThreshold) {
-          this.healthStatus = 'degraded';
+          this.healthStatus = "degraded";
         } else {
-          this.healthStatus = 'healthy';
+          this.healthStatus = "healthy";
         }
       } catch (error) {
-        this.healthStatus = 'unhealthy';
-        this.logger.error('Health check failed', { error });
+        this.healthStatus = "unhealthy";
+        this.logger.error("Health check failed", { error });
       }
     }, this.config.healthCheck.interval);
   }
@@ -275,7 +320,10 @@ export class OnlineFeatureStoreImpl extends EventEmitter implements OnlineFeatur
  * Offline Feature Store Implementation
  * Batch feature computation and historical feature serving
  */
-export class OfflineFeatureStoreImpl extends EventEmitter implements OfflineFeatureStore {
+export class OfflineFeatureStoreImpl
+  extends EventEmitter
+  implements OfflineFeatureStore
+{
   private logger: Logger;
   private registry: FeatureRegistry;
   private config: FeatureStorageConfig;
@@ -284,7 +332,7 @@ export class OfflineFeatureStoreImpl extends EventEmitter implements OfflineFeat
   constructor(
     registry: FeatureRegistry,
     config: FeatureStorageConfig,
-    logger: Logger
+    logger: Logger,
   ) {
     super();
     this.registry = registry;
@@ -296,21 +344,21 @@ export class OfflineFeatureStoreImpl extends EventEmitter implements OfflineFeat
     featureGroup: FeatureGroup,
     startTime: Date,
     endTime: Date,
-    options?: { parallelism?: number; chunkSize?: number }
+    options?: { parallelism?: number; chunkSize?: number },
   ): Promise<string> {
     try {
       const jobId = this.generateJobId();
       const computeOptions = {
         parallelism: options?.parallelism || this.config.defaultParallelism,
-        chunkSize: options?.chunkSize || this.config.defaultChunkSize
+        chunkSize: options?.chunkSize || this.config.defaultChunkSize,
       };
 
-      this.logger.info('Starting offline feature computation', {
+      this.logger.info("Starting offline feature computation", {
         jobId,
         featureGroup: featureGroup.name,
         startTime,
         endTime,
-        options: computeOptions
+        options: computeOptions,
       });
 
       // Create compute job
@@ -320,24 +368,27 @@ export class OfflineFeatureStoreImpl extends EventEmitter implements OfflineFeat
         startTime,
         endTime,
         options: computeOptions,
-        status: 'running',
+        status: "running",
         createdAt: new Date(),
-        progress: 0
+        progress: 0,
       };
 
       this.computeJobs.set(jobId, job);
 
       // Start async computation
-      this.executeFeatureComputation(job).catch(error => {
-        this.logger.error('Feature computation failed', { jobId, error });
-        job.status = 'failed';
+      this.executeFeatureComputation(job).catch((error) => {
+        this.logger.error("Feature computation failed", { jobId, error });
+        job.status = "failed";
         job.error = error.message;
-        this.emit('computationFailed', { jobId, error });
+        this.emit("computationFailed", { jobId, error });
       });
 
       return jobId;
     } catch (error) {
-      this.logger.error('Failed to start feature computation', { featureGroup: featureGroup.name, error });
+      this.logger.error("Failed to start feature computation", {
+        featureGroup: featureGroup.name,
+        error,
+      });
       throw error;
     }
   }
@@ -346,7 +397,7 @@ export class OfflineFeatureStoreImpl extends EventEmitter implements OfflineFeat
     featureKeys: string[],
     entityIds: string[],
     pointInTime: Date,
-    options?: FeatureRetrievalOptions
+    options?: FeatureRetrievalOptions,
   ): Promise<Map<string, Map<string, FeatureValue | null>>> {
     try {
       const results = new Map<string, Map<string, FeatureValue | null>>();
@@ -360,7 +411,7 @@ export class OfflineFeatureStoreImpl extends EventEmitter implements OfflineFeat
       for (const featureKey of featureKeys) {
         const feature = await this.registry.getFeature(featureKey);
         if (!feature) {
-          this.logger.warn('Feature not found in registry', { featureKey });
+          this.logger.warn("Feature not found in registry", { featureKey });
           continue;
         }
 
@@ -369,7 +420,7 @@ export class OfflineFeatureStoreImpl extends EventEmitter implements OfflineFeat
           featureKey,
           entityIds,
           pointInTime,
-          options
+          options,
         );
 
         // Populate results
@@ -383,13 +434,18 @@ export class OfflineFeatureStoreImpl extends EventEmitter implements OfflineFeat
 
       return results;
     } catch (error) {
-      this.logger.error('Failed to get historical features', { featureKeys, entityIds: entityIds.length, pointInTime, error });
+      this.logger.error("Failed to get historical features", {
+        featureKeys,
+        entityIds: entityIds.length,
+        pointInTime,
+        error,
+      });
       throw error;
     }
   }
 
   async getComputationStatus(jobId: string): Promise<{
-    status: 'running' | 'completed' | 'failed';
+    status: "running" | "completed" | "failed";
     progress: number;
     startTime: Date;
     endTime?: Date;
@@ -405,7 +461,7 @@ export class OfflineFeatureStoreImpl extends EventEmitter implements OfflineFeat
       progress: job.progress,
       startTime: job.createdAt,
       endTime: job.completedAt,
-      error: job.error
+      error: job.error,
     };
   }
 
@@ -413,18 +469,28 @@ export class OfflineFeatureStoreImpl extends EventEmitter implements OfflineFeat
     name: string,
     features: string[],
     entities: string[],
-    filterExpression?: string
+    filterExpression?: string,
   ): Promise<void> {
     try {
       // Create materialized view for efficient feature serving
-      this.logger.info('Creating feature view', { name, features, entities, filterExpression });
+      this.logger.info("Creating feature view", {
+        name,
+        features,
+        entities,
+        filterExpression,
+      });
 
       // Implementation depends on storage backend (BigQuery, Snowflake, etc.)
-      await this.createMaterializedView(name, features, entities, filterExpression);
+      await this.createMaterializedView(
+        name,
+        features,
+        entities,
+        filterExpression,
+      );
 
-      this.emit('featureViewCreated', { name, features, entities });
+      this.emit("featureViewCreated", { name, features, entities });
     } catch (error) {
-      this.logger.error('Failed to create feature view', { name, error });
+      this.logger.error("Failed to create feature view", { name, error });
       throw error;
     }
   }
@@ -432,9 +498,13 @@ export class OfflineFeatureStoreImpl extends EventEmitter implements OfflineFeat
   private async executeFeatureComputation(job: any): Promise<void> {
     try {
       const { featureGroup, startTime, endTime, options } = job;
-      
+
       // Divide time range into chunks for parallel processing
-      const timeChunks = this.createTimeChunks(startTime, endTime, options.chunkSize);
+      const timeChunks = this.createTimeChunks(
+        startTime,
+        endTime,
+        options.chunkSize,
+      );
       let completedChunks = 0;
 
       // Process chunks in parallel
@@ -443,23 +513,30 @@ export class OfflineFeatureStoreImpl extends EventEmitter implements OfflineFeat
           await this.computeFeatureChunk(featureGroup, chunk.start, chunk.end);
           completedChunks++;
           job.progress = completedChunks / timeChunks.length;
-          this.emit('computationProgress', { jobId: job.id, progress: job.progress });
+          this.emit("computationProgress", {
+            jobId: job.id,
+            progress: job.progress,
+          });
         } catch (error) {
-          this.logger.error('Failed to compute feature chunk', { jobId: job.id, chunk, error });
+          this.logger.error("Failed to compute feature chunk", {
+            jobId: job.id,
+            chunk,
+            error,
+          });
           throw error;
         }
       });
 
       await Promise.all(chunkPromises);
 
-      job.status = 'completed';
+      job.status = "completed";
       job.completedAt = new Date();
       job.progress = 1.0;
 
-      this.logger.info('Feature computation completed', { jobId: job.id });
-      this.emit('computationCompleted', { jobId: job.id });
+      this.logger.info("Feature computation completed", { jobId: job.id });
+      this.emit("computationCompleted", { jobId: job.id });
     } catch (error) {
-      job.status = 'failed';
+      job.status = "failed";
       job.error = error.message;
       job.completedAt = new Date();
       throw error;
@@ -469,7 +546,7 @@ export class OfflineFeatureStoreImpl extends EventEmitter implements OfflineFeat
   private async computeFeatureChunk(
     featureGroup: FeatureGroup,
     startTime: Date,
-    endTime: Date
+    endTime: Date,
   ): Promise<void> {
     // Implementation depends on feature computation logic
     // This would typically involve:
@@ -478,27 +555,27 @@ export class OfflineFeatureStoreImpl extends EventEmitter implements OfflineFeat
     // 3. Computing aggregations
     // 4. Storing results in feature store
 
-    this.logger.debug('Computing feature chunk', {
+    this.logger.debug("Computing feature chunk", {
       featureGroup: featureGroup.name,
       startTime,
-      endTime
+      endTime,
     });
 
     // Simulate computation time
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
   }
 
   private async queryHistoricalData(
     featureKey: string,
     entityIds: string[],
     pointInTime: Date,
-    options?: FeatureRetrievalOptions
+    options?: FeatureRetrievalOptions,
   ): Promise<Map<string, FeatureValue | null>> {
     // Implementation depends on storage backend
     // This would typically query a data warehouse or time-series database
-    
+
     const results = new Map<string, FeatureValue | null>();
-    
+
     // Placeholder implementation
     for (const entityId of entityIds) {
       results.set(entityId, null);
@@ -511,18 +588,29 @@ export class OfflineFeatureStoreImpl extends EventEmitter implements OfflineFeat
     name: string,
     features: string[],
     entities: string[],
-    filterExpression?: string
+    filterExpression?: string,
   ): Promise<void> {
     // Implementation depends on storage backend
-    this.logger.debug('Creating materialized view', { name, features, entities, filterExpression });
+    this.logger.debug("Creating materialized view", {
+      name,
+      features,
+      entities,
+      filterExpression,
+    });
   }
 
-  private createTimeChunks(startTime: Date, endTime: Date, chunkSizeHours: number): Array<{ start: Date; end: Date }> {
+  private createTimeChunks(
+    startTime: Date,
+    endTime: Date,
+    chunkSizeHours: number,
+  ): Array<{ start: Date; end: Date }> {
     const chunks = [];
     let currentStart = new Date(startTime);
-    
+
     while (currentStart < endTime) {
-      const currentEnd = new Date(currentStart.getTime() + chunkSizeHours * 60 * 60 * 1000);
+      const currentEnd = new Date(
+        currentStart.getTime() + chunkSizeHours * 60 * 60 * 1000,
+      );
       if (currentEnd > endTime) {
         chunks.push({ start: currentStart, end: endTime });
         break;
@@ -531,7 +619,7 @@ export class OfflineFeatureStoreImpl extends EventEmitter implements OfflineFeat
         currentStart = currentEnd;
       }
     }
-    
+
     return chunks;
   }
 
@@ -544,7 +632,10 @@ export class OfflineFeatureStoreImpl extends EventEmitter implements OfflineFeat
  * Feature Registry Implementation
  * Centralized catalog of all features with metadata, lineage, and governance
  */
-export class FeatureRegistryImpl extends EventEmitter implements FeatureRegistry {
+export class FeatureRegistryImpl
+  extends EventEmitter
+  implements FeatureRegistry
+{
   private features: Map<string, Feature> = new Map();
   private featureGroups: Map<string, FeatureGroup> = new Map();
   private lineage: Map<string, FeatureLineage> = new Map();
@@ -566,11 +657,11 @@ export class FeatureRegistryImpl extends EventEmitter implements FeatureRegistry
         owner: registration.owner,
         createdAt: new Date(),
         updatedAt: new Date(),
-        version: registration.version || '1.0.0',
+        version: registration.version || "1.0.0",
         source: registration.source,
         transformation: registration.transformation,
         validationRules: registration.validationRules || [],
-        ttl: registration.ttl
+        ttl: registration.ttl,
       };
 
       this.features.set(registration.key, feature);
@@ -582,7 +673,7 @@ export class FeatureRegistryImpl extends EventEmitter implements FeatureRegistry
           dependencies: registration.dependencies,
           dependents: [],
           transformation: registration.transformation,
-          createdAt: new Date()
+          createdAt: new Date(),
         };
         this.lineage.set(registration.key, lineage);
 
@@ -595,10 +686,10 @@ export class FeatureRegistryImpl extends EventEmitter implements FeatureRegistry
         }
       }
 
-      this.logger.info('Feature registered', { featureKey: registration.key });
-      this.emit('featureRegistered', { feature });
+      this.logger.info("Feature registered", { featureKey: registration.key });
+      this.emit("featureRegistered", { feature });
     } catch (error) {
-      this.logger.error('Failed to register feature', { registration, error });
+      this.logger.error("Failed to register feature", { registration, error });
       throw error;
     }
   }
@@ -615,17 +706,17 @@ export class FeatureRegistryImpl extends EventEmitter implements FeatureRegistry
     let features = Array.from(this.features.values());
 
     if (options?.tags) {
-      features = features.filter(f => 
-        options.tags!.some(tag => f.tags.includes(tag))
+      features = features.filter((f) =>
+        options.tags!.some((tag) => f.tags.includes(tag)),
       );
     }
 
     if (options?.owner) {
-      features = features.filter(f => f.owner === options.owner);
+      features = features.filter((f) => f.owner === options.owner);
     }
 
     if (options?.dataType) {
-      features = features.filter(f => f.dataType === options.dataType);
+      features = features.filter((f) => f.dataType === options.dataType);
     }
 
     return features;
@@ -636,13 +727,13 @@ export class FeatureRegistryImpl extends EventEmitter implements FeatureRegistry
       this.featureGroups.set(group.name, {
         ...group,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
       });
 
-      this.logger.info('Feature group registered', { groupName: group.name });
-      this.emit('featureGroupRegistered', { group });
+      this.logger.info("Feature group registered", { groupName: group.name });
+      this.emit("featureGroupRegistered", { group });
     } catch (error) {
-      this.logger.error('Failed to register feature group', { group, error });
+      this.logger.error("Failed to register feature group", { group, error });
       throw error;
     }
   }
@@ -655,14 +746,19 @@ export class FeatureRegistryImpl extends EventEmitter implements FeatureRegistry
     return this.lineage.get(featureKey) || null;
   }
 
-  async getFeatureMetrics(featureKey: string): Promise<FeatureQualityMetrics | null> {
+  async getFeatureMetrics(
+    featureKey: string,
+  ): Promise<FeatureQualityMetrics | null> {
     // Implementation would query metrics storage
     return null;
   }
 
-  async updateFeatureMetrics(featureKey: string, metrics: FeatureQualityMetrics): Promise<void> {
+  async updateFeatureMetrics(
+    featureKey: string,
+    metrics: FeatureQualityMetrics,
+  ): Promise<void> {
     // Implementation would update metrics storage
-    this.emit('featureMetricsUpdated', { featureKey, metrics });
+    this.emit("featureMetricsUpdated", { featureKey, metrics });
   }
 }
 
@@ -680,7 +776,7 @@ export class FeatureStoreImpl extends EventEmitter implements FeatureStore {
     onlineStore: OnlineFeatureStore,
     offlineStore: OfflineFeatureStore,
     registry: FeatureRegistry,
-    logger: Logger
+    logger: Logger,
   ) {
     super();
     this.onlineStore = onlineStore;
@@ -689,9 +785,15 @@ export class FeatureStoreImpl extends EventEmitter implements FeatureStore {
     this.logger = logger;
 
     // Forward events
-    this.onlineStore.on('error', (event) => this.emit('onlineStoreError', event));
-    this.offlineStore.on('error', (event) => this.emit('offlineStoreError', event));
-    this.registry.on('featureRegistered', (event) => this.emit('featureRegistered', event));
+    this.onlineStore.on("error", (event) =>
+      this.emit("onlineStoreError", event),
+    );
+    this.offlineStore.on("error", (event) =>
+      this.emit("offlineStoreError", event),
+    );
+    this.registry.on("featureRegistered", (event) =>
+      this.emit("featureRegistered", event),
+    );
   }
 
   get online(): OnlineFeatureStore {
@@ -707,7 +809,7 @@ export class FeatureStoreImpl extends EventEmitter implements FeatureStore {
   }
 
   async getHealth(): Promise<{
-    overall: 'healthy' | 'degraded' | 'unhealthy';
+    overall: "healthy" | "degraded" | "unhealthy";
     components: {
       onlineStore: any;
       offlineStore: any;
@@ -715,35 +817,33 @@ export class FeatureStoreImpl extends EventEmitter implements FeatureStore {
     };
   }> {
     try {
-      const [onlineHealth] = await Promise.all([
-        this.onlineStore.getHealth()
-      ]);
+      const [onlineHealth] = await Promise.all([this.onlineStore.getHealth()]);
 
-      let overall: 'healthy' | 'degraded' | 'unhealthy' = 'healthy';
-      
-      if (onlineHealth.status === 'unhealthy') {
-        overall = 'unhealthy';
-      } else if (onlineHealth.status === 'degraded') {
-        overall = 'degraded';
+      let overall: "healthy" | "degraded" | "unhealthy" = "healthy";
+
+      if (onlineHealth.status === "unhealthy") {
+        overall = "unhealthy";
+      } else if (onlineHealth.status === "degraded") {
+        overall = "degraded";
       }
 
       return {
         overall,
         components: {
           onlineStore: onlineHealth,
-          offlineStore: { status: 'healthy' }, // Simplified
-          registry: { status: 'healthy' } // Simplified
-        }
+          offlineStore: { status: "healthy" }, // Simplified
+          registry: { status: "healthy" }, // Simplified
+        },
       };
     } catch (error) {
-      this.logger.error('Failed to get feature store health', { error });
+      this.logger.error("Failed to get feature store health", { error });
       return {
-        overall: 'unhealthy',
+        overall: "unhealthy",
         components: {
-          onlineStore: { status: 'unhealthy', error: error.message },
-          offlineStore: { status: 'unknown' },
-          registry: { status: 'unknown' }
-        }
+          onlineStore: { status: "unhealthy", error: error.message },
+          offlineStore: { status: "unknown" },
+          registry: { status: "unknown" },
+        },
       };
     }
   }

@@ -40,12 +40,12 @@ export function LineItems() {
 
   const reorderList = (newFields: typeof fields) => {
     const firstDiffIndex = fields.findIndex(
-      (field, index) => field.id !== newFields[index]?.id
+      (field, index) => field.id !== newFields[index]?.id,
     );
 
     if (firstDiffIndex !== -1) {
       const newIndex = newFields.findIndex(
-        (field) => field.id === fields[firstDiffIndex]?.id
+        (field) => field.id === fields[firstDiffIndex]?.id,
       );
 
       if (newIndex !== -1) {

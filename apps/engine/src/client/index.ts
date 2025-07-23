@@ -7,5 +7,5 @@ export const client = hc<AppType>(
     headers: {
       Authorization: `Bearer ${process.env.iq24_ENGINE_API_KEY}`,
     },
-  }
+  },
 );

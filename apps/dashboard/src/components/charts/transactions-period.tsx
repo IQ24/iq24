@@ -27,7 +27,7 @@ export function TransactionsPeriod({ type, disabled }: Props) {
     {
       currentState: type,
       updateFn: (_, newState) => newState,
-    }
+    },
   );
 
   return (

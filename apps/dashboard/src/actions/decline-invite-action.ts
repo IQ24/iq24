@@ -27,5 +27,5 @@ export const declineInviteAction = authActionClient
       }
 
       return data;
-    }
+    },
   );

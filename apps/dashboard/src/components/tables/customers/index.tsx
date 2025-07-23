@@ -36,7 +36,7 @@ export async function CustomersTable({ query, sort, start, end, page }: Props) {
   });
 
   const hasNextPage = Boolean(
-    meta?.count && meta.count / (page + 1) > pageSize
+    meta?.count && meta.count / (page + 1) > pageSize,
   );
 
   if (!data?.length) {

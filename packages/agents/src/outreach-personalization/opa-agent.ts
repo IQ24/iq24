@@ -1,7 +1,7 @@
-import { BaseAgent } from '../base/agent.js';
-import { AgentConfig, TaskContext, WorkflowTask } from '@iq24/ai-core/types';
-import { Logger } from '@iq24/ai-core/utils/logger';
-import { z } from 'zod';
+import { BaseAgent } from "../base/agent.js";
+import { AgentConfig, TaskContext, WorkflowTask } from "@iq24/ai-core/types";
+import { Logger } from "@iq24/ai-core/utils/logger";
+import { z } from "zod";
 
 // OPA-specific schemas
 const PersonalizationContextSchema = z.object({
@@ -21,9 +21,9 @@ const PersonalizationContextSchema = z.object({
   }),
   campaign: z.object({
     id: z.string(),
-    type: z.enum(['cold_email', 'linkedin_message', 'follow_up', 'nurture']),
+    type: z.enum(["cold_email", "linkedin_message", "follow_up", "nurture"]),
     objective: z.string(),
-    tone: z.enum(['professional', 'casual', 'consultative', 'urgent']),
+    tone: z.enum(["professional", "casual", "consultative", "urgent"]),
     cta: z.string(),
   }),
   company: z.object({
@@ -38,7 +38,7 @@ const PersonalizationContextSchema = z.object({
 
 const MessageVariantSchema = z.object({
   id: z.string(),
-  type: z.enum(['text', 'voice_script', 'image_prompt', 'video_script']),
+  type: z.enum(["text", "voice_script", "image_prompt", "video_script"]),
   content: z.string(),
   personalizationTokens: z.record(z.string()),
   subjectLine: z.string().optional(),
@@ -49,11 +49,11 @@ const MessageVariantSchema = z.object({
 });
 
 const MSEORequestSchema = z.object({
-  type: z.enum(['voice', 'image', 'video']),
+  type: z.enum(["voice", "image", "video"]),
   script: z.string(),
   style: z.string(),
   personalizedElements: z.record(z.string()),
-  quality: z.enum(['draft', 'production', 'premium']),
+  quality: z.enum(["draft", "production", "premium"]),
 });
 
 type PersonalizationContext = z.infer<typeof PersonalizationContextSchema>;
@@ -67,9 +67,12 @@ interface OPAConfig extends AgentConfig {
     mistral: { apiKey: string; model: string; enabled: boolean };
   };
   mseoServices: {
-    voiceGeneration: { provider: 'elevenlabs' | 'aws-polly'; enabled: boolean };
-    imageGeneration: { provider: 'dall-e' | 'stable-diffusion'; enabled: boolean };
-    videoGeneration: { provider: 'custom' | 'synthesia'; enabled: boolean };
+    voiceGeneration: { provider: "elevenlabs" | "aws-polly"; enabled: boolean };
+    imageGeneration: {
+      provider: "dall-e" | "stable-diffusion";
+      enabled: boolean;
+    };
+    videoGeneration: { provider: "custom" | "synthesia"; enabled: boolean };
   };
   personalization: {
     maxVariants: number;
@@ -87,7 +90,7 @@ interface OPAConfig extends AgentConfig {
 
 /**
  * Outreach Personalization Agent (OPA)
- * 
+ *
  * Responsibilities:
  * - Analyzes enriched prospect data for personalization opportunities
  * - Uses advanced NLP/LLMs to generate personalized content
@@ -104,7 +107,7 @@ export class OutreachPersonalizationAgent extends BaseAgent {
   constructor(config: OPAConfig) {
     super(config);
     this.config = config;
-    this.logger = new Logger('OPA');
+    this.logger = new Logger("OPA");
     this.initializeLLMClients();
     this.loadPromptTemplates();
   }
@@ -112,33 +115,41 @@ export class OutreachPersonalizationAgent extends BaseAgent {
   private initializeLLMClients(): void {
     // Initialize OpenAI client
     if (this.config.llmProviders.openai.enabled) {
-      const OpenAI = require('openai');
-      this.llmClients.set('openai', new OpenAI({
-        apiKey: this.config.llmProviders.openai.apiKey,
-      }));
+      const OpenAI = require("openai");
+      this.llmClients.set(
+        "openai",
+        new OpenAI({
+          apiKey: this.config.llmProviders.openai.apiKey,
+        }),
+      );
     }
 
     // Initialize Anthropic client
     if (this.config.llmProviders.anthropic.enabled) {
-      const Anthropic = require('@anthropic-ai/sdk');
-      this.llmClients.set('anthropic', new Anthropic({
-        apiKey: this.config.llmProviders.anthropic.apiKey,
-      }));
+      const Anthropic = require("@anthropic-ai/sdk");
+      this.llmClients.set(
+        "anthropic",
+        new Anthropic({
+          apiKey: this.config.llmProviders.anthropic.apiKey,
+        }),
+      );
     }
 
     // Initialize Mistral client
     if (this.config.llmProviders.mistral.enabled) {
       // Mistral client initialization
-      this.llmClients.set('mistral', {
+      this.llmClients.set("mistral", {
         apiKey: this.config.llmProviders.mistral.apiKey,
-        baseUrl: 'https://api.mistral.ai/v1',
+        baseUrl: "https://api.mistral.ai/v1",
       });
     }
   }
 
   private loadPromptTemplates(): void {
     // Load sophisticated prompt templates for different use cases
-    this.promptTemplates.set('cold_email', `
+    this.promptTemplates.set(
+      "cold_email",
+      `
 You are an expert B2B sales copywriter creating highly personalized cold emails that drive responses.
 
 Context:
@@ -163,9 +174,12 @@ Generate 3 variants with different approaches:
 3. Social proof variant
 
 Format as JSON with subject, body, and reasoning for each.
-    `);
+    `,
+    );
 
-    this.promptTemplates.set('linkedin_message', `
+    this.promptTemplates.set(
+      "linkedin_message",
+      `
 Create a personalized LinkedIn connection request or message.
 
 Context: {{context}}
@@ -178,9 +192,12 @@ Requirements:
 - Industry-specific language and insights
 
 Generate the message with personalization tokens clearly marked.
-    `);
+    `,
+    );
 
-    this.promptTemplates.set('follow_up', `
+    this.promptTemplates.set(
+      "follow_up",
+      `
 Create a thoughtful follow-up message that adds value and moves the conversation forward.
 
 Previous Context: {{previousInteraction}}
@@ -195,34 +212,38 @@ Requirements:
 - Show patience and professionalism
 
 Generate a follow-up that feels natural and helpful.
-    `);
+    `,
+    );
   }
 
-  protected async processTask(task: WorkflowTask, context: TaskContext): Promise<any> {
+  protected async processTask(
+    task: WorkflowTask,
+    context: TaskContext,
+  ): Promise<any> {
     this.logger.info(`Processing OPA task: ${task.type}`, { taskId: task.id });
 
     try {
       switch (task.type) {
-        case 'personalize_outreach':
+        case "personalize_outreach":
           return await this.personalizeOutreach(task.payload, context);
-        
-        case 'generate_variants':
+
+        case "generate_variants":
           return await this.generateMessageVariants(task.payload, context);
-        
-        case 'optimize_subject_lines':
+
+        case "optimize_subject_lines":
           return await this.optimizeSubjectLines(task.payload, context);
-        
-        case 'create_mseo_content':
+
+        case "create_mseo_content":
           return await this.createMSEOContent(task.payload, context);
-        
-        case 'analyze_tonality':
+
+        case "analyze_tonality":
           return await this.analyzeTonality(task.payload, context);
-        
+
         default:
           throw new Error(`Unknown OPA task type: ${task.type}`);
       }
     } catch (error) {
-      this.logger.error('OPA task processing failed', { error, task });
+      this.logger.error("OPA task processing failed", { error, task });
       throw error;
     }
   }
@@ -230,38 +251,51 @@ Generate a follow-up that feels natural and helpful.
   /**
    * Main personalization orchestration method
    */
-  private async personalizeOutreach(payload: any, context: TaskContext): Promise<{
+  private async personalizeOutreach(
+    payload: any,
+    context: TaskContext,
+  ): Promise<{
     personalizedMessages: MessageVariant[];
     mseoAssets: any[];
     personalizationInsights: Record<string, any>;
     recommendations: string[];
   }> {
     const personalizationContext = PersonalizationContextSchema.parse(payload);
-    
-    this.logger.info('Starting outreach personalization', { 
+
+    this.logger.info("Starting outreach personalization", {
       leadId: personalizationContext.lead.id,
-      campaignType: personalizationContext.campaign.type 
+      campaignType: personalizationContext.campaign.type,
     });
 
     // Step 1: Analyze prospect for personalization opportunities
-    const personalizationInsights = await this.analyzePersonalizationOpportunities(personalizationContext);
-    
+    const personalizationInsights =
+      await this.analyzePersonalizationOpportunities(personalizationContext);
+
     // Step 2: Generate personalized message variants
-    const personalizedMessages = await this.generatePersonalizedMessages(personalizationContext, personalizationInsights);
-    
+    const personalizedMessages = await this.generatePersonalizedMessages(
+      personalizationContext,
+      personalizationInsights,
+    );
+
     // Step 3: Create MSEO assets if requested
-    const mseoAssets = await this.generateMSEOAssets(personalizedMessages, personalizationContext);
-    
+    const mseoAssets = await this.generateMSEOAssets(
+      personalizedMessages,
+      personalizationContext,
+    );
+
     // Step 4: Generate optimization recommendations
     const recommendations = await this.generateOptimizationRecommendations(
-      personalizedMessages, 
-      personalizationContext, 
-      personalizationInsights
+      personalizedMessages,
+      personalizationContext,
+      personalizationInsights,
     );
 
     // Update metrics
-    this.metrics.increment('messages.personalized');
-    this.metrics.histogram('personalization.insights_count', Object.keys(personalizationInsights).length);
+    this.metrics.increment("messages.personalized");
+    this.metrics.histogram(
+      "personalization.insights_count",
+      Object.keys(personalizationInsights).length,
+    );
 
     return {
       personalizedMessages,
@@ -274,42 +308,56 @@ Generate a follow-up that feels natural and helpful.
   /**
    * Analyzes prospect data to identify personalization opportunities
    */
-  private async analyzePersonalizationOpportunities(context: PersonalizationContext): Promise<Record<string, any>> {
+  private async analyzePersonalizationOpportunities(
+    context: PersonalizationContext,
+  ): Promise<Record<string, any>> {
     const insights: Record<string, any> = {};
 
     // Company-based personalization
     if (context.company.recentNews?.length) {
       insights.companyNews = {
-        type: 'recent_news',
+        type: "recent_news",
         items: context.company.recentNews,
-        personalizationAngle: 'Reference recent company developments',
+        personalizationAngle: "Reference recent company developments",
       };
     }
 
     // Role-based personalization
-    insights.rolePersonalization = await this.analyzeRoleSpecificChallenges(context.lead.jobTitle, context.company.industry);
+    insights.rolePersonalization = await this.analyzeRoleSpecificChallenges(
+      context.lead.jobTitle,
+      context.company.industry,
+    );
 
     // Industry insights
-    insights.industryInsights = await this.getIndustrySpecificInsights(context.company.industry);
+    insights.industryInsights = await this.getIndustrySpecificInsights(
+      context.company.industry,
+    );
 
     // Location-based opportunities
     if (context.lead.location) {
-      insights.locationPersonalization = await this.getLocationBasedInsights(context.lead.location);
+      insights.locationPersonalization = await this.getLocationBasedInsights(
+        context.lead.location,
+      );
     }
 
     // Technology stack analysis
     if (context.company.technologies?.length) {
-      insights.techStackPersonalization = await this.analyzeTechnologyStackOpportunities(context.company.technologies);
+      insights.techStackPersonalization =
+        await this.analyzeTechnologyStackOpportunities(
+          context.company.technologies,
+        );
     }
 
     // Pain point analysis
     if (context.lead.painPoints?.length) {
-      insights.painPointAnalysis = await this.analyzePainPointsForMessaging(context.lead.painPoints);
+      insights.painPointAnalysis = await this.analyzePainPointsForMessaging(
+        context.lead.painPoints,
+      );
     }
 
-    this.logger.info('Personalization analysis complete', { 
+    this.logger.info("Personalization analysis complete", {
       insightCount: Object.keys(insights).length,
-      leadId: context.lead.id 
+      leadId: context.lead.id,
     });
 
     return insights;
@@ -319,49 +367,67 @@ Generate a follow-up that feels natural and helpful.
    * Generates multiple personalized message variants using LLMs
    */
   private async generatePersonalizedMessages(
-    context: PersonalizationContext, 
-    insights: Record<string, any>
+    context: PersonalizationContext,
+    insights: Record<string, any>,
   ): Promise<MessageVariant[]> {
     const variants: MessageVariant[] = [];
     const maxVariants = Math.min(this.config.personalization.maxVariants, 5);
 
     // Prepare context for LLM
     const llmContext = this.prepareLLMContext(context, insights);
-    
+
     // Get appropriate prompt template
-    const template = this.promptTemplates.get(context.campaign.type) || this.promptTemplates.get('cold_email')!;
-    
+    const template =
+      this.promptTemplates.get(context.campaign.type) ||
+      this.promptTemplates.get("cold_email")!;
+
     // Generate variants using different LLM providers for diversity
     const providers = Array.from(this.llmClients.keys()).slice(0, maxVariants);
-    
+
     for (let i = 0; i < maxVariants; i++) {
       const provider = providers[i % providers.length];
       const client = this.llmClients.get(provider);
-      
+
       if (!client) continue;
 
       try {
         const prompt = this.populateTemplate(template, llmContext);
-        const response = await this.callLLMProvider(provider, client, prompt, context.campaign.tone);
-        
-        const variant = await this.parseAndValidateResponse(response, i, provider);
+        const response = await this.callLLMProvider(
+          provider,
+          client,
+          prompt,
+          context.campaign.tone,
+        );
+
+        const variant = await this.parseAndValidateResponse(
+          response,
+          i,
+          provider,
+        );
         if (variant) {
-          variant.abTestGroup = this.config.personalization.abTestEnabled ? `variant_${i + 1}` : undefined;
+          variant.abTestGroup = this.config.personalization.abTestEnabled
+            ? `variant_${i + 1}`
+            : undefined;
           variants.push(variant);
         }
-
       } catch (error) {
-        this.logger.warn(`Failed to generate variant ${i + 1} with ${provider}`, { error });
+        this.logger.warn(
+          `Failed to generate variant ${i + 1} with ${provider}`,
+          { error },
+        );
         this.metrics.increment(`llm.${provider}.errors`);
       }
     }
 
     // Rank variants by predicted engagement
-    const rankedVariants = await this.rankVariantsByEngagement(variants, context);
-    
-    this.logger.info(`Generated ${rankedVariants.length} message variants`, { 
+    const rankedVariants = await this.rankVariantsByEngagement(
+      variants,
+      context,
+    );
+
+    this.logger.info(`Generated ${rankedVariants.length} message variants`, {
       leadId: context.lead.id,
-      campaignType: context.campaign.type 
+      campaignType: context.campaign.type,
     });
 
     return rankedVariants;
@@ -370,7 +436,10 @@ Generate a follow-up that feels natural and helpful.
   /**
    * Generates MSEO (Multi-Sensory Engagement Orchestration) assets
    */
-  private async generateMSEOAssets(messages: MessageVariant[], context: PersonalizationContext): Promise<any[]> {
+  private async generateMSEOAssets(
+    messages: MessageVariant[],
+    context: PersonalizationContext,
+  ): Promise<any[]> {
     const assets: any[] = [];
 
     // Only generate MSEO assets for high-value prospects or specific campaign types
@@ -378,7 +447,8 @@ Generate a follow-up that feels natural and helpful.
       return assets;
     }
 
-    for (const message of messages.slice(0, 2)) { // Limit to top 2 variants
+    for (const message of messages.slice(0, 2)) {
+      // Limit to top 2 variants
       try {
         // Generate voice script and audio
         if (this.config.mseoServices.voiceGeneration.enabled) {
@@ -388,28 +458,44 @@ Generate a follow-up that feels natural and helpful.
 
         // Generate personalized image
         if (this.config.mseoServices.imageGeneration.enabled) {
-          const imageAsset = await this.generatePersonalizedImage(message, context);
+          const imageAsset = await this.generatePersonalizedImage(
+            message,
+            context,
+          );
           if (imageAsset) assets.push(imageAsset);
         }
 
         // Generate video content for premium campaigns
-        if (this.config.mseoServices.videoGeneration.enabled && context.campaign.type === 'premium') {
-          const videoAsset = await this.generatePersonalizedVideo(message, context);
+        if (
+          this.config.mseoServices.videoGeneration.enabled &&
+          context.campaign.type === "premium"
+        ) {
+          const videoAsset = await this.generatePersonalizedVideo(
+            message,
+            context,
+          );
           if (videoAsset) assets.push(videoAsset);
         }
-
       } catch (error) {
-        this.logger.warn('MSEO asset generation failed', { error, messageId: message.id });
-        this.metrics.increment('mseo.generation_failed');
+        this.logger.warn("MSEO asset generation failed", {
+          error,
+          messageId: message.id,
+        });
+        this.metrics.increment("mseo.generation_failed");
       }
     }
 
-    this.metrics.histogram('mseo.assets_generated', assets.length);
+    this.metrics.histogram("mseo.assets_generated", assets.length);
     return assets;
   }
 
   // Helper methods for LLM interaction
-  private async callLLMProvider(provider: string, client: any, prompt: string, tone: string): Promise<any> {
+  private async callLLMProvider(
+    provider: string,
+    client: any,
+    prompt: string,
+    tone: string,
+  ): Promise<any> {
     this.metrics.increment(`llm.${provider}.requests`);
     const startTime = Date.now();
 
@@ -417,27 +503,31 @@ Generate a follow-up that feels natural and helpful.
       let response;
 
       switch (provider) {
-        case 'openai':
+        case "openai":
           response = await client.chat.completions.create({
             model: this.config.llmProviders.openai.model,
             messages: [
-              { role: 'system', content: 'You are an expert B2B sales copywriter focused on personalized outreach.' },
-              { role: 'user', content: prompt }
+              {
+                role: "system",
+                content:
+                  "You are an expert B2B sales copywriter focused on personalized outreach.",
+              },
+              { role: "user", content: prompt },
             ],
             temperature: 0.7,
             max_tokens: 1000,
           });
           return response.choices[0].message.content;
 
-        case 'anthropic':
+        case "anthropic":
           response = await client.messages.create({
             model: this.config.llmProviders.anthropic.model,
             max_tokens: 1000,
-            messages: [{ role: 'user', content: prompt }],
+            messages: [{ role: "user", content: prompt }],
           });
           return response.content[0].text;
 
-        case 'mistral':
+        case "mistral":
           // Mistral API call implementation
           response = await this.callMistralAPI(client, prompt);
           return response.choices[0].message.content;
@@ -445,13 +535,19 @@ Generate a follow-up that feels natural and helpful.
         default:
           throw new Error(`Unknown LLM provider: ${provider}`);
       }
-
     } finally {
-      this.metrics.histogram(`llm.${provider}.response_time`, Date.now() - startTime);
+      this.metrics.histogram(
+        `llm.${provider}.response_time`,
+        Date.now() - startTime,
+      );
     }
   }
 
-  private async parseAndValidateResponse(response: string, index: number, provider: string): Promise<MessageVariant | null> {
+  private async parseAndValidateResponse(
+    response: string,
+    index: number,
+    provider: string,
+  ): Promise<MessageVariant | null> {
     try {
       // Try to parse as JSON first
       let parsed;
@@ -464,82 +560,109 @@ Generate a follow-up that feels natural and helpful.
 
       const variant: MessageVariant = {
         id: `${provider}_variant_${index + 1}`,
-        type: 'text',
+        type: "text",
         content: parsed.body || parsed.content || response,
-        personalizationTokens: this.extractPersonalizationTokens(parsed.body || parsed.content || response),
+        personalizationTokens: this.extractPersonalizationTokens(
+          parsed.body || parsed.content || response,
+        ),
         subjectLine: parsed.subject || this.generateFallbackSubject(),
-        callToAction: parsed.cta || this.extractCallToAction(parsed.body || parsed.content || response),
+        callToAction:
+          parsed.cta ||
+          this.extractCallToAction(parsed.body || parsed.content || response),
         estimatedEngagement: await this.estimateEngagement(parsed),
       };
 
       return MessageVariantSchema.parse(variant);
-
     } catch (error) {
-      this.logger.warn('Failed to parse LLM response', { error, response: response.substring(0, 200) });
+      this.logger.warn("Failed to parse LLM response", {
+        error,
+        response: response.substring(0, 200),
+      });
       return null;
     }
   }
 
   // MSEO generation methods
-  private async generateVoiceMessage(message: MessageVariant, context: PersonalizationContext): Promise<any> {
-    const voiceScript = await this.adaptMessageForVoice(message.content, context);
-    
+  private async generateVoiceMessage(
+    message: MessageVariant,
+    context: PersonalizationContext,
+  ): Promise<any> {
+    const voiceScript = await this.adaptMessageForVoice(
+      message.content,
+      context,
+    );
+
     const mseoRequest: MSEORequest = {
-      type: 'voice',
+      type: "voice",
       script: voiceScript,
-      style: 'professional',
+      style: "professional",
       personalizedElements: {
         firstName: context.lead.firstName,
         company: context.company.name,
       },
-      quality: 'production',
+      quality: "production",
     };
 
-    return await this.callMSEOService('voice', mseoRequest);
+    return await this.callMSEOService("voice", mseoRequest);
   }
 
-  private async generatePersonalizedImage(message: MessageVariant, context: PersonalizationContext): Promise<any> {
-    const imagePrompt = await this.createPersonalizedImagePrompt(message, context);
-    
+  private async generatePersonalizedImage(
+    message: MessageVariant,
+    context: PersonalizationContext,
+  ): Promise<any> {
+    const imagePrompt = await this.createPersonalizedImagePrompt(
+      message,
+      context,
+    );
+
     const mseoRequest: MSEORequest = {
-      type: 'image',
+      type: "image",
       script: imagePrompt,
-      style: 'professional_business',
+      style: "professional_business",
       personalizedElements: {
         industry: context.company.industry,
         companyName: context.company.name,
       },
-      quality: 'production',
+      quality: "production",
     };
 
-    return await this.callMSEOService('image', mseoRequest);
+    return await this.callMSEOService("image", mseoRequest);
   }
 
-  private async generatePersonalizedVideo(message: MessageVariant, context: PersonalizationContext): Promise<any> {
-    const videoScript = await this.adaptMessageForVideo(message.content, context);
-    
+  private async generatePersonalizedVideo(
+    message: MessageVariant,
+    context: PersonalizationContext,
+  ): Promise<any> {
+    const videoScript = await this.adaptMessageForVideo(
+      message.content,
+      context,
+    );
+
     const mseoRequest: MSEORequest = {
-      type: 'video',
+      type: "video",
       script: videoScript,
-      style: 'business_professional',
+      style: "business_professional",
       personalizedElements: {
         recipientName: context.lead.firstName,
         companyName: context.company.name,
         industry: context.company.industry,
       },
-      quality: 'premium',
+      quality: "premium",
     };
 
-    return await this.callMSEOService('video', mseoRequest);
+    return await this.callMSEOService("video", mseoRequest);
   }
 
   // Analysis and optimization methods
-  private async analyzeRoleSpecificChallenges(jobTitle: string, industry: string): Promise<any> {
+  private async analyzeRoleSpecificChallenges(
+    jobTitle: string,
+    industry: string,
+  ): Promise<any> {
     // Implementation for role-specific challenge analysis
     return {
-      commonChallenges: ['efficiency', 'scale', 'roi'],
-      decisionMakingPower: 'high',
-      preferredCommunicationStyle: 'data-driven',
+      commonChallenges: ["efficiency", "scale", "roi"],
+      decisionMakingPower: "high",
+      preferredCommunicationStyle: "data-driven",
     };
   }
 
@@ -548,25 +671,36 @@ Generate a follow-up that feels natural and helpful.
     return {
       trends: insights,
       regulations: [],
-      competitiveLandscape: 'high',
+      competitiveLandscape: "high",
     };
   }
 
-  private async rankVariantsByEngagement(variants: MessageVariant[], context: PersonalizationContext): Promise<MessageVariant[]> {
+  private async rankVariantsByEngagement(
+    variants: MessageVariant[],
+    context: PersonalizationContext,
+  ): Promise<MessageVariant[]> {
     // Use ML model to predict engagement scores
     for (const variant of variants) {
-      variant.estimatedEngagement = await this.predictEngagementScore(variant, context);
+      variant.estimatedEngagement = await this.predictEngagementScore(
+        variant,
+        context,
+      );
     }
 
-    return variants.sort((a, b) => b.estimatedEngagement - a.estimatedEngagement);
+    return variants.sort(
+      (a, b) => b.estimatedEngagement - a.estimatedEngagement,
+    );
   }
 
-  private async predictEngagementScore(variant: MessageVariant, context: PersonalizationContext): Promise<number> {
+  private async predictEngagementScore(
+    variant: MessageVariant,
+    context: PersonalizationContext,
+  ): Promise<number> {
     // Simplified engagement prediction based on various factors
     let score = 0.5; // Base score
 
     // Length optimization
-    const wordCount = variant.content.split(' ').length;
+    const wordCount = variant.content.split(" ").length;
     if (wordCount >= 80 && wordCount <= 150) score += 0.1;
 
     // Personalization tokens
@@ -574,7 +708,11 @@ Generate a follow-up that feels natural and helpful.
     score += Math.min(tokenCount * 0.05, 0.2);
 
     // Subject line quality
-    if (variant.subjectLine && variant.subjectLine.length >= 6 && variant.subjectLine.length <= 50) {
+    if (
+      variant.subjectLine &&
+      variant.subjectLine.length >= 6 &&
+      variant.subjectLine.length <= 50
+    ) {
       score += 0.1;
     }
 
@@ -587,7 +725,10 @@ Generate a follow-up that feels natural and helpful.
   }
 
   // Utility methods
-  private prepareLLMContext(context: PersonalizationContext, insights: Record<string, any>): Record<string, string> {
+  private prepareLLMContext(
+    context: PersonalizationContext,
+    insights: Record<string, any>,
+  ): Record<string, string> {
     return {
       firstName: context.lead.firstName,
       lastName: context.lead.lastName,
@@ -597,25 +738,33 @@ Generate a follow-up that feels natural and helpful.
       companySize: context.company.size,
       objective: context.campaign.objective,
       tone: context.campaign.tone,
-      recentNews: context.company.recentNews?.join(', ') || '',
-      painPoints: context.lead.painPoints?.join(', ') || '',
+      recentNews: context.company.recentNews?.join(", ") || "",
+      painPoints: context.lead.painPoints?.join(", ") || "",
       // Add insights
-      ...Object.entries(insights).reduce((acc, [key, value]) => {
-        acc[key] = JSON.stringify(value);
-        return acc;
-      }, {} as Record<string, string>),
+      ...Object.entries(insights).reduce(
+        (acc, [key, value]) => {
+          acc[key] = JSON.stringify(value);
+          return acc;
+        },
+        {} as Record<string, string>,
+      ),
     };
   }
 
-  private populateTemplate(template: string, context: Record<string, string>): string {
+  private populateTemplate(
+    template: string,
+    context: Record<string, string>,
+  ): string {
     let populated = template;
     for (const [key, value] of Object.entries(context)) {
-      populated = populated.replace(new RegExp(`{{${key}}}`, 'g'), value);
+      populated = populated.replace(new RegExp(`{{${key}}}`, "g"), value);
     }
     return populated;
   }
 
-  private extractPersonalizationTokens(content: string): Record<string, string> {
+  private extractPersonalizationTokens(
+    content: string,
+  ): Record<string, string> {
     const tokens: Record<string, string> = {};
     const regex = /\[\[(\w+):\s*([^\]]+)\]\]/g;
     let match;
@@ -629,41 +778,51 @@ Generate a follow-up that feels natural and helpful.
 
   private shouldGenerateMSEOAssets(context: PersonalizationContext): boolean {
     // Generate MSEO for high-value prospects or premium campaigns
-    return context.campaign.type === 'premium' || 
-           context.company.size === 'Enterprise' ||
-           context.lead.jobTitle.toLowerCase().includes('ceo') ||
-           context.lead.jobTitle.toLowerCase().includes('founder');
+    return (
+      context.campaign.type === "premium" ||
+      context.company.size === "Enterprise" ||
+      context.lead.jobTitle.toLowerCase().includes("ceo") ||
+      context.lead.jobTitle.toLowerCase().includes("founder")
+    );
   }
 
-  private async callMSEOService(type: string, request: MSEORequest): Promise<any> {
+  private async callMSEOService(
+    type: string,
+    request: MSEORequest,
+  ): Promise<any> {
     // Placeholder for MSEO service calls
     this.logger.info(`Calling MSEO service for ${type}`, { request });
     this.metrics.increment(`mseo.${type}.requests`);
-    
+
     return {
       id: `mseo_${type}_${Date.now()}`,
       type,
       url: `https://assets.iq24.ai/${type}/${Date.now()}`,
-      status: 'generated',
+      status: "generated",
     };
   }
 
-  async getHealth(): Promise<{ status: 'healthy' | 'unhealthy'; details: Record<string, any> }> {
+  async getHealth(): Promise<{
+    status: "healthy" | "unhealthy";
+    details: Record<string, any>;
+  }> {
     const llmStatuses = {};
-    
+
     for (const [name, client] of this.llmClients.entries()) {
       try {
         // Test LLM connectivity with a simple request
-        llmStatuses[name] = 'healthy';
+        llmStatuses[name] = "healthy";
       } catch {
-        llmStatuses[name] = 'unhealthy';
+        llmStatuses[name] = "unhealthy";
       }
     }
 
-    const allHealthy = Object.values(llmStatuses).every(status => status === 'healthy');
+    const allHealthy = Object.values(llmStatuses).every(
+      (status) => status === "healthy",
+    );
 
     return {
-      status: allHealthy ? 'healthy' : 'unhealthy',
+      status: allHealthy ? "healthy" : "unhealthy",
       details: {
         llmProviders: llmStatuses,
         templatesLoaded: this.promptTemplates.size,
@@ -679,28 +838,37 @@ Generate a follow-up that feels natural and helpful.
   }
 
   private generateFallbackSubject(): string {
-    return 'Quick question about [Company]';
+    return "Quick question about [Company]";
   }
 
   private extractCallToAction(content: string): string {
     // Extract CTA from content using regex or NLP
-    return 'Worth a brief call?';
+    return "Worth a brief call?";
   }
 
   private async estimateEngagement(parsed: any): Promise<number> {
     return 0.7; // Simplified
   }
 
-  private async adaptMessageForVoice(content: string, context: PersonalizationContext): Promise<string> {
+  private async adaptMessageForVoice(
+    content: string,
+    context: PersonalizationContext,
+  ): Promise<string> {
     // Adapt written content for voice delivery
-    return content.replace(/\n/g, ' ... ').replace(/[^\w\s.,!?]/g, '');
+    return content.replace(/\n/g, " ... ").replace(/[^\w\s.,!?]/g, "");
   }
 
-  private async createPersonalizedImagePrompt(message: MessageVariant, context: PersonalizationContext): Promise<string> {
+  private async createPersonalizedImagePrompt(
+    message: MessageVariant,
+    context: PersonalizationContext,
+  ): Promise<string> {
     return `Professional business image for ${context.company.industry} industry, featuring modern design elements`;
   }
 
-  private async adaptMessageForVideo(content: string, context: PersonalizationContext): Promise<string> {
+  private async adaptMessageForVideo(
+    content: string,
+    context: PersonalizationContext,
+  ): Promise<string> {
     // Adapt content for video format
     return `Hello ${context.lead.firstName}, ${content}`;
   }
@@ -711,26 +879,30 @@ Generate a follow-up that feels natural and helpful.
   }
 
   private async getLocationBasedInsights(location: string): Promise<any> {
-    return { timezone: 'UTC', businessHours: '9-5' };
+    return { timezone: "UTC", businessHours: "9-5" };
   }
 
-  private async analyzeTechnologyStackOpportunities(technologies: string[]): Promise<any> {
+  private async analyzeTechnologyStackOpportunities(
+    technologies: string[],
+  ): Promise<any> {
     return { compatibleTools: technologies, integrationOpportunities: [] };
   }
 
-  private async analyzePainPointsForMessaging(painPoints: string[]): Promise<any> {
-    return { primaryPain: painPoints[0], messagingAngle: 'solution-focused' };
+  private async analyzePainPointsForMessaging(
+    painPoints: string[],
+  ): Promise<any> {
+    return { primaryPain: painPoints[0], messagingAngle: "solution-focused" };
   }
 
   private async generateOptimizationRecommendations(
-    messages: MessageVariant[], 
-    context: PersonalizationContext, 
-    insights: Record<string, any>
+    messages: MessageVariant[],
+    context: PersonalizationContext,
+    insights: Record<string, any>,
   ): Promise<string[]> {
     return [
-      'Consider A/B testing subject lines',
-      'Add industry-specific value proposition',
-      'Include social proof for higher conversion',
+      "Consider A/B testing subject lines",
+      "Add industry-specific value proposition",
+      "Include social proof for higher conversion",
     ];
   }
 }

@@ -106,13 +106,13 @@ export default function Page() {
                     alt={name}
                     className={cn(
                       "transition-transform duration-300 group-hover:-translate-y-2",
-                      className
+                      className,
                     )}
                   />
                 </div>
               </Card>
             </Link>
-          )
+          ),
         )}
       </div>
     </div>

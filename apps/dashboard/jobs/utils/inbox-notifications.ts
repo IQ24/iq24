@@ -47,7 +47,7 @@ export async function handleInboxNotifications({
           },
         },
       ];
-    })
+    }),
   );
 
   if (notificationEvents.length) {

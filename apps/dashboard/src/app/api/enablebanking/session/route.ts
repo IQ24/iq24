@@ -28,14 +28,14 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(
       new URL(
         `/?ref=${sessionData.session_id}&provider=enablebanking&step=account`,
-        request.url
-      )
+        request.url,
+      ),
     );
   }
 
   if (errorCode === "already_authorized") {
     return NextResponse.redirect(
-      new URL("/?error=already_authorized", request.url)
+      new URL("/?error=already_authorized", request.url),
     );
   }
 

@@ -28,7 +28,7 @@ export const leaveTeamAction = authActionClient
       const { data: teamMembersData } = await getTeamMembers();
 
       const totalOwners = teamMembersData.filter(
-        (member) => member.role === "owner"
+        (member) => member.role === "owner",
       ).length;
 
       if (role === "owner" && totalOwners === 1) {
@@ -52,5 +52,5 @@ export const leaveTeamAction = authActionClient
       }
 
       return data;
-    }
+    },
   );

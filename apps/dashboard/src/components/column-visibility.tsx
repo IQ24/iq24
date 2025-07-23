@@ -21,7 +21,7 @@ export function ColumnVisibility({ disabled }: { disabled?: boolean }) {
             .filter(
               (column) =>
                 column.columnDef.enableHiding !== false &&
-                column.id !== "status"
+                column.id !== "status",
             )
             .map((column) => {
               return (

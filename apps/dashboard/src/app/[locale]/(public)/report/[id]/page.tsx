@@ -23,7 +23,7 @@ export const fetchCache = "force-cache";
 function getReportMeta(data) {
   const period = `${format(new Date(data.from), "LLL dd, y")} - ${format(
     new Date(data.to),
-    "LLL dd, y"
+    "LLL dd, y",
   )}`;
 
   switch (data.type) {

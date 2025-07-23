@@ -29,7 +29,7 @@ export function DataTableHeader() {
 
       router.replace(`${pathname}?${params.toString()}`);
     },
-    [searchParams, router, pathname]
+    [searchParams, router, pathname],
   );
 
   return (

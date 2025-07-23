@@ -1,15 +1,15 @@
 // IQ24.ai Base Agent - Foundation for All AI Agents
 
-import { EventEmitter } from 'events';
-import { z } from 'zod';
-import type { 
-  AgentType, 
-  Task, 
-  TaskStatus, 
+import { EventEmitter } from "events";
+import { z } from "zod";
+import type {
+  AgentType,
+  Task,
+  TaskStatus,
   ModelInfo,
   FeatureVector,
-  AnalyticsMetric 
-} from '../types';
+  AnalyticsMetric,
+} from "../types";
 
 export interface AgentConfig {
   id: string;
@@ -81,7 +81,7 @@ export abstract class BaseAgent extends EventEmitter {
    * Get agent-specific health status
    */
   abstract getHealthStatus(): Promise<{
-    status: 'healthy' | 'degraded' | 'unhealthy';
+    status: "healthy" | "degraded" | "unhealthy";
     details: Record<string, any>;
   }>;
 
@@ -103,51 +103,59 @@ export abstract class BaseAgent extends EventEmitter {
       }
 
       // Log task start
-      this.dependencies.logger.info(`Agent ${this.config.id} starting task ${task.id}`, {
-        agentType: this.config.type,
-        taskType: task.type,
-        correlationId: context.correlationId
-      });
+      this.dependencies.logger.info(
+        `Agent ${this.config.id} starting task ${task.id}`,
+        {
+          agentType: this.config.type,
+          taskType: task.type,
+          correlationId: context.correlationId,
+        },
+      );
 
       // Execute task
-      this.emit('taskStarted', { task, context });
+      this.emit("taskStarted", { task, context });
       const result = await this.execute(task, context);
 
       // Record success metrics
       const duration = Date.now() - startTime;
-      await this.recordMetric('task_completed', 1, {
+      await this.recordMetric("task_completed", 1, {
         agentType: this.config.type,
         taskType: task.type,
-        duration: duration.toString()
+        duration: duration.toString(),
       });
 
-      this.emit('taskCompleted', { task, context, result, duration });
-      
-      this.dependencies.logger.info(`Agent ${this.config.id} completed task ${task.id}`, {
-        duration,
-        correlationId: context.correlationId
-      });
+      this.emit("taskCompleted", { task, context, result, duration });
+
+      this.dependencies.logger.info(
+        `Agent ${this.config.id} completed task ${task.id}`,
+        {
+          duration,
+          correlationId: context.correlationId,
+        },
+      );
 
       return result;
-
     } catch (error) {
       const duration = Date.now() - startTime;
-      
+
       // Record failure metrics
-      await this.recordMetric('task_failed', 1, {
+      await this.recordMetric("task_failed", 1, {
         agentType: this.config.type,
         taskType: task.type,
-        error: error instanceof Error ? error.message : 'Unknown error'
+        error: error instanceof Error ? error.message : "Unknown error",
       });
 
-      this.emit('taskFailed', { task, context, error, duration });
-      
-      this.dependencies.logger.error(`Agent ${this.config.id} failed task ${task.id}`, {
-        error: error instanceof Error ? error.message : error,
-        stack: error instanceof Error ? error.stack : undefined,
-        duration,
-        correlationId: context.correlationId
-      });
+      this.emit("taskFailed", { task, context, error, duration });
+
+      this.dependencies.logger.error(
+        `Agent ${this.config.id} failed task ${task.id}`,
+        {
+          error: error instanceof Error ? error.message : error,
+          stack: error instanceof Error ? error.stack : undefined,
+          duration,
+          correlationId: context.correlationId,
+        },
+      );
 
       throw error;
     } finally {
@@ -160,7 +168,7 @@ export abstract class BaseAgent extends EventEmitter {
    */
   async getStatus() {
     const healthStatus = await this.getHealthStatus();
-    
+
     return {
       id: this.config.id,
       type: this.config.type,
@@ -170,11 +178,11 @@ export abstract class BaseAgent extends EventEmitter {
       activeTasks: this.activeTasks.size,
       healthStatus,
       uptime: process.uptime(),
-      models: this.config.models.map(m => ({
+      models: this.config.models.map((m) => ({
         id: m.id,
         name: m.name,
-        type: m.type
-      }))
+        type: m.type,
+      })),
     };
   }
 
@@ -183,7 +191,7 @@ export abstract class BaseAgent extends EventEmitter {
    */
   async shutdown(): Promise<void> {
     this.dependencies.logger.info(`Shutting down agent ${this.config.id}`);
-    
+
     // Stop health checks
     if (this.healthCheckInterval) {
       clearInterval(this.healthCheckInterval);
@@ -192,16 +200,21 @@ export abstract class BaseAgent extends EventEmitter {
     // Wait for active tasks to complete (with timeout)
     const shutdownTimeout = 30000; // 30 seconds
     const startTime = Date.now();
-    
-    while (this.activeTasks.size > 0 && (Date.now() - startTime) < shutdownTimeout) {
-      await new Promise(resolve => setTimeout(resolve, 1000));
+
+    while (
+      this.activeTasks.size > 0 &&
+      Date.now() - startTime < shutdownTimeout
+    ) {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
     }
 
     if (this.activeTasks.size > 0) {
-      this.dependencies.logger.warn(`Agent ${this.config.id} shutting down with ${this.activeTasks.size} active tasks`);
+      this.dependencies.logger.warn(
+        `Agent ${this.config.id} shutting down with ${this.activeTasks.size} active tasks`,
+      );
     }
 
-    this.emit('shutdown');
+    this.emit("shutdown");
   }
 
   // ============================================================================
@@ -211,11 +224,20 @@ export abstract class BaseAgent extends EventEmitter {
   /**
    * Get features for a prospect from the feature store
    */
-  protected async getFeatures(prospectId: string, featureNames: string[]): Promise<FeatureVector | null> {
+  protected async getFeatures(
+    prospectId: string,
+    featureNames: string[],
+  ): Promise<FeatureVector | null> {
     try {
-      return await this.dependencies.featureStore.getFeatures(prospectId, featureNames);
+      return await this.dependencies.featureStore.getFeatures(
+        prospectId,
+        featureNames,
+      );
     } catch (error) {
-      this.dependencies.logger.error(`Failed to get features for prospect ${prospectId}`, { error });
+      this.dependencies.logger.error(
+        `Failed to get features for prospect ${prospectId}`,
+        { error },
+      );
       return null;
     }
   }
@@ -227,7 +249,9 @@ export abstract class BaseAgent extends EventEmitter {
     try {
       return await this.dependencies.modelStore.getModel(modelId);
     } catch (error) {
-      this.dependencies.logger.error(`Failed to get model ${modelId}`, { error });
+      this.dependencies.logger.error(`Failed to get model ${modelId}`, {
+        error,
+      });
       return null;
     }
   }
@@ -235,23 +259,30 @@ export abstract class BaseAgent extends EventEmitter {
   /**
    * Record a metric
    */
-  protected async recordMetric(name: string, value: number, dimensions: Record<string, string> = {}): Promise<void> {
+  protected async recordMetric(
+    name: string,
+    value: number,
+    dimensions: Record<string, string> = {},
+  ): Promise<void> {
     const metric: AnalyticsMetric = {
       name: `agent.${this.config.type}.${name}`,
       value,
-      unit: 'count',
+      unit: "count",
       timestamp: new Date(),
       dimensions: {
         agentId: this.config.id,
         agentType: this.config.type,
-        ...dimensions
-      }
+        ...dimensions,
+      },
     };
 
     try {
       await this.dependencies.metrics.record(metric);
     } catch (error) {
-      this.dependencies.logger.error('Failed to record metric', { metric, error });
+      this.dependencies.logger.error("Failed to record metric", {
+        metric,
+        error,
+      });
     }
   }
 
@@ -263,7 +294,7 @@ export abstract class BaseAgent extends EventEmitter {
       agentId: this.config.id,
       agentType: this.config.type,
       timestamp: new Date(),
-      data
+      data,
     });
   }
 
@@ -276,24 +307,26 @@ export abstract class BaseAgent extends EventEmitter {
       try {
         const health = await this.getHealthStatus();
         const wasHealthy = this.isHealthy;
-        this.isHealthy = health.status === 'healthy';
+        this.isHealthy = health.status === "healthy";
 
         // Emit health change events
         if (wasHealthy !== this.isHealthy) {
-          this.emit('healthChanged', { 
-            previousHealth: wasHealthy, 
+          this.emit("healthChanged", {
+            previousHealth: wasHealthy,
             currentHealth: this.isHealthy,
-            details: health.details 
+            details: health.details,
           });
         }
 
         // Record health metrics
-        await this.recordMetric('health_check', this.isHealthy ? 1 : 0, {
-          status: health.status
+        await this.recordMetric("health_check", this.isHealthy ? 1 : 0, {
+          status: health.status,
         });
-
       } catch (error) {
-        this.dependencies.logger.error(`Health check failed for agent ${this.config.id}`, { error });
+        this.dependencies.logger.error(
+          `Health check failed for agent ${this.config.id}`,
+          { error },
+        );
         this.isHealthy = false;
       }
     }, this.config.healthCheck.intervalMs);
@@ -301,8 +334,8 @@ export abstract class BaseAgent extends EventEmitter {
 
   private setupEventHandlers(): void {
     // Handle process signals for graceful shutdown
-    process.on('SIGTERM', () => this.shutdown());
-    process.on('SIGINT', () => this.shutdown());
+    process.on("SIGTERM", () => this.shutdown());
+    process.on("SIGINT", () => this.shutdown());
   }
 }
 
@@ -317,9 +350,9 @@ export class AgentFactory {
   }
 
   static create(
-    agentType: AgentType, 
-    config: AgentConfig, 
-    dependencies: AgentDependencies
+    agentType: AgentType,
+    config: AgentConfig,
+    dependencies: AgentDependencies,
   ): BaseAgent {
     const AgentClass = this.agents.get(agentType);
     if (!AgentClass) {

@@ -201,14 +201,14 @@ export function App({
                         ...Object.values({
                           ...Object.fromEntries(
                             (Array.isArray(settings) ? settings : []).map(
-                              (setting) => [setting.id, setting]
-                            )
+                              (setting) => [setting.id, setting],
+                            ),
                           ),
                           ...Object.fromEntries(
                             (Array.isArray(userSettings)
                               ? userSettings
                               : []
-                            ).map((setting) => [setting.id, setting])
+                            ).map((setting) => [setting.id, setting]),
                           ),
                         }),
                       ]}

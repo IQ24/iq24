@@ -16,28 +16,28 @@ import { Suspense } from "react";
 const AssistantModal = dynamic(
   () =>
     import("@/components/assistant/assistant-modal").then(
-      (mod) => mod.AssistantModal
+      (mod) => mod.AssistantModal,
     ),
   {
     ssr: false,
-  }
+  },
 );
 
 const ExportStatus = dynamic(
   () => import("@/components/export-status").then((mod) => mod.ExportStatus),
   {
     ssr: false,
-  }
+  },
 );
 
 const SelectBankAccountsModal = dynamic(
   () =>
     import("@/components/modals/select-bank-accounts").then(
-      (mod) => mod.SelectBankAccountsModal
+      (mod) => mod.SelectBankAccountsModal,
     ),
   {
     ssr: false,
-  }
+  },
 );
 
 const ImportModal = dynamic(
@@ -45,24 +45,24 @@ const ImportModal = dynamic(
     import("@/components/modals/import-modal").then((mod) => mod.ImportModal),
   {
     ssr: false,
-  }
+  },
 );
 
 const HotKeys = dynamic(
   () => import("@/components/hot-keys").then((mod) => mod.HotKeys),
   {
     ssr: false,
-  }
+  },
 );
 
 const ConnectTransactionsModal = dynamic(
   () =>
     import("@/components/modals/connect-transactions-modal").then(
-      (mod) => mod.ConnectTransactionsModal
+      (mod) => mod.ConnectTransactionsModal,
     ),
   {
     ssr: false,
-  }
+  },
 );
 
 export default async function Layout({

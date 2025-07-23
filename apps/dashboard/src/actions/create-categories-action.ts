@@ -23,7 +23,7 @@ export const createCategoriesAction = authActionClient
         categories.map((category) => ({
           ...category,
           team_id: teamId,
-        }))
+        })),
       )
       .select("id, name, color, vat, slug");
 

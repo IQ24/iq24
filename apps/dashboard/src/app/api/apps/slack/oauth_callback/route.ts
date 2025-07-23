@@ -48,10 +48,10 @@ export async function GET(request: NextRequest) {
 
   const veryfiedState = await slackInstaller.stateStore?.verifyStateParam(
     new Date(),
-    parsedParams.data.state
+    parsedParams.data.state,
   );
   const parsedMetadata = metadataSchema.safeParse(
-    JSON.parse(veryfiedState?.metadata ?? "{}")
+    JSON.parse(veryfiedState?.metadata ?? "{}"),
   );
 
   if (!parsedMetadata.success) {
@@ -76,11 +76,11 @@ export async function GET(request: NextRequest) {
     if (!parsedJson.success) {
       console.error(
         "Invalid JSON response from slack",
-        parsedJson.error.errors
+        parsedJson.error.errors,
       );
       return NextResponse.json(
         { error: "Failed to exchange code for token" },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -148,18 +148,18 @@ export async function GET(request: NextRequest) {
       // This window will be in a popup so we redirect to the all-done route which closes the window
       // and then sends a browser event to the parent window. Actions can be taken based on this event.
       return NextResponse.redirect(
-        `${requestUrl.origin}/all-done?event=app_oauth_completed`
+        `${requestUrl.origin}/all-done?event=app_oauth_completed`,
       );
     }
   } catch (err) {
     return NextResponse.json(
       { error: "Failed to exchange code for token" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 
   return NextResponse.json(
     { error: "Failed to exchange code for token" },
-    { status: 500 }
+    { status: 500 },
   );
 }

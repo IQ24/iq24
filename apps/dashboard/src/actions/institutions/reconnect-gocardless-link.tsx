@@ -14,7 +14,7 @@ export const reconnectGoCardLessLinkAction = authActionClient
       availableHistory: z.number(),
       isDesktop: z.boolean(),
       redirectTo: z.string(),
-    })
+    }),
   )
   .metadata({
     name: "create-gocardless-link",
@@ -67,5 +67,5 @@ export const reconnectGoCardLessLinkAction = authActionClient
       }
 
       return redirect(linkData.link);
-    }
+    },
   );

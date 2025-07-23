@@ -13,6 +13,6 @@ export async function revalidateCache({
       },
       method: "POST",
       body: JSON.stringify({ tag, id }),
-    }
+    },
   );
 }

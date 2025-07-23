@@ -6,7 +6,7 @@ import { assistantThreadMessage, assistantThreadStarted } from "./thread";
 
 export async function handleSlackEvent(
   event: SlackEvent,
-  options: { token: string; teamId: string }
+  options: { token: string; teamId: string },
 ) {
   const client = createSlackWebClient({
     token: options.token,

@@ -1,6 +1,6 @@
 /**
  * Multi-Sensory Engagement Orchestration (MSEO) Types
- * 
+ *
  * Advanced AI-powered voice, image, and video generation for hyper-personalized outreach
  */
 
@@ -13,7 +13,10 @@ export interface MSEOConfig {
         enabled: boolean;
         apiKey: string;
         voiceId: string;
-        model: 'eleven_monolingual_v1' | 'eleven_multilingual_v2' | 'eleven_turbo_v2';
+        model:
+          | "eleven_monolingual_v1"
+          | "eleven_multilingual_v2"
+          | "eleven_turbo_v2";
         stability: number; // 0-1
         similarityBoost: number; // 0-1
         style: number; // 0-1
@@ -22,8 +25,8 @@ export interface MSEOConfig {
       openai: {
         enabled: boolean;
         apiKey: string;
-        voice: 'alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer';
-        model: 'tts-1' | 'tts-1-hd';
+        voice: "alloy" | "echo" | "fable" | "onyx" | "nova" | "shimmer";
+        model: "tts-1" | "tts-1-hd";
         speed: number; // 0.25-4.0
       };
       azure: {
@@ -37,9 +40,9 @@ export interface MSEOConfig {
         volume: string;
       };
     };
-    quality: 'standard' | 'high' | 'premium';
+    quality: "standard" | "high" | "premium";
     maxDurationSeconds: number;
-    outputFormat: 'mp3' | 'wav' | 'flac' | 'ogg';
+    outputFormat: "mp3" | "wav" | "flac" | "ogg";
     cachingEnabled: boolean;
     cacheExpiryHours: number;
   };
@@ -51,15 +54,18 @@ export interface MSEOConfig {
       openai: {
         enabled: boolean;
         apiKey: string;
-        model: 'dall-e-2' | 'dall-e-3';
-        size: '256x256' | '512x512' | '1024x1024' | '1024x1792' | '1792x1024';
-        quality: 'standard' | 'hd';
-        style: 'vivid' | 'natural';
+        model: "dall-e-2" | "dall-e-3";
+        size: "256x256" | "512x512" | "1024x1024" | "1024x1792" | "1792x1024";
+        quality: "standard" | "hd";
+        style: "vivid" | "natural";
       };
       stability: {
         enabled: boolean;
         apiKey: string;
-        engine: 'stable-diffusion-xl-1024-v1-0' | 'stable-diffusion-v1-6' | 'stable-diffusion-xl-beta-v2-2-2';
+        engine:
+          | "stable-diffusion-xl-1024-v1-0"
+          | "stable-diffusion-v1-6"
+          | "stable-diffusion-xl-beta-v2-2-2";
         steps: number; // 10-150
         cfgScale: number; // 1-35
         seed: number;
@@ -73,8 +79,8 @@ export interface MSEOConfig {
         stylize: number; // 0-1000
       };
     };
-    quality: 'draft' | 'standard' | 'high' | 'premium';
-    personalizationLevel: 'basic' | 'advanced' | 'hyper';
+    quality: "draft" | "standard" | "high" | "premium";
+    personalizationLevel: "basic" | "advanced" | "hyper";
     cachingEnabled: boolean;
     cacheExpiryHours: number;
   };
@@ -86,15 +92,15 @@ export interface MSEOConfig {
       runwayml: {
         enabled: boolean;
         apiKey: string;
-        model: 'gen2' | 'gen3';
+        model: "gen2" | "gen3";
         duration: number; // seconds 2-16
-        ratio: '16:9' | '9:16' | '1:1';
+        ratio: "16:9" | "9:16" | "1:1";
         watermark: boolean;
       };
       pika: {
         enabled: boolean;
         apiKey: string;
-        aspectRatio: '16:9' | '9:16' | '1:1';
+        aspectRatio: "16:9" | "9:16" | "1:1";
         frameRate: 24 | 30;
         duration: number; // seconds 3-10
       };
@@ -107,9 +113,9 @@ export interface MSEOConfig {
         title: string;
       };
     };
-    quality: 'draft' | 'standard' | 'high' | '4k';
+    quality: "draft" | "standard" | "high" | "4k";
     maxDurationSeconds: number;
-    personalizationLevel: 'template' | 'custom' | 'hyper';
+    personalizationLevel: "template" | "custom" | "hyper";
     cachingEnabled: boolean;
     cacheExpiryHours: number;
   };
@@ -121,8 +127,13 @@ export interface MSEOConfig {
     useIndustryData: boolean;
     useRecentNews: boolean;
     useSocialMedia: boolean;
-    contextualRelevance: 'low' | 'medium' | 'high' | 'maximum';
-    emotionalTone: 'professional' | 'friendly' | 'enthusiastic' | 'empathetic' | 'adaptive';
+    contextualRelevance: "low" | "medium" | "high" | "maximum";
+    emotionalTone:
+      | "professional"
+      | "friendly"
+      | "enthusiastic"
+      | "empathetic"
+      | "adaptive";
     culturalAdaptation: boolean;
     languageOptimization: boolean;
   };
@@ -149,7 +160,7 @@ export interface MSEOConfig {
     concurrentGenerations: number;
     queueManagement: boolean;
     priorityLevels: string[];
-    resourceAllocation: 'balanced' | 'speed' | 'quality';
+    resourceAllocation: "balanced" | "speed" | "quality";
     fallbackProviders: boolean;
   };
 
@@ -173,7 +184,7 @@ export interface VoiceTemplate {
     provider: string;
     voice: string;
     tone: string;
-    pace: 'slow' | 'normal' | 'fast';
+    pace: "slow" | "normal" | "fast";
     emphasis: string[];
   };
   duration: number;
@@ -245,7 +256,7 @@ export interface VideoTemplate {
 
 export interface TemplateVariable {
   name: string;
-  type: 'text' | 'number' | 'date' | 'url' | 'image' | 'color';
+  type: "text" | "number" | "date" | "url" | "image" | "color";
   required: boolean;
   description: string;
   defaultValue?: any;
@@ -255,12 +266,18 @@ export interface TemplateVariable {
     pattern?: string;
     options?: string[];
   };
-  dataSource?: 'prospect' | 'company' | 'industry' | 'news' | 'social' | 'manual';
+  dataSource?:
+    | "prospect"
+    | "company"
+    | "industry"
+    | "news"
+    | "social"
+    | "manual";
   personalizationWeight: number; // 0-1
 }
 
 export interface MSEOGenerationRequest {
-  type: 'voice' | 'image' | 'video';
+  type: "voice" | "image" | "video";
   templateId: string;
   prospectId: string;
   campaignId: string;
@@ -272,7 +289,7 @@ export interface MSEOGenerationRequest {
       style?: string;
     };
   };
-  priority: 'low' | 'normal' | 'high' | 'urgent';
+  priority: "low" | "normal" | "high" | "urgent";
   deliveryFormat: string;
   metadata: {
     userId: string;
@@ -287,8 +304,8 @@ export interface MSEOGenerationRequest {
 export interface MSEOGenerationResult {
   id: string;
   requestId: string;
-  type: 'voice' | 'image' | 'video';
-  status: 'queued' | 'processing' | 'completed' | 'failed' | 'cancelled';
+  type: "voice" | "image" | "video";
+  status: "queued" | "processing" | "completed" | "failed" | "cancelled";
   content: {
     url?: string;
     localPath?: string;
@@ -333,18 +350,24 @@ export interface MSEOAnalytics {
     clickRates: Record<string, number>;
     responseRates: Record<string, number>;
   };
-  providerPerformance: Record<string, {
-    usage: number;
-    successRate: number;
-    averageTime: number;
-    averageCost: number;
-    qualityScore: number;
-  }>;
-  contentTypePerformance: Record<string, {
-    generations: number;
-    engagementRate: number;
-    costEffectiveness: number;
-  }>;
+  providerPerformance: Record<
+    string,
+    {
+      usage: number;
+      successRate: number;
+      averageTime: number;
+      averageCost: number;
+      qualityScore: number;
+    }
+  >;
+  contentTypePerformance: Record<
+    string,
+    {
+      generations: number;
+      engagementRate: number;
+      costEffectiveness: number;
+    }
+  >;
   trends: {
     daily: Array<{ date: string; generations: number; cost: number }>;
     weekly: Array<{ week: string; generations: number; cost: number }>;
@@ -365,7 +388,7 @@ export interface MSEOQueue {
   settings: {
     maxRetries: number;
     timeoutSeconds: number;
-    backoffStrategy: 'linear' | 'exponential';
+    backoffStrategy: "linear" | "exponential";
     priorityWeighting: boolean;
   };
 }
@@ -373,7 +396,7 @@ export interface MSEOQueue {
 export interface MSEOProvider {
   id: string;
   name: string;
-  type: 'voice' | 'image' | 'video';
+  type: "voice" | "image" | "video";
   enabled: boolean;
   config: any;
   capabilities: string[];
@@ -388,7 +411,7 @@ export interface MSEOProvider {
     };
   };
   pricing: {
-    model: 'per_request' | 'per_second' | 'per_token' | 'subscription';
+    model: "per_request" | "per_second" | "per_token" | "subscription";
     cost: number;
     currency: string;
     freeQuota?: number;
@@ -398,6 +421,6 @@ export interface MSEOProvider {
     reliability: number;
     speed: number;
   };
-  status: 'active' | 'inactive' | 'maintenance' | 'limited';
+  status: "active" | "inactive" | "maintenance" | "limited";
   lastHealthCheck: Date;
 }

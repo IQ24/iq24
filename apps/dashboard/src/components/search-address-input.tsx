@@ -42,7 +42,7 @@ type Option = {
 };
 
 const getAddressDetailsByAddressId = async (
-  addressId: string
+  addressId: string,
 ): Promise<AddressDetails> => {
   const details = (await getDetails({
     placeId: addressId,
@@ -136,7 +136,7 @@ export function SearchAddressInput({
 
       if (event.key === "Enter" && input.value !== "") {
         const optionToSelect = options.find(
-          (option) => option.label === input.value
+          (option) => option.label === input.value,
         );
         if (optionToSelect) {
           setSelected(optionToSelect);
@@ -148,7 +148,7 @@ export function SearchAddressInput({
         input.blur();
       }
     },
-    [isOpen, options]
+    [isOpen, options],
   );
 
   const handleBlur = useCallback(() => {
@@ -166,7 +166,7 @@ export function SearchAddressInput({
         inputRef?.current?.blur();
       }, 0);
     },
-    [onSelect]
+    [onSelect],
   );
 
   const handleSelect = async (address: Option) => {
@@ -219,7 +219,7 @@ export function SearchAddressInput({
                       onSelect={() => handleSelectOption(option)}
                       className={cn(
                         "flex w-full items-center gap-2",
-                        !isSelected ? "pl-8" : null
+                        !isSelected ? "pl-8" : null,
                       )}
                     >
                       {option.label}

@@ -198,7 +198,7 @@ export function DataTable({ data, currentUser }) {
                     key={cell.id}
                     className={cn(
                       "border-r-[0px] py-4",
-                      cell.column.columnDef.meta?.className
+                      cell.column.columnDef.meta?.className,
                     )}
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}

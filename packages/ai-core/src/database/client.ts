@@ -3,9 +3,9 @@
  * Centralized database access layer with type safety and connection management
  */
 
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
-import { getConfig } from '../config';
-import type { Database } from './types';
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
+import { getConfig } from "../config";
+import type { Database } from "./types";
 
 let supabaseClient: SupabaseClient<Database> | null = null;
 let supabaseServiceClient: SupabaseClient<Database> | null = null;
@@ -25,10 +25,10 @@ export function getSupabaseClient(): SupabaseClient<Database> {
         },
         global: {
           headers: {
-            'X-Client-Info': 'iq24-ai-core',
+            "X-Client-Info": "iq24-ai-core",
           },
         },
-      }
+      },
     );
   }
   return supabaseClient;
@@ -51,10 +51,10 @@ export function getSupabaseServiceClient(): SupabaseClient<Database> {
         },
         global: {
           headers: {
-            'X-Client-Info': 'iq24-ai-service',
+            "X-Client-Info": "iq24-ai-service",
           },
         },
-      }
+      },
     );
   }
   return supabaseServiceClient;
@@ -70,25 +70,30 @@ export class BaseRepository<T extends Record<string, any>> {
 
   constructor(tableName: string, useServiceRole = false) {
     this.tableName = tableName;
-    this.client = useServiceRole ? getSupabaseServiceClient() : getSupabaseClient();
+    this.client = useServiceRole
+      ? getSupabaseServiceClient()
+      : getSupabaseClient();
   }
 
   async findById(id: string): Promise<T | null> {
     const { data, error } = await this.client
       .from(this.tableName)
-      .select('*')
-      .eq('id', id)
+      .select("*")
+      .eq("id", id)
       .single();
 
-    if (error && error.code !== 'PGRST116') { // PGRST116 = not found
-      throw new Error(`Failed to find ${this.tableName} by id: ${error.message}`);
+    if (error && error.code !== "PGRST116") {
+      // PGRST116 = not found
+      throw new Error(
+        `Failed to find ${this.tableName} by id: ${error.message}`,
+      );
     }
 
     return data as T | null;
   }
 
   async findMany(filters: Record<string, any> = {}, limit = 100): Promise<T[]> {
-    let query = this.client.from(this.tableName).select('*');
+    let query = this.client.from(this.tableName).select("*");
 
     // Apply filters
     Object.entries(filters).forEach(([key, value]) => {
@@ -106,7 +111,7 @@ export class BaseRepository<T extends Record<string, any>> {
     return (data as T[]) || [];
   }
 
-  async create(data: Omit<T, 'id' | 'created_at' | 'updated_at'>): Promise<T> {
+  async create(data: Omit<T, "id" | "created_at" | "updated_at">): Promise<T> {
     const { data: result, error } = await this.client
       .from(this.tableName)
       .insert(data)
@@ -120,11 +125,14 @@ export class BaseRepository<T extends Record<string, any>> {
     return result as T;
   }
 
-  async update(id: string, data: Partial<Omit<T, 'id' | 'created_at'>>): Promise<T> {
+  async update(
+    id: string,
+    data: Partial<Omit<T, "id" | "created_at">>,
+  ): Promise<T> {
     const { data: result, error } = await this.client
       .from(this.tableName)
       .update({ ...data, updated_at: new Date().toISOString() })
-      .eq('id', id)
+      .eq("id", id)
       .select()
       .single();
 
@@ -139,7 +147,7 @@ export class BaseRepository<T extends Record<string, any>> {
     const { error } = await this.client
       .from(this.tableName)
       .delete()
-      .eq('id', id);
+      .eq("id", id);
 
     if (error) {
       throw new Error(`Failed to delete ${this.tableName}: ${error.message}`);
@@ -192,39 +200,48 @@ export interface Lead {
 
 export class LeadRepository extends BaseRepository<Lead> {
   constructor(useServiceRole = false) {
-    super('leads', useServiceRole);
+    super("leads", useServiceRole);
   }
 
   async findByEmail(email: string, workspaceId: string): Promise<Lead | null> {
     const { data, error } = await this.client
-      .from('leads')
-      .select('*')
-      .eq('email', email)
-      .eq('workspace_id', workspaceId)
+      .from("leads")
+      .select("*")
+      .eq("email", email)
+      .eq("workspace_id", workspaceId)
       .single();
 
-    if (error && error.code !== 'PGRST116') {
+    if (error && error.code !== "PGRST116") {
       throw new Error(`Failed to find lead by email: ${error.message}`);
     }
 
     return data as Lead | null;
   }
 
-  async findByCompanyDomain(domain: string, workspaceId: string): Promise<Lead[]> {
+  async findByCompanyDomain(
+    domain: string,
+    workspaceId: string,
+  ): Promise<Lead[]> {
     const { data, error } = await this.client
-      .from('leads')
-      .select('*')
-      .eq('company_domain', domain)
-      .eq('workspace_id', workspaceId);
+      .from("leads")
+      .select("*")
+      .eq("company_domain", domain)
+      .eq("workspace_id", workspaceId);
 
     if (error) {
-      throw new Error(`Failed to find leads by company domain: ${error.message}`);
+      throw new Error(
+        `Failed to find leads by company domain: ${error.message}`,
+      );
     }
 
     return (data as Lead[]) || [];
   }
 
-  async updateDiscoveryStatus(id: string, status: string, discoveryData?: Record<string, any>): Promise<Lead> {
+  async updateDiscoveryStatus(
+    id: string,
+    status: string,
+    discoveryData?: Record<string, any>,
+  ): Promise<Lead> {
     const updateData: any = { discovery_status: status };
     if (discoveryData) {
       updateData.intent_signals = discoveryData;
@@ -266,24 +283,31 @@ export interface Campaign {
 
 export class CampaignRepository extends BaseRepository<Campaign> {
   constructor(useServiceRole = false) {
-    super('campaigns', useServiceRole);
+    super("campaigns", useServiceRole);
   }
 
   async findActiveCampaigns(workspaceId: string): Promise<Campaign[]> {
     return this.findMany({
       workspace_id: workspaceId,
-      status: 'active'
+      status: "active",
     });
   }
 
-  async updateStage(id: string, stage: string, stagesCompleted: string[] = []): Promise<Campaign> {
+  async updateStage(
+    id: string,
+    stage: string,
+    stagesCompleted: string[] = [],
+  ): Promise<Campaign> {
     return this.update(id, {
       current_stage: stage,
-      stages_completed: stagesCompleted
+      stages_completed: stagesCompleted,
     });
   }
 
-  async updateMetrics(id: string, metrics: Record<string, any>): Promise<Campaign> {
+  async updateMetrics(
+    id: string,
+    metrics: Record<string, any>,
+  ): Promise<Campaign> {
     return this.update(id, { metrics });
   }
 }
@@ -314,31 +338,50 @@ export interface AgentExecution {
 }
 
 export class AgentExecutionRepository extends BaseRepository<AgentExecution> {
-  constructor(useServiceRole = true) { // Agents typically need service role access
-    super('agent_executions', useServiceRole);
+  constructor(useServiceRole = true) {
+    // Agents typically need service role access
+    super("agent_executions", useServiceRole);
   }
 
-  async findByAgentType(agentType: string, workspaceId: string, limit = 100): Promise<AgentExecution[]> {
-    return this.findMany({
-      agent_type: agentType,
-      workspace_id: workspaceId
-    }, limit);
+  async findByAgentType(
+    agentType: string,
+    workspaceId: string,
+    limit = 100,
+  ): Promise<AgentExecution[]> {
+    return this.findMany(
+      {
+        agent_type: agentType,
+        workspace_id: workspaceId,
+      },
+      limit,
+    );
   }
 
-  async findByCampaign(campaignId: string, limit = 100): Promise<AgentExecution[]> {
+  async findByCampaign(
+    campaignId: string,
+    limit = 100,
+  ): Promise<AgentExecution[]> {
     return this.findMany({ campaign_id: campaignId }, limit);
   }
 
-  async updateStatus(id: string, status: string, outputData?: Record<string, any>, error?: string): Promise<AgentExecution> {
-    const updateData: any = { 
+  async updateStatus(
+    id: string,
+    status: string,
+    outputData?: Record<string, any>,
+    error?: string,
+  ): Promise<AgentExecution> {
+    const updateData: any = {
       status,
-      completed_at: status === 'completed' || status === 'failed' ? new Date().toISOString() : undefined
+      completed_at:
+        status === "completed" || status === "failed"
+          ? new Date().toISOString()
+          : undefined,
     };
-    
+
     if (outputData) {
       updateData.output_data = outputData;
     }
-    
+
     if (error) {
       updateData.error_message = error;
     }
@@ -378,7 +421,7 @@ export interface OutreachActivity {
 
 export class OutreachActivityRepository extends BaseRepository<OutreachActivity> {
   constructor(useServiceRole = false) {
-    super('outreach_activities', useServiceRole);
+    super("outreach_activities", useServiceRole);
   }
 
   async findByCampaign(campaignId: string): Promise<OutreachActivity[]> {
@@ -389,21 +432,25 @@ export class OutreachActivityRepository extends BaseRepository<OutreachActivity>
     return this.findMany({ lead_id: leadId });
   }
 
-  async updateStatus(id: string, status: string, timestamp?: string): Promise<OutreachActivity> {
+  async updateStatus(
+    id: string,
+    status: string,
+    timestamp?: string,
+  ): Promise<OutreachActivity> {
     const updateData: any = { status };
-    
+
     if (timestamp) {
       switch (status) {
-        case 'sent':
+        case "sent":
           updateData.sent_at = timestamp;
           break;
-        case 'opened':
+        case "opened":
           updateData.opened_at = timestamp;
           break;
-        case 'clicked':
+        case "clicked":
           updateData.clicked_at = timestamp;
           break;
-        case 'replied':
+        case "replied":
           updateData.replied_at = timestamp;
           break;
       }
@@ -416,15 +463,16 @@ export class OutreachActivityRepository extends BaseRepository<OutreachActivity>
 /**
  * Database connection health check
  */
-export async function checkDatabaseHealth(): Promise<{ healthy: boolean; latency: number; error?: string }> {
+export async function checkDatabaseHealth(): Promise<{
+  healthy: boolean;
+  latency: number;
+  error?: string;
+}> {
   const startTime = Date.now();
-  
+
   try {
     const client = getSupabaseClient();
-    const { error } = await client
-      .from('workspaces')
-      .select('id')
-      .limit(1);
+    const { error } = await client.from("workspaces").select("id").limit(1);
 
     const latency = Date.now() - startTime;
 
@@ -432,19 +480,19 @@ export async function checkDatabaseHealth(): Promise<{ healthy: boolean; latency
       return {
         healthy: false,
         latency,
-        error: error.message
+        error: error.message,
       };
     }
 
     return {
       healthy: true,
-      latency
+      latency,
     };
   } catch (error) {
     return {
       healthy: false,
       latency: Date.now() - startTime,
-      error: error instanceof Error ? error.message : 'Unknown database error'
+      error: error instanceof Error ? error.message : "Unknown database error",
     };
   }
 }
@@ -457,12 +505,12 @@ export const repositories = {
   campaigns: new CampaignRepository(),
   agentExecutions: new AgentExecutionRepository(),
   outreachActivities: new OutreachActivityRepository(),
-  
+
   // Service role versions for internal agent operations
   service: {
     leads: new LeadRepository(true),
     campaigns: new CampaignRepository(true),
     agentExecutions: new AgentExecutionRepository(true),
     outreachActivities: new OutreachActivityRepository(true),
-  }
+  },
 };

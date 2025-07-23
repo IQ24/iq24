@@ -42,7 +42,7 @@ export const updateBaseCurrency = schemaTask({
         updateAccountBaseCurrency,
         {
           delayMinutes: 0,
-        }
+        },
       );
 
       await revalidateCache({ tag: "bank", id: teamId });

@@ -31,5 +31,5 @@ export const changeUserRoleAction = authActionClient
       }
 
       return data;
-    }
+    },
   );

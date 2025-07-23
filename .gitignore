@@ -106,3 +106,96 @@ dist
 # Package managers
 yarn.lock
 package-lock.json
+
+# Bun
+.bun/
+
+# AI/ML specific files
+*.model
+*.h5
+*.pb
+*.onnx
+*.pkl
+*.joblib
+*.weights
+models/
+checkpoints/
+
+# Python specific (for AI engine)
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+.env
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Scripts temp files
+scripts/tmp/
+tmp/
+.tmp/
+
+# IDE specific
+.vscode/settings.json
+.vscode/launch.json
+.vscode/extensions.json
+.cursor/
+
+# AI training data
+data/
+training_data/
+datasets/
+*.csv
+*.json
+*.parquet
+!**/example*.csv
+!**/example*.json
+!**/sample*.csv
+!**/sample*.json
+
+# Vector databases
+*.index
+*.faiss
+weaviate_data/
+pinecone_data/
+chroma_data/
+
+# Anthropic/OpenAI API keys (extra safety)
+.anthropic
+.openai
+api_keys.txt
+keys.txt
+
+# Docker
+.dockerignore
+Dockerfile.dev
+
+# Monitoring and analytics
+.sentry/
+.amplitude/
+.mixpanel/
+
+# Temporal workflow data
+.temporal/
+temporal_data/
+
+# Redis data
+dump.rdb
+
+# Expo (React Native)
+.expo/
+.expo-shared/
+
+# Documentation build
+docs/build/
+docs/out/
+
+# Mintlify
+.mintlify/

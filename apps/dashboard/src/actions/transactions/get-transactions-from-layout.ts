@@ -8,7 +8,7 @@ export const getTransactionsFromLayout = authActionClient
   .schema(
     z.object({
       filePath: z.array(z.string()),
-    })
+    }),
   )
   .metadata({
     name: "get-transactions-from-layout",
@@ -45,8 +45,8 @@ export const getTransactionsFromLayout = authActionClient
         row.cells.map((cell, index) => [
           columns?.[index] ?? `${cell.content}_${index}`,
           cell.content,
-        ])
-      )
+        ]),
+      ),
     );
 
     return {

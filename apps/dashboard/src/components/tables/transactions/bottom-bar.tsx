@@ -35,7 +35,7 @@ export function BottomBar({ count, show, totalAmount }: Props) {
           amount: total?.amount,
           currency: total.currency,
           locale,
-        })
+        }),
       )
       .join(", ");
 

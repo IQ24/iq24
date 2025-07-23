@@ -1,6 +1,6 @@
 /**
  * Advanced Data Pipeline and Feature Store Types
- * 
+ *
  * Comprehensive type definitions for the sophisticated data processing,
  * feature engineering, and ML operations pipeline.
  */
@@ -19,20 +19,20 @@ export interface DataSource {
   totalRecords: number;
 }
 
-export type DataSourceType = 
-  | 'apollo' 
-  | 'hunter' 
-  | 'linkedin' 
-  | 'clearbit' 
-  | 'crunchbase'
-  | 'web_scraping'
-  | 'internal_crm'
-  | 'email_provider'
-  | 'social_media'
-  | 'news_api'
-  | 'company_database';
+export type DataSourceType =
+  | "apollo"
+  | "hunter"
+  | "linkedin"
+  | "clearbit"
+  | "crunchbase"
+  | "web_scraping"
+  | "internal_crm"
+  | "email_provider"
+  | "social_media"
+  | "news_api"
+  | "company_database";
 
-export type DataSourceStatus = 'active' | 'paused' | 'error' | 'syncing';
+export type DataSourceStatus = "active" | "paused" | "error" | "syncing";
 
 export interface DataSourceConfig {
   endpoint?: string;
@@ -54,16 +54,16 @@ export interface DataTransformation {
   order: number;
 }
 
-export type TransformationType = 
-  | 'normalize'
-  | 'deduplicate'
-  | 'enrich'
-  | 'validate'
-  | 'format'
-  | 'aggregate'
-  | 'filter'
-  | 'join'
-  | 'ml_inference';
+export type TransformationType =
+  | "normalize"
+  | "deduplicate"
+  | "enrich"
+  | "validate"
+  | "format"
+  | "aggregate"
+  | "filter"
+  | "join"
+  | "ml_inference";
 
 export interface TransformationConfig {
   fields?: string[];
@@ -99,27 +99,31 @@ export interface Feature {
   updatedAt: Date;
 }
 
-export type FeatureType = 
-  | 'demographic'
-  | 'firmographic'
-  | 'technographic'
-  | 'behavioral'
-  | 'engagement'
-  | 'social'
-  | 'temporal'
-  | 'derived'
-  | 'ml_prediction';
+export type FeatureType =
+  | "demographic"
+  | "firmographic"
+  | "technographic"
+  | "behavioral"
+  | "engagement"
+  | "social"
+  | "temporal"
+  | "derived"
+  | "ml_prediction";
 
-export type ValueType = 
-  | 'string'
-  | 'number'
-  | 'boolean'
-  | 'date'
-  | 'json'
-  | 'array'
-  | 'embedding';
+export type ValueType =
+  | "string"
+  | "number"
+  | "boolean"
+  | "date"
+  | "json"
+  | "array"
+  | "embedding";
 
-export type FeatureStatus = 'active' | 'deprecated' | 'experimental' | 'archived';
+export type FeatureStatus =
+  | "active"
+  | "deprecated"
+  | "experimental"
+  | "archived";
 
 export interface FeatureMetadata {
   category: string;
@@ -142,7 +146,12 @@ export interface FeatureGroup {
   ttl?: number;
 }
 
-export type EntityType = 'prospect' | 'company' | 'campaign' | 'interaction' | 'user';
+export type EntityType =
+  | "prospect"
+  | "company"
+  | "campaign"
+  | "interaction"
+  | "user";
 
 /**
  * Online and offline feature stores
@@ -156,10 +165,19 @@ export interface OnlineFeatureStore {
 }
 
 export interface OfflineFeatureStore {
-  getHistoricalFeatures(request: HistoricalFeatureRequest): Promise<FeatureDataset>;
-  materialize(featureGroup: string, startTime: Date, endTime: Date): Promise<void>;
+  getHistoricalFeatures(
+    request: HistoricalFeatureRequest,
+  ): Promise<FeatureDataset>;
+  materialize(
+    featureGroup: string,
+    startTime: Date,
+    endTime: Date,
+  ): Promise<void>;
   createTrainingDataset(config: TrainingDatasetConfig): Promise<FeatureDataset>;
-  getFeatureStatistics(featureName: string, timeRange: TimeRange): Promise<FeatureStatistics>;
+  getFeatureStatistics(
+    featureName: string,
+    timeRange: TimeRange,
+  ): Promise<FeatureStatistics>;
 }
 
 export interface FeatureRequest {
@@ -219,15 +237,15 @@ export interface PipelineStage {
   retryPolicy: RetryPolicy;
 }
 
-export type StageType = 
-  | 'extract'
-  | 'transform'
-  | 'load'
-  | 'validate'
-  | 'enrich'
-  | 'ml_training'
-  | 'ml_inference'
-  | 'notification';
+export type StageType =
+  | "extract"
+  | "transform"
+  | "load"
+  | "validate"
+  | "enrich"
+  | "ml_training"
+  | "ml_inference"
+  | "notification";
 
 export interface PipelineRun {
   id: string;
@@ -244,8 +262,13 @@ export interface PipelineRun {
   error?: Error;
 }
 
-export type RunStatus = 'queued' | 'running' | 'completed' | 'failed' | 'cancelled';
-export type PipelineStatus = 'active' | 'paused' | 'disabled' | 'draft';
+export type RunStatus =
+  | "queued"
+  | "running"
+  | "completed"
+  | "failed"
+  | "cancelled";
+export type PipelineStatus = "active" | "paused" | "disabled" | "draft";
 
 /**
  * ML and analytics types
@@ -264,17 +287,17 @@ export interface MLModel {
   lastTrained: Date;
 }
 
-export type ModelType = 
-  | 'classification'
-  | 'regression'
-  | 'clustering'
-  | 'recommendation'
-  | 'anomaly_detection'
-  | 'time_series'
-  | 'nlp'
-  | 'embedding';
+export type ModelType =
+  | "classification"
+  | "regression"
+  | "clustering"
+  | "recommendation"
+  | "anomaly_detection"
+  | "time_series"
+  | "nlp"
+  | "embedding";
 
-export type ModelStatus = 'training' | 'active' | 'deprecated' | 'failed';
+export type ModelStatus = "training" | "active" | "deprecated" | "failed";
 
 export interface ModelConfig {
   algorithm: string;
@@ -321,7 +344,7 @@ export interface QualityAlert {
   resolved: boolean;
 }
 
-export type AlertSeverity = 'low' | 'medium' | 'high' | 'critical';
+export type AlertSeverity = "low" | "medium" | "high" | "critical";
 
 /**
  * Supporting types
@@ -349,7 +372,7 @@ export interface DataLineage {
 
 export interface RetryPolicy {
   maxAttempts: number;
-  backoffStrategy: 'linear' | 'exponential' | 'fixed';
+  backoffStrategy: "linear" | "exponential" | "fixed";
   baseDelay: number;
   maxDelay: number;
   jitter: boolean;
@@ -363,7 +386,7 @@ export interface ResourceRequirements {
 }
 
 export interface PipelineSchedule {
-  type: 'cron' | 'interval' | 'event' | 'manual';
+  type: "cron" | "interval" | "event" | "manual";
   expression?: string;
   interval?: number;
   events?: string[];
@@ -399,7 +422,7 @@ export interface StageConfig {
 
 export interface LogEntry {
   timestamp: Date;
-  level: 'debug' | 'info' | 'warn' | 'error';
+  level: "debug" | "info" | "warn" | "error";
   message: string;
   metadata?: Record<string, any>;
 }
@@ -465,7 +488,7 @@ export interface TrainingDatasetConfig {
 }
 
 export interface SamplingStrategy {
-  type: 'random' | 'stratified' | 'time_based';
+  type: "random" | "stratified" | "time_based";
   ratio?: number;
   size?: number;
   stratifyColumn?: string;
@@ -480,12 +503,12 @@ export interface TrainingDataConfig {
 }
 
 export interface ValidationConfig {
-  method: 'holdout' | 'cross_validation' | 'time_series_split';
+  method: "holdout" | "cross_validation" | "time_series_split";
   parameters: Record<string, any>;
 }
 
 export interface DeploymentConfig {
-  environment: 'staging' | 'production';
+  environment: "staging" | "production";
   scalingPolicy: ScalingPolicy;
   monitoring: MonitoringConfig;
 }
@@ -498,7 +521,7 @@ export interface PreprocessingConfig {
 }
 
 export interface NormalizationConfig {
-  method: 'minmax' | 'zscore' | 'robust';
+  method: "minmax" | "zscore" | "robust";
   features: string[];
 }
 
@@ -508,26 +531,26 @@ export interface EncodingConfig {
 }
 
 export interface CategoricalEncodingConfig {
-  method: 'onehot' | 'label' | 'target' | 'binary';
+  method: "onehot" | "label" | "target" | "binary";
   features: string[];
-  handleUnknown: 'error' | 'ignore';
+  handleUnknown: "error" | "ignore";
 }
 
 export interface TextEncodingConfig {
-  method: 'tfidf' | 'word2vec' | 'bert' | 'fasttext';
+  method: "tfidf" | "word2vec" | "bert" | "fasttext";
   features: string[];
   parameters: Record<string, any>;
 }
 
 export interface FeatureSelectionConfig {
-  method: 'correlation' | 'mutual_info' | 'rfe' | 'lasso';
+  method: "correlation" | "mutual_info" | "rfe" | "lasso";
   k?: number;
   threshold?: number;
 }
 
 export interface ImputeStrategy {
-  numerical: 'mean' | 'median' | 'mode' | 'constant';
-  categorical: 'mode' | 'constant';
+  numerical: "mean" | "median" | "mode" | "constant";
+  categorical: "mode" | "constant";
   constant?: any;
 }
 
@@ -556,7 +579,7 @@ export interface ProductionMetrics extends TrainingMetrics {
 
 export interface DataDriftMetrics {
   detected: boolean;
-  severity: 'low' | 'medium' | 'high';
+  severity: "low" | "medium" | "high";
   features: string[];
   lastDetected?: Date;
 }
@@ -645,16 +668,16 @@ export interface DataPipelineEvent {
   data: Record<string, any>;
 }
 
-export type PipelineEventType = 
-  | 'pipeline_started'
-  | 'pipeline_completed'
-  | 'pipeline_failed'
-  | 'stage_started'
-  | 'stage_completed'
-  | 'stage_failed'
-  | 'data_quality_alert'
-  | 'feature_drift_detected'
-  | 'model_performance_degraded';
+export type PipelineEventType =
+  | "pipeline_started"
+  | "pipeline_completed"
+  | "pipeline_failed"
+  | "stage_started"
+  | "stage_completed"
+  | "stage_failed"
+  | "data_quality_alert"
+  | "feature_drift_detected"
+  | "model_performance_degraded";
 
 /**
  * Configuration and settings
@@ -669,19 +692,19 @@ export interface DataPipelineConfig {
 
 export interface StorageConfig {
   offline: {
-    provider: 'postgresql' | 's3' | 'bigquery' | 'snowflake';
+    provider: "postgresql" | "s3" | "bigquery" | "snowflake";
     connectionString: string;
     batchSize: number;
     partitioning: PartitioningConfig;
   };
   online: {
-    provider: 'redis' | 'dynamodb' | 'cassandra';
+    provider: "redis" | "dynamodb" | "cassandra";
     connectionString: string;
     ttl: number;
     replication: number;
   };
   cache: {
-    provider: 'redis' | 'memcached';
+    provider: "redis" | "memcached";
     connectionString: string;
     ttl: number;
     maxSize: number;
@@ -689,7 +712,7 @@ export interface StorageConfig {
 }
 
 export interface ComputeConfig {
-  framework: 'spark' | 'dask' | 'ray' | 'local';
+  framework: "spark" | "dask" | "ray" | "local";
   resources: ResourceRequirements;
   autoscaling: boolean;
   maxWorkers: number;
@@ -741,12 +764,12 @@ export interface RegistryConfig {
 }
 
 export interface PartitioningConfig {
-  strategy: 'time' | 'hash' | 'range';
+  strategy: "time" | "hash" | "range";
   columns: string[];
   buckets?: number;
 }
 
 export interface CompressionConfig {
-  algorithm: 'gzip' | 'snappy' | 'lz4' | 'zstd';
+  algorithm: "gzip" | "snappy" | "lz4" | "zstd";
   level: number;
 }

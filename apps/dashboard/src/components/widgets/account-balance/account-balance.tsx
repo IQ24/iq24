@@ -90,7 +90,7 @@ export function AccountBalance({ data }: Props) {
               key={account.id}
               className={cn(
                 "w-[8px] h-[8px] rounded-full bg-[#1D1D1D] dark:bg-[#D9D9D9] opacity-30 transition-all cursor-pointer",
-                idx === activeIndex && "opacity-1"
+                idx === activeIndex && "opacity-1",
               )}
             />
           ))}

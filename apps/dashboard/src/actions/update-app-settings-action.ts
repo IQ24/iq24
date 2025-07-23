@@ -13,7 +13,7 @@ export const updateAppSettingsAction = authActionClient
         id: z.string(),
         value: z.unknown(),
       }),
-    })
+    }),
   )
   .metadata({
     name: "update-app-settings",
@@ -57,5 +57,5 @@ export const updateAppSettingsAction = authActionClient
       revalidatePath("/apps");
 
       return data;
-    }
+    },
   );

@@ -58,7 +58,7 @@ export const reconnectConnection = schemaTask({
               account_id: account.id,
             })
             .eq("account_reference", account.resource_id);
-        })
+        }),
       );
     }
 

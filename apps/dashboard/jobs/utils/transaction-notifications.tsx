@@ -42,7 +42,7 @@ interface Transaction {
 
 export async function handleTransactionNotifications(
   usersData: UserData[],
-  transactions: Transaction[]
+  transactions: Transaction[],
 ) {
   const notificationEvents = usersData.map(({ user, team_id }) => {
     const { t } = getI18n({ locale: user.locale ?? "en" });
@@ -83,7 +83,7 @@ export async function handleTransactionNotifications(
 
 export async function handleTransactionEmails(
   usersData: UserData[],
-  transactions: Transaction[]
+  transactions: Transaction[],
 ) {
   const emailPromises = usersData.map(async ({ user, team_id, team }) => {
     const { t } = getI18n({ locale: user.locale ?? "en" });
@@ -94,7 +94,7 @@ export async function handleTransactionEmails(
         transactions={transactions}
         locale={user.locale ?? "en"}
         teamName={team.name}
-      />
+      />,
     );
 
     return {
@@ -130,7 +130,7 @@ export async function handleTransactionEmails(
 
 export async function handleTransactionSlackNotifications(
   teamId: string,
-  transactions: Transaction[]
+  transactions: Transaction[],
 ) {
   const supabase = createClient();
 
