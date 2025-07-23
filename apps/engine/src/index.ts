@@ -16,6 +16,7 @@ import healthRoutes from "./routes/health";
 import institutionRoutes from "./routes/institutions";
 import ratesRoutes from "./routes/rates";
 import transactionsRoutes from "./routes/transactions";
+import aiRoutes from "./routes/ai";
 
 const app = new OpenAPIHono<{ Bindings: Bindings }>({
   defaultHook: (result, c) => {
@@ -60,7 +61,8 @@ const appRoutes = app
   .route("/auth", authRoutes)
   .route("/connections", connectionRoutes)
   .route("/health", healthRoutes)
-  .route("/enrich", enrichRoutes);
+  .route("/enrich", enrichRoutes)
+  .route("/ai", aiRoutes);
 
 export type AppType = typeof appRoutes;
 
