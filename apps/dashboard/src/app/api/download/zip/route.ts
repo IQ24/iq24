@@ -27,7 +27,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
       download(supabase, {
         bucket: "vault",
         path: `${file.basePath}/${file.name}`,
-      })
+      }),
     );
   });
 
@@ -55,7 +55,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
   responseHeaders.set(
     "Content-Disposition",
-    `attachment; filename="${filename}.zip"`
+    `attachment; filename="${filename}.zip"`,
   );
 
   const data = await zipWriter.close();

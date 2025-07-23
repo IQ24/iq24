@@ -25,7 +25,7 @@ export function ChartType({ initialValue, disabled }: Props) {
     {
       currentState: initialValue,
       updateFn: (_, newState) => newState,
-    }
+    },
   );
 
   return (

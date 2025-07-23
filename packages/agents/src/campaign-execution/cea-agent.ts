@@ -1,52 +1,69 @@
-import { BaseAgent } from '../base/agent.js';
-import { AgentConfig, TaskContext, WorkflowTask } from '@iq24/types';
+import { BaseAgent } from "../base/agent.js";
+import { AgentConfig, TaskContext, WorkflowTask } from "@iq24/types";
 // Note: Logger moved to avoid circular dependency - using console for now
 // import { Logger } from '@iq24/ai-core/utils/logger';
-import { z } from 'zod';
+import { z } from "zod";
 
 // CEA-specific schemas
 const CampaignSequenceSchema = z.object({
   id: z.string(),
-  steps: z.array(z.object({
-    id: z.string(),
-    type: z.enum(['email', 'linkedin', 'phone_call', 'sms', 'wait', 'conditional']),
-    delayDays: z.number().min(0),
-    content: z.object({
-      subject: z.string().optional(),
-      body: z.string(),
-      cta: z.string(),
-      attachments: z.array(z.string()).optional(),
-    }).optional(),
-    conditions: z.object({
-      ifOpened: z.boolean().optional(),
-      ifClicked: z.boolean().optional(),
-      ifReplied: z.boolean().optional(),
-      ifBounced: z.boolean().optional(),
-    }).optional(),
-    channel: z.object({
-      provider: z.string(),
-      fromEmail: z.string().optional(),
-      fromName: z.string().optional(),
-      linkedinAccountId: z.string().optional(),
+  steps: z.array(
+    z.object({
+      id: z.string(),
+      type: z.enum([
+        "email",
+        "linkedin",
+        "phone_call",
+        "sms",
+        "wait",
+        "conditional",
+      ]),
+      delayDays: z.number().min(0),
+      content: z
+        .object({
+          subject: z.string().optional(),
+          body: z.string(),
+          cta: z.string(),
+          attachments: z.array(z.string()).optional(),
+        })
+        .optional(),
+      conditions: z
+        .object({
+          ifOpened: z.boolean().optional(),
+          ifClicked: z.boolean().optional(),
+          ifReplied: z.boolean().optional(),
+          ifBounced: z.boolean().optional(),
+        })
+        .optional(),
+      channel: z.object({
+        provider: z.string(),
+        fromEmail: z.string().optional(),
+        fromName: z.string().optional(),
+        linkedinAccountId: z.string().optional(),
+      }),
     }),
-  })),
+  ),
   totalDuration: z.number(),
-  priority: z.enum(['high', 'medium', 'low']),
+  priority: z.enum(["high", "medium", "low"]),
 });
 
 const ExecutionContextSchema = z.object({
   leadId: z.string(),
   campaignId: z.string(),
   sequence: CampaignSequenceSchema,
-  personalizedContent: z.array(z.object({
-    stepId: z.string(),
-    variants: z.array(z.object({
-      id: z.string(),
-      content: z.string(),
-      subject: z.string().optional(),
-      mseoAssets: z.array(z.any()).optional(),
-    })),
-  })),
+  personalizedContent: z.array(
+    z.object({
+      stepId: z.string(),
+      variants: z.array(
+        z.object({
+          id: z.string(),
+          content: z.string(),
+          subject: z.string().optional(),
+          mseoAssets: z.array(z.any()).optional(),
+        }),
+      ),
+    }),
+  ),
   leadData: z.object({
     firstName: z.string(),
     lastName: z.string(),
@@ -70,17 +87,19 @@ const ExecutionContextSchema = z.object({
 
 const ExecutionResultSchema = z.object({
   stepId: z.string(),
-  status: z.enum(['scheduled', 'sent', 'failed', 'skipped', 'bounced']),
+  status: z.enum(["scheduled", "sent", "failed", "skipped", "bounced"]),
   timestamp: z.date(),
   channel: z.string(),
   messageId: z.string().optional(),
   errorDetails: z.string().optional(),
-  trackingData: z.object({
-    opens: z.number().default(0),
-    clicks: z.number().default(0),
-    replies: z.number().default(0),
-    unsubscribes: z.number().default(0),
-  }).optional(),
+  trackingData: z
+    .object({
+      opens: z.number().default(0),
+      clicks: z.number().default(0),
+      replies: z.number().default(0),
+      unsubscribes: z.number().default(0),
+    })
+    .optional(),
 });
 
 type CampaignSequence = z.infer<typeof CampaignSequenceSchema>;
@@ -104,10 +123,15 @@ interface CEAConfig extends AgentConfig {
       rateLimits: { connectionsPerDay: number; messagesPerDay: number };
     };
     sms: {
-      twilio: { accountSid: string; authToken: string; fromNumber: string; enabled: boolean };
+      twilio: {
+        accountSid: string;
+        authToken: string;
+        fromNumber: string;
+        enabled: boolean;
+      };
     };
     phone: {
-      ai: { provider: 'vapi' | 'bland'; apiKey: string; enabled: boolean };
+      ai: { provider: "vapi" | "bland"; apiKey: string; enabled: boolean };
       human: { calendarLink: string; enabled: boolean };
     };
   };
@@ -132,7 +156,7 @@ interface CEAConfig extends AgentConfig {
 
 /**
  * Campaign Execution Agent (CEA)
- * 
+ *
  * Responsibilities:
  * - Executes predefined or dynamically adjusted outreach sequences
  * - Schedules messages based on optimal timing and prospect timezones
@@ -151,7 +175,7 @@ export class CampaignExecutionAgent extends BaseAgent {
   constructor(config: CEAConfig) {
     super(config);
     this.config = config;
-    this.logger = new Logger('CEA');
+    this.logger = new Logger("CEA");
     this.initializeChannelProviders();
     this.initializeWorkflowEngine();
   }
@@ -159,30 +183,33 @@ export class CampaignExecutionAgent extends BaseAgent {
   private initializeChannelProviders(): void {
     // Initialize email providers
     if (this.config.channels.email.providers.resend.enabled) {
-      const { Resend } = require('resend');
-      this.channelProviders.set('resend', new Resend(this.config.channels.email.providers.resend.apiKey));
+      const { Resend } = require("resend");
+      this.channelProviders.set(
+        "resend",
+        new Resend(this.config.channels.email.providers.resend.apiKey),
+      );
     }
 
     if (this.config.channels.email.providers.sendgrid.enabled) {
-      const sgMail = require('@sendgrid/mail');
+      const sgMail = require("@sendgrid/mail");
       sgMail.setApiKey(this.config.channels.email.providers.sendgrid.apiKey);
-      this.channelProviders.set('sendgrid', sgMail);
+      this.channelProviders.set("sendgrid", sgMail);
     }
 
     // Initialize SMS provider
     if (this.config.channels.sms.twilio.enabled) {
-      const twilio = require('twilio');
+      const twilio = require("twilio");
       const client = twilio(
         this.config.channels.sms.twilio.accountSid,
-        this.config.channels.sms.twilio.authToken
+        this.config.channels.sms.twilio.authToken,
       );
-      this.channelProviders.set('twilio', client);
+      this.channelProviders.set("twilio", client);
     }
 
     // Initialize LinkedIn MCP client
     if (this.config.channels.linkedin.mcp.enabled) {
       // Custom MCP client for LinkedIn automation
-      this.channelProviders.set('linkedin_mcp', {
+      this.channelProviders.set("linkedin_mcp", {
         endpoint: this.config.channels.linkedin.mcp.endpoint,
         rateLimits: this.config.channels.linkedin.rateLimits,
       });
@@ -192,14 +219,14 @@ export class CampaignExecutionAgent extends BaseAgent {
   private initializeWorkflowEngine(): void {
     if (this.config.workflows.temporal.enabled) {
       // Initialize Temporal client
-      const { Client } = require('@temporalio/client');
+      const { Client } = require("@temporalio/client");
       this.workflowEngine = new Client({
         connection: { address: this.config.workflows.temporal.endpoint },
         namespace: this.config.workflows.temporal.namespace,
       });
     } else if (this.config.workflows.trigger.enabled) {
       // Initialize Trigger.dev client
-      const { TriggerClient } = require('@trigger.dev/sdk');
+      const { TriggerClient } = require("@trigger.dev/sdk");
       this.workflowEngine = new TriggerClient({
         id: this.config.workflows.trigger.projectId,
         apiKey: this.config.workflows.trigger.apiKey,
@@ -207,34 +234,37 @@ export class CampaignExecutionAgent extends BaseAgent {
     }
   }
 
-  protected async processTask(task: WorkflowTask, context: TaskContext): Promise<any> {
+  protected async processTask(
+    task: WorkflowTask,
+    context: TaskContext,
+  ): Promise<any> {
     this.logger.info(`Processing CEA task: ${task.type}`, { taskId: task.id });
 
     try {
       switch (task.type) {
-        case 'execute_campaign':
+        case "execute_campaign":
           return await this.executeCampaign(task.payload, context);
-        
-        case 'schedule_sequence':
+
+        case "schedule_sequence":
           return await this.scheduleSequence(task.payload, context);
-        
-        case 'send_message':
+
+        case "send_message":
           return await this.sendMessage(task.payload, context);
-        
-        case 'handle_response':
+
+        case "handle_response":
           return await this.handleResponse(task.payload, context);
-        
-        case 'update_sequence':
+
+        case "update_sequence":
           return await this.updateSequence(task.payload, context);
-        
-        case 'pause_campaign':
+
+        case "pause_campaign":
           return await this.pauseCampaign(task.payload, context);
-        
+
         default:
           throw new Error(`Unknown CEA task type: ${task.type}`);
       }
     } catch (error) {
-      this.logger.error('CEA task processing failed', { error, task });
+      this.logger.error("CEA task processing failed", { error, task });
       throw error;
     }
   }
@@ -242,18 +272,21 @@ export class CampaignExecutionAgent extends BaseAgent {
   /**
    * Main campaign execution orchestration
    */
-  private async executeCampaign(payload: any, context: TaskContext): Promise<{
+  private async executeCampaign(
+    payload: any,
+    context: TaskContext,
+  ): Promise<{
     executionId: string;
-    status: 'scheduled' | 'running' | 'paused' | 'completed' | 'failed';
+    status: "scheduled" | "running" | "paused" | "completed" | "failed";
     scheduledSteps: ExecutionResult[];
     estimatedCompletion: Date;
   }> {
     const executionContext = ExecutionContextSchema.parse(payload);
-    
-    this.logger.info('Starting campaign execution', { 
+
+    this.logger.info("Starting campaign execution", {
       leadId: executionContext.leadId,
       campaignId: executionContext.campaignId,
-      sequenceSteps: executionContext.sequence.steps.length 
+      sequenceSteps: executionContext.sequence.steps.length,
     });
 
     // Generate unique execution ID
@@ -261,36 +294,49 @@ export class CampaignExecutionAgent extends BaseAgent {
 
     try {
       // Create durable workflow for campaign execution
-      const workflowHandle = await this.createDurableWorkflow(executionId, executionContext);
-      
+      const workflowHandle = await this.createDurableWorkflow(
+        executionId,
+        executionContext,
+      );
+
       // Store execution in active tracking
       this.activeExecutions.set(executionId, {
         workflowHandle,
         context: executionContext,
         startTime: new Date(),
-        status: 'running',
+        status: "running",
       });
 
       // Schedule all sequence steps
-      const scheduledSteps = await this.scheduleSequenceSteps(executionContext, executionId);
-      
+      const scheduledSteps = await this.scheduleSequenceSteps(
+        executionContext,
+        executionId,
+      );
+
       // Calculate estimated completion
-      const estimatedCompletion = this.calculateEstimatedCompletion(executionContext.sequence);
+      const estimatedCompletion = this.calculateEstimatedCompletion(
+        executionContext.sequence,
+      );
 
       // Update metrics
-      this.metrics.increment('campaigns.executed');
-      this.metrics.histogram('sequence.steps_count', executionContext.sequence.steps.length);
+      this.metrics.increment("campaigns.executed");
+      this.metrics.histogram(
+        "sequence.steps_count",
+        executionContext.sequence.steps.length,
+      );
 
       return {
         executionId,
-        status: 'running',
+        status: "running",
         scheduledSteps,
         estimatedCompletion,
       };
-
     } catch (error) {
-      this.logger.error('Campaign execution setup failed', { error, executionId });
-      this.metrics.increment('campaigns.execution_failed');
+      this.logger.error("Campaign execution setup failed", {
+        error,
+        executionId,
+      });
+      this.metrics.increment("campaigns.execution_failed");
       throw error;
     }
   }
@@ -298,53 +344,68 @@ export class CampaignExecutionAgent extends BaseAgent {
   /**
    * Creates a durable workflow for campaign execution
    */
-  private async createDurableWorkflow(executionId: string, context: ExecutionContext): Promise<any> {
+  private async createDurableWorkflow(
+    executionId: string,
+    context: ExecutionContext,
+  ): Promise<any> {
     if (this.config.workflows.temporal.enabled) {
       return await this.createTemporalWorkflow(executionId, context);
     } else if (this.config.workflows.trigger.enabled) {
       return await this.createTriggerWorkflow(executionId, context);
     } else {
-      throw new Error('No workflow engine configured');
+      throw new Error("No workflow engine configured");
     }
   }
 
-  private async createTemporalWorkflow(executionId: string, context: ExecutionContext): Promise<any> {
+  private async createTemporalWorkflow(
+    executionId: string,
+    context: ExecutionContext,
+  ): Promise<any> {
     // Create Temporal workflow for durable execution
     const workflowId = `campaign-execution-${executionId}`;
-    
-    const handle = await this.workflowEngine.workflow.start('campaignExecutionWorkflow', {
-      args: [context],
-      taskQueue: 'campaign-execution',
-      workflowId,
-      searchAttributes: {
-        'custom_namespace': 'iq24-campaigns',
-        'lead_id': context.leadId,
-        'campaign_id': context.campaignId,
-      },
-    });
 
-    this.logger.info('Temporal workflow created', { workflowId, executionId });
+    const handle = await this.workflowEngine.workflow.start(
+      "campaignExecutionWorkflow",
+      {
+        args: [context],
+        taskQueue: "campaign-execution",
+        workflowId,
+        searchAttributes: {
+          custom_namespace: "iq24-campaigns",
+          lead_id: context.leadId,
+          campaign_id: context.campaignId,
+        },
+      },
+    );
+
+    this.logger.info("Temporal workflow created", { workflowId, executionId });
     return handle;
   }
 
-  private async createTriggerWorkflow(executionId: string, context: ExecutionContext): Promise<any> {
+  private async createTriggerWorkflow(
+    executionId: string,
+    context: ExecutionContext,
+  ): Promise<any> {
     // Create Trigger.dev job for durable execution
     const job = await this.workflowEngine.sendEvent({
-      name: 'campaign.execute',
+      name: "campaign.execute",
       payload: {
         executionId,
         context,
       },
     });
 
-    this.logger.info('Trigger.dev job created', { jobId: job.id, executionId });
+    this.logger.info("Trigger.dev job created", { jobId: job.id, executionId });
     return job;
   }
 
   /**
    * Schedules individual sequence steps with proper timing
    */
-  private async scheduleSequenceSteps(context: ExecutionContext, executionId: string): Promise<ExecutionResult[]> {
+  private async scheduleSequenceSteps(
+    context: ExecutionContext,
+    executionId: string,
+  ): Promise<ExecutionResult[]> {
     const scheduledSteps: ExecutionResult[] = [];
     let cumulativeDelay = 0;
 
@@ -354,31 +415,38 @@ export class CampaignExecutionAgent extends BaseAgent {
         const scheduledTime = await this.calculateOptimalSendTime(
           step.delayDays + cumulativeDelay,
           context.leadData.timezone,
-          step.type
+          step.type,
         );
 
         // Create execution record
         const executionResult: ExecutionResult = {
           stepId: step.id,
-          status: 'scheduled',
+          status: "scheduled",
           timestamp: scheduledTime,
           channel: step.type,
         };
 
         // Schedule the step execution
-        await this.scheduleStepExecution(step, context, scheduledTime, executionId);
-        
+        await this.scheduleStepExecution(
+          step,
+          context,
+          scheduledTime,
+          executionId,
+        );
+
         scheduledSteps.push(executionResult);
         cumulativeDelay += step.delayDays;
 
         this.metrics.increment(`steps.scheduled.${step.type}`);
-
       } catch (error) {
-        this.logger.warn(`Failed to schedule step ${step.id}`, { error, stepId: step.id });
-        
+        this.logger.warn(`Failed to schedule step ${step.id}`, {
+          error,
+          stepId: step.id,
+        });
+
         scheduledSteps.push({
           stepId: step.id,
-          status: 'failed',
+          status: "failed",
           timestamp: new Date(),
           channel: step.type,
           errorDetails: error.message,
@@ -393,9 +461,9 @@ export class CampaignExecutionAgent extends BaseAgent {
    * Calculates optimal send time based on timezone and channel best practices
    */
   private async calculateOptimalSendTime(
-    delayDays: number, 
-    timezone: string | undefined, 
-    channelType: string
+    delayDays: number,
+    timezone: string | undefined,
+    channelType: string,
   ): Promise<Date> {
     const baseTime = new Date();
     baseTime.setDate(baseTime.getDate() + delayDays);
@@ -407,7 +475,7 @@ export class CampaignExecutionAgent extends BaseAgent {
 
     // Convert to prospect's timezone and find optimal sending window
     const optimalHour = this.getOptimalHourForChannel(channelType);
-    
+
     // Set time to optimal hour in prospect's timezone
     const targetTime = new Date(baseTime);
     targetTime.setHours(optimalHour, 0, 0, 0);
@@ -437,7 +505,10 @@ export class CampaignExecutionAgent extends BaseAgent {
     return optimalHours[channelType as keyof typeof optimalHours] || 10;
   }
 
-  private adjustForChannelOptimalTime(baseTime: Date, channelType: string): Date {
+  private adjustForChannelOptimalTime(
+    baseTime: Date,
+    channelType: string,
+  ): Date {
     const optimalHour = this.getOptimalHourForChannel(channelType);
     baseTime.setHours(optimalHour, 0, 0, 0);
     return baseTime;
@@ -447,10 +518,10 @@ export class CampaignExecutionAgent extends BaseAgent {
    * Schedules individual step execution using workflow engine
    */
   private async scheduleStepExecution(
-    step: any, 
-    context: ExecutionContext, 
-    scheduledTime: Date, 
-    executionId: string
+    step: any,
+    context: ExecutionContext,
+    scheduledTime: Date,
+    executionId: string,
   ): Promise<void> {
     const stepExecutionData = {
       stepId: step.id,
@@ -468,16 +539,16 @@ export class CampaignExecutionAgent extends BaseAgent {
           startAt: scheduledTime,
         },
         action: {
-          type: 'startWorkflow',
-          workflowType: 'executeStep',
+          type: "startWorkflow",
+          workflowType: "executeStep",
           args: [stepExecutionData],
-          taskQueue: 'step-execution',
+          taskQueue: "step-execution",
         },
       });
     } else if (this.config.workflows.trigger.enabled) {
       // Schedule Trigger.dev job
       await this.workflowEngine.sendEvent({
-        name: 'step.execute',
+        name: "step.execute",
         payload: stepExecutionData,
         delay: scheduledTime,
       });
@@ -487,35 +558,54 @@ export class CampaignExecutionAgent extends BaseAgent {
   /**
    * Executes individual message sending
    */
-  private async sendMessage(payload: any, context: TaskContext): Promise<ExecutionResult> {
+  private async sendMessage(
+    payload: any,
+    context: TaskContext,
+  ): Promise<ExecutionResult> {
     const { step, executionContext, personalizedContent } = payload;
-    
-    this.logger.info(`Sending ${step.type} message`, { 
+
+    this.logger.info(`Sending ${step.type} message`, {
       stepId: step.id,
       leadId: executionContext.leadId,
-      channel: step.type 
+      channel: step.type,
     });
 
     try {
       let result: ExecutionResult;
 
       switch (step.type) {
-        case 'email':
-          result = await this.sendEmail(step, executionContext, personalizedContent);
+        case "email":
+          result = await this.sendEmail(
+            step,
+            executionContext,
+            personalizedContent,
+          );
           break;
-        
-        case 'linkedin':
-          result = await this.sendLinkedInMessage(step, executionContext, personalizedContent);
+
+        case "linkedin":
+          result = await this.sendLinkedInMessage(
+            step,
+            executionContext,
+            personalizedContent,
+          );
           break;
-        
-        case 'sms':
-          result = await this.sendSMS(step, executionContext, personalizedContent);
+
+        case "sms":
+          result = await this.sendSMS(
+            step,
+            executionContext,
+            personalizedContent,
+          );
           break;
-        
-        case 'phone_call':
-          result = await this.initiatePhoneCall(step, executionContext, personalizedContent);
+
+        case "phone_call":
+          result = await this.initiatePhoneCall(
+            step,
+            executionContext,
+            personalizedContent,
+          );
           break;
-        
+
         default:
           throw new Error(`Unsupported message type: ${step.type}`);
       }
@@ -525,24 +615,27 @@ export class CampaignExecutionAgent extends BaseAgent {
       await this.updateExecutionStatus(payload.executionId, step.id, result);
 
       return result;
-
     } catch (error) {
-      this.logger.error(`Failed to send ${step.type} message`, { 
-        error, 
+      this.logger.error(`Failed to send ${step.type} message`, {
+        error,
         stepId: step.id,
-        leadId: executionContext.leadId 
+        leadId: executionContext.leadId,
       });
 
       const failedResult: ExecutionResult = {
         stepId: step.id,
-        status: 'failed',
+        status: "failed",
         timestamp: new Date(),
         channel: step.type,
         errorDetails: error.message,
       };
 
       this.metrics.increment(`messages.failed.${step.type}`);
-      await this.updateExecutionStatus(payload.executionId, step.id, failedResult);
+      await this.updateExecutionStatus(
+        payload.executionId,
+        step.id,
+        failedResult,
+      );
 
       return failedResult;
     }
@@ -551,30 +644,42 @@ export class CampaignExecutionAgent extends BaseAgent {
   /**
    * Send email using configured provider
    */
-  private async sendEmail(step: any, context: ExecutionContext, personalizedContent: any): Promise<ExecutionResult> {
-    const provider = this.channelProviders.get('resend') || this.channelProviders.get('sendgrid');
+  private async sendEmail(
+    step: any,
+    context: ExecutionContext,
+    personalizedContent: any,
+  ): Promise<ExecutionResult> {
+    const provider =
+      this.channelProviders.get("resend") ||
+      this.channelProviders.get("sendgrid");
     if (!provider) {
-      throw new Error('No email provider configured');
+      throw new Error("No email provider configured");
     }
 
     // Get personalized content for this step
-    const content = this.getPersonalizedContentForStep(step.id, personalizedContent);
-    
+    const content = this.getPersonalizedContentForStep(
+      step.id,
+      personalizedContent,
+    );
+
     const emailData = {
       from: `${this.config.channels.email.defaultFrom.name} <${this.config.channels.email.defaultFrom.email}>`,
       to: context.leadData.email,
-      subject: content.subject || step.content?.subject || 'Quick question',
-      html: this.addTrackingPixels(content.content || step.content?.body || '', step.id),
-      text: this.stripHtml(content.content || step.content?.body || ''),
+      subject: content.subject || step.content?.subject || "Quick question",
+      html: this.addTrackingPixels(
+        content.content || step.content?.body || "",
+        step.id,
+      ),
+      text: this.stripHtml(content.content || step.content?.body || ""),
     };
 
-    if (this.channelProviders.has('resend')) {
+    if (this.channelProviders.has("resend")) {
       const result = await provider.emails.send(emailData);
       return {
         stepId: step.id,
-        status: 'sent',
+        status: "sent",
         timestamp: new Date(),
-        channel: 'email',
+        channel: "email",
         messageId: result.data?.id,
       };
     } else {
@@ -582,9 +687,9 @@ export class CampaignExecutionAgent extends BaseAgent {
       await provider.send(emailData);
       return {
         stepId: step.id,
-        status: 'sent',
+        status: "sent",
         timestamp: new Date(),
-        channel: 'email',
+        channel: "email",
       };
     }
   }
@@ -592,19 +697,26 @@ export class CampaignExecutionAgent extends BaseAgent {
   /**
    * Send LinkedIn message via MCP
    */
-  private async sendLinkedInMessage(step: any, context: ExecutionContext, personalizedContent: any): Promise<ExecutionResult> {
-    const linkedinProvider = this.channelProviders.get('linkedin_mcp');
+  private async sendLinkedInMessage(
+    step: any,
+    context: ExecutionContext,
+    personalizedContent: any,
+  ): Promise<ExecutionResult> {
+    const linkedinProvider = this.channelProviders.get("linkedin_mcp");
     if (!linkedinProvider) {
-      throw new Error('LinkedIn MCP provider not configured');
+      throw new Error("LinkedIn MCP provider not configured");
     }
 
-    const content = this.getPersonalizedContentForStep(step.id, personalizedContent);
-    
+    const content = this.getPersonalizedContentForStep(
+      step.id,
+      personalizedContent,
+    );
+
     // Call LinkedIn MCP service
     const messageData = {
       recipientLinkedInUrl: context.leadData.linkedinUrl,
       message: content.content || step.content?.body,
-      connectionRequest: step.type === 'linkedin_connect',
+      connectionRequest: step.type === "linkedin_connect",
     };
 
     // Simulate MCP call (replace with actual MCP integration)
@@ -612,9 +724,9 @@ export class CampaignExecutionAgent extends BaseAgent {
 
     return {
       stepId: step.id,
-      status: 'sent',
+      status: "sent",
       timestamp: new Date(),
-      channel: 'linkedin',
+      channel: "linkedin",
       messageId: response.messageId,
     };
   }
@@ -622,18 +734,25 @@ export class CampaignExecutionAgent extends BaseAgent {
   /**
    * Send SMS using Twilio
    */
-  private async sendSMS(step: any, context: ExecutionContext, personalizedContent: any): Promise<ExecutionResult> {
-    const twilioClient = this.channelProviders.get('twilio');
+  private async sendSMS(
+    step: any,
+    context: ExecutionContext,
+    personalizedContent: any,
+  ): Promise<ExecutionResult> {
+    const twilioClient = this.channelProviders.get("twilio");
     if (!twilioClient) {
-      throw new Error('Twilio SMS provider not configured');
+      throw new Error("Twilio SMS provider not configured");
     }
 
     if (!context.leadData.phone) {
-      throw new Error('No phone number available for SMS');
+      throw new Error("No phone number available for SMS");
     }
 
-    const content = this.getPersonalizedContentForStep(step.id, personalizedContent);
-    
+    const content = this.getPersonalizedContentForStep(
+      step.id,
+      personalizedContent,
+    );
+
     const message = await twilioClient.messages.create({
       body: content.content || step.content?.body,
       from: this.config.channels.sms.twilio.fromNumber,
@@ -642,9 +761,9 @@ export class CampaignExecutionAgent extends BaseAgent {
 
     return {
       stepId: step.id,
-      status: 'sent',
+      status: "sent",
       timestamp: new Date(),
-      channel: 'sms',
+      channel: "sms",
       messageId: message.sid,
     };
   }
@@ -652,7 +771,11 @@ export class CampaignExecutionAgent extends BaseAgent {
   /**
    * Initiate phone call using AI or human calendar booking
    */
-  private async initiatePhoneCall(step: any, context: ExecutionContext, personalizedContent: any): Promise<ExecutionResult> {
+  private async initiatePhoneCall(
+    step: any,
+    context: ExecutionContext,
+    personalizedContent: any,
+  ): Promise<ExecutionResult> {
     if (this.config.channels.phone.ai.enabled) {
       // AI-powered call using VAPI or Bland AI
       return await this.initiateAICall(step, context, personalizedContent);
@@ -660,57 +783,60 @@ export class CampaignExecutionAgent extends BaseAgent {
       // Send calendar booking link
       return await this.sendCalendarLink(step, context, personalizedContent);
     } else {
-      throw new Error('No phone call method configured');
+      throw new Error("No phone call method configured");
     }
   }
 
   /**
    * Handle inbound responses and engagement events
    */
-  private async handleResponse(payload: any, context: TaskContext): Promise<{
-    action: 'continue' | 'pause' | 'modify' | 'escalate';
+  private async handleResponse(
+    payload: any,
+    context: TaskContext,
+  ): Promise<{
+    action: "continue" | "pause" | "modify" | "escalate";
     nextSteps: string[];
     updates: Record<string, any>;
   }> {
     const { executionId, responseType, responseData } = payload;
-    
-    this.logger.info('Handling response', { executionId, responseType });
+
+    this.logger.info("Handling response", { executionId, responseType });
 
     // Update engagement tracking
     await this.updateEngagementMetrics(executionId, responseType, responseData);
 
     // Determine next action based on response type
-    let action: 'continue' | 'pause' | 'modify' | 'escalate' = 'continue';
+    let action: "continue" | "pause" | "modify" | "escalate" = "continue";
     const nextSteps: string[] = [];
     const updates: Record<string, any> = {};
 
     switch (responseType) {
-      case 'email_reply':
-        action = 'pause'; // Pause sequence for human review
-        nextSteps.push('notify_sales_rep', 'schedule_follow_up');
-        updates.status = 'engaged';
+      case "email_reply":
+        action = "pause"; // Pause sequence for human review
+        nextSteps.push("notify_sales_rep", "schedule_follow_up");
+        updates.status = "engaged";
         break;
-      
-      case 'email_unsubscribe':
-        action = 'pause';
-        nextSteps.push('remove_from_all_sequences', 'update_suppression_list');
-        updates.status = 'unsubscribed';
+
+      case "email_unsubscribe":
+        action = "pause";
+        nextSteps.push("remove_from_all_sequences", "update_suppression_list");
+        updates.status = "unsubscribed";
         break;
-      
-      case 'email_bounce':
-        action = 'modify';
-        nextSteps.push('update_email_status', 'try_linkedin');
-        updates.emailStatus = 'invalid';
+
+      case "email_bounce":
+        action = "modify";
+        nextSteps.push("update_email_status", "try_linkedin");
+        updates.emailStatus = "invalid";
         break;
-      
-      case 'linkedin_connection_accepted':
-        action = 'continue';
-        nextSteps.push('proceed_to_next_step');
-        updates.linkedinStatus = 'connected';
+
+      case "linkedin_connection_accepted":
+        action = "continue";
+        nextSteps.push("proceed_to_next_step");
+        updates.linkedinStatus = "connected";
         break;
-      
+
       default:
-        action = 'continue';
+        action = "continue";
     }
 
     this.metrics.increment(`responses.handled.${responseType}`);
@@ -718,107 +844,147 @@ export class CampaignExecutionAgent extends BaseAgent {
   }
 
   // Helper methods
-  private getPersonalizedContentForStep(stepId: string, personalizedContent: any): any {
-    const stepContent = personalizedContent.find((content: any) => content.stepId === stepId);
+  private getPersonalizedContentForStep(
+    stepId: string,
+    personalizedContent: any,
+  ): any {
+    const stepContent = personalizedContent.find(
+      (content: any) => content.stepId === stepId,
+    );
     if (!stepContent || !stepContent.variants.length) {
-      return { content: '', subject: '' };
+      return { content: "", subject: "" };
     }
 
     // Use A/B testing to select variant
-    const variant = this.config.execution.maxConcurrentCampaigns > 1 
-      ? stepContent.variants[Math.floor(Math.random() * stepContent.variants.length)]
-      : stepContent.variants[0];
+    const variant =
+      this.config.execution.maxConcurrentCampaigns > 1
+        ? stepContent.variants[
+            Math.floor(Math.random() * stepContent.variants.length)
+          ]
+        : stepContent.variants[0];
 
     return variant;
   }
 
   private addTrackingPixels(htmlContent: string, stepId: string): string {
     if (!this.config.tracking.pixelTracking) return htmlContent;
-    
+
     const trackingPixel = `<img src="${this.config.tracking.webhookUrl}/pixel/${stepId}" width="1" height="1" style="display:none;" />`;
     return htmlContent + trackingPixel;
   }
 
   private stripHtml(html: string): string {
-    return html.replace(/<[^>]*>/g, '');
+    return html.replace(/<[^>]*>/g, "");
   }
 
   private async callLinkedInMCP(messageData: any): Promise<any> {
     // Placeholder for LinkedIn MCP integration
-    this.logger.info('Calling LinkedIn MCP', messageData);
-    return { messageId: `li_${Date.now()}`, status: 'sent' };
+    this.logger.info("Calling LinkedIn MCP", messageData);
+    return { messageId: `li_${Date.now()}`, status: "sent" };
   }
 
-  private async initiateAICall(step: any, context: ExecutionContext, personalizedContent: any): Promise<ExecutionResult> {
+  private async initiateAICall(
+    step: any,
+    context: ExecutionContext,
+    personalizedContent: any,
+  ): Promise<ExecutionResult> {
     // Placeholder for AI call integration
     return {
       stepId: step.id,
-      status: 'sent',
+      status: "sent",
       timestamp: new Date(),
-      channel: 'phone_call',
+      channel: "phone_call",
       messageId: `ai_call_${Date.now()}`,
     };
   }
 
-  private async sendCalendarLink(step: any, context: ExecutionContext, personalizedContent: any): Promise<ExecutionResult> {
+  private async sendCalendarLink(
+    step: any,
+    context: ExecutionContext,
+    personalizedContent: any,
+  ): Promise<ExecutionResult> {
     // Send email with calendar booking link
     const calendarContent = {
-      subject: 'Quick call?',
+      subject: "Quick call?",
       content: `Hi ${context.leadData.firstName}, would you be open to a brief call? Here's my calendar: ${this.config.channels.phone.human.calendarLink}`,
     };
 
-    return await this.sendEmail({
-      ...step,
-      content: calendarContent,
-    }, context, personalizedContent);
+    return await this.sendEmail(
+      {
+        ...step,
+        content: calendarContent,
+      },
+      context,
+      personalizedContent,
+    );
   }
 
   private calculateEstimatedCompletion(sequence: CampaignSequence): Date {
-    const totalDays = sequence.steps.reduce((sum, step) => sum + step.delayDays, 0);
+    const totalDays = sequence.steps.reduce(
+      (sum, step) => sum + step.delayDays,
+      0,
+    );
     const completion = new Date();
     completion.setDate(completion.getDate() + totalDays);
     return completion;
   }
 
-  private async updateExecutionStatus(executionId: string, stepId: string, result: ExecutionResult): Promise<void> {
+  private async updateExecutionStatus(
+    executionId: string,
+    stepId: string,
+    result: ExecutionResult,
+  ): Promise<void> {
     // Update execution tracking in database
-    this.logger.info('Updating execution status', { executionId, stepId, status: result.status });
-    
+    this.logger.info("Updating execution status", {
+      executionId,
+      stepId,
+      status: result.status,
+    });
+
     // This would typically update Supabase database
     // await this.supabase.from('campaign_executions').update({
     //   step_results: result
     // }).eq('execution_id', executionId);
   }
 
-  private async updateEngagementMetrics(executionId: string, responseType: string, responseData: any): Promise<void> {
+  private async updateEngagementMetrics(
+    executionId: string,
+    responseType: string,
+    responseData: any,
+  ): Promise<void> {
     // Update engagement metrics for AFLA analysis
     this.metrics.increment(`engagement.${responseType}`);
-    
+
     // Store detailed engagement data
-    this.logger.info('Engagement event recorded', { 
-      executionId, 
-      responseType, 
-      timestamp: new Date() 
+    this.logger.info("Engagement event recorded", {
+      executionId,
+      responseType,
+      timestamp: new Date(),
     });
   }
 
-  async getHealth(): Promise<{ status: 'healthy' | 'unhealthy'; details: Record<string, any> }> {
+  async getHealth(): Promise<{
+    status: "healthy" | "unhealthy";
+    details: Record<string, any>;
+  }> {
     const providerStatuses = {};
-    
+
     for (const [name, provider] of this.channelProviders.entries()) {
       try {
         // Test provider connectivity
-        providerStatuses[name] = 'healthy';
+        providerStatuses[name] = "healthy";
       } catch {
-        providerStatuses[name] = 'unhealthy';
+        providerStatuses[name] = "unhealthy";
       }
     }
 
-    const workflowEngineStatus = this.workflowEngine ? 'healthy' : 'unhealthy';
-    const allHealthy = Object.values(providerStatuses).every(status => status === 'healthy') && workflowEngineStatus === 'healthy';
+    const workflowEngineStatus = this.workflowEngine ? "healthy" : "unhealthy";
+    const allHealthy =
+      Object.values(providerStatuses).every((status) => status === "healthy") &&
+      workflowEngineStatus === "healthy";
 
     return {
-      status: allHealthy ? 'healthy' : 'unhealthy',
+      status: allHealthy ? "healthy" : "unhealthy",
       details: {
         channelProviders: providerStatuses,
         workflowEngine: workflowEngineStatus,

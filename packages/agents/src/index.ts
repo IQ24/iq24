@@ -2,16 +2,16 @@
 // Comprehensive suite of specialized AI agents for B2B growth automation
 
 // Base Agent Class
-export { BaseAgent } from './base/agent.js';
+export { BaseAgent } from "./base/agent.js";
 
 // Core AI Agents
-export { ProspectDiscoveryAgent } from './prospect-discovery/prospect-discovery-agent.js';
-export { ValidationEnrichmentAgent } from './validation-enrichment/vea-agent.js';
-export { OutreachPersonalizationAgent } from './outreach-personalization/opa-agent.js';
-export { CampaignExecutionAgent } from './campaign-execution/cea-agent.js';
-export { AnalyticsFeedbackAgent } from './analytics-feedback/afla-agent.js';
-export { ComplianceGuardianAgent } from './compliance-guardian/cgn-agent.js';
-export { CognitiveReflectionAgent } from './cognitive-reflection/crm-agent.js';
+export { ProspectDiscoveryAgent } from "./prospect-discovery/prospect-discovery-agent.js";
+export { ValidationEnrichmentAgent } from "./validation-enrichment/vea-agent.js";
+export { OutreachPersonalizationAgent } from "./outreach-personalization/opa-agent.js";
+export { CampaignExecutionAgent } from "./campaign-execution/cea-agent.js";
+export { AnalyticsFeedbackAgent } from "./analytics-feedback/afla-agent.js";
+export { ComplianceGuardianAgent } from "./compliance-guardian/cgn-agent.js";
+export { CognitiveReflectionAgent } from "./cognitive-reflection/crm-agent.js";
 
 // Agent Factory and Management
 export class AgentFactory {
@@ -19,19 +19,19 @@ export class AgentFactory {
 
   static createAgent(agentType: string, config: any) {
     switch (agentType) {
-      case 'pda':
+      case "pda":
         return new ProspectDiscoveryAgent(config);
-      case 'vea':
+      case "vea":
         return new ValidationEnrichmentAgent(config);
-      case 'opa':
+      case "opa":
         return new OutreachPersonalizationAgent(config);
-      case 'cea':
+      case "cea":
         return new CampaignExecutionAgent(config);
-      case 'afla':
+      case "afla":
         return new AnalyticsFeedbackAgent();
-      case 'cgn':
+      case "cgn":
         return new ComplianceGuardianAgent();
-      case 'crm':
+      case "crm":
         return new CognitiveReflectionAgent();
       default:
         throw new Error(`Unknown agent type: ${agentType}`);
@@ -52,7 +52,7 @@ export class AgentFactory {
 }
 
 // Agent Types and Configurations
-export type AgentType = 'pda' | 'vea' | 'opa' | 'cea' | 'afla' | 'cgn' | 'crm';
+export type AgentType = "pda" | "vea" | "opa" | "cea" | "afla" | "cgn" | "crm";
 
 export interface AgentRegistry {
   pda: ProspectDiscoveryAgent;
@@ -71,7 +71,7 @@ export class MultiAgentSystem {
 
   async initialize(configs: Record<AgentType, any>) {
     if (this.initialized) {
-      throw new Error('Multi-Agent System already initialized');
+      throw new Error("Multi-Agent System already initialized");
     }
 
     // Initialize all agents
@@ -86,14 +86,14 @@ export class MultiAgentSystem {
 
   getAgent<T extends AgentType>(agentType: T): AgentRegistry[T] {
     if (!this.initialized) {
-      throw new Error('Multi-Agent System not initialized');
+      throw new Error("Multi-Agent System not initialized");
     }
-    
+
     const agent = this.agents.get(agentType);
     if (!agent) {
       throw new Error(`Agent ${agentType} not found`);
     }
-    
+
     return agent;
   }
 
@@ -104,26 +104,26 @@ export class MultiAgentSystem {
         await agent.shutdown();
       }
     }
-    
+
     this.agents.clear();
     this.initialized = false;
   }
 
   getSystemStatus() {
     const status: Record<string, any> = {};
-    
+
     for (const [agentType, agent] of this.agents) {
       status[agentType] = {
         initialized: true,
         healthy: agent.isHealthy ? agent.isHealthy() : true,
-        metrics: agent.getMetrics ? agent.getMetrics() : null
+        metrics: agent.getMetrics ? agent.getMetrics() : null,
       };
     }
-    
+
     return {
       initialized: this.initialized,
       agentCount: this.agents.size,
-      agents: status
+      agents: status,
     };
   }
 }

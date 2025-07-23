@@ -56,10 +56,10 @@ export function TrackerDaySelect({ className }: Props) {
                 new TZDate(currentDate[0].getTime(), "UTC"),
                 new TZDate(
                   currentDate[1]?.getTime() ?? currentDate[0].getTime(),
-                  "UTC"
+                  "UTC",
                 ),
               ]
-            : [new TZDate(currentDate[0].getTime(), "UTC")]
+            : [new TZDate(currentDate[0].getTime(), "UTC")],
         )}
       </span>
       <Button

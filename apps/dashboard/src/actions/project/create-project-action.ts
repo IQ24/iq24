@@ -35,7 +35,7 @@ export const createProjectAction = authActionClient
             tag_id: tag.id,
             tracker_project_id: data?.id,
             team_id: user.team_id!,
-          }))
+          })),
         );
       }
 
@@ -48,5 +48,5 @@ export const createProjectAction = authActionClient
       revalidateTag(`tracker_projects_${user.team_id}`);
 
       return data;
-    }
+    },
   );

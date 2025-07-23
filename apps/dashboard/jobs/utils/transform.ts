@@ -50,7 +50,7 @@ export function transformTransaction({
 }
 
 export function getClassification(
-  type: Database["public"]["Enums"]["account_type"]
+  type: Database["public"]["Enums"]["account_type"],
 ) {
   switch (type) {
     case "credit":

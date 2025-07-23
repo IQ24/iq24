@@ -66,7 +66,7 @@ export function InboxDetails({
   const handleCopyLink = async () => {
     try {
       await navigator.clipboard.writeText(
-        `${window.location.origin}/inbox?id=${item.id}`
+        `${window.location.origin}/inbox?id=${item.id}`,
       );
 
       toast({
@@ -150,7 +150,7 @@ export function InboxDetails({
                       height={40}
                       className={cn(
                         "rounded-full overflow-hidden",
-                        showFallback && "hidden"
+                        showFallback && "hidden",
                       )}
                       src={`https://img.logo.dev/${item.website}?token=pk_X-1ZO13GSgeOoUrIuJ6GMQ`}
                       quality={100}

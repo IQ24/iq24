@@ -111,7 +111,7 @@ function RowTitle({ name: initialName, isEditing, path, href }: Props) {
       deleteItem(name);
       setCanceled(true);
     },
-    { enableOnFormTags: true, enabled: isEditing }
+    { enableOnFormTags: true, enabled: isEditing },
   );
 
   const createFolder = useAction(createFolderAction, {

@@ -34,5 +34,5 @@ export const deleteCategoriesAction = authActionClient
       revalidateTag(`spending_${user.team_id}`);
 
       return response;
-    }
+    },
   );

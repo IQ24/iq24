@@ -29,7 +29,7 @@ export function SpendingCategoryList({ categories, period, disabled }: Props) {
                   className="flex items-center"
                   href={`/transactions?categories=${slug}&start=${formatISO(
                     period?.from,
-                    { representation: "date" }
+                    { representation: "date" },
                   )}&end=${formatISO(period?.to, { representation: "date" })}`}
                 >
                   <Category

@@ -39,5 +39,5 @@ export const updateUserAction = authActionClient
       }
 
       return user;
-    }
+    },
   );

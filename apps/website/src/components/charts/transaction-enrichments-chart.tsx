@@ -24,7 +24,7 @@ export async function TransactionEnrichmentsChart() {
         <span className="mt-auto font-mono text-[80px] md:text-[110px]">
           {transactionEnrichments &&
             Intl.NumberFormat("en", { notation: "compact" }).format(
-              transactionEnrichments
+              transactionEnrichments,
             )}
         </span>
       </div>

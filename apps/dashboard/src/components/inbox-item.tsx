@@ -22,7 +22,7 @@ export function InboxItem({ item }) {
       key={item.id}
       className={cn(
         "flex flex-col w-full items-start gap-2 border p-4 text-left text-sm",
-        isSelected && "bg-accent border-[#DCDAD2] dark:border-[#2C2C2C]"
+        isSelected && "bg-accent border-[#DCDAD2] dark:border-[#2C2C2C]",
       )}
     >
       <div className="flex w-full flex-col gap-1">
@@ -41,7 +41,7 @@ export function InboxItem({ item }) {
           <div
             className={cn(
               "ml-auto text-xs select-text",
-              isSelected ? "text-foreground" : "text-muted-foreground"
+              isSelected ? "text-foreground" : "text-muted-foreground",
             )}
           >
             {isProcessing && <Skeleton className="h-3 w-[50px] rounded-sm" />}

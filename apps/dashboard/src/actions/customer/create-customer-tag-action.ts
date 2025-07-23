@@ -25,5 +25,5 @@ export const createCustomerTagAction = authActionClient
       revalidateTag(`customers_${user.team_id}`);
 
       return data;
-    }
+    },
   );

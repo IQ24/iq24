@@ -31,7 +31,7 @@ export async function POST(req: Request) {
   if (apiKey !== process.env.iq24_CACHE_API_SECRET) {
     return NextResponse.json(
       { error: "Unauthorized request" },
-      { status: 401 }
+      { status: 401 },
     );
   }
 
@@ -40,7 +40,7 @@ export async function POST(req: Request) {
   if (!parsedBody.success) {
     return NextResponse.json(
       { error: "Invalid request body" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 

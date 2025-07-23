@@ -88,13 +88,13 @@ export function UploadZone({ children }: Props) {
                 (acc, currentValue) => {
                   return acc + currentValue;
                 },
-                0
+                0,
               );
 
               setProgress(Math.round(_progress / files.length));
             },
           });
-        })
+        }),
       );
 
       // Reset once done
@@ -162,7 +162,7 @@ export function UploadZone({ children }: Props) {
             <div
               className={cn(
                 "bg-background dark:bg-[#1A1A1A] h-full flex items-center justify-center text-center invisible",
-                isDragActive && "visible"
+                isDragActive && "visible",
               )}
             >
               <input {...getInputProps()} id="upload-files" />

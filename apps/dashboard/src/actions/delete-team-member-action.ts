@@ -27,5 +27,5 @@ export const deleteTeamMemberAction = authActionClient
       }
 
       return data;
-    }
+    },
   );

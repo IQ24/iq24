@@ -39,7 +39,7 @@ export const processExport = schemaTask({
         attachments:transaction_attachments(*),
         category:transaction_categories(id, name, description),
         bank_account:bank_accounts(id, name)
-      `
+      `,
       )
       .in("id", ids)
       .throwOnError();
@@ -71,13 +71,13 @@ export const processExport = schemaTask({
                   name,
                   blob: data ? await blobToSerializable(data) : null,
                 };
-              }
+              },
             );
-          })
+          }),
         );
 
         return batchAttachments.flat();
-      }
+      },
     );
 
     const rows = transactionsData

@@ -324,7 +324,7 @@ export default function SectionStories() {
               >
                 {item.content}
               </div>
-            )
+            ),
           )}
         </div>
       </DialogContent>

@@ -56,7 +56,7 @@ export function TrackerCalendar({
 
   const { calendarDays, firstWeek } = useCalendarDates(
     new TZDate(currentDate, "UTC"),
-    weekStartsOnMonday
+    weekStartsOnMonday,
   );
 
   useHotkeys(
@@ -64,7 +64,7 @@ export function TrackerCalendar({
     () => handleMonthChange(-1, new TZDate(currentDate, "UTC"), setParams),
     {
       enabled: !selectedDate,
-    }
+    },
   );
 
   useHotkeys(
@@ -72,7 +72,7 @@ export function TrackerCalendar({
     () => handleMonthChange(1, new TZDate(currentDate, "UTC"), setParams),
     {
       enabled: !selectedDate,
-    }
+    },
   );
 
   const ref = useClickAway<HTMLDivElement>(() => {
@@ -166,7 +166,7 @@ function useCalendarDates(currentDate: TZDate, weekStartsOnMonday: boolean) {
 function handleMonthChange(
   direction: number,
   currentDate: TZDate,
-  setParams: (params: any) => void
+  setParams: (params: any) => void,
 ) {
   const newDate =
     direction > 0 ? addMonths(currentDate, 1) : subMonths(currentDate, 1);
@@ -183,25 +183,31 @@ type CalendarHeaderProps = {
 function CalendarHeader({ meta, data }: CalendarHeaderProps) {
   const { locale } = useUserContext((state) => state.data);
 
-  const projectTotals = Object.entries(data).reduce((acc, [_, events]) => {
-    for (const event of events) {
-      const projectName = event.project?.name;
-      if (projectName) {
-        if (!acc[projectName]) {
-          acc[projectName] = {
-            duration: 0,
-            amount: 0,
-            currency: event.project.currency,
-            rate: event.project.rate,
-          };
+  const projectTotals = Object.entries(data).reduce(
+    (acc, [_, events]) => {
+      for (const event of events) {
+        const projectName = event.project?.name;
+        if (projectName) {
+          if (!acc[projectName]) {
+            acc[projectName] = {
+              duration: 0,
+              amount: 0,
+              currency: event.project.currency,
+              rate: event.project.rate,
+            };
+          }
+          const project = acc[projectName];
+          project.duration += event.duration;
+          project.amount = (project.duration / 3600) * project.rate;
         }
-        const project = acc[projectName];
-        project.duration += event.duration;
-        project.amount = (project.duration / 3600) * project.rate;
       }
-    }
-    return acc;
-  }, {} as Record<string, { duration: number; amount: number; currency: string; rate: number }>);
+      return acc;
+    },
+    {} as Record<
+      string,
+      { duration: number; amount: number; currency: string; rate: number }
+    >,
+  );
 
   const sortedProjects = Object.entries(projectTotals)
     .sort(([, a], [, b]) => b.duration - a.duration)
@@ -219,13 +225,13 @@ function CalendarHeader({ meta, data }: CalendarHeaderProps) {
       }
       return acc;
     },
-    {} as Record<string, number>
+    {} as Record<string, number>,
   );
 
   const dominantCurrency =
     Object.entries(mostUsedCurrency).length > 0
       ? Object.entries(mostUsedCurrency).reduce((a, b) =>
-          a[1] > b[1] ? a : b
+          a[1] > b[1] ? a : b,
         )[0]
       : null;
 
@@ -392,19 +398,19 @@ function CalendarDay({
 
   const isInRange = useCallback(
     (date: TZDate) => checkIsInRange(date, isDragging, localRange, range),
-    [isDragging, localRange, range]
+    [isDragging, localRange, range],
   );
 
   const isFirstSelectedDate = useCallback(
     (date: TZDate) =>
       checkIsFirstSelectedDate(date, isDragging, localRange, range),
-    [isDragging, localRange, range]
+    [isDragging, localRange, range],
   );
 
   const isLastSelectedDate = useCallback(
     (date: TZDate) =>
       checkIsLastSelectedDate(date, isDragging, localRange, range),
-    [isDragging, localRange, range]
+    [isDragging, localRange, range],
   );
 
   return (
@@ -422,7 +428,7 @@ function CalendarDay({
         selectedDate === formattedDate && "ring-1 ring-primary",
         isInRange(date) && "ring-1 ring-primary bg-opacity-50",
         isFirstSelectedDate(date) && "ring-1 ring-primary bg-opacity-50",
-        isLastSelectedDate(date) && "ring-1 ring-primary bg-opacity-50"
+        isLastSelectedDate(date) && "ring-1 ring-primary bg-opacity-50",
       )}
     >
       <div>{format(date, "d")}</div>
@@ -435,7 +441,7 @@ function checkIsInRange(
   date: TZDate,
   isDragging: boolean,
   localRange: [string, string | null],
-  range: [string, string] | null
+  range: [string, string] | null,
 ) {
   if (isDragging && localRange[0] && localRange[1]) {
     const start = new TZDate(localRange[0], "UTC");
@@ -460,14 +466,14 @@ function checkIsFirstSelectedDate(
   date: TZDate,
   isDragging: boolean,
   localRange: [string, string | null],
-  range: [string, string] | null
+  range: [string, string] | null,
 ) {
   if (isDragging && localRange[0]) {
     const start = new TZDate(localRange[0], "UTC");
     const end = localRange[1] ? new TZDate(localRange[1], "UTC") : start;
     const firstDate = new TZDate(
       Math.min(start.getTime(), end.getTime()),
-      "UTC"
+      "UTC",
     );
     return (
       formatISO(date, { representation: "date" }) ===
@@ -479,7 +485,7 @@ function checkIsFirstSelectedDate(
     const end = new TZDate(range[1], "UTC");
     const firstDate = new TZDate(
       Math.min(start.getTime(), end.getTime()),
-      "UTC"
+      "UTC",
     );
     return (
       formatISO(date, { representation: "date" }) ===
@@ -493,14 +499,14 @@ function checkIsLastSelectedDate(
   date: TZDate,
   isDragging: boolean,
   localRange: [string, string | null],
-  range: [string, string] | null
+  range: [string, string] | null,
 ) {
   if (isDragging && localRange[0] && localRange[1]) {
     const start = new TZDate(localRange[0], "UTC");
     const end = new TZDate(localRange[1], "UTC");
     const lastDate = new TZDate(
       Math.max(start.getTime(), end.getTime()),
-      "UTC"
+      "UTC",
     );
     return (
       formatISO(date, { representation: "date" }) ===
@@ -512,7 +518,7 @@ function checkIsLastSelectedDate(
     const end = new TZDate(range[1], "UTC");
     const lastDate = new TZDate(
       Math.max(start.getTime(), end.getTime()),
-      "UTC"
+      "UTC",
     );
     return (
       formatISO(date, { representation: "date" }) ===

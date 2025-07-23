@@ -29,7 +29,7 @@ export const createCustomerAction = authActionClient
           },
           {
             onConflict: "id",
-          }
+          },
         )
         .select("id, name")
         .single();
@@ -40,12 +40,12 @@ export const createCustomerAction = authActionClient
             tag_id: tag.id,
             customer_id: data?.id,
             team_id: user.team_id!,
-          }))
+          })),
         );
       }
 
       revalidateTag(`customers_${user.team_id}`);
 
       return data;
-    }
+    },
   );

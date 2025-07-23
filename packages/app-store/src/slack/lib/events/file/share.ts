@@ -3,7 +3,7 @@ import type { FileShareMessageEvent } from "@slack/web-api";
 
 export async function fileShare(
   event: FileShareMessageEvent,
-  { teamId, token }: { teamId: string; token: string }
+  { teamId, token }: { teamId: string; token: string },
 ) {
   const files = event?.files?.map((file) => ({
     id: file.id,
@@ -29,7 +29,7 @@ export async function fileShare(
             url: file.url!,
           },
         },
-      }))
+      })),
     );
   }
 }

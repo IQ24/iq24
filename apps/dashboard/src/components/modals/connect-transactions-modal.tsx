@@ -172,7 +172,7 @@ export function ConnectTransactionsModal({
       {
         // NOTE: Rerender so the overview modal is visible
         shallow: false,
-      }
+      },
     );
   };
 

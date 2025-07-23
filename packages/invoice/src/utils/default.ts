@@ -33,7 +33,7 @@ export async function getDefaultSettings(): Promise<Settings> {
 
   // Default to include sales tax for countries where it's common
   const include_tax = ["US", "CA", "AU", "NZ", "SG", "MY", "IN"].includes(
-    countryCode
+    countryCode,
   );
 
   return {

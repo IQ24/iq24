@@ -27,7 +27,7 @@ export async function POST(req: Request) {
     console.error("Slack request verification failed:", error);
     return NextResponse.json(
       { error: "Invalid Slack request" },
-      { status: 401 }
+      { status: 401 },
     );
   }
 
@@ -50,7 +50,7 @@ export async function POST(req: Request) {
   if (!data) {
     return NextResponse.json(
       { error: "Unauthorized: No matching team found" },
-      { status: 401 }
+      { status: 401 },
     );
   }
 

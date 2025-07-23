@@ -71,7 +71,7 @@ export function InvoiceSummary({
                   onClick={() => setActiveIndex(idx)}
                   className={cn(
                     "w-[10px] h-[3px] bg-[#1D1D1D] dark:bg-[#D9D9D9] opacity-30 transition-all",
-                    idx === activeIndex && "opacity-100"
+                    idx === activeIndex && "opacity-100",
                   )}
                 />
               ))}

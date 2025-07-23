@@ -59,7 +59,7 @@ export function getBurnRateTool({
         {
           style: "currency",
           currency: data.at(0)?.currency,
-        }
+        },
       ).format(averageBurnRate)} per month.`;
     },
   };

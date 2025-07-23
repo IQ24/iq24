@@ -70,7 +70,7 @@ export function DataTable<TData, TValue>({
     (hasFilters && !selectedRows) || (query && !selectedRows);
 
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(
-    initialColumnVisibility ?? {}
+    initialColumnVisibility ?? {},
   );
 
   const updateTransaction = useAction(updateTransactionAction, {
@@ -95,7 +95,7 @@ export function DataTable<TData, TValue>({
 
   const handleUpdateTransaction = (
     values: UpdateTransactionValues,
-    optimisticData?: any
+    optimisticData?: any,
   ) => {
     setData((prev) => {
       return prev.map((item) => {
@@ -143,7 +143,7 @@ export function DataTable<TData, TValue>({
   const handleCopyUrl = async (id: string) => {
     try {
       await navigator.clipboard.writeText(
-        `${window.location.origin}/transactions?id=${id}`
+        `${window.location.origin}/transactions?id=${id}`,
       );
 
       toast({
@@ -193,7 +193,7 @@ export function DataTable<TData, TValue>({
   };
 
   const selectedTransaction = data.find(
-    (transaction) => transaction?.id === transactionId
+    (transaction) => transaction?.id === transactionId,
   );
 
   useEffect(() => {
@@ -259,7 +259,7 @@ export function DataTable<TData, TValue>({
                         cell.column.id === "assigned" ||
                         cell.column.id === "method" ||
                         cell.column.id === "status") &&
-                        "hidden md:table-cell"
+                        "hidden md:table-cell",
                     )}
                     onClick={() => {
                       if (

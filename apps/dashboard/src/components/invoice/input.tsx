@@ -26,7 +26,7 @@ export function Input({ className, ...props }: InputProps) {
         className={cn(
           "border-0 p-0 h-6 border-b border-transparent focus:border-border font-mono text-xs",
           isPlaceholder && "opacity-0",
-          className
+          className,
         )}
         onFocus={(evt) => {
           setIsFocused(true);

@@ -1,17 +1,17 @@
 /**
  * IQ24.ai - Comprehensive Compliance System
- * 
+ *
  * Main integration module that orchestrates all compliance components
  * and provides a unified interface for the AI engine.
  */
 
-import { EventEmitter } from 'events';
-import { Logger } from 'winston';
-import { ComplianceGuardianNetwork } from './compliance-guardian';
-import { RegulationEngine } from './regulation-engine';
-import { AuditTrail } from './audit-trail';
-import { ConsentManager } from './consent-manager';
-import { ComplianceMonitor } from './compliance-monitor';
+import { EventEmitter } from "events";
+import { Logger } from "winston";
+import { ComplianceGuardianNetwork } from "./compliance-guardian";
+import { RegulationEngine } from "./regulation-engine";
+import { AuditTrail } from "./audit-trail";
+import { ConsentManager } from "./consent-manager";
+import { ComplianceMonitor } from "./compliance-monitor";
 import {
   ComplianceSystemConfig,
   ComplianceEvent,
@@ -29,8 +29,8 @@ import {
   ConsentRecord,
   ComplianceMetrics,
   ComplianceReport,
-  ComplianceReportType
-} from './types';
+  ComplianceReportType,
+} from "./types";
 
 export interface ComplianceSystemOptions {
   logger: Logger;
@@ -55,17 +55,18 @@ export interface ComplianceSystemOptions {
 export class ComplianceSystem extends EventEmitter {
   private logger: Logger;
   private config: ComplianceSystemConfig;
-  
+
   // Core compliance components
   private guardian: ComplianceGuardianNetwork;
   private regulationEngine: RegulationEngine;
   private auditTrail: AuditTrail;
   private consentManager: ConsentManager;
   private monitor: ComplianceMonitor;
-  
+
   // System state
   private isInitialized: boolean = false;
-  private systemStatus: ComplianceSystemStatus = ComplianceSystemStatus.INITIALIZING;
+  private systemStatus: ComplianceSystemStatus =
+    ComplianceSystemStatus.INITIALIZING;
   private lastHealthCheck: Date = new Date();
 
   constructor(options: ComplianceSystemOptions) {
@@ -82,7 +83,7 @@ export class ComplianceSystem extends EventEmitter {
    */
   async initialize(): Promise<void> {
     try {
-      this.logger.info('Initializing IQ24.ai Compliance System');
+      this.logger.info("Initializing IQ24.ai Compliance System");
 
       // Initialize components in order
       await this.auditTrail.initialize();
@@ -101,25 +102,30 @@ export class ComplianceSystem extends EventEmitter {
         details: {
           version: this.config.version,
           frameworks: this.config.enabledFrameworks,
-          components: ['guardian', 'regulation-engine', 'audit-trail', 'consent-manager', 'monitor']
+          components: [
+            "guardian",
+            "regulation-engine",
+            "audit-trail",
+            "consent-manager",
+            "monitor",
+          ],
         },
         timestamp: new Date(),
-        userId: 'system'
+        userId: "system",
       });
 
-      this.logger.info('Compliance system initialized successfully', {
+      this.logger.info("Compliance system initialized successfully", {
         version: this.config.version,
         frameworks: this.config.enabledFrameworks.length,
-        components: 5
+        components: 5,
       });
 
-      this.emit('initialized');
-
+      this.emit("initialized");
     } catch (error) {
       this.systemStatus = ComplianceSystemStatus.ERROR;
-      this.logger.error('Failed to initialize compliance system', {
+      this.logger.error("Failed to initialize compliance system", {
         error: error.message,
-        stack: error.stack
+        stack: error.stack,
       });
       throw error;
     }
@@ -131,31 +137,31 @@ export class ComplianceSystem extends EventEmitter {
   async checkOutreachCompliance(
     content: OutreachContent,
     contactId: string,
-    framework: RegulatoryFramework
+    framework: RegulatoryFramework,
   ): Promise<ComplianceCheckResult> {
     try {
       if (!this.isInitialized) {
-        throw new Error('Compliance system not initialized');
+        throw new Error("Compliance system not initialized");
       }
 
       // Step 1: Check consent
       const hasConsent = await this.consentManager.hasValidConsent(
         contactId,
         ConsentType.MARKETING,
-        ConsentPurpose.EMAIL_MARKETING
+        ConsentPurpose.EMAIL_MARKETING,
       );
 
       if (!hasConsent) {
         const violation: ComplianceViolation = {
           id: this.generateViolationId(),
-          type: 'MISSING_CONSENT' as any,
-          severity: 'HIGH' as any,
+          type: "MISSING_CONSENT" as any,
+          severity: "HIGH" as any,
           framework,
           contactId,
-          description: 'Missing valid consent for marketing outreach',
+          description: "Missing valid consent for marketing outreach",
           detectedAt: new Date(),
           resolved: false,
-          metadata: { contentType: content.type, channel: content.channel }
+          metadata: { contentType: content.type, channel: content.channel },
         };
 
         await this.monitor.recordViolation(violation);
@@ -163,22 +169,27 @@ export class ComplianceSystem extends EventEmitter {
         return {
           isCompliant: false,
           violations: [violation],
-          recommendations: ['Obtain explicit consent before sending marketing communications'],
+          recommendations: [
+            "Obtain explicit consent before sending marketing communications",
+          ],
           requiresHumanReview: true,
-          blockedReasons: ['Missing consent']
+          blockedReasons: ["Missing consent"],
         };
       }
 
       // Step 2: Content analysis by Guardian
-      const guardianResult = await this.guardian.analyzeContent(content, framework);
-      
+      const guardianResult = await this.guardian.analyzeContent(
+        content,
+        framework,
+      );
+
       if (!guardianResult.approved) {
         return {
           isCompliant: false,
           violations: guardianResult.violations || [],
           recommendations: guardianResult.recommendations || [],
           requiresHumanReview: guardianResult.requiresHumanReview || false,
-          blockedReasons: guardianResult.blockedReasons || []
+          blockedReasons: guardianResult.blockedReasons || [],
         };
       }
 
@@ -191,10 +202,10 @@ export class ComplianceSystem extends EventEmitter {
         details: {
           contentType: content.type,
           channel: content.channel,
-          approved: true
+          approved: true,
         },
         timestamp: new Date(),
-        userId: 'system'
+        userId: "system",
       });
 
       return {
@@ -202,14 +213,13 @@ export class ComplianceSystem extends EventEmitter {
         violations: [],
         recommendations: [],
         requiresHumanReview: false,
-        blockedReasons: []
+        blockedReasons: [],
       };
-
     } catch (error) {
-      this.logger.error('Failed to check outreach compliance', {
+      this.logger.error("Failed to check outreach compliance", {
         contactId,
         framework,
-        error: error.message
+        error: error.message,
       });
       throw error;
     }
@@ -223,7 +233,7 @@ export class ComplianceSystem extends EventEmitter {
     consentType: ConsentType,
     purposes: ConsentPurpose[],
     framework: RegulatoryFramework,
-    options?: any
+    options?: any,
   ): Promise<ConsentRecord> {
     try {
       const consent = await this.consentManager.recordConsent(
@@ -231,7 +241,7 @@ export class ComplianceSystem extends EventEmitter {
         consentType,
         purposes,
         framework,
-        options
+        options,
       );
 
       // Log event
@@ -243,19 +253,18 @@ export class ComplianceSystem extends EventEmitter {
         details: {
           type: consentType,
           purposes,
-          source: options?.source || 'direct'
+          source: options?.source || "direct",
         },
         timestamp: new Date(),
-        userId: options?.userId || 'system'
+        userId: options?.userId || "system",
       });
 
       return consent;
-
     } catch (error) {
-      this.logger.error('Failed to record consent', {
+      this.logger.error("Failed to record consent", {
         contactId: contactInfo.id,
         consentType,
-        error: error.message
+        error: error.message,
       });
       throw error;
     }
@@ -268,14 +277,14 @@ export class ComplianceSystem extends EventEmitter {
     contactId: string,
     consentType: ConsentType,
     reason?: string,
-    userId?: string
+    userId?: string,
   ): Promise<ConsentRecord> {
     try {
       const consent = await this.consentManager.withdrawConsent(
         contactId,
         consentType,
         reason,
-        userId
+        userId,
       );
 
       // Log event
@@ -285,16 +294,15 @@ export class ComplianceSystem extends EventEmitter {
         consentId: consent.id,
         details: { reason },
         timestamp: new Date(),
-        userId: userId || 'system'
+        userId: userId || "system",
       });
 
       return consent;
-
     } catch (error) {
-      this.logger.error('Failed to withdraw consent', {
+      this.logger.error("Failed to withdraw consent", {
         contactId,
         consentType,
-        error: error.message
+        error: error.message,
       });
       throw error;
     }
@@ -313,17 +321,16 @@ export class ComplianceSystem extends EventEmitter {
         contactId: request.contactId,
         details: {
           requestType: request.type,
-          requestId: request.id
+          requestId: request.id,
         },
         timestamp: new Date(),
-        userId: 'system'
+        userId: "system",
       });
-
     } catch (error) {
-      this.logger.error('Failed to process data rights request', {
+      this.logger.error("Failed to process data rights request", {
         requestId: request.id,
         type: request.type,
-        error: error.message
+        error: error.message,
       });
       throw error;
     }
@@ -332,30 +339,32 @@ export class ComplianceSystem extends EventEmitter {
   /**
    * Update regulatory rules
    */
-  async updateRegulations(framework: RegulatoryFramework, rules: any[]): Promise<void> {
+  async updateRegulations(
+    framework: RegulatoryFramework,
+    rules: any[],
+  ): Promise<void> {
     try {
       await this.regulationEngine.updateRules(framework, rules);
-      
+
       await this.logEvent({
         type: ComplianceEventType.REGULATIONS_UPDATED,
         framework,
         details: {
           rulesUpdated: rules.length,
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         timestamp: new Date(),
-        userId: 'system'
+        userId: "system",
       });
 
-      this.logger.info('Regulations updated', {
+      this.logger.info("Regulations updated", {
         framework,
-        rulesCount: rules.length
+        rulesCount: rules.length,
       });
-
     } catch (error) {
-      this.logger.error('Failed to update regulations', {
+      this.logger.error("Failed to update regulations", {
         framework,
-        error: error.message
+        error: error.message,
       });
       throw error;
     }
@@ -364,7 +373,10 @@ export class ComplianceSystem extends EventEmitter {
   /**
    * Get compliance metrics
    */
-  async getMetrics(timeRange?: { from: Date; to: Date }): Promise<ComplianceMetrics> {
+  async getMetrics(timeRange?: {
+    from: Date;
+    to: Date;
+  }): Promise<ComplianceMetrics> {
     try {
       if (timeRange) {
         const metrics = await this.monitor.getMetrics(timeRange);
@@ -372,9 +384,9 @@ export class ComplianceSystem extends EventEmitter {
       }
       return this.monitor.getCurrentMetrics();
     } catch (error) {
-      this.logger.error('Failed to get compliance metrics', {
+      this.logger.error("Failed to get compliance metrics", {
         timeRange,
-        error: error.message
+        error: error.message,
       });
       throw error;
     }
@@ -387,8 +399,8 @@ export class ComplianceSystem extends EventEmitter {
     try {
       return await this.monitor.getDashboard();
     } catch (error) {
-      this.logger.error('Failed to get compliance dashboard', {
-        error: error.message
+      this.logger.error("Failed to get compliance dashboard", {
+        error: error.message,
       });
       throw error;
     }
@@ -400,15 +412,15 @@ export class ComplianceSystem extends EventEmitter {
   async generateReport(
     type: ComplianceReportType,
     timeRange: { from: Date; to: Date },
-    frameworks?: RegulatoryFramework[]
+    frameworks?: RegulatoryFramework[],
   ): Promise<ComplianceReport> {
     try {
       return await this.monitor.generateReport(type, timeRange, frameworks);
     } catch (error) {
-      this.logger.error('Failed to generate compliance report', {
+      this.logger.error("Failed to generate compliance report", {
         type,
         timeRange,
-        error: error.message
+        error: error.message,
       });
       throw error;
     }
@@ -428,12 +440,12 @@ export class ComplianceSystem extends EventEmitter {
       initialized: this.isInitialized,
       lastHealthCheck: this.lastHealthCheck,
       componentStatus: {
-        guardian: 'active',
-        regulationEngine: 'active',
-        auditTrail: 'active',
-        consentManager: 'active',
-        monitor: 'active'
-      }
+        guardian: "active",
+        regulationEngine: "active",
+        auditTrail: "active",
+        consentManager: "active",
+        monitor: "active",
+      },
     };
   }
 
@@ -448,25 +460,26 @@ export class ComplianceSystem extends EventEmitter {
         this.regulationEngine.healthCheck?.() ?? true,
         this.auditTrail.healthCheck?.() ?? true,
         this.consentManager.healthCheck?.() ?? true,
-        this.monitor.healthCheck?.() ?? true
+        this.monitor.healthCheck?.() ?? true,
       ]);
 
-      const isHealthy = checks.every(check => check === true);
-      this.systemStatus = isHealthy ? ComplianceSystemStatus.ACTIVE : ComplianceSystemStatus.DEGRADED;
+      const isHealthy = checks.every((check) => check === true);
+      this.systemStatus = isHealthy
+        ? ComplianceSystemStatus.ACTIVE
+        : ComplianceSystemStatus.DEGRADED;
       this.lastHealthCheck = new Date();
 
       if (!isHealthy) {
-        this.logger.warn('Compliance system health check failed', {
-          componentResults: checks
+        this.logger.warn("Compliance system health check failed", {
+          componentResults: checks,
         });
       }
 
       return isHealthy;
-
     } catch (error) {
       this.systemStatus = ComplianceSystemStatus.ERROR;
-      this.logger.error('Health check failed', {
-        error: error.message
+      this.logger.error("Health check failed", {
+        error: error.message,
       });
       return false;
     }
@@ -477,7 +490,7 @@ export class ComplianceSystem extends EventEmitter {
    */
   async shutdown(): Promise<void> {
     try {
-      this.logger.info('Shutting down compliance system');
+      this.logger.info("Shutting down compliance system");
 
       this.systemStatus = ComplianceSystemStatus.SHUTTING_DOWN;
 
@@ -491,13 +504,12 @@ export class ComplianceSystem extends EventEmitter {
       this.systemStatus = ComplianceSystemStatus.STOPPED;
       this.isInitialized = false;
 
-      this.logger.info('Compliance system shutdown completed');
-      this.emit('shutdown');
-
+      this.logger.info("Compliance system shutdown completed");
+      this.emit("shutdown");
     } catch (error) {
       this.systemStatus = ComplianceSystemStatus.ERROR;
-      this.logger.error('Failed to shutdown compliance system', {
-        error: error.message
+      this.logger.error("Failed to shutdown compliance system", {
+        error: error.message,
       });
       throw error;
     }
@@ -511,14 +523,14 @@ export class ComplianceSystem extends EventEmitter {
       logger: this.logger,
       storageAdapter: options.storageAdapters.audit,
       encryption: options.services.encryption,
-      configuration: this.config.auditConfig
+      configuration: this.config.auditConfig,
     });
 
     // Initialize regulation engine
     this.regulationEngine = new RegulationEngine({
       logger: this.logger,
       auditTrail: this.auditTrail,
-      configuration: this.config.regulationConfig
+      configuration: this.config.regulationConfig,
     });
 
     // Initialize consent manager
@@ -529,7 +541,7 @@ export class ComplianceSystem extends EventEmitter {
       notifications: options.services.notifications,
       encryption: options.services.encryption,
       retention: options.services.retention,
-      configuration: this.config.consentConfig
+      configuration: this.config.consentConfig,
     });
 
     // Initialize compliance guardian
@@ -537,7 +549,7 @@ export class ComplianceSystem extends EventEmitter {
       logger: this.logger,
       regulationEngine: this.regulationEngine,
       auditTrail: this.auditTrail,
-      configuration: this.config.guardianConfig
+      configuration: this.config.guardianConfig,
     });
 
     // Initialize monitor
@@ -548,33 +560,35 @@ export class ComplianceSystem extends EventEmitter {
       metricsStorage: options.storageAdapters.metrics,
       reportGenerator: options.services.reporting,
       configuration: this.config.monitorConfig,
-      thresholds: this.config.thresholds
+      thresholds: this.config.thresholds,
     });
   }
 
   private setupEventHandlers(): void {
     // Set up event forwarding and coordination between components
-    this.guardian.on('violationDetected', (violation) => {
+    this.guardian.on("violationDetected", (violation) => {
       this.monitor.recordViolation(violation);
-      this.emit('violationDetected', violation);
+      this.emit("violationDetected", violation);
     });
 
-    this.consentManager.on('consentGranted', (consent) => {
-      this.emit('consentGranted', consent);
+    this.consentManager.on("consentGranted", (consent) => {
+      this.emit("consentGranted", consent);
     });
 
-    this.consentManager.on('consentWithdrawn', (consent) => {
-      this.emit('consentWithdrawn', consent);
+    this.consentManager.on("consentWithdrawn", (consent) => {
+      this.emit("consentWithdrawn", consent);
     });
 
-    this.monitor.on('violationRecorded', (violation) => {
-      this.emit('violationRecorded', violation);
+    this.monitor.on("violationRecorded", (violation) => {
+      this.emit("violationRecorded", violation);
     });
 
     // Set up periodic health checks
     setInterval(() => {
-      this.healthCheck().catch(error => {
-        this.logger.error('Periodic health check failed', { error: error.message });
+      this.healthCheck().catch((error) => {
+        this.logger.error("Periodic health check failed", {
+          error: error.message,
+        });
       });
     }, this.config.healthCheckIntervalMs);
   }
@@ -584,17 +598,23 @@ export class ComplianceSystem extends EventEmitter {
       await this.auditTrail.logEvent(event);
       await this.monitor.processComplianceEvent(event);
     } catch (error) {
-      this.logger.error('Failed to log compliance event', {
+      this.logger.error("Failed to log compliance event", {
         eventType: event.type,
-        error: error.message
+        error: error.message,
       });
     }
   }
 
-  private async getConsentId(contactId: string, consentType: ConsentType): Promise<string | undefined> {
+  private async getConsentId(
+    contactId: string,
+    consentType: ConsentType,
+  ): Promise<string | undefined> {
     try {
-      const consents = await this.consentManager.getConsentPreferences(contactId);
-      const consent = consents.find(c => c.type === consentType && c.status === 'GRANTED');
+      const consents =
+        await this.consentManager.getConsentPreferences(contactId);
+      const consent = consents.find(
+        (c) => c.type === consentType && c.status === "GRANTED",
+      );
       return consent?.id;
     } catch (error) {
       return undefined;
@@ -607,12 +627,12 @@ export class ComplianceSystem extends EventEmitter {
 }
 
 // Export all types and components
-export * from './types';
-export { ComplianceGuardianNetwork } from './compliance-guardian';
-export { RegulationEngine } from './regulation-engine';
-export { AuditTrail } from './audit-trail';
-export { ConsentManager } from './consent-manager';
-export { ComplianceMonitor } from './compliance-monitor';
+export * from "./types";
+export { ComplianceGuardianNetwork } from "./compliance-guardian";
+export { RegulationEngine } from "./regulation-engine";
+export { AuditTrail } from "./audit-trail";
+export { ConsentManager } from "./consent-manager";
+export { ComplianceMonitor } from "./compliance-monitor";
 
 // Default export
 export default ComplianceSystem;

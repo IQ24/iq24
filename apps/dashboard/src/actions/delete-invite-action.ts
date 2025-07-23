@@ -23,5 +23,5 @@ export const deleteInviteAction = authActionClient
       }
 
       return id;
-    }
+    },
   );

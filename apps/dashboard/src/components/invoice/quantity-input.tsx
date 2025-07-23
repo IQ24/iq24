@@ -28,7 +28,7 @@ export function QuantityInput({
         onChange={onChange}
         onFocus={() => setIsFocused(true)}
         className={cn(
-          isPlaceholder && "opacity-0 [&_button]:pointer-events-none"
+          isPlaceholder && "opacity-0 [&_button]:pointer-events-none",
         )}
         onBlur={() => {
           setIsFocused(false);

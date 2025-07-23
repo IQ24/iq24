@@ -22,7 +22,7 @@ export async function InvoiceCreateSheetServer({ teamId }: { teamId: string }) {
   // Filter out null values
   const template = templatesData
     ? Object.fromEntries(
-        Object.entries(templatesData).filter(([_, value]) => value !== null)
+        Object.entries(templatesData).filter(([_, value]) => value !== null),
       )
     : {};
 

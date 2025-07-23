@@ -33,7 +33,7 @@ export function CountrySelector({ defaultValue, onSelect }: Props) {
   }, [defaultValue, value]);
 
   const selected = Object.values(countries).find(
-    (country) => country.code === value || country.name === value
+    (country) => country.code === value || country.name === value,
   );
 
   return (
@@ -67,7 +67,7 @@ export function CountrySelector({ defaultValue, onSelect }: Props) {
                 <CheckIcon
                   className={cn(
                     "ml-auto h-4 w-4",
-                    value === country.code ? "opacity-100" : "opacity-0"
+                    value === country.code ? "opacity-100" : "opacity-0",
                   )}
                 />
               </CommandItem>

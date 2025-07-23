@@ -19,7 +19,7 @@ export const checkInvoiceStatus = schemaTask({
     const { data: invoice } = await supabase
       .from("invoices")
       .select(
-        "id, status, due_date, currency, amount, team_id, file_path, invoice_number, file_size, template"
+        "id, status, due_date, currency, amount, team_id, file_path, invoice_number, file_size, template",
       )
       .eq("id", invoiceId)
       .single();
@@ -46,7 +46,7 @@ export const checkInvoiceStatus = schemaTask({
       .gte(
         "date",
         // Get the transactions from the last 3 days
-        subDays(new TZDate(new Date(), timezone), 3).toISOString()
+        subDays(new TZDate(new Date(), timezone), 3).toISOString(),
       )
       .eq("is_fulfilled", false);
 

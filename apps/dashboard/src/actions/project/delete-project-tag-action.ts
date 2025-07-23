@@ -25,5 +25,5 @@ export const deleteProjectTagAction = authActionClient
       revalidateTag(`tracker_projects_${user.team_id}`);
 
       return data;
-    }
+    },
   );

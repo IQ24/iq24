@@ -61,7 +61,7 @@ export const createTransactionAction = authActionClient
           attachments.map((attachment) => ({
             ...attachment,
             transaction_id: data.id,
-          }))
+          })),
         );
       }
 
@@ -71,5 +71,5 @@ export const createTransactionAction = authActionClient
       revalidateTag(`insights_${teamId}`);
 
       return data;
-    }
+    },
   );

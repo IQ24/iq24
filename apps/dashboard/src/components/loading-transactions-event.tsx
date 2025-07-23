@@ -76,7 +76,7 @@ export function LoadingTransactionsEvent({
         <li
           className={cn(
             "opacity-50 dark:opacity-20",
-            step > 0 && "!opacity-100"
+            step > 0 && "!opacity-100",
           )}
         >
           Connecting bank
@@ -85,7 +85,7 @@ export function LoadingTransactionsEvent({
         <li
           className={cn(
             "opacity-50 dark:opacity-20",
-            step > 1 && "!opacity-100"
+            step > 1 && "!opacity-100",
           )}
         >
           Getting transactions
@@ -94,7 +94,7 @@ export function LoadingTransactionsEvent({
         <li
           className={cn(
             "opacity-50 dark:opacity-20",
-            step > 2 && "!opacity-100"
+            step > 2 && "!opacity-100",
           )}
         >
           Completed

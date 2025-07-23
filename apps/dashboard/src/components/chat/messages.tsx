@@ -93,7 +93,7 @@ export function BotCard({
         <div
           className={cn(
             "ml-4 flex-1 space-y-2 overflow-hidden pl-2 text-xs font-mono leading-relaxed",
-            className
+            className,
           )}
         >
           {children}

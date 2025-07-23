@@ -30,7 +30,7 @@ export async function POST(req: Request) {
 
   const hmacMatch = crypto.timingSafeEqual(
     decodedSignature,
-    calculatedSignature
+    calculatedSignature,
   );
 
   if (!hmacMatch) {
@@ -61,7 +61,7 @@ export async function POST(req: Request) {
       html: await render(
         WelcomeEmail({
           fullName,
-        })
+        }),
       ),
       headers: {
         "X-Entity-Ref-ID": nanoid(),

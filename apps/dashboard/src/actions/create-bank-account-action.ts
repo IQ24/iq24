@@ -39,5 +39,5 @@ export const createBankAccountAction = authActionClient
       revalidateTag(`bank_accounts_currencies_${user.team_id}`);
 
       return data;
-    }
+    },
   );

@@ -21,7 +21,7 @@ export function InboxOrdering({ ascending }: Props) {
     {
       currentState: ascending,
       updateFn: (_, state) => !state,
-    }
+    },
   );
 
   return (

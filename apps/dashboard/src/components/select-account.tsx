@@ -49,7 +49,7 @@ export function SelectAccount({ placeholder, onChange, value }: Props) {
           logo: account?.logo_url,
           currency: account.currency,
           type: account.type,
-        }))
+        })),
       );
     }
 

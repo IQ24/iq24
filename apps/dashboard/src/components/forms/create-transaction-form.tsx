@@ -89,7 +89,7 @@ export function CreateTransactionForm({
     if (!category && prompt.length > 5) {
       const { object } = await findMatchingCategory(
         prompt,
-        categories?.map((category) => category.name)
+        categories?.map((category) => category.name),
       );
 
       let finalObject = {};
@@ -98,7 +98,7 @@ export function CreateTransactionForm({
         if (partialObject) {
           finalObject = {
             category: categories?.find(
-              (category) => category.name === partialObject?.category
+              (category) => category.name === partialObject?.category,
             ),
           };
         }
@@ -283,7 +283,7 @@ export function CreateTransactionForm({
                       field.onChange(value?.slug);
                     }}
                     selected={categories?.find(
-                      (category) => category.slug === field.value
+                      (category) => category.slug === field.value,
                     )}
                     hideLoading
                   />

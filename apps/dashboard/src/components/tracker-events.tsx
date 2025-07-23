@@ -16,7 +16,7 @@ export function TrackerEvents({
         <div
           className={cn(
             "text-xs bg-[#F0F0F0] dark:bg-[#1D1D1D] text-[#606060] dark:text-[#878787] p-1 w-full text-left line-clamp-1 min-h-[23px]",
-            isToday && "!bg-background"
+            isToday && "!bg-background",
           )}
           key={data[0].id}
         >

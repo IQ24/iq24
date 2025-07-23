@@ -129,7 +129,7 @@ export function TrackerProjectForm({
                   {
                     shouldDirty: true,
                     shouldValidate: true,
-                  }
+                  },
                 );
               }
             }}

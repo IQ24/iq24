@@ -35,7 +35,7 @@ type TriggerUser = {
 
 type TriggerPayload = {
   name: TriggerEvents;
-  payload: any;
+  payload: Record<string, unknown>;
   user: TriggerUser;
   replyTo?: string;
   tenant?: string; // NOTE: Currently no way to listen for messages with tenant, we use team_id + user_id for unique

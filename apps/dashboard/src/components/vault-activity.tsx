@@ -20,7 +20,7 @@ export async function VaultActivity() {
 
   const { data: storageData } = await getVaultActivityQuery(
     supabase,
-    userData?.team_id
+    userData?.team_id,
   );
 
   const files = storageData

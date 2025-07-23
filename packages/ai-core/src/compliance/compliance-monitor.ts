@@ -1,12 +1,12 @@
 /**
  * IQ24.ai - Compliance Monitoring System
- * 
+ *
  * Real-time compliance monitoring, metrics collection, alerting, and reporting
  * system for comprehensive regulatory compliance oversight.
  */
 
-import { EventEmitter } from 'events';
-import { Logger } from 'winston';
+import { EventEmitter } from "events";
+import { Logger } from "winston";
 import {
   ComplianceMetrics,
   ComplianceAlert,
@@ -22,8 +22,8 @@ import {
   MonitoringConfiguration,
   ComplianceThreshold,
   ComplianceStatus,
-  ComplianceDashboard
-} from './types';
+  ComplianceDashboard,
+} from "./types";
 
 export interface ComplianceMonitorOptions {
   logger: Logger;
@@ -45,13 +45,23 @@ export interface AlertingService {
 export interface MetricsStorageAdapter {
   storeMetrics(metrics: ComplianceMetrics): Promise<void>;
   getMetrics(timeRange: { from: Date; to: Date }): Promise<ComplianceMetrics[]>;
-  getAggregatedMetrics(timeRange: { from: Date; to: Date }, granularity: string): Promise<ComplianceMetrics[]>;
+  getAggregatedMetrics(
+    timeRange: { from: Date; to: Date },
+    granularity: string,
+  ): Promise<ComplianceMetrics[]>;
   deleteExpiredMetrics(retentionDays: number): Promise<void>;
 }
 
 export interface ReportGenerator {
-  generateReport(type: ComplianceReportType, parameters: any): Promise<ComplianceReport>;
-  scheduleReport(type: ComplianceReportType, schedule: string, recipients: string[]): Promise<void>;
+  generateReport(
+    type: ComplianceReportType,
+    parameters: any,
+  ): Promise<ComplianceReport>;
+  scheduleReport(
+    type: ComplianceReportType,
+    schedule: string,
+    recipients: string[],
+  ): Promise<void>;
   getReportHistory(limit?: number): Promise<ComplianceReport[]>;
 }
 
@@ -69,7 +79,8 @@ export class ComplianceMonitor extends EventEmitter {
   private violationCounts: Map<ViolationType, number> = new Map();
   private alertThrottling: Map<string, Date> = new Map();
   private activeViolations: Set<string> = new Set();
-  private frameworkStatus: Map<RegulatoryFramework, ComplianceStatus> = new Map();
+  private frameworkStatus: Map<RegulatoryFramework, ComplianceStatus> =
+    new Map();
 
   // Periodic monitoring intervals
   private metricsCollectionInterval: NodeJS.Timeout;
@@ -106,19 +117,18 @@ export class ComplianceMonitor extends EventEmitter {
       await this.updateFrameworkStatus(event);
 
       // Log event
-      this.logger.debug('Processed compliance event', {
+      this.logger.debug("Processed compliance event", {
         type: event.type,
         contactId: event.contactId,
-        timestamp: event.timestamp
+        timestamp: event.timestamp,
       });
 
       // Emit event for external listeners
-      this.emit('eventProcessed', event);
-
+      this.emit("eventProcessed", event);
     } catch (error) {
-      this.logger.error('Failed to process compliance event', {
+      this.logger.error("Failed to process compliance event", {
         event: event.type,
-        error: error.message
+        error: error.message,
       });
       throw error;
     }
@@ -147,29 +157,28 @@ export class ComplianceMonitor extends EventEmitter {
           violationType: violation.type,
           violationId: violation.id,
           severity: violation.severity,
-          framework: violation.framework
+          framework: violation.framework,
         },
         timestamp: new Date(),
-        userId: 'system'
+        userId: "system",
       } as ComplianceEvent);
 
       // Update framework status
       await this.updateFrameworkStatusForViolation(violation);
 
-      this.logger.warn('Compliance violation recorded', {
+      this.logger.warn("Compliance violation recorded", {
         violationId: violation.id,
         type: violation.type,
         severity: violation.severity,
-        framework: violation.framework
+        framework: violation.framework,
       });
 
       // Emit violation event
-      this.emit('violationRecorded', violation);
-
+      this.emit("violationRecorded", violation);
     } catch (error) {
-      this.logger.error('Failed to record compliance violation', {
+      this.logger.error("Failed to record compliance violation", {
         violationId: violation.id,
-        error: error.message
+        error: error.message,
       });
       throw error;
     }
@@ -178,7 +187,11 @@ export class ComplianceMonitor extends EventEmitter {
   /**
    * Resolve compliance violation
    */
-  async resolveViolation(violationId: string, resolution: string, userId: string): Promise<void> {
+  async resolveViolation(
+    violationId: string,
+    resolution: string,
+    userId: string,
+  ): Promise<void> {
     try {
       // Remove from active violations
       this.activeViolations.delete(violationId);
@@ -189,25 +202,24 @@ export class ComplianceMonitor extends EventEmitter {
         details: {
           violationId,
           resolution,
-          resolvedBy: userId
+          resolvedBy: userId,
         },
         timestamp: new Date(),
-        userId
+        userId,
       } as ComplianceEvent);
 
-      this.logger.info('Compliance violation resolved', {
+      this.logger.info("Compliance violation resolved", {
         violationId,
         resolution,
-        resolvedBy: userId
+        resolvedBy: userId,
       });
 
       // Emit resolution event
-      this.emit('violationResolved', { violationId, resolution, userId });
-
+      this.emit("violationResolved", { violationId, resolution, userId });
     } catch (error) {
-      this.logger.error('Failed to resolve compliance violation', {
+      this.logger.error("Failed to resolve compliance violation", {
         violationId,
-        error: error.message
+        error: error.message,
       });
       throw error;
     }
@@ -223,13 +235,15 @@ export class ComplianceMonitor extends EventEmitter {
   /**
    * Get compliance metrics for time range
    */
-  async getMetrics(timeRange: { from: Date; to: Date }): Promise<ComplianceMetrics[]> {
+  async getMetrics(timeRange: { from: Date; to: Date }): Promise<
+    ComplianceMetrics[]
+  > {
     try {
       return await this.metricsStorage.getMetrics(timeRange);
     } catch (error) {
-      this.logger.error('Failed to get compliance metrics', {
+      this.logger.error("Failed to get compliance metrics", {
         timeRange,
-        error: error.message
+        error: error.message,
       });
       throw error;
     }
@@ -247,7 +261,7 @@ export class ComplianceMonitor extends EventEmitter {
       const [dailyMetrics, weeklyMetrics, activeAlerts] = await Promise.all([
         this.metricsStorage.getMetrics({ from: oneDayAgo, to: now }),
         this.metricsStorage.getMetrics({ from: oneWeekAgo, to: now }),
-        this.alerting.getActiveAlerts()
+        this.alerting.getActiveAlerts(),
       ]);
 
       return {
@@ -258,12 +272,11 @@ export class ComplianceMonitor extends EventEmitter {
         activeAlerts: activeAlerts.length,
         dailyTrends: this.calculateTrends(dailyMetrics),
         weeklyTrends: this.calculateTrends(weeklyMetrics),
-        lastUpdated: new Date()
+        lastUpdated: new Date(),
       };
-
     } catch (error) {
-      this.logger.error('Failed to get compliance dashboard', {
-        error: error.message
+      this.logger.error("Failed to get compliance dashboard", {
+        error: error.message,
       });
       throw error;
     }
@@ -275,7 +288,7 @@ export class ComplianceMonitor extends EventEmitter {
   async generateReport(
     type: ComplianceReportType,
     timeRange: { from: Date; to: Date },
-    frameworks?: RegulatoryFramework[]
+    frameworks?: RegulatoryFramework[],
   ): Promise<ComplianceReport> {
     try {
       const parameters = {
@@ -283,24 +296,26 @@ export class ComplianceMonitor extends EventEmitter {
         frameworks: frameworks || Object.values(RegulatoryFramework),
         includeMetrics: true,
         includeViolations: true,
-        includeAlerts: true
+        includeAlerts: true,
       };
 
-      const report = await this.reportGenerator.generateReport(type, parameters);
+      const report = await this.reportGenerator.generateReport(
+        type,
+        parameters,
+      );
 
-      this.logger.info('Compliance report generated', {
+      this.logger.info("Compliance report generated", {
         type,
         timeRange,
-        reportId: report.id
+        reportId: report.id,
       });
 
       return report;
-
     } catch (error) {
-      this.logger.error('Failed to generate compliance report', {
+      this.logger.error("Failed to generate compliance report", {
         type,
         timeRange,
-        error: error.message
+        error: error.message,
       });
       throw error;
     }
@@ -312,22 +327,21 @@ export class ComplianceMonitor extends EventEmitter {
   async scheduleReport(
     type: ComplianceReportType,
     schedule: string,
-    recipients: string[]
+    recipients: string[],
   ): Promise<void> {
     try {
       await this.reportGenerator.scheduleReport(type, schedule, recipients);
 
-      this.logger.info('Compliance report scheduled', {
+      this.logger.info("Compliance report scheduled", {
         type,
         schedule,
-        recipients: recipients.length
+        recipients: recipients.length,
       });
-
     } catch (error) {
-      this.logger.error('Failed to schedule compliance report', {
+      this.logger.error("Failed to schedule compliance report", {
         type,
         schedule,
-        error: error.message
+        error: error.message,
       });
       throw error;
     }
@@ -338,7 +352,7 @@ export class ComplianceMonitor extends EventEmitter {
    */
   updateConfiguration(config: Partial<MonitoringConfiguration>): void {
     this.config = { ...this.config, ...config };
-    this.logger.info('Compliance monitoring configuration updated');
+    this.logger.info("Compliance monitoring configuration updated");
   }
 
   /**
@@ -346,8 +360,8 @@ export class ComplianceMonitor extends EventEmitter {
    */
   updateThresholds(thresholds: ComplianceThreshold[]): void {
     this.thresholds = thresholds;
-    this.logger.info('Compliance thresholds updated', {
-      thresholdCount: thresholds.length
+    this.logger.info("Compliance thresholds updated", {
+      thresholdCount: thresholds.length,
     });
   }
 
@@ -373,11 +387,10 @@ export class ComplianceMonitor extends EventEmitter {
       // Final metrics collection
       await this.collectMetrics();
 
-      this.logger.info('Compliance monitor shutdown completed');
-
+      this.logger.info("Compliance monitor shutdown completed");
     } catch (error) {
-      this.logger.error('Error during compliance monitor shutdown', {
-        error: error.message
+      this.logger.error("Error during compliance monitor shutdown", {
+        error: error.message,
       });
       throw error;
     }
@@ -397,7 +410,7 @@ export class ComplianceMonitor extends EventEmitter {
       frameworkCompliance: {},
       responseTimeMs: 0,
       processingErrors: 0,
-      systemHealth: 'healthy'
+      systemHealth: "healthy",
     };
 
     // Initialize framework status
@@ -410,33 +423,33 @@ export class ComplianceMonitor extends EventEmitter {
     // Start metrics collection
     this.metricsCollectionInterval = setInterval(
       () => this.collectMetrics(),
-      this.config.metricsCollectionIntervalMs
+      this.config.metricsCollectionIntervalMs,
     );
 
     // Start violation checking
     this.violationCheckInterval = setInterval(
       () => this.checkPeriodicViolations(),
-      this.config.violationCheckIntervalMs
+      this.config.violationCheckIntervalMs,
     );
 
     // Start automatic reporting
     if (this.config.automaticReporting) {
       this.reportGenerationInterval = setInterval(
         () => this.generateAutomaticReports(),
-        this.config.reportGenerationIntervalMs
+        this.config.reportGenerationIntervalMs,
       );
     }
 
     // Start cleanup
     this.cleanupInterval = setInterval(
       () => this.performCleanup(),
-      this.config.cleanupIntervalMs
+      this.config.cleanupIntervalMs,
     );
 
-    this.logger.info('Compliance monitoring started', {
+    this.logger.info("Compliance monitoring started", {
       metricsInterval: this.config.metricsCollectionIntervalMs,
       violationCheckInterval: this.config.violationCheckIntervalMs,
-      automaticReporting: this.config.automaticReporting
+      automaticReporting: this.config.automaticReporting,
     });
   }
 
@@ -446,12 +459,12 @@ export class ComplianceMonitor extends EventEmitter {
 
     // Update events by type
     const eventType = event.type;
-    this.currentMetrics.eventsByType[eventType] = 
+    this.currentMetrics.eventsByType[eventType] =
       (this.currentMetrics.eventsByType[eventType] || 0) + 1;
 
     // Update framework compliance
     if (event.framework) {
-      this.currentMetrics.frameworkCompliance[event.framework] = 
+      this.currentMetrics.frameworkCompliance[event.framework] =
         this.frameworkStatus.get(event.framework) || ComplianceStatus.COMPLIANT;
     }
 
@@ -471,25 +484,28 @@ export class ComplianceMonitor extends EventEmitter {
         severity: ComplianceAlertSeverity.HIGH,
         framework: event.framework || RegulatoryFramework.GDPR,
         contactId: event.contactId,
-        description: 'Outreach sent without valid consent',
+        description: "Outreach sent without valid consent",
         detectedAt: new Date(),
         resolved: false,
-        metadata: { eventId: event.id }
+        metadata: { eventId: event.id },
       });
     }
 
     // Check data retention violations
-    if (event.type === ComplianceEventType.DATA_PROCESSED && this.isDataRetentionViolation(event)) {
+    if (
+      event.type === ComplianceEventType.DATA_PROCESSED &&
+      this.isDataRetentionViolation(event)
+    ) {
       violations.push({
         id: this.generateViolationId(),
         type: ViolationType.DATA_RETENTION,
         severity: ComplianceAlertSeverity.MEDIUM,
         framework: event.framework || RegulatoryFramework.GDPR,
         contactId: event.contactId,
-        description: 'Data processed beyond retention period',
+        description: "Data processed beyond retention period",
         detectedAt: new Date(),
         resolved: false,
-        metadata: { eventId: event.id }
+        metadata: { eventId: event.id },
       });
     }
 
@@ -499,11 +515,13 @@ export class ComplianceMonitor extends EventEmitter {
     }
   }
 
-  private async checkViolationThresholds(violation: ComplianceViolation): Promise<void> {
+  private async checkViolationThresholds(
+    violation: ComplianceViolation,
+  ): Promise<void> {
     for (const threshold of this.thresholds) {
       if (threshold.violationType === violation.type) {
         const currentCount = this.violationCounts.get(violation.type) || 0;
-        
+
         if (currentCount >= threshold.threshold) {
           await this.createThresholdAlert(violation, threshold, currentCount);
         }
@@ -514,10 +532,10 @@ export class ComplianceMonitor extends EventEmitter {
   private async createThresholdAlert(
     violation: ComplianceViolation,
     threshold: ComplianceThreshold,
-    currentCount: number
+    currentCount: number,
   ): Promise<void> {
     const alertKey = `threshold_${violation.type}`;
-    
+
     // Check throttling
     const lastAlert = this.alertThrottling.get(alertKey);
     if (lastAlert && Date.now() - lastAlert.getTime() < threshold.throttleMs) {
@@ -539,18 +557,18 @@ export class ComplianceMonitor extends EventEmitter {
       metadata: {
         currentCount,
         threshold: threshold.threshold,
-        violationType: violation.type
-      }
+        violationType: violation.type,
+      },
     };
 
     await this.alerting.sendAlert(alert);
     this.alertThrottling.set(alertKey, new Date());
 
-    this.logger.warn('Compliance threshold alert created', {
+    this.logger.warn("Compliance threshold alert created", {
       alertId: alert.id,
       violationType: violation.type,
       currentCount,
-      threshold: threshold.threshold
+      threshold: threshold.threshold,
     });
   }
 
@@ -559,42 +577,54 @@ export class ComplianceMonitor extends EventEmitter {
 
     // Determine compliance status based on recent violations
     const frameworkViolations = Array.from(this.activeViolations).length;
-    const status = frameworkViolations === 0 
-      ? ComplianceStatus.COMPLIANT 
-      : frameworkViolations < 5 
-        ? ComplianceStatus.NEEDS_ATTENTION 
-        : ComplianceStatus.NON_COMPLIANT;
+    const status =
+      frameworkViolations === 0
+        ? ComplianceStatus.COMPLIANT
+        : frameworkViolations < 5
+          ? ComplianceStatus.NEEDS_ATTENTION
+          : ComplianceStatus.NON_COMPLIANT;
 
     this.frameworkStatus.set(event.framework, status);
   }
 
-  private async updateFrameworkStatusForViolation(violation: ComplianceViolation): Promise<void> {
+  private async updateFrameworkStatusForViolation(
+    violation: ComplianceViolation,
+  ): Promise<void> {
     const currentStatus = this.frameworkStatus.get(violation.framework);
-    
+
     if (violation.severity === ComplianceAlertSeverity.CRITICAL) {
-      this.frameworkStatus.set(violation.framework, ComplianceStatus.NON_COMPLIANT);
+      this.frameworkStatus.set(
+        violation.framework,
+        ComplianceStatus.NON_COMPLIANT,
+      );
     } else if (currentStatus === ComplianceStatus.COMPLIANT) {
-      this.frameworkStatus.set(violation.framework, ComplianceStatus.NEEDS_ATTENTION);
+      this.frameworkStatus.set(
+        violation.framework,
+        ComplianceStatus.NEEDS_ATTENTION,
+      );
     }
   }
 
   private async collectMetrics(): Promise<void> {
     try {
       // Update metrics with current state
-      this.currentMetrics.violationsByType = Object.fromEntries(this.violationCounts);
-      this.currentMetrics.frameworkCompliance = Object.fromEntries(this.frameworkStatus);
-      
+      this.currentMetrics.violationsByType = Object.fromEntries(
+        this.violationCounts,
+      );
+      this.currentMetrics.frameworkCompliance = Object.fromEntries(
+        this.frameworkStatus,
+      );
+
       // Store metrics
       await this.metricsStorage.storeMetrics(this.currentMetrics);
 
-      this.logger.debug('Metrics collected and stored', {
+      this.logger.debug("Metrics collected and stored", {
         totalEvents: this.currentMetrics.totalEvents,
-        activeViolations: this.activeViolations.size
+        activeViolations: this.activeViolations.size,
       });
-
     } catch (error) {
-      this.logger.error('Failed to collect metrics', {
-        error: error.message
+      this.logger.error("Failed to collect metrics", {
+        error: error.message,
       });
     }
   }
@@ -602,14 +632,13 @@ export class ComplianceMonitor extends EventEmitter {
   private async checkPeriodicViolations(): Promise<void> {
     try {
       // Check for systematic violations that might not be caught in real-time
-      // This could include patterns like repeated consent violations, 
+      // This could include patterns like repeated consent violations,
       // excessive data retention, etc.
-      
-      this.logger.debug('Periodic violation check completed');
 
+      this.logger.debug("Periodic violation check completed");
     } catch (error) {
-      this.logger.error('Failed to perform periodic violation check', {
-        error: error.message
+      this.logger.error("Failed to perform periodic violation check", {
+        error: error.message,
       });
     }
   }
@@ -623,16 +652,15 @@ export class ComplianceMonitor extends EventEmitter {
       yesterday.setDate(yesterday.getDate() - 1);
       const today = new Date();
 
-      await this.generateReport(
-        ComplianceReportType.DAILY_SUMMARY,
-        { from: yesterday, to: today }
-      );
+      await this.generateReport(ComplianceReportType.DAILY_SUMMARY, {
+        from: yesterday,
+        to: today,
+      });
 
-      this.logger.info('Automatic daily report generated');
-
+      this.logger.info("Automatic daily report generated");
     } catch (error) {
-      this.logger.error('Failed to generate automatic report', {
-        error: error.message
+      this.logger.error("Failed to generate automatic report", {
+        error: error.message,
       });
     }
   }
@@ -640,21 +668,23 @@ export class ComplianceMonitor extends EventEmitter {
   private async performCleanup(): Promise<void> {
     try {
       // Clean up old metrics
-      await this.metricsStorage.deleteExpiredMetrics(this.config.metricsRetentionDays);
+      await this.metricsStorage.deleteExpiredMetrics(
+        this.config.metricsRetentionDays,
+      );
 
       // Clean up old alert throttling entries
       const now = Date.now();
       for (const [key, timestamp] of this.alertThrottling.entries()) {
-        if (now - timestamp.getTime() > 24 * 60 * 60 * 1000) { // 24 hours
+        if (now - timestamp.getTime() > 24 * 60 * 60 * 1000) {
+          // 24 hours
           this.alertThrottling.delete(key);
         }
       }
 
-      this.logger.debug('Cleanup completed');
-
+      this.logger.debug("Cleanup completed");
     } catch (error) {
-      this.logger.error('Failed to perform cleanup', {
-        error: error.message
+      this.logger.error("Failed to perform cleanup", {
+        error: error.message,
       });
     }
   }
@@ -666,15 +696,24 @@ export class ComplianceMonitor extends EventEmitter {
     const previous = metrics[metrics.length - 2];
 
     return {
-      eventsTrend: this.calculatePercentageChange(previous.totalEvents, latest.totalEvents),
+      eventsTrend: this.calculatePercentageChange(
+        previous.totalEvents,
+        latest.totalEvents,
+      ),
       violationsTrend: this.calculatePercentageChange(
-        Object.values(previous.violationsByType || {}).reduce((a, b) => a + b, 0),
-        Object.values(latest.violationsByType || {}).reduce((a, b) => a + b, 0)
-      )
+        Object.values(previous.violationsByType || {}).reduce(
+          (a, b) => a + b,
+          0,
+        ),
+        Object.values(latest.violationsByType || {}).reduce((a, b) => a + b, 0),
+      ),
     };
   }
 
-  private calculatePercentageChange(oldValue: number, newValue: number): number {
+  private calculatePercentageChange(
+    oldValue: number,
+    newValue: number,
+  ): number {
     if (oldValue === 0) return newValue > 0 ? 100 : 0;
     return ((newValue - oldValue) / oldValue) * 100;
   }

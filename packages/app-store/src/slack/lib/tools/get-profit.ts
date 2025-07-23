@@ -54,7 +54,7 @@ export function getProfitTool({
         {
           style: "currency",
           currency: data.summary.currency,
-        }
+        },
       ).format(data.summary.currentTotal)}`;
     },
   };

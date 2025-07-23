@@ -30,7 +30,7 @@ export const transactionNotifications = schemaTask({
       const { data: usersData } = await supabase
         .from("users_on_team")
         .select(
-          "id, team_id, team:teams(inbox_id, name), user:users(id, full_name, avatar_url, email, locale)"
+          "id, team_id, team:teams(inbox_id, name), user:users(id, full_name, avatar_url, email, locale)",
         )
         .eq("team_id", teamId)
         .eq("role", "owner")

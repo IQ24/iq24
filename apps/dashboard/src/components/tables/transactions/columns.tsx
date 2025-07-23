@@ -111,7 +111,7 @@ export const columns: ColumnDef<Transaction>[] = [
                 <span
                   className={cn(
                     row.original?.category?.slug === "income" &&
-                      "text-[#00C969]"
+                      "text-[#00C969]",
                   )}
                 >
                   <div className="flex space-x-2 items-center">
@@ -151,7 +151,7 @@ export const columns: ColumnDef<Transaction>[] = [
         <span
           className={cn(
             "text-sm",
-            row.original?.category?.slug === "income" && "text-[#00C969]"
+            row.original?.category?.slug === "income" && "text-[#00C969]",
           )}
         >
           <FormatAmount

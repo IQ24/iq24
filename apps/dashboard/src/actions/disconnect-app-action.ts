@@ -9,7 +9,7 @@ export const disconnectAppAction = authActionClient
   .schema(
     z.object({
       appId: z.string(),
-    })
+    }),
   )
   .metadata({
     name: "disconnect-app",

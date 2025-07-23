@@ -184,7 +184,7 @@ export function FilePreview({
                 isLoaded && "hidden",
                 error && "hidden",
                 isFullscreen &&
-                  "absolute top-0 left-0 z-20 pointer-events-none w-full h-full"
+                  "absolute top-0 left-0 z-20 pointer-events-none w-full h-full",
               )}
             />
           </div>
@@ -194,7 +194,7 @@ export function FilePreview({
           className={cn(
             "w-full h-full items-center flex justify-center bg-[#F2F1EF] dark:bg-secondary",
             !isLoaded && "hidden",
-            error && "visible bg-transparent"
+            error && "visible bg-transparent",
           )}
         >
           <AnimatePresence>

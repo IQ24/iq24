@@ -11,7 +11,7 @@ type ResumableUploadParmas = {
 
 export async function resumableUpload(
   client: SupabaseClient,
-  { file, path, bucket, onProgress }: ResumableUploadParmas
+  { file, path, bucket, onProgress }: ResumableUploadParmas,
 ) {
   const {
     data: { session },

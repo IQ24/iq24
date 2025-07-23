@@ -22,5 +22,5 @@ export const updateTransactionAction = authActionClient
       revalidateTag(`expenses_${user.team_id}`);
 
       return data;
-    }
+    },
   );

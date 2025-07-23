@@ -19,6 +19,6 @@ export async function GET(req: NextRequest) {
       headers: {
         authorization: `Bearer ${session?.access_token}`,
       },
-    }
+    },
   );
 }

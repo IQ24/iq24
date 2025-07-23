@@ -27,5 +27,5 @@ export const updateTeamAction = authActionClient
       revalidateTag(`user_${user.id}`);
 
       return team;
-    }
+    },
   );

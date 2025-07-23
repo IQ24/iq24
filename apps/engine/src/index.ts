@@ -41,7 +41,7 @@ app.get(
   "/",
   swaggerUI({
     url: "/openapi",
-  })
+  }),
 );
 
 app.doc("/openapi", {

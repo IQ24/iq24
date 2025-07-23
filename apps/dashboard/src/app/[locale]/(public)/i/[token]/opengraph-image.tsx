@@ -20,11 +20,11 @@ export default async function Image({ params }: { params: { token: string } }) {
   }
 
   const geistMonoRegular = fetch(
-    `${CDN_URL}/fonts/GeistMono/og/GeistMono-Regular.otf`
+    `${CDN_URL}/fonts/GeistMono/og/GeistMono-Regular.otf`,
   ).then((res) => res.arrayBuffer());
 
   const geistSansRegular = fetch(
-    `${CDN_URL}/fonts/Geist/og/Geist-Regular.otf`
+    `${CDN_URL}/fonts/Geist/og/Geist-Regular.otf`,
   ).then((res) => res.arrayBuffer());
 
   const logoUrl = `https://img.logo.dev/${invoice.customer?.website}?token=pk_X-1ZO13GSgeOoUrIuJ6GMQ&size=60`;
@@ -32,14 +32,12 @@ export default async function Image({ params }: { params: { token: string } }) {
   const isValidLogo = await isValidLogoUrl(logoUrl);
 
   return new ImageResponse(
-    (
-      <OgTemplate
-        {...invoice}
-        name={invoice.customer_name || invoice.customer?.name}
-        isValidLogo={isValidLogo}
-        logoUrl={logoUrl}
-      />
-    ),
+    <OgTemplate
+      {...invoice}
+      name={invoice.customer_name || invoice.customer?.name}
+      isValidLogo={isValidLogo}
+      logoUrl={logoUrl}
+    />,
     {
       width: 1200,
       height: 630,
@@ -57,6 +55,6 @@ export default async function Image({ params }: { params: { token: string } }) {
           weight: 400,
         },
       ],
-    }
+    },
   );
 }

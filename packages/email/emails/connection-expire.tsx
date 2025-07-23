@@ -30,7 +30,7 @@ export const ConnectionExpireEmail = ({
   const firstName = fullName.split(" ").at(0);
   const text = `Hi ${firstName}, We wanted to inform you that our connection to your bank ${bankName} for your team ${teamName} will expire in ${formatDistance(
     new Date(expiresAt),
-    new Date()
+    new Date(),
   )}.`;
 
   return (

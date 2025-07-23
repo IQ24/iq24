@@ -1,26 +1,26 @@
-import { 
-  ContentAnalysisResultType, 
-  ConsentRecordType, 
-  ComplianceRegulationType, 
+import {
+  ContentAnalysisResultType,
+  ConsentRecordType,
+  ComplianceRegulationType,
   ComplianceRiskLevelType,
   ComplianceActionType,
   RegulationRuleType,
   ComplianceCheckRequest,
   ComplianceApiResponse,
   ComplianceConfigType,
-  ComplianceAlertType
-} from './types';
-import { AuditTrail } from './audit-trail';
-import { ConsentManager } from './consent-manager';
-import { RegulationEngine } from './regulation-engine';
-import { ComplianceMonitor } from './compliance-monitor';
-import { logger } from '../utils/logger';
-import { EventEmitter } from 'events';
+  ComplianceAlertType,
+} from "./types";
+import { AuditTrail } from "./audit-trail";
+import { ConsentManager } from "./consent-manager";
+import { RegulationEngine } from "./regulation-engine";
+import { ComplianceMonitor } from "./compliance-monitor";
+import { logger } from "../utils/logger";
+import { EventEmitter } from "events";
 
 /**
  * Compliance Guardian Network (CGN)
  * The primary compliance enforcement and monitoring system for IQ24.ai
- * 
+ *
  * Ensures all outreach activities adhere to global regulations:
  * - GDPR (General Data Protection Regulation)
  * - CCPA (California Consumer Privacy Act)
@@ -55,14 +55,14 @@ export class ComplianceGuardianNetwork extends EventEmitter {
    */
   async initialize(): Promise<void> {
     try {
-      logger.info('Initializing Compliance Guardian Network');
+      logger.info("Initializing Compliance Guardian Network");
 
       // Initialize all subsystems
       await Promise.all([
         this.auditTrail.initialize(),
         this.consentManager.initialize(),
         this.regulationEngine.initialize(),
-        this.complianceMonitor.initialize()
+        this.complianceMonitor.initialize(),
       ]);
 
       // Load regulation rules
@@ -75,17 +75,18 @@ export class ComplianceGuardianNetwork extends EventEmitter {
       await this.complianceMonitor.startMonitoring();
 
       this.isInitialized = true;
-      logger.info('Compliance Guardian Network initialized successfully');
+      logger.info("Compliance Guardian Network initialized successfully");
 
       // Emit initialization event
-      this.emit('initialized', {
+      this.emit("initialized", {
         timestamp: new Date(),
         regulations: this.config.enabledRegulations,
-        strictMode: this.config.strictMode
+        strictMode: this.config.strictMode,
       });
-
     } catch (error) {
-      logger.error('Failed to initialize Compliance Guardian Network', { error });
+      logger.error("Failed to initialize Compliance Guardian Network", {
+        error,
+      });
       throw new Error(`CGN initialization failed: ${error.message}`);
     }
   }
@@ -94,52 +95,62 @@ export class ComplianceGuardianNetwork extends EventEmitter {
    * Analyze content for compliance violations
    * This is the main entry point for content analysis
    */
-  async analyzeContent(request: ComplianceCheckRequest): Promise<ComplianceApiResponse<ContentAnalysisResultType>> {
+  async analyzeContent(
+    request: ComplianceCheckRequest,
+  ): Promise<ComplianceApiResponse<ContentAnalysisResultType>> {
     if (!this.isInitialized) {
-      throw new Error('Compliance Guardian Network not initialized');
+      throw new Error("Compliance Guardian Network not initialized");
     }
 
     const startTime = Date.now();
-    
+
     try {
       // Log the analysis request
       await this.auditTrail.logEvent({
-        eventType: 'CONTENT_ANALYSIS',
-        userId: 'system', // This would come from the request context
+        eventType: "CONTENT_ANALYSIS",
+        userId: "system", // This would come from the request context
         details: {
           contentType: request.contentType,
           contentLength: request.content.length,
           prospectId: request.prospectId,
-          campaignId: request.campaignId
-        }
+          campaignId: request.campaignId,
+        },
       });
 
       // Check consent if prospect ID is provided
       if (request.prospectId) {
-        const consentValid = await this.verifyConsent(request.prospectId, request.contentType);
+        const consentValid = await this.verifyConsent(
+          request.prospectId,
+          request.contentType,
+        );
         if (!consentValid) {
           const result: ContentAnalysisResultType = {
             contentId: this.generateContentId(),
             contentType: request.contentType,
             content: request.content,
             analysisTimestamp: new Date(),
-            risks: [{
-              regulation: 'GDPR',
-              riskLevel: 'CRITICAL',
-              riskType: 'MISSING_CONSENT',
-              description: 'No valid consent found for this prospect',
-              suggestions: ['Obtain explicit consent before sending', 'Verify consent status'],
-              confidence: 1.0
-            }],
-            overallRiskLevel: 'CRITICAL',
-            recommendedAction: 'REJECT',
+            risks: [
+              {
+                regulation: "GDPR",
+                riskLevel: "CRITICAL",
+                riskType: "MISSING_CONSENT",
+                description: "No valid consent found for this prospect",
+                suggestions: [
+                  "Obtain explicit consent before sending",
+                  "Verify consent status",
+                ],
+                confidence: 1.0,
+              },
+            ],
+            overallRiskLevel: "CRITICAL",
+            recommendedAction: "REJECT",
             complianceScore: 0.0,
-            requiredModifications: ['Obtain consent before proceeding'],
-            approvedRegulations: []
+            requiredModifications: ["Obtain consent before proceeding"],
+            approvedRegulations: [],
           };
 
           await this.handleNonCompliantContent(result);
-          return { success: false, data: result, error: 'Missing consent' };
+          return { success: false, data: result, error: "Missing consent" };
         }
       }
 
@@ -147,83 +158,87 @@ export class ComplianceGuardianNetwork extends EventEmitter {
       const analysisResult = await this.regulationEngine.analyzeContent(
         request.content,
         request.contentType,
-        request.targetRegulations || this.config.enabledRegulations
+        request.targetRegulations || this.config.enabledRegulations,
       );
 
       // Calculate processing time
       const processingTime = Date.now() - startTime;
-      
+
       // Log analysis metrics
       this.complianceMonitor.recordAnalysis({
         processingTime,
         riskLevel: analysisResult.overallRiskLevel,
         action: analysisResult.recommendedAction,
-        regulations: analysisResult.approvedRegulations
+        regulations: analysisResult.approvedRegulations,
       });
 
       // Handle different risk levels
-      if (analysisResult.overallRiskLevel === 'CRITICAL' || 
-          (analysisResult.overallRiskLevel === 'HIGH' && this.config.strictMode)) {
+      if (
+        analysisResult.overallRiskLevel === "CRITICAL" ||
+        (analysisResult.overallRiskLevel === "HIGH" && this.config.strictMode)
+      ) {
         await this.handleNonCompliantContent(analysisResult);
-        return { 
-          success: false, 
-          data: analysisResult, 
-          error: 'Content failed compliance check',
+        return {
+          success: false,
+          data: analysisResult,
+          error: "Content failed compliance check",
           complianceInfo: {
             regulations: this.config.enabledRegulations,
             riskLevel: analysisResult.overallRiskLevel,
-            requiresReview: true
-          }
+            requiresReview: true,
+          },
         };
       }
 
       // Check if human review is required
       if (this.shouldRequireHumanReview(analysisResult)) {
-        analysisResult.recommendedAction = 'REQUIRE_REVIEW';
+        analysisResult.recommendedAction = "REQUIRE_REVIEW";
         await this.flagForHumanReview(analysisResult);
       }
 
       // Log successful analysis
       await this.auditTrail.logEvent({
-        eventType: 'CONTENT_ANALYSIS',
-        userId: 'system',
+        eventType: "CONTENT_ANALYSIS",
+        userId: "system",
         prospectId: request.prospectId,
         campaignId: request.campaignId,
         details: {
           contentId: analysisResult.contentId,
           overallRiskLevel: analysisResult.overallRiskLevel,
           complianceScore: analysisResult.complianceScore,
-          processingTime
-        }
+          processingTime,
+        },
       });
 
-      return { 
-        success: true, 
+      return {
+        success: true,
         data: analysisResult,
         complianceInfo: {
           regulations: analysisResult.approvedRegulations,
           riskLevel: analysisResult.overallRiskLevel,
-          requiresReview: analysisResult.recommendedAction === 'REQUIRE_REVIEW'
-        }
+          requiresReview: analysisResult.recommendedAction === "REQUIRE_REVIEW",
+        },
       };
-
     } catch (error) {
-      logger.error('Content analysis failed', { error, request });
-      
+      logger.error("Content analysis failed", { error, request });
+
       // Create critical alert
       await this.createAlert({
-        severity: 'CRITICAL',
-        type: 'SYSTEM_ERROR',
-        title: 'Content Analysis Failure',
+        severity: "CRITICAL",
+        type: "SYSTEM_ERROR",
+        title: "Content Analysis Failure",
         description: `Failed to analyze content: ${error.message}`,
         affectedRegulations: this.config.enabledRegulations,
         actionRequired: true,
-        suggestedActions: ['Review system health', 'Check regulation engine status']
+        suggestedActions: [
+          "Review system health",
+          "Check regulation engine status",
+        ],
       });
 
-      return { 
-        success: false, 
-        error: `Analysis failed: ${error.message}` 
+      return {
+        success: false,
+        error: `Analysis failed: ${error.message}`,
       };
     }
   }
@@ -231,12 +246,19 @@ export class ComplianceGuardianNetwork extends EventEmitter {
   /**
    * Verify consent for a specific prospect and communication type
    */
-  private async verifyConsent(prospectId: string, contentType: string): Promise<boolean> {
+  private async verifyConsent(
+    prospectId: string,
+    contentType: string,
+  ): Promise<boolean> {
     try {
       const consentType = this.mapContentTypeToConsent(contentType);
       return await this.consentManager.hasValidConsent(prospectId, consentType);
     } catch (error) {
-      logger.error('Consent verification failed', { error, prospectId, contentType });
+      logger.error("Consent verification failed", {
+        error,
+        prospectId,
+        contentType,
+      });
       return false; // Fail secure - deny if we can't verify
     }
   }
@@ -244,16 +266,18 @@ export class ComplianceGuardianNetwork extends EventEmitter {
   /**
    * Map content type to consent type
    */
-  private mapContentTypeToConsent(contentType: string): 'EMAIL_MARKETING' | 'SMS_MARKETING' | 'PHONE_CALLS' | 'DATA_PROCESSING' {
+  private mapContentTypeToConsent(
+    contentType: string,
+  ): "EMAIL_MARKETING" | "SMS_MARKETING" | "PHONE_CALLS" | "DATA_PROCESSING" {
     switch (contentType) {
-      case 'EMAIL':
-        return 'EMAIL_MARKETING';
-      case 'SMS':
-        return 'SMS_MARKETING';
-      case 'VOICE_SCRIPT':
-        return 'PHONE_CALLS';
+      case "EMAIL":
+        return "EMAIL_MARKETING";
+      case "SMS":
+        return "SMS_MARKETING";
+      case "VOICE_SCRIPT":
+        return "PHONE_CALLS";
       default:
-        return 'DATA_PROCESSING';
+        return "DATA_PROCESSING";
     }
   }
 
@@ -264,102 +288,119 @@ export class ComplianceGuardianNetwork extends EventEmitter {
     if (!this.config.requireHumanReview) return false;
 
     // Always require review for high risk content
-    if (result.overallRiskLevel === 'HIGH') return true;
+    if (result.overallRiskLevel === "HIGH") return true;
 
     // Require review if compliance score is below threshold
     if (result.complianceScore < this.config.autoRejectThreshold) return true;
 
     // Require review for specific risk types
-    const sensitiveRiskTypes = ['SENSITIVE_DATA', 'MISLEADING_CLAIMS', 'CONSENT_ISSUES'];
-    return result.risks.some(risk => sensitiveRiskTypes.includes(risk.riskType));
+    const sensitiveRiskTypes = [
+      "SENSITIVE_DATA",
+      "MISLEADING_CLAIMS",
+      "CONSENT_ISSUES",
+    ];
+    return result.risks.some((risk) =>
+      sensitiveRiskTypes.includes(risk.riskType),
+    );
   }
 
   /**
    * Handle non-compliant content
    */
-  private async handleNonCompliantContent(result: ContentAnalysisResultType): Promise<void> {
+  private async handleNonCompliantContent(
+    result: ContentAnalysisResultType,
+  ): Promise<void> {
     // Create compliance alert
     await this.createAlert({
-      severity: 'ERROR',
-      type: 'REGULATION_VIOLATION',
-      title: 'Non-Compliant Content Detected',
+      severity: "ERROR",
+      type: "REGULATION_VIOLATION",
+      title: "Non-Compliant Content Detected",
       description: `Content failed compliance check with ${result.overallRiskLevel} risk level`,
-      affectedRegulations: result.risks.map(r => r.regulation),
+      affectedRegulations: result.risks.map((r) => r.regulation),
       relatedEntities: {
-        contentIds: [result.contentId]
+        contentIds: [result.contentId],
       },
       actionRequired: true,
-      suggestedActions: result.requiredModifications || []
+      suggestedActions: result.requiredModifications || [],
     });
 
     // Log the violation
     await this.auditTrail.logEvent({
-      eventType: 'MESSAGE_BLOCKED',
-      userId: 'system',
+      eventType: "MESSAGE_BLOCKED",
+      userId: "system",
       details: {
         contentId: result.contentId,
         riskLevel: result.overallRiskLevel,
-        violations: result.risks.map(r => r.riskType),
-        complianceScore: result.complianceScore
-      }
+        violations: result.risks.map((r) => r.riskType),
+        complianceScore: result.complianceScore,
+      },
     });
 
     // Emit event for external systems
-    this.emit('contentBlocked', {
+    this.emit("contentBlocked", {
       contentId: result.contentId,
       riskLevel: result.overallRiskLevel,
       violations: result.risks,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
   }
 
   /**
    * Flag content for human review
    */
-  private async flagForHumanReview(result: ContentAnalysisResultType): Promise<void> {
+  private async flagForHumanReview(
+    result: ContentAnalysisResultType,
+  ): Promise<void> {
     await this.createAlert({
-      severity: 'WARNING',
-      type: 'REGULATION_VIOLATION',
-      title: 'Content Requires Human Review',
-      description: 'Content flagged for manual compliance review',
-      affectedRegulations: result.risks.map(r => r.regulation),
+      severity: "WARNING",
+      type: "REGULATION_VIOLATION",
+      title: "Content Requires Human Review",
+      description: "Content flagged for manual compliance review",
+      affectedRegulations: result.risks.map((r) => r.regulation),
       relatedEntities: {
-        contentIds: [result.contentId]
+        contentIds: [result.contentId],
       },
       actionRequired: true,
-      suggestedActions: ['Review content for compliance', 'Approve or reject after human assessment']
+      suggestedActions: [
+        "Review content for compliance",
+        "Approve or reject after human assessment",
+      ],
     });
 
-    this.emit('reviewRequired', {
+    this.emit("reviewRequired", {
       contentId: result.contentId,
       analysisResult: result,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
   }
 
   /**
    * Create compliance alert
    */
-  private async createAlert(alertData: Partial<ComplianceAlertType>): Promise<void> {
+  private async createAlert(
+    alertData: Partial<ComplianceAlertType>,
+  ): Promise<void> {
     const alert: ComplianceAlertType = {
       id: this.generateAlertId(),
       timestamp: new Date(),
-      severity: alertData.severity || 'WARNING',
-      type: alertData.type || 'REGULATION_VIOLATION',
-      title: alertData.title || 'Compliance Alert',
-      description: alertData.description || '',
+      severity: alertData.severity || "WARNING",
+      type: alertData.type || "REGULATION_VIOLATION",
+      title: alertData.title || "Compliance Alert",
+      description: alertData.description || "",
       affectedRegulations: alertData.affectedRegulations || [],
       relatedEntities: alertData.relatedEntities || {},
       actionRequired: alertData.actionRequired || false,
       suggestedActions: alertData.suggestedActions || [],
-      escalationLevel: this.calculateEscalationLevel(alertData.severity || 'WARNING'),
-      status: 'OPEN'
+      escalationLevel: this.calculateEscalationLevel(
+        alertData.severity || "WARNING",
+      ),
+      status: "OPEN",
     };
 
     await this.complianceMonitor.createAlert(alert);
 
     // Send notifications if configured
-    if (this.config.alertsEnabled && alert.severity === 'CRITICAL') {
+    if (this.config.alertsEnabled && alert.severity === "CRITICAL") {
       await this.sendCriticalAlert(alert);
     }
   }
@@ -367,13 +408,20 @@ export class ComplianceGuardianNetwork extends EventEmitter {
   /**
    * Calculate escalation level based on severity
    */
-  private calculateEscalationLevel(severity: 'INFO' | 'WARNING' | 'ERROR' | 'CRITICAL'): number {
+  private calculateEscalationLevel(
+    severity: "INFO" | "WARNING" | "ERROR" | "CRITICAL",
+  ): number {
     switch (severity) {
-      case 'INFO': return 1;
-      case 'WARNING': return 2;
-      case 'ERROR': return 3;
-      case 'CRITICAL': return 5;
-      default: return 2;
+      case "INFO":
+        return 1;
+      case "WARNING":
+        return 2;
+      case "ERROR":
+        return 3;
+      case "CRITICAL":
+        return 5;
+      default:
+        return 2;
     }
   }
 
@@ -392,24 +440,33 @@ export class ComplianceGuardianNetwork extends EventEmitter {
         await this.sendEmailAlert(contact, alert);
       }
     } catch (error) {
-      logger.error('Failed to send critical alert notifications', { error, alertId: alert.id });
+      logger.error("Failed to send critical alert notifications", {
+        error,
+        alertId: alert.id,
+      });
     }
   }
 
   /**
    * Send webhook alert
    */
-  private async sendWebhookAlert(webhookUrl: string, alert: ComplianceAlertType): Promise<void> {
+  private async sendWebhookAlert(
+    webhookUrl: string,
+    alert: ComplianceAlertType,
+  ): Promise<void> {
     // Implementation would use HTTP client to send webhook
-    logger.info('Sending webhook alert', { webhookUrl, alertId: alert.id });
+    logger.info("Sending webhook alert", { webhookUrl, alertId: alert.id });
   }
 
   /**
    * Send email alert
    */
-  private async sendEmailAlert(email: string, alert: ComplianceAlertType): Promise<void> {
+  private async sendEmailAlert(
+    email: string,
+    alert: ComplianceAlertType,
+  ): Promise<void> {
     // Implementation would use email service
-    logger.info('Sending email alert', { email, alertId: alert.id });
+    logger.info("Sending email alert", { email, alertId: alert.id });
   }
 
   /**
@@ -417,21 +474,21 @@ export class ComplianceGuardianNetwork extends EventEmitter {
    */
   private setupEventListeners(): void {
     // Listen for consent events
-    this.consentManager.on('consentWithdrawn', async (data) => {
+    this.consentManager.on("consentWithdrawn", async (data) => {
       await this.handleConsentWithdrawn(data);
     });
 
-    this.consentManager.on('consentExpired', async (data) => {
+    this.consentManager.on("consentExpired", async (data) => {
       await this.handleConsentExpired(data);
     });
 
     // Listen for regulation updates
-    this.regulationEngine.on('regulationUpdated', async (data) => {
+    this.regulationEngine.on("regulationUpdated", async (data) => {
       await this.handleRegulationUpdate(data);
     });
 
     // Listen for monitoring alerts
-    this.complianceMonitor.on('anomalyDetected', async (data) => {
+    this.complianceMonitor.on("anomalyDetected", async (data) => {
       await this.handleAnomalyDetected(data);
     });
   }
@@ -441,12 +498,16 @@ export class ComplianceGuardianNetwork extends EventEmitter {
    */
   private async handleConsentWithdrawn(data: any): Promise<void> {
     await this.createAlert({
-      severity: 'WARNING',
-      type: 'CONSENT_EXPIRED',
-      title: 'Consent Withdrawn',
+      severity: "WARNING",
+      type: "CONSENT_EXPIRED",
+      title: "Consent Withdrawn",
       description: `Consent withdrawn for prospect ${data.prospectId}`,
       actionRequired: true,
-      suggestedActions: ['Stop all communications', 'Update prospect status', 'Review active campaigns']
+      suggestedActions: [
+        "Stop all communications",
+        "Update prospect status",
+        "Review active campaigns",
+      ],
     });
   }
 
@@ -455,12 +516,16 @@ export class ComplianceGuardianNetwork extends EventEmitter {
    */
   private async handleConsentExpired(data: any): Promise<void> {
     await this.createAlert({
-      severity: 'WARNING',
-      type: 'CONSENT_EXPIRED',
-      title: 'Consent Expired',
+      severity: "WARNING",
+      type: "CONSENT_EXPIRED",
+      title: "Consent Expired",
       description: `Consent expired for prospect ${data.prospectId}`,
       actionRequired: true,
-      suggestedActions: ['Request consent renewal', 'Pause communications', 'Update consent records']
+      suggestedActions: [
+        "Request consent renewal",
+        "Pause communications",
+        "Update consent records",
+      ],
     });
   }
 
@@ -469,13 +534,16 @@ export class ComplianceGuardianNetwork extends EventEmitter {
    */
   private async handleRegulationUpdate(data: any): Promise<void> {
     await this.createAlert({
-      severity: 'INFO',
-      type: 'REGULATORY_UPDATE',
-      title: 'Regulation Updated',
+      severity: "INFO",
+      type: "REGULATORY_UPDATE",
+      title: "Regulation Updated",
       description: `${data.regulation} regulation has been updated`,
       affectedRegulations: [data.regulation],
       actionRequired: data.actionRequired,
-      suggestedActions: data.suggestedActions || ['Review updated regulations', 'Update compliance procedures']
+      suggestedActions: data.suggestedActions || [
+        "Review updated regulations",
+        "Update compliance procedures",
+      ],
     });
   }
 
@@ -484,12 +552,16 @@ export class ComplianceGuardianNetwork extends EventEmitter {
    */
   private async handleAnomalyDetected(data: any): Promise<void> {
     await this.createAlert({
-      severity: 'ERROR',
-      type: 'AUDIT_ANOMALY',
-      title: 'Compliance Anomaly Detected',
+      severity: "ERROR",
+      type: "AUDIT_ANOMALY",
+      title: "Compliance Anomaly Detected",
       description: data.description,
       actionRequired: true,
-      suggestedActions: ['Investigate anomaly', 'Review recent activities', 'Check system integrity']
+      suggestedActions: [
+        "Investigate anomaly",
+        "Review recent activities",
+        "Check system integrity",
+      ],
     });
   }
 
@@ -503,7 +575,9 @@ export class ComplianceGuardianNetwork extends EventEmitter {
   /**
    * Get compliance metrics
    */
-  async getMetrics(period: 'HOURLY' | 'DAILY' | 'WEEKLY' | 'MONTHLY' = 'DAILY'): Promise<any> {
+  async getMetrics(
+    period: "HOURLY" | "DAILY" | "WEEKLY" | "MONTHLY" = "DAILY",
+  ): Promise<any> {
     return await this.complianceMonitor.getMetrics(period);
   }
 
@@ -525,16 +599,16 @@ export class ComplianceGuardianNetwork extends EventEmitter {
    * Shutdown the compliance system gracefully
    */
   async shutdown(): Promise<void> {
-    logger.info('Shutting down Compliance Guardian Network');
-    
+    logger.info("Shutting down Compliance Guardian Network");
+
     await Promise.all([
       this.complianceMonitor.stopMonitoring(),
       this.auditTrail.flush(),
       this.consentManager.shutdown(),
-      this.regulationEngine.shutdown()
+      this.regulationEngine.shutdown(),
     ]);
 
     this.isInitialized = false;
-    logger.info('Compliance Guardian Network shutdown complete');
+    logger.info("Compliance Guardian Network shutdown complete");
   }
 }

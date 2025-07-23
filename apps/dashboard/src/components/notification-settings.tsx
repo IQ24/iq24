@@ -18,7 +18,7 @@ export async function NotificationSettings() {
 
   const inAppSettings = subscriberPreferences
     ?.filter((setting) =>
-      Object.keys(setting.preference.channels).includes("in_app")
+      Object.keys(setting.preference.channels).includes("in_app"),
     )
     .map((setting) => {
       return (
@@ -36,7 +36,7 @@ export async function NotificationSettings() {
 
   const emailSettings = subscriberPreferences
     ?.filter((setting) =>
-      Object.keys(setting.preference.channels).includes("email")
+      Object.keys(setting.preference.channels).includes("email"),
     )
     .map((setting) => {
       return (

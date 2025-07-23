@@ -45,7 +45,7 @@ export function ImportModal({ currencies, defaultCurrency }: Props) {
   const [isImporting, setIsImporting] = useState(false);
   const [fileColumns, setFileColumns] = useState<string[] | null>(null);
   const [firstRows, setFirstRows] = useState<Record<string, string>[] | null>(
-    null
+    null,
   );
 
   const { team_id: teamId } = useUserContext((state) => state.data);
@@ -220,7 +220,7 @@ export function ImportModal({ currencies, defaultCurrency }: Props) {
 
                         if (data.import_type === "csv") {
                           const filename = stripSpecialCharacters(
-                            data.file.name
+                            data.file.name,
                           );
                           const { path } = await uploadFile({
                             bucket: "vault",

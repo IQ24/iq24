@@ -59,7 +59,7 @@ export function InboxView({
 
   const [params, setParams] = useQueryStates({
     inboxId: parseAsString.withDefault(
-      items.filter(todoFilter)?.at(0)?.id ?? null
+      items.filter(todoFilter)?.at(0)?.id ?? null,
     ),
     q: parseAsString.withDefault(""),
     tab: parseAsStringEnum(TAB_ITEMS).withDefault("todo"),
@@ -131,7 +131,7 @@ export function InboxView({
             default:
               break;
           }
-        }
+        },
       )
       .subscribe();
 
@@ -178,7 +178,7 @@ export function InboxView({
           return item;
         });
       },
-    }
+    },
   );
 
   const getCurrentItems = (tab: (typeof TAB_ITEMS)[0]) => {
@@ -199,11 +199,11 @@ export function InboxView({
   const currentItems = getCurrentItems(params.tab);
 
   const selectedItems = currentItems?.find(
-    (item) => item.id === params.inboxId
+    (item) => item.id === params.inboxId,
   );
 
   const currentIndex = currentItems?.findIndex(
-    (item) => item.id === params.inboxId
+    (item) => item.id === params.inboxId,
   );
 
   const currentTabEmpty = Boolean(currentItems?.length === 0);

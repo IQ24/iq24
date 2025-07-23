@@ -10,7 +10,7 @@ export const voteAction = actionClient
   .schema(
     z.object({
       id: z.string(),
-    })
+    }),
   )
   .action(async ({ parsedInput: { id } }) => {
     const clientIP = (await headers()).get("x-forwarded-for");

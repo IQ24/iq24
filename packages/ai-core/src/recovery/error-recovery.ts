@@ -3,10 +3,10 @@
  * Implements circuit breakers, retry policies, graceful degradation, and system healing
  */
 
-import { EventEmitter } from 'events';
-import { BaseAgent } from '../base/agent';
-import { ConfigManager } from '../config';
-import { DatabaseClient } from '../database/client';
+import { EventEmitter } from "events";
+import { BaseAgent } from "../base/agent";
+import { ConfigManager } from "../config";
+import { DatabaseClient } from "../database/client";
 
 export interface RecoveryStrategy {
   name: string;
@@ -41,9 +41,9 @@ export interface CircuitBreakerConfig {
 }
 
 export enum CircuitState {
-  CLOSED = 'closed',
-  OPEN = 'open',
-  HALF_OPEN = 'half_open'
+  CLOSED = "closed",
+  OPEN = "open",
+  HALF_OPEN = "half_open",
 }
 
 /**
@@ -58,7 +58,7 @@ export class CircuitBreaker extends EventEmitter {
 
   constructor(
     private name: string,
-    config: Partial<CircuitBreakerConfig> = {}
+    config: Partial<CircuitBreakerConfig> = {},
   ) {
     super();
     this.config = {
@@ -66,7 +66,7 @@ export class CircuitBreaker extends EventEmitter {
       timeoutMs: 60000, // 1 minute
       resetTimeoutMs: 300000, // 5 minutes
       monitoringPeriodMs: 60000, // 1 minute
-      ...config
+      ...config,
     };
   }
 
@@ -74,7 +74,10 @@ export class CircuitBreaker extends EventEmitter {
     if (this.state === CircuitState.OPEN) {
       if (this.shouldAttemptReset()) {
         this.state = CircuitState.HALF_OPEN;
-        this.emit('state-change', { from: CircuitState.OPEN, to: CircuitState.HALF_OPEN });
+        this.emit("state-change", {
+          from: CircuitState.OPEN,
+          to: CircuitState.HALF_OPEN,
+        });
       } else {
         throw new Error(`Circuit breaker ${this.name} is OPEN`);
       }
@@ -97,11 +100,11 @@ export class CircuitBreaker extends EventEmitter {
       }, this.config.timeoutMs);
 
       operation()
-        .then(result => {
+        .then((result) => {
           clearTimeout(timer);
           resolve(result);
         })
-        .catch(error => {
+        .catch((error) => {
           clearTimeout(timer);
           reject(error);
         });
@@ -111,20 +114,26 @@ export class CircuitBreaker extends EventEmitter {
   private onSuccess(): void {
     this.failureCount = 0;
     this.successCount++;
-    
+
     if (this.state === CircuitState.HALF_OPEN) {
       this.state = CircuitState.CLOSED;
-      this.emit('state-change', { from: CircuitState.HALF_OPEN, to: CircuitState.CLOSED });
+      this.emit("state-change", {
+        from: CircuitState.HALF_OPEN,
+        to: CircuitState.CLOSED,
+      });
     }
   }
 
   private onFailure(): void {
     this.failureCount++;
     this.lastFailureTime = Date.now();
-    
+
     if (this.failureCount >= this.config.failureThreshold) {
       this.state = CircuitState.OPEN;
-      this.emit('state-change', { from: CircuitState.CLOSED, to: CircuitState.OPEN });
+      this.emit("state-change", {
+        from: CircuitState.CLOSED,
+        to: CircuitState.OPEN,
+      });
     }
   }
 
@@ -141,7 +150,7 @@ export class CircuitBreaker extends EventEmitter {
       state: this.state,
       failureCount: this.failureCount,
       successCount: this.successCount,
-      lastFailureTime: this.lastFailureTime
+      lastFailureTime: this.lastFailureTime,
     };
   }
 }
@@ -155,46 +164,47 @@ export class RetryPolicy {
     private baseDelayMs: number = 1000,
     private maxDelayMs: number = 30000,
     private backoffMultiplier: number = 2,
-    private jitter: boolean = true
+    private jitter: boolean = true,
   ) {}
 
   async execute<T>(
     operation: () => Promise<T>,
-    shouldRetry: (error: Error, attempt: number) => boolean = () => true
+    shouldRetry: (error: Error, attempt: number) => boolean = () => true,
   ): Promise<T> {
     let lastError: Error;
-    
+
     for (let attempt = 1; attempt <= this.maxAttempts; attempt++) {
       try {
         return await operation();
       } catch (error) {
         lastError = error as Error;
-        
+
         if (attempt === this.maxAttempts || !shouldRetry(lastError, attempt)) {
           throw lastError;
         }
-        
+
         const delay = this.calculateDelay(attempt);
         await this.sleep(delay);
       }
     }
-    
+
     throw lastError!;
   }
 
   private calculateDelay(attempt: number): number {
-    let delay = this.baseDelayMs * Math.pow(this.backoffMultiplier, attempt - 1);
+    let delay =
+      this.baseDelayMs * Math.pow(this.backoffMultiplier, attempt - 1);
     delay = Math.min(delay, this.maxDelayMs);
-    
+
     if (this.jitter) {
-      delay *= (0.5 + Math.random() * 0.5); // Add 0-50% jitter
+      delay *= 0.5 + Math.random() * 0.5; // Add 0-50% jitter
     }
-    
+
     return Math.floor(delay);
   }
 
   private sleep(ms: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 }
 
@@ -218,12 +228,12 @@ export class HealthMonitor extends EventEmitter {
 
   start(): void {
     if (this.monitoring) return;
-    
+
     this.monitoring = true;
     this.intervalId = setInterval(() => {
       this.performHealthChecks();
     }, this.intervalMs);
-    
+
     // Perform initial check
     this.performHealthChecks();
   }
@@ -241,23 +251,23 @@ export class HealthMonitor extends EventEmitter {
       try {
         const isHealthy = await check();
         const wasHealthy = this.healthStatus.get(name);
-        
+
         this.healthStatus.set(name, isHealthy);
-        
+
         if (wasHealthy && !isHealthy) {
-          this.emit('health-degraded', { component: name });
+          this.emit("health-degraded", { component: name });
         } else if (!wasHealthy && isHealthy) {
-          this.emit('health-recovered', { component: name });
+          this.emit("health-recovered", { component: name });
         }
       } catch (error) {
         this.healthStatus.set(name, false);
-        this.emit('health-check-error', { component: name, error });
+        this.emit("health-check-error", { component: name, error });
       }
     }
   }
 
   getOverallHealth(): boolean {
-    return Array.from(this.healthStatus.values()).every(status => status);
+    return Array.from(this.healthStatus.values()).every((status) => status);
   }
 
   getHealthStatus(): Record<string, boolean> {
@@ -281,7 +291,7 @@ export class ErrorRecoveryManager extends EventEmitter {
     this.config = new ConfigManager();
     this.db = DatabaseClient.getInstance();
     this.healthMonitor = new HealthMonitor();
-    
+
     this.initializeDefaultStrategies();
     this.setupHealthMonitoring();
   }
@@ -292,112 +302,121 @@ export class ErrorRecoveryManager extends EventEmitter {
   private initializeDefaultStrategies(): void {
     // Network timeout recovery
     this.addStrategy({
-      name: 'network-timeout-recovery',
+      name: "network-timeout-recovery",
       priority: 1,
-      condition: (error) => error.message.includes('timeout') || error.message.includes('ETIMEDOUT'),
+      condition: (error) =>
+        error.message.includes("timeout") ||
+        error.message.includes("ETIMEDOUT"),
       execute: async (error, context) => {
-        const retryPolicy = this.getRetryPolicy('network-operations');
-        
+        const retryPolicy = this.getRetryPolicy("network-operations");
+
         return {
           success: true,
-          action: 'retry-with-backoff',
+          action: "retry-with-backoff",
           retry: true,
           delay: 2000 + Math.random() * 3000, // 2-5 second delay
-          metadata: { strategy: 'network-timeout-recovery' }
+          metadata: { strategy: "network-timeout-recovery" },
         };
-      }
+      },
     });
 
     // Database connection recovery
     this.addStrategy({
-      name: 'database-connection-recovery',
+      name: "database-connection-recovery",
       priority: 1,
-      condition: (error) => error.message.includes('connection') && error.message.includes('database'),
+      condition: (error) =>
+        error.message.includes("connection") &&
+        error.message.includes("database"),
       execute: async (error, context) => {
         try {
           // Attempt to reconnect
           await this.db.reconnect();
-          
+
           return {
             success: true,
-            action: 'database-reconnected',
+            action: "database-reconnected",
             retry: true,
             delay: 1000,
-            metadata: { reconnected: true }
+            metadata: { reconnected: true },
           };
         } catch (reconnectError) {
           return {
             success: false,
-            action: 'database-reconnect-failed',
-            metadata: { reconnectError: reconnectError.message }
+            action: "database-reconnect-failed",
+            metadata: { reconnectError: reconnectError.message },
           };
         }
-      }
+      },
     });
 
     // External service unavailable recovery
     this.addStrategy({
-      name: 'external-service-recovery',
+      name: "external-service-recovery",
       priority: 2,
-      condition: (error) => error.message.includes('Service unavailable') || error.message.includes('503'),
+      condition: (error) =>
+        error.message.includes("Service unavailable") ||
+        error.message.includes("503"),
       execute: async (error, context) => {
         // Enable graceful degradation
         const serviceName = this.extractServiceName(error.message);
         if (serviceName) {
           await this.enableGracefulDegradation(serviceName, context);
         }
-        
+
         return {
           success: true,
-          action: 'graceful-degradation-enabled',
+          action: "graceful-degradation-enabled",
           retry: false,
-          metadata: { degradedService: serviceName }
+          metadata: { degradedService: serviceName },
         };
-      }
+      },
     });
 
     // Memory pressure recovery
     this.addStrategy({
-      name: 'memory-pressure-recovery',
+      name: "memory-pressure-recovery",
       priority: 1,
-      condition: (error) => error.message.includes('out of memory') || error.message.includes('heap'),
+      condition: (error) =>
+        error.message.includes("out of memory") ||
+        error.message.includes("heap"),
       execute: async (error, context) => {
         // Force garbage collection
         if (global.gc) {
           global.gc();
         }
-        
+
         // Reduce agent concurrency temporarily
         await this.reduceSystemLoad();
-        
+
         return {
           success: true,
-          action: 'memory-pressure-relief',
+          action: "memory-pressure-relief",
           retry: true,
           delay: 5000,
-          metadata: { garbageCollected: true, loadReduced: true }
+          metadata: { garbageCollected: true, loadReduced: true },
         };
-      }
+      },
     });
 
     // Rate limiting recovery
     this.addStrategy({
-      name: 'rate-limit-recovery',
+      name: "rate-limit-recovery",
       priority: 1,
-      condition: (error) => error.message.includes('rate limit') || error.message.includes('429'),
+      condition: (error) =>
+        error.message.includes("rate limit") || error.message.includes("429"),
       execute: async (error, context) => {
         // Extract retry-after header if available
         const retryAfter = this.extractRetryAfter(error.message);
-        const delay = retryAfter || (30000 + Math.random() * 30000); // 30-60 seconds
-        
+        const delay = retryAfter || 30000 + Math.random() * 30000; // 30-60 seconds
+
         return {
           success: true,
-          action: 'rate-limit-backoff',
+          action: "rate-limit-backoff",
           retry: true,
           delay,
-          metadata: { retryAfter }
+          metadata: { retryAfter },
         };
-      }
+      },
     });
   }
 
@@ -406,7 +425,7 @@ export class ErrorRecoveryManager extends EventEmitter {
    */
   private setupHealthMonitoring(): void {
     // Database health check
-    this.healthMonitor.registerHealthCheck('database', async () => {
+    this.healthMonitor.registerHealthCheck("database", async () => {
       try {
         await this.db.testConnection();
         return true;
@@ -416,27 +435,27 @@ export class ErrorRecoveryManager extends EventEmitter {
     });
 
     // Memory health check
-    this.healthMonitor.registerHealthCheck('memory', async () => {
+    this.healthMonitor.registerHealthCheck("memory", async () => {
       const memUsage = process.memoryUsage();
       const heapUsedPercentage = (memUsage.heapUsed / memUsage.heapTotal) * 100;
       return heapUsedPercentage < 90; // Less than 90% heap usage
     });
 
     // CPU health check (basic)
-    this.healthMonitor.registerHealthCheck('system', async () => {
+    this.healthMonitor.registerHealthCheck("system", async () => {
       const cpuUsage = process.cpuUsage();
       // Simple heuristic: if we've used less than 90% of available time
-      return (cpuUsage.user + cpuUsage.system) < 900000; // 90% of 1 second in microseconds
+      return cpuUsage.user + cpuUsage.system < 900000; // 90% of 1 second in microseconds
     });
 
     // Setup event handlers
-    this.healthMonitor.on('health-degraded', (data) => {
-      this.emit('system-health-degraded', data);
+    this.healthMonitor.on("health-degraded", (data) => {
+      this.emit("system-health-degraded", data);
       this.handleHealthDegradation(data.component);
     });
 
-    this.healthMonitor.on('health-recovered', (data) => {
-      this.emit('system-health-recovered', data);
+    this.healthMonitor.on("health-recovered", (data) => {
+      this.emit("system-health-recovered", data);
     });
 
     this.healthMonitor.start();
@@ -453,34 +472,37 @@ export class ErrorRecoveryManager extends EventEmitter {
   /**
    * Attempt to recover from an error
    */
-  async recover(error: Error, context: RecoveryContext): Promise<RecoveryResult> {
+  async recover(
+    error: Error,
+    context: RecoveryContext,
+  ): Promise<RecoveryResult> {
     // Find applicable strategy
-    const strategy = this.strategies.find(s => s.condition(error, context));
-    
+    const strategy = this.strategies.find((s) => s.condition(error, context));
+
     if (!strategy) {
       return {
         success: false,
-        action: 'no-strategy-found',
-        metadata: { error: error.message, context }
+        action: "no-strategy-found",
+        metadata: { error: error.message, context },
       };
     }
 
     try {
       const result = await this.executeStrategy(strategy, error, context);
-      
+
       // Log recovery attempt
       await this.logRecoveryAttempt(strategy, error, context, result);
-      
+
       return result;
     } catch (recoveryError) {
       return {
         success: false,
-        action: 'strategy-execution-failed',
-        metadata: { 
+        action: "strategy-execution-failed",
+        metadata: {
           strategy: strategy.name,
           originalError: error.message,
-          recoveryError: recoveryError.message
-        }
+          recoveryError: recoveryError.message,
+        },
       };
     }
   }
@@ -491,21 +513,22 @@ export class ErrorRecoveryManager extends EventEmitter {
   private async executeStrategy(
     strategy: RecoveryStrategy,
     error: Error,
-    context: RecoveryContext
+    context: RecoveryContext,
   ): Promise<RecoveryResult> {
     const timeout = strategy.timeout || 30000; // 30 second default
-    
+
     return new Promise((resolve, reject) => {
       const timer = setTimeout(() => {
         reject(new Error(`Recovery strategy ${strategy.name} timed out`));
       }, timeout);
 
-      strategy.execute(error, context)
-        .then(result => {
+      strategy
+        .execute(error, context)
+        .then((result) => {
           clearTimeout(timer);
           resolve(result);
         })
-        .catch(error => {
+        .catch((error) => {
           clearTimeout(timer);
           reject(error);
         });
@@ -515,17 +538,23 @@ export class ErrorRecoveryManager extends EventEmitter {
   /**
    * Get or create circuit breaker for a service
    */
-  getCircuitBreaker(serviceName: string, config?: Partial<CircuitBreakerConfig>): CircuitBreaker {
+  getCircuitBreaker(
+    serviceName: string,
+    config?: Partial<CircuitBreakerConfig>,
+  ): CircuitBreaker {
     if (!this.circuitBreakers.has(serviceName)) {
       const breaker = new CircuitBreaker(serviceName, config);
       this.circuitBreakers.set(serviceName, breaker);
-      
+
       // Setup event forwarding
-      breaker.on('state-change', (data) => {
-        this.emit('circuit-breaker-state-change', { service: serviceName, ...data });
+      breaker.on("state-change", (data) => {
+        this.emit("circuit-breaker-state-change", {
+          service: serviceName,
+          ...data,
+        });
       });
     }
-    
+
     return this.circuitBreakers.get(serviceName)!;
   }
 
@@ -534,43 +563,50 @@ export class ErrorRecoveryManager extends EventEmitter {
    */
   getRetryPolicy(operationType: string): RetryPolicy {
     if (!this.retryPolicies.has(operationType)) {
-      const config = this.config.get(`recovery.retry_policies.${operationType}`) || {};
-      this.retryPolicies.set(operationType, new RetryPolicy(
-        config.maxAttempts,
-        config.baseDelayMs,
-        config.maxDelayMs,
-        config.backoffMultiplier,
-        config.jitter
-      ));
+      const config =
+        this.config.get(`recovery.retry_policies.${operationType}`) || {};
+      this.retryPolicies.set(
+        operationType,
+        new RetryPolicy(
+          config.maxAttempts,
+          config.baseDelayMs,
+          config.maxDelayMs,
+          config.backoffMultiplier,
+          config.jitter,
+        ),
+      );
     }
-    
+
     return this.retryPolicies.get(operationType)!;
   }
 
   /**
    * Enable graceful degradation for a service
    */
-  private async enableGracefulDegradation(serviceName: string, context: RecoveryContext): Promise<void> {
+  private async enableGracefulDegradation(
+    serviceName: string,
+    context: RecoveryContext,
+  ): Promise<void> {
     const degradationConfig = {
       service: serviceName,
       enabled: true,
       timestamp: new Date().toISOString(),
-      context
+      context,
     };
 
     // Update configuration to disable service
     this.config.set(`external_services.${serviceName}.enabled`, false);
     this.config.set(`external_services.${serviceName}.degraded`, true);
-    
+
     // Log degradation event
     await this.db.systemEvents.create({
-      event_type: 'service_degradation',
+      event_type: "service_degradation",
       component: serviceName,
       details: degradationConfig,
-      severity: 'warning'
+      severity: "warning",
     });
 
-    this.emit('service-degraded', { service: serviceName, context });
+    this.emit("service-degraded", { service: serviceName, context });
   }
 
   /**
@@ -578,13 +614,13 @@ export class ErrorRecoveryManager extends EventEmitter {
    */
   private async handleHealthDegradation(component: string): Promise<void> {
     switch (component) {
-      case 'memory':
+      case "memory":
         await this.handleMemoryPressure();
         break;
-      case 'database':
+      case "database":
         await this.handleDatabaseIssues();
         break;
-      case 'system':
+      case "system":
         await this.handleSystemPressure();
         break;
     }
@@ -601,11 +637,11 @@ export class ErrorRecoveryManager extends EventEmitter {
 
     // Reduce system load
     await this.reduceSystemLoad();
-    
+
     // Alert monitoring systems
-    this.emit('memory-pressure-detected', {
+    this.emit("memory-pressure-detected", {
       memoryUsage: process.memoryUsage(),
-      action: 'load-reduction'
+      action: "load-reduction",
     });
   }
 
@@ -615,9 +651,9 @@ export class ErrorRecoveryManager extends EventEmitter {
   private async handleDatabaseIssues(): Promise<void> {
     try {
       await this.db.reconnect();
-      this.emit('database-reconnected');
+      this.emit("database-reconnected");
     } catch (error) {
-      this.emit('database-reconnection-failed', { error: error.message });
+      this.emit("database-reconnection-failed", { error: error.message });
     }
   }
 
@@ -627,10 +663,10 @@ export class ErrorRecoveryManager extends EventEmitter {
   private async handleSystemPressure(): Promise<void> {
     // Reduce system load and pause non-critical operations
     await this.reduceSystemLoad();
-    
-    this.emit('system-pressure-detected', {
+
+    this.emit("system-pressure-detected", {
       cpuUsage: process.cpuUsage(),
-      action: 'load-reduction'
+      action: "load-reduction",
     });
   }
 
@@ -639,9 +675,9 @@ export class ErrorRecoveryManager extends EventEmitter {
    */
   private async reduceSystemLoad(): Promise<void> {
     // This would integrate with the ALO to reduce agent concurrency
-    this.emit('load-reduction-requested', {
+    this.emit("load-reduction-requested", {
       timestamp: new Date().toISOString(),
-      reason: 'system-pressure'
+      reason: "system-pressure",
     });
   }
 
@@ -652,24 +688,24 @@ export class ErrorRecoveryManager extends EventEmitter {
     strategy: RecoveryStrategy,
     error: Error,
     context: RecoveryContext,
-    result: RecoveryResult
+    result: RecoveryResult,
   ): Promise<void> {
     try {
       await this.db.systemEvents.create({
-        event_type: 'error_recovery_attempt',
+        event_type: "error_recovery_attempt",
         component: context.agentType,
         details: {
           strategy: strategy.name,
           originalError: error.message,
           context,
           result,
-          timestamp: new Date().toISOString()
+          timestamp: new Date().toISOString(),
         },
-        severity: result.success ? 'info' : 'warning'
+        severity: result.success ? "info" : "warning",
       });
     } catch (logError) {
       // Don't fail recovery due to logging issues
-      console.error('Failed to log recovery attempt:', logError);
+      console.error("Failed to log recovery attempt:", logError);
     }
   }
 
@@ -677,8 +713,17 @@ export class ErrorRecoveryManager extends EventEmitter {
    * Extract service name from error message
    */
   private extractServiceName(errorMessage: string): string | null {
-    const serviceNames = ['apollo', 'hunter', 'openai', 'anthropic', 'temporal'];
-    return serviceNames.find(name => errorMessage.toLowerCase().includes(name)) || null;
+    const serviceNames = [
+      "apollo",
+      "hunter",
+      "openai",
+      "anthropic",
+      "temporal",
+    ];
+    return (
+      serviceNames.find((name) => errorMessage.toLowerCase().includes(name)) ||
+      null
+    );
   }
 
   /**
@@ -699,9 +744,9 @@ export class ErrorRecoveryManager extends EventEmitter {
       circuitBreakers: Object.fromEntries(
         Array.from(this.circuitBreakers.entries()).map(([name, breaker]) => [
           name,
-          breaker.getStats()
-        ])
-      )
+          breaker.getStats(),
+        ]),
+      ),
     };
   }
 

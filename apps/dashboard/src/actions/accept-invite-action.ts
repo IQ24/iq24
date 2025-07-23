@@ -47,5 +47,5 @@ export const acceptInviteAction = authActionClient
       revalidateTag(`teams_${user.id}`);
 
       return id;
-    }
+    },
   );

@@ -48,7 +48,7 @@ export function getSpendingTool({
       });
 
       const found = data?.find(
-        (c) => category?.toLowerCase() === c?.name?.toLowerCase()
+        (c) => category?.toLowerCase() === c?.name?.toLowerCase(),
       );
 
       if (!found) {

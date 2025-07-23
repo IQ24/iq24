@@ -13,7 +13,7 @@ export const deleteTeam = schemaTask({
           .nullable(),
         reference_id: z.string().nullable(),
         access_token: z.string().nullable(),
-      })
+      }),
     ),
   }),
   maxDuration: 300,

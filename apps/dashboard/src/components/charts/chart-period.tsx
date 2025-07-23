@@ -97,12 +97,12 @@ export function ChartPeriod({ defaultValue, disabled }: Props) {
     },
     {
       shallow: false,
-    }
+    },
   );
 
   const handleChangePeriod = (
     range: { from: Date | null; to: Date | null } | undefined,
-    period?: string
+    period?: string,
   ) => {
     if (!range) return;
 
@@ -147,7 +147,7 @@ export function ChartPeriod({ defaultValue, disabled }: Props) {
               onValueChange={(value) =>
                 handleChangePeriod(
                   periods.find((p) => p.value === value)?.range,
-                  value
+                  value,
                 )
               }
             >

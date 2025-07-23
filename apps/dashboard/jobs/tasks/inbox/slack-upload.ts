@@ -155,7 +155,7 @@ export const inboxSlackUpload = schemaTask({
                       emoji: true,
                     },
                     url: `https://app.iq24.ai/inbox?id=${encodeURIComponent(
-                      updatedInbox.id
+                      updatedInbox.id,
                     )}`,
                     action_id: "view_receipt",
                   },

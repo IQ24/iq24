@@ -61,5 +61,5 @@ export const createEnableBankingLinkAction = authActionClient
 
         throw error;
       }
-    }
+    },
   );

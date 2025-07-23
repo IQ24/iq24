@@ -29,7 +29,7 @@ export function DataTable({ teamId }: { teamId: string }) {
               tag: payload.new?.tag,
             });
           }
-        }
+        },
       )
       .subscribe();
 

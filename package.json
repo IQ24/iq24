@@ -1,11 +1,7 @@
 {
   "name": "iq24",
   "private": true,
-  "workspaces": [
-    "packages/*",
-    "apps/*",
-    "packages/email/*"
-  ],
+  "workspaces": ["packages/*", "apps/*", "packages/email/*"],
   "scripts": {
     "build": "turbo build",
     "clean": "git clean -xdf node_modules",
@@ -18,16 +14,23 @@
     "dev:dashboard": "turbo dev --filter=@iq24/dashboard",
     "build:dashboard": "turbo build --filter=@iq24/dashboard",
     "dev:engine": "turbo dev --filter=@iq24/engine",
-    "dev:website": "turbo dev --filter=@iq24/website ",
+    "dev:website": "turbo dev --filter=@iq24/website",
+    "dev:mobile": "turbo dev --filter=@iq24/mobile",
+    "dev:docs": "turbo dev --filter=@iq24/docs",
     "dev:desktop": "turbo dev --filter=@iq24/desktop",
     "jobs:dashboard": "turbo jobs --filter=@iq24/dashboard",
     "format": "biome format --write .",
     "lint": "turbo lint && manypkg check",
-    "typecheck": "turbo typecheck"
+    "typecheck": "turbo typecheck",
+    "install:deps": "bun install",
+    "build:packages": "turbo build --filter=./packages/*",
+    "dev:packages": "turbo dev --filter=./packages/*",
+    "test:packages": "turbo test --filter=./packages/*"
   },
   "dependencies": {
     "@biomejs/biome": "1.9.4",
     "@manypkg/cli": "^0.23.0",
+    "lodash": "^4.17.21",
     "turbo": "2.3.3",
     "typescript": "^5.7.2"
   },

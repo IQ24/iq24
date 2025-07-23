@@ -23,5 +23,5 @@ export const reconnectConnectionAction = authActionClient
       });
 
       return event;
-    }
+    },
   );

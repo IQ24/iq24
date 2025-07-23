@@ -34,7 +34,7 @@ export function Description({
         className={cn(
           "border-0 p-0 min-h-6 border-b border-transparent focus:border-border font-mono text-xs pt-1",
           "transition-colors duration-200",
-          className
+          className,
         )}
         {...props}
       />

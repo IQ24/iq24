@@ -26,7 +26,7 @@ export function InvoiceRow({ row, setOpen }: Props) {
                 cell.column.id === "recurring" ||
                 cell.column.id === "invoice_number" ||
                 cell.column.id === "issue_date") &&
-                "hidden md:table-cell"
+                "hidden md:table-cell",
             )}
             onClick={() =>
               index !== row.getVisibleCells().length - 1 && setOpen(row.id)

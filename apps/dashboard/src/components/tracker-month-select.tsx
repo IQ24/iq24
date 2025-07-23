@@ -23,7 +23,7 @@ export function TrackerMonthSelect({ className, dateFormat = "MMM" }: Props) {
           representation: "date",
         }),
       },
-      { shallow: false }
+      { shallow: false },
     );
   };
 
@@ -34,7 +34,7 @@ export function TrackerMonthSelect({ className, dateFormat = "MMM" }: Props) {
           representation: "date",
         }),
       },
-      { shallow: false }
+      { shallow: false },
     );
   };
 

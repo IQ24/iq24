@@ -52,7 +52,7 @@ export function VaultSearchFilter({ members }: { members: any[] }) {
     },
     {
       shallow: false,
-    }
+    },
   );
 
   const tags = TAGS.map((tag) => ({
@@ -71,7 +71,7 @@ export function VaultSearchFilter({ members }: { members: any[] }) {
     {
       enableOnFormTags: true,
       enabled: Boolean(prompt),
-    }
+    },
   );
 
   useHotkeys("meta+s", (evt) => {
@@ -103,7 +103,7 @@ export function VaultSearchFilter({ members }: { members: any[] }) {
       `
         Users: ${members.map((member) => member.name).join(", ")},
         Tags: ${tags.map((tag) => tag.name).join(", ")},
-        `
+        `,
     );
 
     let finalObject = {};
@@ -116,11 +116,11 @@ export function VaultSearchFilter({ members }: { members: any[] }) {
           owners:
             partialObject?.owners?.map(
               (name: string) =>
-                members?.find((member) => member.name === name)?.id
+                members?.find((member) => member.name === name)?.id,
             ) ?? null,
           tags:
             partialObject?.tags?.map(
-              (name: string) => tags?.find((tag) => tag.name === name)?.id
+              (name: string) => tags?.find((tag) => tag.name === name)?.id,
             ) ?? null,
           q: partialObject?.name ?? null,
         };
@@ -137,7 +137,7 @@ export function VaultSearchFilter({ members }: { members: any[] }) {
 
   const hasValidFilters =
     Object.entries(filters).filter(
-      ([key, value]) => value !== null && key !== "q"
+      ([key, value]) => value !== null && key !== "q",
     ).length > 0;
 
   return (
@@ -178,7 +178,7 @@ export function VaultSearchFilter({ members }: { members: any[] }) {
               className={cn(
                 "absolute z-10 right-3 top-[10px] opacity-50 transition-opacity duration-300 hover:opacity-100",
                 hasValidFilters && "opacity-100",
-                isOpen && "opacity-100"
+                isOpen && "opacity-100",
               )}
             >
               <Icons.Filter />

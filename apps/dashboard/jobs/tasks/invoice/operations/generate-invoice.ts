@@ -20,7 +20,7 @@ export const generateInvoice = schemaTask({
     const { data: invoiceData } = await supabase
       .from("invoices")
       .select(
-        "*, team_id, customer:customer_id(name), user:user_id(timezone, locale)"
+        "*, team_id, customer:customer_id(name), user:user_id(timezone, locale)",
       )
       .eq("id", invoiceId)
       .single()
