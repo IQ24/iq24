@@ -1,8 +1,8 @@
 import { logger } from "@/utils/logger";
 import { setupAnalytics } from "@iq24/events/server";
-import { client as RedisClient } from "@iq24v";
-import { getUser } from "@iq24upabase/cached-queries";
-import { createClient } from "@iq24upabase/server";
+import { client as RedisClient } from "@iq24/kv";
+import { getUser } from "@iq24/supabase/cached-queries";
+import { createClient } from "@iq24/supabase/server";
 import * as Sentry from "@sentry/nextjs";
 import { Ratelimit } from "@upstash/ratelimit";
 import {

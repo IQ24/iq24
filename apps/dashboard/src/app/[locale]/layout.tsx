@@ -1,8 +1,8 @@
 import "@/styles/globals.css";
 import { cn } from "@iq24/ui/cn";
-import "@iq24i/globals.css";
-import { Provider as Analytics } from "@iq24vents/client";
-import { Toaster } from "@iq24i/toaster";
+import "@iq24/ui/globals.css";
+import { Provider as Analytics } from "@iq24/events/client";
+import { Toaster } from "@iq24/ui/toaster";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import { IBM_Plex_Mono } from "next/font/google";

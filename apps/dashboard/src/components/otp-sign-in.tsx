@@ -8,7 +8,7 @@ import { cn } from "@iq24/ui/cn";
 import { Form, FormControl, FormField, FormItem } from "@iq24/ui/form";
 import { Input } from "@iq24/ui/input";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@iq24/ui/input-otp";
-import { Loader2 } from "lucide-react";
+import { Spinner } from "@iq24/ui/spinner";
 import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -120,7 +120,7 @@ export function OTPSignIn({ className }: Props) {
             className="active:scale-[0.98] bg-primary px-6 py-4 text-secondary font-medium flex space-x-2 h-[40px] w-full"
           >
             {isLoading ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
+              <Spinner size={16} />
             ) : (
               <span>Continue</span>
             )}

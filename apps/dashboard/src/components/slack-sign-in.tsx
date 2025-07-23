@@ -4,7 +4,7 @@ import { createClient } from "@iq24/supabase/client";
 import { Button } from "@iq24/ui/button";
 import { Icons } from "@iq24/ui/icons";
 import { isDesktopApp } from "@todesktop/client-core/platform/todesktop";
-import { Loader2 } from "lucide-react";
+import { Spinner } from "@iq24/ui/spinner";
 import { useState } from "react";
 
 export function SlackSignIn() {
@@ -45,7 +45,7 @@ export function SlackSignIn() {
       className="active:scale-[0.98] bg-primary px-6 py-4 text-secondary font-medium flex space-x-2 h-[40px] w-full"
     >
       {isLoading ? (
-        <Loader2 className="h-4 w-4 animate-spin" />
+        <Spinner size={16} />
       ) : (
         <>
           <Icons.Slack />

@@ -11,20 +11,7 @@ import {
   CardTitle,
 } from "../card";
 import { Progress } from "../progress";
-import {
-  Brain,
-  TrendingUp,
-  Target,
-  Zap,
-  ChevronDown,
-  ChevronRight,
-  Info,
-  AlertTriangle,
-  CheckCircle,
-  Clock,
-  ThumbsUp,
-  ThumbsDown,
-} from "lucide-react";
+import { Icons } from "../icons";
 import { cn } from "../../utils/cn";
 
 interface AIDecisionFactor {
@@ -69,17 +56,17 @@ interface AIDecisionExplainerProps {
 const getDecisionIcon = (category: AIDecision["category"]) => {
   switch (category) {
     case "lead_scoring":
-      return <Target className="h-4 w-4" />;
+      return <Icons.Target className="h-4 w-4" />;
     case "message_generation":
-      return <Brain className="h-4 w-4" />;
+      return <Icons.Brain className="h-4 w-4" />;
     case "timing_optimization":
-      return <Clock className="h-4 w-4" />;
+      return <Icons.Clock className="h-4 w-4" />;
     case "channel_selection":
-      return <Zap className="h-4 w-4" />;
+      return <Icons.Zap className="h-4 w-4" />;
     case "compliance_check":
-      return <AlertTriangle className="h-4 w-4" />;
+      return <Icons.AlertTriangle className="h-4 w-4" />;
     default:
-      return <Info className="h-4 w-4" />;
+      return <Icons.Info className="h-4 w-4" />;
   }
 };
 
@@ -196,9 +183,9 @@ export function AIDecisionExplainer({
               Key Decision Factors ({decision.factors.length})
             </span>
             {isExpanded ? (
-              <ChevronDown className="h-4 w-4" />
+              <Icons.ChevronDown className="h-4 w-4" />
             ) : (
-              <ChevronRight className="h-4 w-4" />
+              <Icons.ChevronRight className="h-4 w-4" />
             )}
           </Button>
 
@@ -251,9 +238,9 @@ export function AIDecisionExplainer({
                 Alternative Options ({decision.alternatives.length})
               </span>
               {showAlternatives ? (
-                <ChevronDown className="h-4 w-4" />
+                <Icons.ChevronDown className="h-4 w-4" />
               ) : (
-                <ChevronRight className="h-4 w-4" />
+                <Icons.ChevronRight className="h-4 w-4" />
               )}
             </Button>
 
@@ -302,7 +289,7 @@ export function AIDecisionExplainer({
                 onClick={() => handleFeedback("positive")}
                 className="flex items-center space-x-1"
               >
-                <ThumbsUp className="h-3 w-3" />
+                <Icons.ThumbsUp className="h-3 w-3" />
                 <span>Yes</span>
               </Button>
               <Button
@@ -315,7 +302,7 @@ export function AIDecisionExplainer({
                 onClick={() => handleFeedback("negative")}
                 className="flex items-center space-x-1"
               >
-                <ThumbsDown className="h-3 w-3" />
+                <Icons.ThumbsDown className="h-3 w-3" />
                 <span>No</span>
               </Button>
             </div>
