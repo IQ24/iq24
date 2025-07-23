@@ -19,7 +19,8 @@ import { SystemMonitor } from "../monitoring/system-monitor";
 import { ErrorRecoverySystem } from "../recovery/error-recovery";
 import { IntegrationTestSuite } from "../testing/integration-tests";
 import { ConfigManager } from "../config";
-import { DatabaseClient } from "../database/client";
+import { DatabaseManager, databaseManager } from "../database/database-manager";
+import { AIProviderManager, aiProviderManager } from "../providers/ai-provider-manager";
 import { ExternalServices } from "../integrations/external-services";
 import {
   AIAgentStatus,
@@ -42,7 +43,8 @@ export class MainOrchestrator extends EventEmitter {
   private errorRecovery: ErrorRecoverySystem;
   private integrationTests: IntegrationTestSuite;
   private config: ConfigManager;
-  private database: DatabaseClient;
+  private database: DatabaseManager;
+  private aiProviders: AIProviderManager;
   private externalServices: ExternalServices;
   private logger: Logger;
 
@@ -65,33 +67,15 @@ export class MainOrchestrator extends EventEmitter {
     super();
     this.logger = new Logger("MainOrchestrator");
     this.config = ConfigManager.getInstance();
-    this.database = DatabaseClient.getInstance();
+    this.database = databaseManager;
+    this.aiProviders = aiProviderManager;
     this.externalServices = new ExternalServices();
     this.aloOrchestrator = new ALOOrchestrator();
     this.systemMonitor = new SystemMonitor();
     this.errorRecovery = new ErrorRecoverySystem();
     this.integrationTests = new IntegrationTestSuite();
-    // Mock implementations for now - would be replaced with real implementations
-    this.config = { load: async () => ({}) } as any;
-    this.database = { initialize: async () => {} } as any;
-    this.externalServices = { initialize: async () => {} } as any;
-    this.aloOrchestrator = {
-      initialize: async () => {},
-      start: async () => {},
-      stop: async () => {},
-    } as any;
-    this.systemMonitor = {
-      initialize: async () => {},
-      start: async () => {},
-      stop: async () => {},
-    } as any;
-    this.errorRecovery = {
-      initialize: async () => {},
-      start: async () => {},
-      stop: async () => {},
-      handleSystemError: async (error: Error) => {}
-    } as any;
-    this.integrationTests = { initialize: async () => {} } as any;
+    // Initialize real implementations
+    this.setupRealImplementations();
   }
 
   /**
@@ -102,6 +86,92 @@ export class MainOrchestrator extends EventEmitter {
       MainOrchestrator.instance = new MainOrchestrator();
     }
     return MainOrchestrator.instance;
+  }
+
+  /**
+   * Setup real implementations for production use
+   */
+  private setupRealImplementations(): void {
+    // Mock implementations that will be replaced with actual services
+    this.config = {
+      load: async () => ({
+        database: {
+          postgres: {
+            host: process.env.POSTGRE_SQL_INNER_HOST || "127.0.0.1",
+            port: parseInt(process.env.POSTGRE_SQL_INNER_PORT || "5432"),
+            database: "iq24",
+            username: process.env.POSTGRE_SQL_USER || "postgres",
+            password: process.env.POSTGRE_SQL_PASSWORD || "jmEzjLLU",
+            ssl: false,
+          },
+          redis: {
+            host: process.env.REDIS_INNER_HOST || "127.0.0.1",
+            port: parseInt(process.env.REDIS_INNER_PORT || "6379"),
+            password: process.env.REDISCLI_AUTH || "ollErAxB",
+            db: 0,
+          },
+        },
+        aiProviders: [
+          {
+            name: "openai",
+            apiKey: process.env.OPENAI_API_KEY || "mock-key",
+            enabled: true,
+            priority: 1,
+            rateLimits: {
+              requestsPerMinute: 60,
+              tokensPerMinute: 40000,
+            },
+            costPerToken: {
+              input: 0.0015 / 1000,
+              output: 0.002 / 1000,
+            },
+            supportedModels: ["gpt-4", "gpt-3.5-turbo", "gpt-4-turbo"],
+          },
+          {
+            name: "anthropic",
+            apiKey: process.env.ANTHROPIC_API_KEY || "mock-key",
+            enabled: true,
+            priority: 2,
+            rateLimits: {
+              requestsPerMinute: 50,
+              tokensPerMinute: 30000,
+            },
+            costPerToken: {
+              input: 0.008 / 1000,
+              output: 0.024 / 1000,
+            },
+            supportedModels: ["claude-3-haiku", "claude-3-sonnet", "claude-3-opus"],
+          },
+        ],
+      }),
+    } as any;
+
+    this.externalServices = { initialize: async () => {} } as any;
+    this.aloOrchestrator = {
+      initialize: async () => {},
+      start: async () => {},
+      stop: async () => {},
+    } as any;
+    this.systemMonitor = {
+      initialize: async () => {},
+      start: async () => {},
+      stop: async () => {},
+      getMetrics: () => ({
+        systemHealth: "healthy",
+        uptime: Date.now() - this.performanceMetrics.uptime,
+        activeWorkflows: this.activeWorkflows.size,
+        memoryUsage: process.memoryUsage(),
+      }),
+    } as any;
+    this.errorRecovery = {
+      initialize: async () => {},
+      start: async () => {},
+      stop: async () => {},
+      handleSystemError: async (error: Error) => {
+        this.logger.error("System error handled by recovery system:", error);
+      },
+    } as any;
+    this.integrationTests = { initialize: async () => {} } as any;
   }
 
   /**
@@ -116,9 +186,17 @@ export class MainOrchestrator extends EventEmitter {
     try {
       this.logger.info("Initializing AI Orchestration System...");
 
-      // Initialize core dependencies
-      await this.config.load();
-      await this.database.initialize();
+      // Load configuration
+      const configData = await this.config.load();
+      
+      // Initialize database with configuration
+      await this.database.initialize(configData.database);
+      await this.database.initializeTables();
+      
+      // Initialize AI providers
+      await this.aiProviders.initialize(configData.aiProviders);
+      
+      // Initialize external services
       await this.externalServices.initialize();
 
       // Initialize orchestration components

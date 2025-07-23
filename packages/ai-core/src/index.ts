@@ -29,6 +29,7 @@ export {
   mainOrchestrator,
 } from "./orchestrator/main-orchestrator";
 export { ALOOrchestrator } from "./orchestrator/aco-orchestrator";
+export { AIIntegrationService } from "./orchestrator/integration-service";
 export { AIEngine } from "./engine/ai-engine";
 export { CampaignWorkflow } from "./workflows/campaign-workflow";
 export { SystemMonitor } from "./monitoring/system-monitor";
@@ -37,11 +38,15 @@ export { IntegrationTestSuite } from "./testing/integration-tests";
 export { ConfigManager } from "./config";
 export { DatabaseClient } from "./database/client";
 export { ExternalServices } from "./integrations/external-services";
+export { AIProviderManager, aiProviderManager } from "./providers/ai-provider-manager";
+export { DatabaseManager, databaseManager } from "./database/database-manager";
+export { AdvancedProspectingEngine, advancedProspectingEngine } from "./discovery/advanced-prospecting-engine";
 
 // Note: AI agents are exported from @iq24/agents package to avoid circular dependencies
 
 // Export types
 export * from "./types";
+export type { DiscoveryRequest, DiscoveryResponse, ProspectProfile } from "./discovery/advanced-prospecting-engine";
 
 // Initialize logger
 const logger = new Logger("IQ24-AI-System");

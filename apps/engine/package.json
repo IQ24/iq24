@@ -1,7 +1,10 @@
 {
   "name": "@iq24/engine",
   "scripts": {
-    "dev": "NODE_ENV=development wrangler dev src/index-simple.ts --port 3002",
+    "dev": "NODE_ENV=development wrangler dev src/index-basic.ts --port 3002",
+    "dev-basic": "NODE_ENV=development wrangler dev src/index-basic.ts --port 3002",
+    "dev-minimal": "NODE_ENV=development wrangler dev src/index-minimal.ts --port 3002",
+    "dev-simple": "NODE_ENV=development wrangler dev src/index-simple.ts --port 3002",
     "dev-full": "NODE_ENV=development wrangler dev src/index.ts --port 3002",
     "deploy": "wrangler deploy --minify src/index.ts",
     "clean": "rm -rf .turbo node_modules",
