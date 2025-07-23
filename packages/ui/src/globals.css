@@ -4,6 +4,7 @@
 
 @layer base {
   :root {
+    /* Light theme (fallback) */
     --background: 0, 0%, 100%;
     --foreground: 0, 0%, 7%;
     --card: 45 18% 96%;
@@ -20,34 +21,48 @@
     --accent-foreground: 240 5.9% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --muted-foreground: 0, 0%, 38%;
     --border: 45, 5%, 85%;
     --input: 240 5.9% 90%;
     --ring: 240 5.9% 10%;
     --radius: 0.5rem;
+    
+    /* Numora Design Tokens */
+    --numora-background: 217, 23%, 11%;     /* #1A1D21 */
+    --numora-surface: 217, 18%, 15%;        /* #202329 */
+    --numora-surface-hover: 217, 15%, 18%;  /* #252932 */
+    --numora-accent: 166, 100%, 70%;        /* #65FFD8 */
+    --numora-accent-muted: 166, 100%, 45%;  /* #00CC9A */
+    --numora-text-primary: 0, 0%, 98%;      /* #FAFAFA */
+    --numora-text-secondary: 0, 0%, 70%;    /* #B3B3B3 */
+    --numora-text-muted: 0, 0%, 50%;        /* #808080 */
+    --numora-border: 217, 12%, 25%;         /* #383B42 */
+    --numora-border-hover: 217, 15%, 30%;   /* #444850 */
+    --numora-success: 142, 76%, 36%;        /* #16A34A */
+    --numora-warning: 43, 96%, 56%;         /* #F59E0B */
+    --numora-error: 0, 84%, 60%;            /* #EF4444 */
   }
 
   .dark {
-    --background: 0, 0%, 7%;
-    --foreground: 0 0% 98%;
-    --card: 0, 0%, 7%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0, 0%, 7%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 0, 0%, 11%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0, 0%, 11%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 0, 0%, 11%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 359, 100%, 61%;
-    --destructive-foreground: 0, 0%, 100%;
-    --muted-foreground: 0, 0%, 38%;
-    --border: 0, 0%, 17%;
-    --input: 0, 0%, 11%;
-    --ring: 240 4.9% 83.9%;
+    /* Numora Dark Theme */
+    --background: var(--numora-background);
+    --foreground: var(--numora-text-primary);
+    --card: var(--numora-surface);
+    --card-foreground: var(--numora-text-primary);
+    --popover: var(--numora-surface);
+    --popover-foreground: var(--numora-text-primary);
+    --primary: var(--numora-accent);
+    --primary-foreground: var(--numora-background);
+    --secondary: var(--numora-surface-hover);
+    --secondary-foreground: var(--numora-text-primary);
+    --muted: var(--numora-surface-hover);
+    --muted-foreground: var(--numora-text-secondary);
+    --accent: var(--numora-surface-hover);
+    --accent-foreground: var(--numora-text-primary);
+    --destructive: var(--numora-error);
+    --destructive-foreground: var(--numora-text-primary);
+    --border: var(--numora-border);
+    --input: var(--numora-surface-hover);
+    --ring: var(--numora-accent);
   }
 }
 

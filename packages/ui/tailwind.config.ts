@@ -6,11 +6,11 @@ export default {
   safelist: ["dark", "light"],
   theme: {
     extend: {
+      fontFamily: {
+        sans: "var(--font-geist-sans)",
+        mono: ["var(--font-ibm-plex-mono)", "var(--font-geist-mono)", "monospace"],
+      },
       colors: {
-        fontFamily: {
-          sans: "var(--font-geist-sans)",
-          mono: "var(--font-geist-mono)",
-        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -43,6 +43,22 @@ export default {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+        },
+        // Numora Design System Colors
+        numora: {
+          background: "hsl(var(--numora-background))",
+          surface: "hsl(var(--numora-surface))",
+          "surface-hover": "hsl(var(--numora-surface-hover))",
+          accent: "hsl(var(--numora-accent))",
+          "accent-muted": "hsl(var(--numora-accent-muted))",
+          "text-primary": "hsl(var(--numora-text-primary))",
+          "text-secondary": "hsl(var(--numora-text-secondary))",
+          "text-muted": "hsl(var(--numora-text-muted))",
+          border: "hsl(var(--numora-border))",
+          "border-hover": "hsl(var(--numora-border-hover))",
+          success: "hsl(var(--numora-success))",
+          warning: "hsl(var(--numora-warning))",
+          error: "hsl(var(--numora-error))",
         },
       },
       borderRadius: {
