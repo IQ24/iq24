@@ -18,18 +18,17 @@ export const preferredRegion = ["fra1", "sfo1", "iad1"];
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "Midday | Run your business smarter",
-    template: "%s | Midday",
+    default: "IQ24.ai | The AI-Native B2B Growth Engine",
+    template: "%s | IQ24.ai",
   },
   description:
-    "Midday provides you with greater insight into your business and automates the boring tasks, allowing you to focus on what you love to do instead.",
+    "IQ24.ai deploys a multi-agent AI system to automate prospecting, deliver hyper-personalized outreach, and dynamically optimize your entire sales funnel.",
   openGraph: {
-    title: "Midday | Run your business smarter",
+    title: "IQ24.ai | The AI-Native B2B Growth Engine",
     description:
-      "Midday provides you with greater insight into your business and automates the boring tasks, allowing you to focus on what you love to do instead.",
+      "IQ24.ai deploys a multi-agent AI system to automate prospecting, deliver hyper-personalized outreach, and dynamically optimize your entire sales funnel.",
     url: baseUrl,
-    siteName:
-      "Midday provides you with greater insight into your business and automates the boring tasks, allowing you to focus on what you love to do instead.",
+    siteName: "IQ24.ai",
     locale: "en_US",
     type: "website",
     images: [
@@ -46,9 +45,9 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    title: "Midday | Run your business smarter",
+    title: "IQ24.ai | The AI-Native B2B Growth Engine",
     description:
-      "Midday provides you with greater insight into your business and automates the boring tasks, allowing you to focus on what you love to do instead.",
+      "IQ24.ai deploys a multi-agent AI system to automate prospecting, deliver hyper-personalized outreach, and dynamically optimize your entire sales funnel.",
     images: [
       {
         url: "https://cdn.iq24.ai/opengraph-image.jpg",

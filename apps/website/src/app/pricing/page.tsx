@@ -155,7 +155,7 @@ export default function Page() {
                 <AccordionContent>
                   Sure, we're happy to answer any questions you might have. Just
                   send us an email at{" "}
-                  <a href="mailto:support@iq24i">support@i@iq24/a> and
+                  <a href="mailto:support@iq24.com">support@iq24.com</a> and
                   we'll get back to you as soon as possible.
                 </AccordionContent>
               </AccordionItem>

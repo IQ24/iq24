@@ -35,8 +35,7 @@ export const disconnectedNotifications = schemaTask({
       );
 
       return {
-        from: "iq24bot <iq24bot@iq2@iq24
-        from: "Middaybot <middaybot@iq24i>",
+        from: "iq24bot <noreply@iq24.com>",
         to: [user.email],
         subject: "Bank Connection Expiring Soon",
         html,
