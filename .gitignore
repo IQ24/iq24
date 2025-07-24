@@ -74,6 +74,34 @@ Thumbs.db
 # TypeScript
 *.tsbuildinfo
 
+# TypeScript compilation artifacts
+# Only ignore compiled files when there's a corresponding TypeScript file
+# This pattern will ignore .js files only when there's a .ts/.tsx file with the same name
+# We'll handle this with a more specific pattern for packages that use TypeScript compilation
+
+# TypeScript declaration files and source maps from compilation
+*.d.ts
+*.d.ts.map
+*.js.map
+
+# Compiled JavaScript files in packages and apps (where TypeScript is compiled to JS)
+packages/*/src/**/*.js
+packages/*/*/src/**/*.js
+apps/*/src/**/*.js
+apps/*/*/*.js
+apps/*/**/*.js
+
+# But allow actual JavaScript source files in packages and apps
+!packages/*/src/**/*.config.js
+!packages/*/*/src/**/*.config.js
+!apps/*/src/**/*.config.js
+!apps/*/*/*.config.js
+!apps/*/**/*.config.js
+
+# Allow all config files at root level
+!*.config.js
+!*.config.*.js
+
 # Next.js
 .next/
 out/

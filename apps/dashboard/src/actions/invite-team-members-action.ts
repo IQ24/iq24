@@ -46,7 +46,7 @@ export const inviteTeamMembersAction = authActionClient
         .select("email, code, user:invited_by(*), team:team_id(*)");
 
       const emails = invtesData?.map(async (invites) => ({
-        from: "iq24 <iq24bot@iq2@iq24
+        from: "iq24 <noreply@iq24.com>",
         to: [invites.email],
         subject: t("invite.subject", {
           invitedByName: invites.user.full_name,
