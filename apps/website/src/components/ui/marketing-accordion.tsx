@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "@iq24/ui/utils";
+import { cn } from "@iq24/ui/cn";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
