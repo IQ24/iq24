@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Button } from "@iq24/ui/button";
-import { cn } from "@iq24/ui/utils";
+import { cn } from "@iq24/ui/cn";
 import { motion } from "framer-motion";
 
 interface MarketingButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
