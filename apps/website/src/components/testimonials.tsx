@@ -1,128 +1,83 @@
-import { InfiniteMovingCards } from "@/components/infinite-moving-cards";
+import { Badge } from "@iq24/ui/badge";
 
 const testimonials = [
   {
-    name: "Lucas Grey",
-    avatarUrl:
-      "https://pbs.twimg.com/profile_images/1843079229073981440/pQqZJX5G_400x400.jpg",
-    handle: "@ImLucasGrey",
-    verified: true,
-    quote: "This is so ingenious and good!",
+    name: "Sarah Chen",
+    title: "VP of Sales, TechFlow Solutions",
+    company: "TechFlow Solutions",
+    companyLogo: "https://via.placeholder.com/100x40/65FFD8/000000?text=TF",
+    avatarUrl: "https://via.placeholder.com/64x64/A2A8B4/FFFFFF?text=SC",
+    quote: "IQ24.ai transformed our sales process overnight. Our conversion rates increased by 340% in the first quarter, and our team is finally focused on closing deals instead of manual prospecting.",
   },
   {
-    name: "Patrick Tobler",
-    avatarUrl:
-      "https://pbs.twimg.com/profile_images/1821352126406127616/We8itUSn_400x400.jpg",
-    handle: "@Padierfind",
-    verified: true,
-    quote: "I love this",
+    name: "Marcus Rodriguez",
+    title: "CEO, GrowthScale Inc",
+    company: "GrowthScale Inc",
+    companyLogo: "https://via.placeholder.com/100x40/65FFD8/000000?text=GS",
+    avatarUrl: "https://via.placeholder.com/64x64/A2A8B4/FFFFFF?text=MR",
+    quote: "The AI agents work 24/7, qualifying leads while we sleep. It's like having a team of expert SDRs that never take a break. Our pipeline has never been healthier.",
   },
   {
-    name: "Ben Tossell",
-    avatarUrl:
-      "https://pbs.twimg.com/profile_images/1595060668897677314/pHMUc1Zb_400x400.jpg",
-    handle: "@bentossell",
-    verified: true,
-    quote:
-      "well, an actually enjoyable way to organise my whole in and out of my business, plus highlighted a bunch of things I need to cancel",
-  },
-  {
-    name: "Christian Alares",
-    avatarUrl:
-      "https://pbs.twimg.com/profile_images/1194368464946974728/1D2biimN_400x400.jpg",
-    handle: "@c_alares",
-    verified: true,
-    quote: "Omg, this is so cool!",
-  },
-  {
-    name: "Zeno Rocha",
-    avatarUrl:
-      "https://pbs.twimg.com/profile_images/1792735373887696896/Nys5Q2b3_400x400.jpg",
-    handle: "@zenorocha",
-    verified: true,
-    quote: "this is absolutely amazing",
-  },
-  {
-    name: "Bailey Simrell",
-    avatarUrl:
-      "https://pbs.twimg.com/profile_images/1488962358609330178/tdTC7o6M_400x400.jpg",
-    handle: "@baileysimrell",
-    verified: true,
-    quote: "Awesome man, looks amazing 🔥",
-  },
-  {
-    name: "Darshan Gajara",
-    handle: "@WeirdoWizard",
-    verified: false,
-    quote: "No sweat! Your smooth integration with banking data blew me away.",
-    avatarUrl:
-      "https://pbs.twimg.com/profile_images/1117472858836434944/FbWce7CZ_400x400.jpg",
-  },
-  {
-    name: "Cal.com",
-    avatarUrl:
-      "https://pbs.twimg.com/profile_images/1839412200760610816/Lce29ADc_400x400.jpg",
-    handle: "@calcom",
-    verified: true,
-    quote: "We love @iq24ai 🖤",
-  },
-  {
-    name: "Guillermo Rauch",
-    avatarUrl:
-      "https://pbs.twimg.com/profile_images/1783856060249595904/8TfcCN0r_400x400.jpg",
-    handle: "@rauchg",
-    verified: true,
-    quote:
-      "nice to see @iq24 generative ui features built on @vercel AI sdk iq24 is becoming one of the best OSS @nextjs real-world apps",
-  },
-  {
-    name: "Kyle @ KyTech",
-    avatarUrl:
-      "https://pbs.twimg.com/profile_images/1586538348964978689/nkpJWZxG_400x400.png",
-    handle: "@KyTechInc",
-    verified: true,
-    quote: "so ready! 🙌",
-  },
-  {
-    name: "Steven Tey",
-    avatarUrl:
-      "https://pbs.twimg.com/profile_images/1506792347840888834/dS-r50Je_400x400.jpg",
-    handle: "@steventey",
-    verified: true,
-    quote: `Just found my new favorite open-source project → http://iq24.ai
-
-    It's a modern layer on top of Quickbooks/Xero that lets you automate the tedious accounting aspects of your business and focus on what matters – your product.
-
-    Built by the 🐐s
-    @pontusab
-     +
-    @viktorhofte
-     👏`,
-  },
-  {
-    name: "Gokul",
-    avatarUrl:
-      "https://pbs.twimg.com/profile_images/1805103400549318656/EEQpiO7e_400x400.jpg",
-    handle: "@KyTechInc",
-    verified: true,
-    quote: "🖤 Awesome work. just love it.",
-  },
-  {
-    name: "Peer Richelsen — oss/acc",
-    avatarUrl:
-      "https://pbs.twimg.com/profile_images/1816814706000080897/uSIidPHz_400x400.png",
-    handle: "@peer_rich",
-    verified: true,
-    quote:
-      "the best thing i couldve done as a founder is build something that helps other founders. so proud 🖤 @iq24",
+    name: "Emily Watson",
+    title: "Head of Revenue Operations, DataVault",
+    company: "DataVault",
+    companyLogo: "https://via.placeholder.com/100x40/65FFD8/000000?text=DV",
+    avatarUrl: "https://via.placeholder.com/64x64/A2A8B4/FFFFFF?text=EW",
+    quote: "Compliance was our biggest concern with automated outreach. IQ24.ai's built-in compliance guardian gave us the confidence to scale without legal worries. Game changer.",
   },
 ];
 
 export function Testimonials() {
   return (
-    <div className="relative pb-22">
-      <h3 className="text-4xl mb-8 font-medium">What people say</h3>
-      <InfiniteMovingCards items={testimonials} direction="left" speed="slow" />
-    </div>
+    <section className="relative py-32 px-4">
+      <div className="max-w-7xl mx-auto">
+        {/* Section Header */}
+        <div className="text-center mb-20">
+          <Badge variant="outline" className="mb-6 bg-white/5 border-white/10 text-[#65FFD8]">
+            Testimonials
+          </Badge>
+          <h2 className="text-5xl font-semibold text-white mb-6 font-mono">
+            What Our Early Adopters Are Saying
+          </h2>
+        </div>
+
+        {/* Three-Column Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {testimonials.map((testimonial, index) => (
+            <div
+              key={index}
+              className="bg-[#1E2329] border border-[#2D3748] rounded-2xl p-8 space-y-6 hover:border-[#65FFD8]/30 transition-colors duration-300"
+            >
+              {/* Company Logo */}
+              <div className="flex items-center">
+                <img
+                  src={testimonial.companyLogo}
+                  alt={`${testimonial.company} logo`}
+                  className="h-8 opacity-80"
+                />
+              </div>
+
+              {/* Quote */}
+              <blockquote className="text-[#A2A8B4] text-lg leading-relaxed font-mono">
+                "{testimonial.quote}"
+              </blockquote>
+
+              {/* Author */}
+              <div className="flex items-center space-x-4 pt-4 border-t border-[#2D3748]">
+                <img
+                  src={testimonial.avatarUrl}
+                  alt={testimonial.name}
+                  className="w-12 h-12 rounded-full"
+                />
+                <div>
+                  <p className="text-white font-medium font-mono">{testimonial.name}</p>
+                  <p className="text-[#A2A8B4] text-sm font-mono">{testimonial.title}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
