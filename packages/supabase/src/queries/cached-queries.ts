@@ -72,7 +72,25 @@ export const getTransactions = async (
 // Cache per request
 export const getSession = cache(async () => {
   const supabase = createClient();
-
+  
+  // In development, check for dev session first
+  if (process.env.NODE_ENV === 'development') {
+    try {
+      const { cookies } = await import('next/headers');
+      const devSessionCookie = cookies().get('dev-session');
+      
+      if (devSessionCookie) {
+        const devSession = JSON.parse(devSessionCookie.value);
+        if (devSession.expires_at > Date.now()) {
+          return { data: { session: devSession }, error: null };
+        }
+      }
+    } catch (e) {
+      // Fall back to normal auth
+      console.log('Development session check failed:', e);
+    }
+  }
+  
   return supabase.auth.getSession();
 });
 
@@ -86,6 +104,28 @@ export const getUser = cache(async () => {
 
   if (!userId) {
     return null;
+  }
+  
+  // In development, return mock user data for dev session
+  if (process.env.NODE_ENV === 'development' && userId === 'dev-admin-001') {
+    return {
+      data: {
+        id: 'dev-admin-001',
+        email: 'admin@iq24.ai',
+        full_name: 'Admin User',
+        avatar_url: null,
+        team_id: 'dev-team-001',
+        team: {
+          id: 'dev-team-001',
+          name: 'IQ24.ai Team',
+          email: 'admin@iq24.ai',
+          created_at: new Date().toISOString(),
+        },
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      },
+      error: null
+    };
   }
 
   const supabase = createClient();

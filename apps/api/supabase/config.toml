@@ -14,6 +14,7 @@ jwt_expiry = 36000
 
 [db]
 port = 54322
+seed_path = "seed-dev.sql"
 
 [studio]
 port = 54323

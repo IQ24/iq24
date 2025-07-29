@@ -25,9 +25,40 @@ export async function middleware(request: NextRequest) {
   // Create a new URL without the locale in the pathname
   const newUrl = new URL(pathnameWithoutLocale || "/", request.url);
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  let session = null;
+  
+  // In development, check for dev session first
+  if (process.env.NODE_ENV === 'development') {
+    // Check for dev session cookie or allow bypass
+    const devSessionCookie = request.cookies.get('dev-session');
+    if (devSessionCookie && devSessionCookie.value === 'active') {
+      // Create a mock session for development
+      session = {
+        user: {
+          id: 'dev-admin-001',
+          email: 'admin@iq24.ai',
+          user_metadata: {
+            full_name: 'Development Admin'
+          }
+        }
+      };
+    }
+    
+    // If no dev session, try regular Supabase auth
+    if (!session) {
+      try {
+        const { data: { session: supabaseSession } } = await supabase.auth.getSession();
+        session = supabaseSession;
+      } catch (e) {
+        // Supabase auth failed, continue without session in dev mode
+        console.log('Supabase auth failed in development:', e);
+      }
+    }
+  } else {
+    // Production: only use Supabase auth
+    const { data: { session: supabaseSession } } = await supabase.auth.getSession();
+    session = supabaseSession;
+  }
 
   // Not authenticated
   if (
